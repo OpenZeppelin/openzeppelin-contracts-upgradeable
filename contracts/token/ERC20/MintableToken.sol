@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 
 import "./StandardToken.sol";
 import "../../ownership/Ownable.sol";
@@ -8,7 +8,6 @@ import "zos-lib/contracts/migrations/Migratable.sol";
 /**
  * @title Mintable token
  * @dev Simple ERC20 Token example, with mintable token creation
- * @dev Issue: * https://github.com/OpenZeppelin/openzeppelin-solidity/issues/120
  * Based on code by TokenMarketNet: https://github.com/TokenMarketNet/ico/blob/master/contracts/MintableToken.sol
  */
 contract MintableToken is Migratable, Ownable, StandardToken {
@@ -23,8 +22,13 @@ contract MintableToken is Migratable, Ownable, StandardToken {
     _;
   }
 
-  function initialize(address _sender) isInitializer("MintableToken", "1.9.0")  public {
+  function initialize(address _sender) isInitializer("MintableToken", "1.9.0") public {
     Ownable.initialize(_sender);
+  }
+
+  modifier hasMintPermission() {
+    require(msg.sender == owner);
+    _;
   }
 
   /**
@@ -33,7 +37,15 @@ contract MintableToken is Migratable, Ownable, StandardToken {
    * @param _amount The amount of tokens to mint.
    * @return A boolean that indicates if the operation was successful.
    */
-  function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
+  function mint(
+    address _to,
+    uint256 _amount
+  )
+    hasMintPermission
+    canMint
+    public
+    returns (bool)
+  {
     totalSupply_ = totalSupply_.add(_amount);
     balances[_to] = balances[_to].add(_amount);
     emit Mint(_to, _amount);
