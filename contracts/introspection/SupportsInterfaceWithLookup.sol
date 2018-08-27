@@ -24,8 +24,7 @@ contract SupportsInterfaceWithLookup is Migratable, ERC165 {
    * @dev A contract implementing SupportsInterfaceWithLookup
    * implement ERC165 itself
    */
-  function initialize() public isInitializer("SupportsInterfaceWithLookup", "1.11.0")
-  {
+  function initialize() public isInitializer("SupportsInterfaceWithLookup", "1.11.0") {
     _registerInterface(InterfaceId_ERC165);
   }
 
