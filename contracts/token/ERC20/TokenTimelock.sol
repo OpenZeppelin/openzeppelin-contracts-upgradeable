@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 
 import "./SafeERC20.sol";
 import "zos-lib/contracts/migrations/Migratable.sol";

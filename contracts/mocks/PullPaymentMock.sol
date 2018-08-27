@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 
 
 import "../payment/PullPayment.sol";
@@ -7,11 +7,13 @@ import "../payment/PullPayment.sol";
 // mock class using PullPayment
 contract PullPaymentMock is PullPayment {
 
-  function PullPaymentMock() public payable { }
+  constructor() public payable {
+    PullPayment.initialize();
+  }
 
-  // test helper function to call asyncSend
-  function callSend(address dest, uint256 amount) public {
-    asyncSend(dest, amount);
+  // test helper function to call asyncTransfer
+  function callTransfer(address dest, uint256 amount) public {
+    asyncTransfer(dest, amount);
   }
 
 }

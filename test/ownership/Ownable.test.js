@@ -1,38 +1,25 @@
+import shouldBehaveLikeOwnable from './Ownable.behaviour';
 
-import assertRevert from '../helpers/assertRevert';
-
-var Ownable = artifacts.require('Ownable');
+const Ownable = artifacts.require('Ownable');
 
 contract('Ownable', function (accounts) {
-  let ownable;
-
   beforeEach(async function () {
-    ownable = await Ownable.new();
-    await ownable.initialize(accounts[0]);
+    this.ownable = await Ownable.new();
+    await this.ownable.initialize(accounts[0]);
   });
 
   it('should have an owner', async function () {
-    let owner = await ownable.owner();
+    let owner = await this.ownable.owner();
     assert.isTrue(owner !== 0);
   });
 
   it('changes owner after transfer', async function () {
     let other = accounts[1];
-    await ownable.transferOwnership(other);
-    let owner = await ownable.owner();
+    await this.ownable.transferOwnership(other);
+    let owner = await this.ownable.owner();
 
     assert.isTrue(owner === other);
   });
 
-  it('should prevent non-owners from transfering', async function () {
-    const other = accounts[2];
-    const owner = await ownable.owner.call();
-    assert.isTrue(owner !== other);
-    await assertRevert(ownable.transferOwnership(other, { from: other }));
-  });
-
-  it('should guard ownership against stuck state', async function () {
-    let originalOwner = await ownable.owner();
-    await assertRevert(ownable.transferOwnership(null, { from: originalOwner }));
-  });
+  shouldBehaveLikeOwnable(accounts);
 });
