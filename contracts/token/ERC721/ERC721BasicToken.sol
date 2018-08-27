@@ -4,14 +4,14 @@ import "./ERC721Basic.sol";
 import "./ERC721Receiver.sol";
 import "../../math/SafeMath.sol";
 import "../../AddressUtils.sol";
-import "../../introspection/SupportsInterfaceWithLookup.sol";
+import "../../introspection/ERC165Support.sol";
 
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
+contract ERC721BasicToken is ERC165Support, ERC721Basic {
 
   bytes4 private constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
@@ -70,11 +70,14 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
     _;
   }
 
-  function initialize() public isInitializer("ERC721BasicToken", "1.9.0") {
-    SupportsInterfaceWithLookup.initialize();
-    // register the supported interfaces to conform to ERC721 via ERC165
-    _registerInterface(InterfaceId_ERC721);
-    _registerInterface(InterfaceId_ERC721Exists);
+  function _supportsInterface(bytes4 _interfaceId)
+    internal
+    view
+    returns (bool)
+  {
+    return super._supportsInterface(_interfaceId)
+      || _interfaceId == InterfaceId_ERC721
+      || _interfaceId == InterfaceId_ERC721Exists;
   }
 
   /**

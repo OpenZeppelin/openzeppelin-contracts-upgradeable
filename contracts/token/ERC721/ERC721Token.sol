@@ -2,7 +2,7 @@ pragma solidity ^0.4.21;
 
 import "./ERC721.sol";
 import "./ERC721BasicToken.sol";
-import "../../introspection/SupportsInterfaceWithLookup.sol";
+import "../../introspection/ERC165.sol";
 import "zos-lib/contracts/migrations/Migratable.sol";
 
 
@@ -12,7 +12,7 @@ import "zos-lib/contracts/migrations/Migratable.sol";
  * Moreover, it includes approve all functionality using operator terminology
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
-contract ERC721Token is Migratable, SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
+contract ERC721Token is Migratable, ERC165Support, ERC721BasicToken, ERC721 {
 
   bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
@@ -57,12 +57,16 @@ contract ERC721Token is Migratable, SupportsInterfaceWithLookup, ERC721BasicToke
   function initialize(string _name, string _symbol) public isInitializer("ERC721Token", "1.9.0") {
     name_ = _name;
     symbol_ = _symbol;
+  }
 
-    ERC721BasicToken.initialize();
-
-    // register the supported interfaces to conform to ERC721 via ERC165
-    _registerInterface(InterfaceId_ERC721Enumerable);
-    _registerInterface(InterfaceId_ERC721Metadata);
+  function _supportsInterface(bytes4 _interfaceId)
+    internal
+    view
+    returns (bool)
+  {
+    return super._supportsInterface(_interfaceId)
+      || _interfaceId == InterfaceId_ERC721Enumerable
+      || _interfaceId == InterfaceId_ERC721Metadata;
   }
 
   /**
