@@ -75,9 +75,8 @@ contract ERC721BasicToken is ERC165Support, ERC721Basic {
     view
     returns (bool)
   {
-    return super._supportsInterface(_interfaceId)
-      || _interfaceId == InterfaceId_ERC721
-      || _interfaceId == InterfaceId_ERC721Exists;
+    return super._supportsInterface(_interfaceId) || 
+      _interfaceId == InterfaceId_ERC721 || _interfaceId == InterfaceId_ERC721Exists;
   }
 
   /**

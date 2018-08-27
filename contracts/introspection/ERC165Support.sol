@@ -17,14 +17,16 @@ contract ERC165Support is ERC165 {
   function supportsInterface(bytes4 _interfaceId)
     external
     view
-    returns (bool) {
-      return _supportsInterface(_interfaceId);
-    }
+    returns (bool) 
+  {
+    return _supportsInterface(_interfaceId);
+  }
 
   function _supportsInterface(bytes4 _interfaceId)
     internal
     view
-    returns (bool) {
-      return _interfaceId == InterfaceId_ERC165;
-    }
+    returns (bool) 
+  {
+    return _interfaceId == InterfaceId_ERC165;
+  }
 }

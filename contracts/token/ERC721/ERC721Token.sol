@@ -64,9 +64,8 @@ contract ERC721Token is Migratable, ERC165Support, ERC721BasicToken, ERC721 {
     view
     returns (bool)
   {
-    return super._supportsInterface(_interfaceId)
-      || _interfaceId == InterfaceId_ERC721Enumerable
-      || _interfaceId == InterfaceId_ERC721Metadata;
+    return super._supportsInterface(_interfaceId) || 
+      _interfaceId == InterfaceId_ERC721Enumerable || _interfaceId == InterfaceId_ERC721Metadata;
   }
 
   /**
