@@ -19,19 +19,21 @@ contract StandardToken is Initializable, ERC20Detailed, ERC20Mintable, ERC20Paus
       _mint(initialHolder, initialSupply);
     }
 
-    // Make this contract the initial minter and pauser, and then transfer permissions
-    // to the requested accounts
-
+    // Initialize the minter and pauser roles, and renounce them
     ERC20Mintable.initialize(address(this));
-    for (uint256 i = 0; i < minters.length; ++i) {
-      addMinter(minters[i]);
-    }
     renounceMinter();
 
     ERC20Pausable.initialize(address(this));
-    for (i = 0; i < pausers.length; ++i) {
-      addPauser(pausers[i]);
-    }
     renouncePauser();
+
+    // Add the requested minters and pausers (this can be done after renouncing since
+    // these are the internal calls)
+    for (uint256 i = 0; i < minters.length; ++i) {
+      _addMinter(minters[i]);
+    }
+
+    for (i = 0; i < pausers.length; ++i) {
+      _addPauser(pausers[i]);
+    }
   }
 }
