@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../token/ERC20/IERC20.sol";
 import "../math/SafeMath.sol";
 import "../token/ERC20/SafeERC20.sol";
@@ -141,6 +141,10 @@ contract Crowdsale is Initializable {
   // Internal interface (extensible)
   // -----------------------------------------
 
+  function _hasBeenInitialized() internal view returns (bool) {
+    return ((_rate > 0) && (_wallet != address(0)) && (_token != address(0)));
+  }
+
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
    * Example from CappedCrowdsale.sol's _preValidatePurchase method:
@@ -232,4 +236,6 @@ contract Crowdsale is Initializable {
   function _forwardFunds() internal {
     _wallet.transfer(msg.value);
   }
+
+  uint256[50] private ______gap;
 }

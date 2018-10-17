@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./ERC721.sol";
 import "../../access/roles/MinterRole.sol";
 
@@ -11,7 +11,7 @@ import "../../access/roles/MinterRole.sol";
  */
 contract ERC721Mintable is Initializable, ERC721, MinterRole {
   function initialize(address sender) public initializer {
-    ERC721.initialize();
+    require(ERC721._hasBeenInitialized());
     MinterRole.initialize(sender);
   }
 
@@ -32,4 +32,6 @@ contract ERC721Mintable is Initializable, ERC721, MinterRole {
     _mint(to, tokenId);
     return true;
   }
+
+  uint256[50] private ______gap;
 }

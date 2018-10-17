@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../token/ERC20/IERC20.sol";
 import "../token/ERC20/ERC20Mintable.sol";
 import "../token/ERC20/SafeERC20.sol";
@@ -99,4 +99,6 @@ contract ERC20Migrator is Initializable {
     uint256 amount = Math.min(balance, allowance);
     migrate(account, amount);
   }
+
+  uint256[50] private ______gap;
 }

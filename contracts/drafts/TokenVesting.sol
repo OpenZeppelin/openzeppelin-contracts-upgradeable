@@ -2,7 +2,7 @@
 
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../token/ERC20/SafeERC20.sol";
 import "../ownership/Ownable.sol";
 import "../math/SafeMath.sol";
@@ -176,4 +176,6 @@ contract TokenVesting is Initializable, Ownable {
       return totalBalance.mul(block.timestamp.sub(_start)).div(_duration);
     }
   }
+
+  uint256[50] private ______gap;
 }

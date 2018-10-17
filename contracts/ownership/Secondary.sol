@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 
 /**
  * @title Secondary
@@ -33,4 +33,6 @@ contract Secondary is Initializable {
 
     _primary = recipient;
   }
+
+  uint256[50] private ______gap;
 }

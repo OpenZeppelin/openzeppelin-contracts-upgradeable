@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../Roles.sol";
 
 
@@ -44,4 +44,6 @@ contract CapperRole is Initializable {
     cappers.remove(account);
     emit CapperRemoved(account);
   }
+
+  uint256[50] private ______gap;
 }

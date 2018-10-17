@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
@@ -32,4 +32,5 @@ contract ReentrancyGuard is Initializable {
     require(localCounter == _guardCounter);
   }
 
+  uint256[50] private ______gap;
 }

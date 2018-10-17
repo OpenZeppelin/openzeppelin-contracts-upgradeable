@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./SafeERC20.sol";
 
 
@@ -69,4 +69,6 @@ contract TokenTimelock is Initializable {
 
     _token.safeTransfer(_beneficiary, amount);
   }
+
+  uint256[50] private ______gap;
 }

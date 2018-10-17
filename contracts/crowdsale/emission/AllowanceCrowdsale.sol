@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../Crowdsale.sol";
 import "../../token/ERC20/IERC20.sol";
 import "../../token/ERC20/SafeERC20.sol";
@@ -22,6 +22,8 @@ contract AllowanceCrowdsale is Initializable, Crowdsale {
    * @param tokenWallet Address holding the tokens, which has approved allowance to the crowdsale
    */
   function initialize(address tokenWallet) public initializer {
+    assert(Crowdsale._hasBeenInitialized());
+
     require(tokenWallet != address(0));
     _tokenWallet = tokenWallet;
   }
@@ -54,4 +56,6 @@ contract AllowanceCrowdsale is Initializable, Crowdsale {
   {
     token().safeTransferFrom(_tokenWallet, beneficiary, tokenAmount);
   }
+
+  uint256[50] private ______gap;
 }

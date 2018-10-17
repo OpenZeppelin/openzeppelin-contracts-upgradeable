@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./ERC721.sol";
 import "../../lifecycle/Pausable.sol";
 
@@ -11,7 +11,7 @@ import "../../lifecycle/Pausable.sol";
  **/
 contract ERC721Pausable is Initializable, ERC721, Pausable {
   function initialize(address sender) public initializer {
-    ERC721.initialize();
+    require(ERC721._hasBeenInitialized());
     Pausable.initialize(sender);
   }
 
@@ -45,4 +45,6 @@ contract ERC721Pausable is Initializable, ERC721, Pausable {
   {
     super.transferFrom(from, to, tokenId);
   }
+
+  uint256[50] private ______gap;
 }

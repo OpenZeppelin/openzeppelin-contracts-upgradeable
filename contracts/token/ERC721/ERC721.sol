@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./IERC721.sol";
 import "./IERC721Receiver.sol";
 import "../../math/SafeMath.sol";
@@ -55,6 +55,10 @@ contract ERC721 is Initializable, ERC165, IERC721 {
 
     // register the supported interfaces to conform to ERC721 via ERC165
     _registerInterface(_InterfaceId_ERC721);
+  }
+
+  function _hasBeenInitialized() internal view returns (bool) {
+    return supportsInterface(_InterfaceId_ERC721);
   }
 
   /**
@@ -327,4 +331,6 @@ contract ERC721 is Initializable, ERC165, IERC721 {
       msg.sender, from, tokenId, _data);
     return (retval == _ERC721_RECEIVED);
   }
+
+  uint256[50] private ______gap;
 }

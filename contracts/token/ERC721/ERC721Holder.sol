@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./IERC721Receiver.sol";
 
 
@@ -16,4 +16,6 @@ contract ERC721Holder is Initializable, IERC721Receiver {
   {
     return this.onERC721Received.selector;
   }
+
+  uint256[50] private ______gap;
 }

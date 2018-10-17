@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../crowdsale/validation/CappedCrowdsale.sol";
 import "../crowdsale/distribution/RefundableCrowdsale.sol";
 import "../crowdsale/emission/MintedCrowdsale.sol";
@@ -25,6 +25,8 @@ contract SampleCrowdsaleToken is Initializable, ERC20Mintable {
     symbol = "SCT";
     decimals = 18;
   }
+
+  uint256[50] private ______gap;
 }
 
 
@@ -67,4 +69,6 @@ contract SampleCrowdsale is Initializable, Crowdsale, CappedCrowdsale, Refundabl
     //the value needs to less or equal than a cap which is limit for accepted funds
     require(goal <= cap);
   }
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./ERC20.sol";
 import "../../access/roles/MinterRole.sol";
 
@@ -31,4 +31,6 @@ contract ERC20Mintable is Initializable, ERC20, MinterRole {
     _mint(to, amount);
     return true;
   }
+
+  uint256[50] private ______gap;
 }

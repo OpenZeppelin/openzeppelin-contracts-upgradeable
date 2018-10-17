@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../access/roles/PauserRole.sol";
 
 
@@ -56,4 +56,6 @@ contract Pausable is Initializable, PauserRole {
     _paused = false;
     emit Unpaused();
   }
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
 import "../Crowdsale.sol";
 import "../../access/roles/CapperRole.sol";
@@ -17,6 +17,8 @@ contract IndividuallyCappedCrowdsale is Initializable, Crowdsale, CapperRole {
   mapping(address => uint256) private _caps;
 
   function initialize(address sender) public initializer {
+    assert(Crowdsale._hasBeenInitialized());
+
     CapperRole.initialize(sender);
   }
 
@@ -81,4 +83,6 @@ contract IndividuallyCappedCrowdsale is Initializable, Crowdsale, CapperRole {
       weiAmount);
   }
 
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../math/SafeMath.sol";
 
 
@@ -107,4 +107,6 @@ contract SplitPayment is Initializable {
     _shares[account] = shares_;
     _totalShares = _totalShares.add(shares_);
   }
+
+  uint256[50] private ______gap;
 }

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
 import "./FinalizableCrowdsale.sol";
 import "../../payment/RefundEscrow.sol";
@@ -26,6 +26,9 @@ contract RefundableCrowdsale is Initializable, FinalizableCrowdsale {
    * @param goal Funding goal
    */
   function initialize(uint256 goal) public initializer {
+    // FinalizableCrowdsale depends on TimedCrowdsale
+    assert(TimedCrowdsale._hasBeenInitialized());
+
     require(goal > 0);
 
     // conditional added to make initializer idempotent in case of diamond inheritance
@@ -84,4 +87,6 @@ contract RefundableCrowdsale is Initializable, FinalizableCrowdsale {
     _escrow.deposit.value(msg.value)(msg.sender);
   }
 
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./IERC165.sol";
 
 
@@ -37,7 +37,7 @@ contract ERC165 is Initializable, IERC165 {
    * @dev implement supportsInterface(bytes4) using a lookup table
    */
   function supportsInterface(bytes4 interfaceId)
-    external
+    public
     view
     returns (bool)
   {
@@ -53,4 +53,6 @@ contract ERC165 is Initializable, IERC165 {
     require(interfaceId != 0xffffffff);
     _supportedInterfaces[interfaceId] = true;
   }
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./IERC20.sol";
 
 
@@ -41,4 +41,6 @@ contract ERC20Detailed is Initializable, IERC20 {
   function decimals() public view returns(uint8) {
     return _decimals;
   }
+
+  uint256[50] private ______gap;
 }

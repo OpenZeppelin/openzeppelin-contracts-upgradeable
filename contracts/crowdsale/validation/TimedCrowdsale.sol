@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
 import "../Crowdsale.sol";
 
@@ -29,6 +29,8 @@ contract TimedCrowdsale is Initializable, Crowdsale {
    * @param closingTime Crowdsale closing time
    */
   function initialize(uint256 openingTime, uint256 closingTime) public initializer {
+    assert(Crowdsale._hasBeenInitialized());
+
     // solium-disable-next-line security/no-block-members
     require(openingTime >= block.timestamp);
     require(closingTime >= openingTime);
@@ -68,6 +70,10 @@ contract TimedCrowdsale is Initializable, Crowdsale {
     return block.timestamp > _closingTime;
   }
 
+  function _hasBeenInitialized() internal view returns (bool) {
+    return ((_openingTime > 0) && (_closingTime > 0));
+  }
+
   /**
    * @dev Extend parent behavior requiring to be within contributing period
    * @param beneficiary Token purchaser
@@ -83,4 +89,6 @@ contract TimedCrowdsale is Initializable, Crowdsale {
     super._preValidatePurchase(beneficiary, weiAmount);
   }
 
+
+  uint256[50] private ______gap;
 }

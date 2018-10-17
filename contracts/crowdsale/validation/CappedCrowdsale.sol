@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
 import "../Crowdsale.sol";
 
@@ -19,6 +19,8 @@ contract CappedCrowdsale is Initializable, Crowdsale {
    * @param cap Max amount of wei to be contributed
    */
   function initialize(uint256 cap) public initializer {
+    assert(Crowdsale._hasBeenInitialized());
+
     require(cap > 0);
     _cap = cap;
   }
@@ -53,4 +55,6 @@ contract CappedCrowdsale is Initializable, Crowdsale {
     require(weiRaised().add(weiAmount) <= _cap);
   }
 
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../math/SafeMath.sol";
 import "../ownership/Secondary.sol";
 
@@ -52,4 +52,6 @@ contract Escrow is Initializable, Secondary {
 
     emit Withdrawn(payee, payment);
   }
+
+  uint256[50] private ______gap;
 }

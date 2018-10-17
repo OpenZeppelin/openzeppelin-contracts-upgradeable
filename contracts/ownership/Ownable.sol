@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 
 /**
  * @title Ownable
@@ -76,4 +76,6 @@ contract Ownable is Initializable {
     emit OwnershipTransferred(_owner, newOwner);
     _owner = newOwner;
   }
+
+  uint256[50] private ______gap;
 }

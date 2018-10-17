@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../validation/TimedCrowdsale.sol";
 import "../../token/ERC20/IERC20.sol";
 import "../../math/SafeMath.sol";
@@ -48,4 +48,6 @@ contract PostDeliveryCrowdsale is Initializable, TimedCrowdsale {
     _balances[beneficiary] = _balances[beneficiary].add(tokenAmount);
   }
 
+
+  uint256[50] private ______gap;
 }

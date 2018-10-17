@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./ERC20Mintable.sol";
 
 
@@ -47,4 +47,6 @@ contract ERC20Capped is Initializable, ERC20Mintable {
     return super.mint(to, amount);
   }
 
+
+  uint256[50] private ______gap;
 }

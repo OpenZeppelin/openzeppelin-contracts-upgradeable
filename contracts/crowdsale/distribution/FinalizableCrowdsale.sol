@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
 import "../validation/TimedCrowdsale.sol";
 
@@ -46,4 +46,6 @@ contract FinalizableCrowdsale is Initializable, TimedCrowdsale {
   function _finalization() internal {
   }
 
+
+  uint256[50] private ______gap;
 }

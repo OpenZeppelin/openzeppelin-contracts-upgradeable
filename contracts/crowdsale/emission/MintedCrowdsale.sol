@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../Crowdsale.sol";
 import "../../token/ERC20/ERC20Mintable.sol";
 
@@ -27,4 +27,6 @@ contract MintedCrowdsale is Initializable, Crowdsale {
     require(
       ERC20Mintable(address(token())).mint(beneficiary, tokenAmount));
   }
+
+  uint256[50] private ______gap;
 }

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "../Roles.sol";
 
 
@@ -44,4 +44,6 @@ contract MinterRole is Initializable {
     minters.remove(account);
     emit MinterRemoved(account);
   }
+
+  uint256[50] private ______gap;
 }

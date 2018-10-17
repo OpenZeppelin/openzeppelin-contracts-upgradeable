@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "../../Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 import "./IERC20.sol";
 import "../../math/SafeMath.sol";
 
@@ -210,4 +210,6 @@ contract ERC20 is Initializable, IERC20 {
       amount);
     _burn(account, amount);
   }
+
+  uint256[50] private ______gap;
 }
