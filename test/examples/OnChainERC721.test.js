@@ -9,7 +9,7 @@ const should = require('chai')
 
 const OnChainERC721 = artifacts.require('OnChainERC721');
 
-contract.only('OnChainERC721', function ([_, deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
+contract('OnChainERC721', function ([_, deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
   const name = "OnChainERC721";
   const symbol = "OCERC721";
 
