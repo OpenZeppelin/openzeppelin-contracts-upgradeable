@@ -10,7 +10,7 @@ import "../token/ERC20/ERC20Pausable.sol";
  * @title Standard ERC20 token, with minting and pause functionality.
  *
  */
-contract OnChainERC20 is Initializable, ERC20Detailed, ERC20Mintable, ERC20Pausable {
+contract StandaloneERC20 is Initializable, ERC20Detailed, ERC20Mintable, ERC20Pausable {
   function initialize(string name, string symbol, uint8 decimals, uint256 initialSupply, address initialHolder, address[] minters, address[] pausers) public initializer {
     require(initialSupply > 0);
 

@@ -7,17 +7,17 @@ const should = require('chai')
   .use(require('chai-bignumber')(BigNumber))
   .should();
 
-const OnChainERC721 = artifacts.require('OnChainERC721');
+const StandaloneERC721 = artifacts.require('StandaloneERC721');
 
-contract('OnChainERC721', function ([_, deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
-  const name = "OnChainERC721";
-  const symbol = "OCERC721";
+contract('StandaloneERC721', function ([_, deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
+  const name = "StandaloneERC721";
+  const symbol = "SAERC721";
 
   const minters = [minterA, minterB];
   const pausers = [pauserA, pauserB];
 
   beforeEach(async function () {
-    this.token = await OnChainERC721.new({ from: deployer });
+    this.token = await StandaloneERC721.new({ from: deployer });
   });
 
   async function initialize(token, name, symbol, minters, pausers, from) {

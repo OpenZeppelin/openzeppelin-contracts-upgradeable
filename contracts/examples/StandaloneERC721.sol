@@ -1,7 +1,9 @@
 pragma solidity ^0.4.24;
 
 import "zos-lib/contracts/Initializable.sol";
-import "../token/ERC721/ERC721Full.sol";
+import "../token/ERC721/ERC721.sol";
+import "../token/ERC721/ERC721Enumerable.sol";
+import "../token/ERC721/ERC721Metadata.sol";
 import "../token/ERC721/ERC721MetadataMintable.sol";
 import "../token/ERC721/ERC721Pausable.sol";
 
@@ -10,7 +12,7 @@ import "../token/ERC721/ERC721Pausable.sol";
  * @title Standard ERC721 token, with minting and pause functionality.
  *
  */
-contract OnChainERC721 is Initializable, ERC721Full, ERC721MetadataMintable, ERC721Pausable {
+contract StandaloneERC721 is Initializable, ERC721, ERC721Enumerable, ERC721Metadata, ERC721MetadataMintable, ERC721Pausable {
   function initialize(string name, string symbol, address[] minters, address[] pausers) public initializer {
     ERC721.initialize();
     ERC721Enumerable.initialize();

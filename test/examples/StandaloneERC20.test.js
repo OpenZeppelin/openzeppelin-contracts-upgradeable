@@ -8,11 +8,11 @@ const should = require('chai')
   .use(require('chai-bignumber')(BigNumber))
   .should();
 
-const OnChainERC20 = artifacts.require('OnChainERC20');
+const StandaloneERC20 = artifacts.require('StandaloneERC20');
 
-contract('OnChainERC20', function ([_, deployer, initialHolder, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
-  const name = "OnChainERC20";
-  const symbol = "OCERC20";
+contract('StandaloneERC20', function ([_, deployer, initialHolder, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
+  const name = "StandaloneERC20";
+  const symbol = "SAERC20";
   const decimals = 18;
 
   const initialSupply = 300;
@@ -23,7 +23,7 @@ contract('OnChainERC20', function ([_, deployer, initialHolder, minterA, minterB
   const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
   beforeEach(async function () {
-    this.token = await OnChainERC20.new({ from: deployer });
+    this.token = await StandaloneERC20.new({ from: deployer });
   });
 
   async function initializeFull(token, name, symbol, decimals, initialSupply, initialHolder, minters, pausers, from) {
