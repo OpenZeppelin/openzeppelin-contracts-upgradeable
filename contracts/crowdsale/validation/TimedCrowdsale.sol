@@ -38,7 +38,7 @@ contract TimedCrowdsale is Initializable, Crowdsale {
         assert(Crowdsale._hasBeenInitialized());
 
         // solhint-disable-next-line not-rely-on-time
-        require(openingTime >= block.timestamp);
+        require(openingTime >= block.timestamp - 1);
         require(closingTime > openingTime);
 
         _openingTime = openingTime;
