@@ -33,12 +33,10 @@ npm install @openzeppelin/contracts-ethereum-package
 You can easily create upgradeable instances of any of the logic contracts listed above using the OpenZeppelin SDK. This will rely on the pre-deployed instances in mainnet, kovan, ropsten, or rinkeby, greatly reducing your gas deployment costs. To do this, just [create a new OpenZeppelin SDK project](https://docs.zeppelinos.org/docs/first.html) and [link to this package](https://docs.zeppelinos.org/docs/linking.html).
 
 ```bash
-$ npm install -g zos
-$ zos init YourProject
-$ zos link openzeppelin-eth
-> Installing openzeppelin-eth
-$ zos push --network rinkeby
-> Connecting to dependency openzeppelin-eth
+$ npm install -g @openzeppelin/cli
+$ openzeppelin init MyProject
+$ openzeppelin link @openzeppelin/contracts-ethereum-package
+> Installing...
 ```
 
 To create an instance of a contract, use the `openzeppelin create` command. As an example, you can run the following to create an upgradeable ERC20 named MyToken, with symbol TKN and 8 decimals, and an initial supply of 100 tokens assigned to the address HOLDER, with a MINTER and a PAUSER. Remember to replace HOLDER, MINTER, and PAUSER with actual addresses when you run this command; you can specify more than one (or none at all) minters and pausers.
