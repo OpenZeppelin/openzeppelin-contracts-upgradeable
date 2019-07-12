@@ -1,5 +1,5 @@
 {
-  "zosversion": "2",
+  "zosversion": "2.2",
   "name": "@openzeppelin/contracts-ethereum-package",
   "publish": true,
   "version": "2.2.0",
