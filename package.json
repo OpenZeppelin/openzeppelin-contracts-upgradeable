@@ -6,8 +6,7 @@
     "build",
     "contracts",
     "test/behaviors",
-    "zos.json",
-    "zos.*.json"
+    ".openzeppelin"
   ],
   "scripts": {
     "build": "scripts/build.sh",
