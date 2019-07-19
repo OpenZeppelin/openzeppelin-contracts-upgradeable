@@ -1,8 +1,10 @@
+require('chai/register-should');
+const { GSNProvider } = require('@openzeppelin/gsn-provider');
+
 module.exports = {
   networks: {
     development: {
-      host: 'localhost',
-      port: 8545,
+      provider: () => new GSNProvider('http://localhost:8545', { txfee: 70, useGSN: false }),
       network_id: '*', // eslint-disable-line camelcase
     },
     coverage: {
