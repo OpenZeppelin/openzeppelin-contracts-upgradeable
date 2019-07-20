@@ -59,10 +59,10 @@
     "solhint": "^1.5.0",
     "solidity-coverage": "https://github.com:rotcivegaf/solidity-coverage.git#5875f5b7bc74d447f3312c9c0e9fc7814b482477",
     "truffle": "^5.0.0",
-    "@openzeppelin/cli": "2.5.0-rc.0",
-    "@openzeppelin/upgrades": "2.5.0-rc.0"
+    "@openzeppelin/cli": "2.5.0",
+    "@openzeppelin/upgrades": "2.5.0"
   },
   "peerDependencies": {
-    "@openzeppelin/upgrades": "2.5.0-rc.0"
+    "@openzeppelin/upgrades": "2.5.0"
   }
 }
