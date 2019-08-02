@@ -1,7 +1,7 @@
 const { BN, ether, expectEvent } = require('openzeppelin-test-helpers');
 const gsn = require('@openzeppelin/gsn-helpers');
 
-const { expect } = require('chai');
+const { expect } = require('chai').use(require('chai-bn')(web3.utils.BN));
 
 const GSNBouncerERC20FeeMock = artifacts.require('GSNBouncerERC20FeeMock');
 const ERC20Detailed = artifacts.require('ERC20Detailed');
@@ -13,7 +13,8 @@ contract('GSNBouncerERC20Fee', function ([_, sender, other]) {
   const decimals = new BN('18');
 
   beforeEach(async function () {
-    this.recipient = await GSNBouncerERC20FeeMock.new(name, symbol, decimals);
+    this.recipient = await GSNBouncerERC20FeeMock.new();
+    await this.recipient.initialize(name, symbol, decimals);
     this.token = await ERC20Detailed.at(await this.recipient.token());
   });
 

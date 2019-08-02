@@ -1,9 +1,10 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./GSNBouncerBase.sol";
 import "../../cryptography/ECDSA.sol";
 
-contract GSNBouncerSignature is GSNBouncerBase {
+contract GSNBouncerSignature is Initializable, GSNBouncerBase {
     using ECDSA for bytes32;
 
     address private _trustedSigner;
@@ -12,7 +13,7 @@ contract GSNBouncerSignature is GSNBouncerBase {
         INVALID_SIGNER
     }
 
-    constructor(address trustedSigner) public {
+    function initialize(address trustedSigner) public initializer {
         _trustedSigner = trustedSigner;
     }
 

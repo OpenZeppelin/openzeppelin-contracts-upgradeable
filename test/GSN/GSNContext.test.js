@@ -1,4 +1,4 @@
-const { BN, constants, expectEvent, expectRevert } = require('openzeppelin-test-helpers');
+const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
 const { ZERO_ADDRESS } = constants;
 const gsn = require('@openzeppelin/gsn-helpers');
 
@@ -10,6 +10,7 @@ const { shouldBehaveLikeRegularContext } = require('./Context.behavior');
 contract('GSNContext', function ([_, deployer, sender, newRelayHub]) {
   beforeEach(async function () {
     this.context = await GSNContextMock.new();
+    await this.context.initialize();
     this.caller = await ContextMockCaller.new();
   });
 
@@ -26,14 +27,17 @@ contract('GSNContext', function ([_, deployer, sender, newRelayHub]) {
     });
 
     it('cannot upgrade to the same RelayHub', async function () {
-      await expectRevert(
-        this.context.upgradeRelayHub(singletonRelayHub),
-        'GSNContext: new RelayHub is the current one'
+      await shouldFail.reverting(
+        this.context.upgradeRelayHub(singletonRelayHub)
+        //, 'GSNContext: new RelayHub is the current one'
       );
     });
 
     it('cannot upgrade to the zero address', async function () {
-      await expectRevert(this.context.upgradeRelayHub(ZERO_ADDRESS), 'GSNContext: new RelayHub is the zero address');
+      await shouldFail.reverting(
+        this.context.upgradeRelayHub(ZERO_ADDRESS)
+        //, 'GSNContext: new RelayHub is the zero address'
+      );
     });
 
     context('with new RelayHub', function () {

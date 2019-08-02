@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./IRelayRecipient.sol";
 import "./GSNContext.sol";
 import "./bouncers/GSNBouncerBase.sol";
@@ -10,7 +11,11 @@ import "./IRelayHub.sol";
  * GSN support. Not all interface methods are implemented, derived contracts
  * must do so themselves.
  */
-contract GSNRecipient is IRelayRecipient, GSNContext, GSNBouncerBase {
+contract GSNRecipient is Initializable, IRelayRecipient, GSNContext, GSNBouncerBase {
+    function initialize() public initializer {
+        GSNContext.initialize();
+    }
+
     function getHubAddr() public view returns (address) {
         return _getRelayHub();
     }

@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./GSNBouncerBase.sol";
 import "../../math/SafeMath.sol";
 import "../../ownership/Secondary.sol";
@@ -7,7 +8,7 @@ import "../../token/ERC20/SafeERC20.sol";
 import "../../token/ERC20/ERC20.sol";
 import "../../token/ERC20/ERC20Detailed.sol";
 
-contract GSNBouncerERC20Fee is GSNBouncerBase {
+contract GSNBouncerERC20Fee is Initializable, GSNBouncerBase {
     using SafeERC20 for __unstable__ERC20PrimaryAdmin;
     using SafeMath for uint256;
 
@@ -17,7 +18,9 @@ contract GSNBouncerERC20Fee is GSNBouncerBase {
 
     __unstable__ERC20PrimaryAdmin private _token;
 
-    constructor(string memory name, string memory symbol, uint8 decimals) public {
+    function initialize(string memory name, string memory symbol, uint8 decimals) initializer public {
+        // TODO: Should we inject this token, instead of creating it, in order to make it upgradeable?
+        // However, that would mean removing it from unstable and making in an official contract
         _token = new __unstable__ERC20PrimaryAdmin(name, symbol, decimals);
     }
 
@@ -83,8 +86,9 @@ contract GSNBouncerERC20Fee is GSNBouncerBase {
 contract __unstable__ERC20PrimaryAdmin is ERC20, ERC20Detailed, Secondary {
     uint256 private constant UINT256_MAX = 2**256 - 1;
 
-    constructor(string memory name, string memory symbol, uint8 decimals) public ERC20Detailed(name, symbol, decimals) {
-        // solhint-disable-previous-line no-empty-blocks
+    constructor(string memory name, string memory symbol, uint8 decimals) public {
+        Secondary.initialize(msg.sender);
+        ERC20Detailed.initialize(name, symbol, decimals);
     }
 
     // The primary account (GSNRecipientERC20Fee) can mint tokens

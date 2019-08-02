@@ -1,4 +1,4 @@
-const { balance, ether, expectRevert } = require('openzeppelin-test-helpers');
+const { balance, ether, shouldFail } = require('openzeppelin-test-helpers');
 const gsn = require('@openzeppelin/gsn-helpers');
 
 const { expect } = require('chai');
@@ -8,6 +8,7 @@ const GSNRecipientMock = artifacts.require('GSNRecipientMock');
 contract('GSNRecipient', function ([_, payee]) {
   beforeEach(async function () {
     this.recipient = await GSNRecipientMock.new();
+    await this.recipient.initialize();
   });
 
   it('returns the RelayHub address address', async function () {
@@ -26,19 +27,22 @@ contract('GSNRecipient', function ([_, payee]) {
     });
 
     it('funds can be withdrawn', async function () {
-      const balanceTracker = await balance.tracker(payee);
-      await this.recipient.withdrawDeposits(amount, payee);
-      expect(await balanceTracker.delta()).to.be.bignumber.equal(amount);
+      expect(await balance.difference(payee, () =>
+        this.recipient.withdrawDeposits(amount, payee))
+      ).to.be.bignumber.equal(amount);
     });
 
     it('partial funds can be withdrawn', async function () {
-      const balanceTracker = await balance.tracker(payee);
-      await this.recipient.withdrawDeposits(amount.divn(2), payee);
-      expect(await balanceTracker.delta()).to.be.bignumber.equal(amount.divn(2));
+      expect(await balance.difference(payee, async () =>
+        this.recipient.withdrawDeposits(amount.divn(2), payee))
+      ).to.be.bignumber.equal(amount.divn(2));
     });
 
     it('reverts on overwithdrawals', async function () {
-      await expectRevert(this.recipient.withdrawDeposits(amount.addn(1), payee), 'insufficient funds');
+      await shouldFail.reverting(
+        this.recipient.withdrawDeposits(amount.addn(1), payee)
+        // , 'insufficient funds'
+      );
     });
   });
 });

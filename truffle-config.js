@@ -71,4 +71,8 @@ module.exports = {
   compilers: {
     solc: useSolcNightly ? solcNightly : solcStable,
   },
+
+  mocha: {
+    bail: true
+  }
 };

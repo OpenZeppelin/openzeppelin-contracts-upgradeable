@@ -42,8 +42,11 @@
   "homepage": "https://github.com/OpenZeppelin/openzeppelin-contracts-ethereum-package",
   "devDependencies": {
     "@openzeppelin/cli": "2.5.0",
+    "@openzeppelin/gsn-helpers": "0.1.0-rc.2",
+    "@openzeppelin/gsn-provider": "^0.1.0",
     "@openzeppelin/upgrades": "2.5.0",
     "chai": "^4.1.2",
+    "chai-bn": "^0.1.1",
     "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",

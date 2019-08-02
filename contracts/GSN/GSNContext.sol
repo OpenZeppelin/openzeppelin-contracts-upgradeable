@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./Context.sol";
 
 /*
@@ -10,14 +11,14 @@ import "./Context.sol";
  * > This contract does not perform all required tasks to implement a GSN
  * recipient contract: end users should use `GSNRecipient` instead.
  */
-contract GSNContext is Context {
+contract GSNContext is Initializable, Context {
     // We use a random storage slot to allow proxy contracts to enable GSN support in an upgrade without changing their
     // storage layout. This value is calculated as: keccak256('gsn.relayhub.address'), minus 1.
     bytes32 private constant RELAY_HUB_ADDRESS_STORAGE_SLOT = 0x06b7792c761dcc05af1761f0315ce8b01ac39c16cc934eb0b2f7a8e71414f262;
 
     event RelayHubChanged(address indexed oldRelayHub, address indexed newRelayHub);
 
-    constructor() internal {
+    function initialize() public initializer {
         _upgradeRelayHub(0xD216153c06E857cD7f72665E0aF1d7D82172F494);
     }
 
