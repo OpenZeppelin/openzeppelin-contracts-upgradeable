@@ -7,8 +7,7 @@ const GSNBouncerSignatureMock = artifacts.require('GSNBouncerSignatureMock');
 
 contract('GSNBouncerSignature', function ([_, signer, other]) {
   beforeEach(async function () {
-    this.recipient = await GSNBouncerSignatureMock.new();
-    await this.recipient.initialize(signer);
+    this.recipient = await GSNBouncerSignatureMock.new(signer);
   });
 
   context('when called directly', function () {

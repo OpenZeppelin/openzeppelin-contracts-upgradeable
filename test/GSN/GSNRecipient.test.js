@@ -8,7 +8,6 @@ const GSNRecipientMock = artifacts.require('GSNRecipientMock');
 contract('GSNRecipient', function ([_, payee]) {
   beforeEach(async function () {
     this.recipient = await GSNRecipientMock.new();
-    await this.recipient.initialize();
   });
 
   it('returns the RelayHub address address', async function () {

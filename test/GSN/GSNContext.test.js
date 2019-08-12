@@ -10,7 +10,6 @@ const { shouldBehaveLikeRegularContext } = require('./Context.behavior');
 contract('GSNContext', function ([_, deployer, sender, newRelayHub]) {
   beforeEach(async function () {
     this.context = await GSNContextMock.new();
-    await this.context.initialize();
     this.caller = await ContextMockCaller.new();
   });
 

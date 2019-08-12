@@ -4,8 +4,8 @@ import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../GSN/GSNRecipient.sol";
 import "../GSN/bouncers/GSNBouncerSignature.sol";
 
-contract GSNBouncerSignatureMock is Initializable, GSNRecipient, GSNBouncerSignature {
-    function initialize(address trustedSigner) initializer public {
+contract GSNBouncerSignatureMock is GSNRecipient, GSNBouncerSignature {
+    constructor(address trustedSigner) public {
         GSNBouncerSignature.initialize(trustedSigner);
         GSNRecipient.initialize();
     }

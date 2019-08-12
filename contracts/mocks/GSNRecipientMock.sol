@@ -3,6 +3,10 @@ pragma solidity ^0.5.0;
 import "../GSN/GSNRecipient.sol";
 
 contract GSNRecipientMock is GSNRecipient {
+    constructor() public {
+        GSNRecipient.initialize();
+    }
+
     function withdrawDeposits(uint256 amount, address payable payee) public {
         _withdrawDeposits(amount, payee);
     }
