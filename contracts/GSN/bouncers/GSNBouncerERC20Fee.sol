@@ -16,20 +16,22 @@ contract GSNBouncerERC20Fee is Initializable, GSNBouncerBase {
         INSUFFICIENT_BALANCE
     }
 
-    __unstable__ERC20PrimaryAdmin private _token;
+    // We use a random storage slot to allow proxy contracts to enable GSN support in an upgrade without changing their
+    // storage layout. This value is calculated as: keccak256('gsn.bouncer.signature.token'), minus 1.
+    bytes32 constant private TOKEN_STORAGE_SLOT = 0xd918b70a5a5c95a8c0cac8acbdd59e1b4acd0645f53c0461d64b41f8825c8828;
 
     function initialize(string memory name, string memory symbol, uint8 decimals) initializer public {
         // TODO: Should we inject this token, instead of creating it, in order to make it upgradeable?
         // However, that would mean removing it from unstable and making in an official contract
-        _token = new __unstable__ERC20PrimaryAdmin(name, symbol, decimals);
+        _setToken(new __unstable__ERC20PrimaryAdmin(name, symbol, decimals));
     }
 
     function token() public view returns (IERC20) {
-        return IERC20(_token);
+        return IERC20(_getToken());
     }
 
     function _mint(address account, uint256 amount) internal {
-        _token.mint(account, amount);
+        _getToken().mint(account, amount);
     }
 
     function acceptRelayedCall(
@@ -47,7 +49,7 @@ contract GSNBouncerERC20Fee is Initializable, GSNBouncerBase {
         view
         returns (uint256, bytes memory)
     {
-        if (_token.balanceOf(from) < maxPossibleCharge) {
+        if (_getToken().balanceOf(from) < maxPossibleCharge) {
             return _rejectRelayedCall(uint256(GSNBouncerERC20FeeErrorCodes.INSUFFICIENT_BALANCE));
         }
 
@@ -58,7 +60,7 @@ contract GSNBouncerERC20Fee is Initializable, GSNBouncerBase {
         (address from, uint256 maxPossibleCharge) = abi.decode(context, (address, uint256));
 
         // The maximum token charge is pre-charged from the user
-        _token.safeTransferFrom(from, address(this), maxPossibleCharge);
+        _getToken().safeTransferFrom(from, address(this), maxPossibleCharge);
     }
 
     function _postRelayedCall(bytes memory context, bool, uint256 actualCharge, bytes32) internal {
@@ -72,7 +74,23 @@ contract GSNBouncerERC20Fee is Initializable, GSNBouncerBase {
         actualCharge = actualCharge.sub(overestimation);
 
         // After the relayed call has been executed and the actual charge estimated, the excess pre-charge is returned
-        _token.safeTransfer(from, maxPossibleCharge.sub(actualCharge));
+        _getToken().safeTransfer(from, maxPossibleCharge.sub(actualCharge));
+    }
+
+    function _getToken() private view returns (__unstable__ERC20PrimaryAdmin token) {
+      bytes32 slot = TOKEN_STORAGE_SLOT;
+      // solhint-disable-next-line no-inline-assembly
+      assembly {
+        token := sload(slot)
+      }
+    }
+
+    function _setToken(__unstable__ERC20PrimaryAdmin token) private {
+      bytes32 slot = TOKEN_STORAGE_SLOT;
+      // solhint-disable-next-line no-inline-assembly
+      assembly {
+        sstore(slot, token)
+      }
     }
 }
 
