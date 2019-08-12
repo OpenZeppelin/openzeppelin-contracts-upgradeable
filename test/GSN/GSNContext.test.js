@@ -14,7 +14,7 @@ contract('GSNContext', function ([_, deployer, sender, newRelayHub]) {
   });
 
   describe('get/set RelayHub', function () {
-    const singletonRelayHub = '0x537F27a04470242ff6b2c3ad247A05248d0d27CE';
+    const singletonRelayHub = '0xD216153c06E857cD7f72665E0aF1d7D82172F494';
 
     it('initially returns the singleton instance address', async function () {
       expect(await this.context.getRelayHub()).to.equal(singletonRelayHub);
@@ -70,7 +70,7 @@ contract('GSNContext', function ([_, deployer, sender, newRelayHub]) {
         const callData = this.context.contract.methods.msgData(integerValue.toString(), stringValue).encodeABI();
 
         // The provider doesn't properly estimate gas for a relayed call, so we need to manually set a higher value
-        const { tx } = await this.context.msgData(integerValue, stringValue, { gas: 100000, useGSN: true });
+        const { tx } = await this.context.msgData(integerValue, stringValue, { gas: 1000000, useGSN: true });
         await expectEvent.inTransaction(tx, GSNContextMock, 'Data', { data: callData, integerValue, stringValue });
       });
     });

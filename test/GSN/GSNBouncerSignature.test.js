@@ -1,6 +1,7 @@
 const { expectEvent } = require('openzeppelin-test-helpers');
 const gsn = require('@openzeppelin/gsn-helpers');
 const { fixSignature } = require('../helpers/sign');
+const { utils: { toBN } } = require('web3');
 
 const GSNBouncerSignatureMock = artifacts.require('GSNBouncerSignatureMock');
 
@@ -22,7 +23,7 @@ contract('GSNBouncerSignature', function ([_, signer, other]) {
     });
 
     it('rejects unsigned relay requests', async function () {
-      await gsn.expectGSNError(this.recipient.mockFunction({ value: 0, useGSN: true }));
+      await gsn.expectError(this.recipient.mockFunction({ value: 0, useGSN: true }));
     });
 
     it('rejects relay requests where some parameters are signed', async function () {
@@ -31,12 +32,12 @@ contract('GSNBouncerSignature', function ([_, signer, other]) {
           await web3.eth.sign(
             web3.utils.soliditySha3(
               // the nonce is not signed
-              data.relay_address, data.from, data.encodedFunctionCall, data.txfee, data.gas_price, data.gas_limit
+              data.relayerAddress, data.from, data.encodedFunctionCall, data.txFee, data.gasPrice, data.gas
             ), signer
           )
         );
 
-      await gsn.expectGSNError(this.recipient.mockFunction({ value: 0, useGSN: true, approveFunction }));
+      await gsn.expectError(this.recipient.mockFunction({ value: 0, useGSN: true, approveFunction }));
     });
 
     it('accepts relay requests where all parameters are signed', async function () {
@@ -45,7 +46,7 @@ contract('GSNBouncerSignature', function ([_, signer, other]) {
           await web3.eth.sign(
             web3.utils.soliditySha3(
               // eslint-disable-next-line max-len
-              data.relay_address, data.from, data.encodedFunctionCall, data.txfee, data.gas_price, data.gas_limit, data.nonce, data.relay_hub_address, this.recipient.address
+              data.relayerAddress, data.from, data.encodedFunctionCall, toBN(data.txFee), toBN(data.gasPrice), toBN(data.gas), toBN(data.nonce), data.relayHubAddress, data.to
             ), signer
           )
         );
@@ -61,12 +62,12 @@ contract('GSNBouncerSignature', function ([_, signer, other]) {
           await web3.eth.sign(
             web3.utils.soliditySha3(
               // eslint-disable-next-line max-len
-              data.relay_address, data.from, data.encodedFunctionCall, data.txfee, data.gas_price, data.gas_limit, data.nonce, data.relay_hub_address, this.recipient.address
+              data.relay_address, data.from, data.encodedFunctionCall, data.txfee, data.gasPrice, data.gas, data.nonce, data.relayHubAddress, data.to
             ), other
           )
         );
 
-      await gsn.expectGSNError(this.recipient.mockFunction({ value: 0, useGSN: true, approveFunction }));
+      await gsn.expectError(this.recipient.mockFunction({ value: 0, useGSN: true, approveFunction }));
     });
   });
 });

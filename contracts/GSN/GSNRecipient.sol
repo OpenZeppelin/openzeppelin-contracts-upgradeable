@@ -1,5 +1,6 @@
 pragma solidity ^0.5.0;
 
+import "./IRelayRecipient.sol";
 import "./GSNContext.sol";
 import "./bouncers/GSNBouncerBase.sol";
 import "./IRelayHub.sol";
@@ -9,9 +10,7 @@ import "./IRelayHub.sol";
  * GSN support. Not all interface methods are implemented, derived contracts
  * must do so themselves.
  */
-contract GSNRecipient is GSNContext, GSNBouncerBase {
-    event GSNDepositsWithdrawn(uint256 amount, address indexed payee);
-
+contract GSNRecipient is IRelayRecipient, GSNContext, GSNBouncerBase {
     function getHubAddr() public view returns (address) {
         return _getRelayHub();
     }
@@ -23,11 +22,7 @@ contract GSNRecipient is GSNContext, GSNBouncerBase {
         return "1.0.0";
     }
 
-    // This requires derived contracts to implement a payable fallback function
     function _withdrawDeposits(uint256 amount, address payable payee) internal {
-        IRelayHub(_getRelayHub()).withdraw(amount);
-        payee.transfer(amount);
-
-        emit GSNDepositsWithdrawn(amount, payee);
+        IRelayHub(_getRelayHub()).withdraw(amount, payee);
     }
 }

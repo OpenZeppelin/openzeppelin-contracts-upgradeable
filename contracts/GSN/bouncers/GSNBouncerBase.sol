@@ -15,12 +15,7 @@ contract GSNBouncerBase is IRelayRecipient {
     // How much gas is forwarded to postRelayedCall
     uint256 constant internal POST_RELAYED_CALL_MAX_GAS = 100000;
 
-    modifier onlyRelayHub() {
-        require(msg.sender == getHubAddr(), "GSNBouncerBase: caller is not RelayHub");
-        _;
-    }
-
-    // Base implementations for pre and post relayedCall: the onlyRelayHub modifier is added, and data forwarded to the
+    // Base implementations for pre and post relayedCall: only RelayHub can invoke them, and data is forwarded to the
     // internal hook.
 
     /**
@@ -32,7 +27,8 @@ contract GSNBouncerBase is IRelayRecipient {
      *
      * - the caller must be the `RelayHub` contract.
      */
-    function preRelayedCall(bytes calldata context) external onlyRelayHub returns (bytes32) {
+    function preRelayedCall(bytes calldata context) external returns (bytes32) {
+        require(msg.sender == getHubAddr(), "GSNBouncerBase: caller is not RelayHub");
         return _preRelayedCall(context);
     }
 
@@ -45,7 +41,8 @@ contract GSNBouncerBase is IRelayRecipient {
      *
      * - the caller must be the `RelayHub` contract.
      */
-    function postRelayedCall(bytes calldata context, bool success, uint256 actualCharge, bytes32 preRetVal) external onlyRelayHub {
+    function postRelayedCall(bytes calldata context, bool success, uint256 actualCharge, bytes32 preRetVal) external {
+        require(msg.sender == getHubAddr(), "GSNBouncerBase: caller is not RelayHub");
         _postRelayedCall(context, success, actualCharge, preRetVal);
     }
 
@@ -53,23 +50,23 @@ contract GSNBouncerBase is IRelayRecipient {
      * @dev Return this in acceptRelayedCall to proceed with the execution of a relayed call. Note that this contract
      * will be charged a fee by RelayHub
      */
-    function _confirmRelayedCall() internal pure returns (uint256, bytes memory) {
-        return _confirmRelayedCall("");
+    function _approveRelayedCall() internal pure returns (uint256, bytes memory) {
+        return _approveRelayedCall("");
     }
 
     /**
-     * @dev See `GSNBouncerBase._confirmRelayedCall`.
+     * @dev See `GSNBouncerBase._approveRelayedCall`.
      *
      * This overload forwards `context` to _preRelayedCall and _postRelayedCall.
      */
-    function _confirmRelayedCall(bytes memory context) internal pure returns (uint256, bytes memory) {
+    function _approveRelayedCall(bytes memory context) internal pure returns (uint256, bytes memory) {
         return (RELAYED_CALL_ACCEPTED, context);
     }
 
     /**
      * @dev Return this in acceptRelayedCall to impede execution of a relayed call. No fees will be charged.
      */
-    function _declineRelayedCall(uint256 errorCode) internal pure returns (uint256, bytes memory) {
+    function _rejectRelayedCall(uint256 errorCode) internal pure returns (uint256, bytes memory) {
         return (RELAYED_CALL_REJECTED + errorCode, "");
     }
 
