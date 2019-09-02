@@ -1,16 +1,18 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 
 import "../GSN/Context.sol";
 
 /**
- * @title Secondary
- * @dev A Secondary contract can only be used by its primary account (the one that created it)
+ * @dev A Secondary contract can only be used by its primary account (the one that created it).
  */
 contract Secondary is Initializable, Context {
     address private _primary;
 
+    /**
+     * @dev Emitted when the primary contract changes.
+     */
     event PrimaryTransferred(
         address recipient
     );
@@ -43,7 +45,7 @@ contract Secondary is Initializable, Context {
      * @param recipient The address of new primary.
      */
     function transferPrimary(address recipient) public onlyPrimary {
-        require(recipient != address(0));
+        require(recipient != address(0), "Secondary: new primary is the zero address");
         _primary = recipient;
         emit PrimaryTransferred(_primary);
     }

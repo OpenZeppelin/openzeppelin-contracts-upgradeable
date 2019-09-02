@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../Crowdsale.sol";
@@ -19,12 +19,12 @@ contract AllowanceCrowdsale is Initializable, Crowdsale {
 
     /**
      * @dev Constructor, takes token wallet address.
-     * @param tokenWallet Address holding the tokens, which has approved allowance to the crowdsale
+     * @param tokenWallet Address holding the tokens, which has approved allowance to the crowdsale.
      */
     function initialize(address tokenWallet) public initializer {
         assert(Crowdsale._hasBeenInitialized());
 
-        require(tokenWallet != address(0));
+        require(tokenWallet != address(0), "AllowanceCrowdsale: token wallet is the zero address");
         _tokenWallet = tokenWallet;
     }
 

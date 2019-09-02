@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./ERC20.sol";
@@ -25,11 +25,11 @@ contract ERC20Pausable is Initializable, ERC20, Pausable {
         return super.approve(spender, value);
     }
 
-    function increaseAllowance(address spender, uint addedValue) public whenNotPaused returns (bool success) {
+    function increaseAllowance(address spender, uint addedValue) public whenNotPaused returns (bool) {
         return super.increaseAllowance(spender, addedValue);
     }
 
-    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused returns (bool success) {
+    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused returns (bool) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
 

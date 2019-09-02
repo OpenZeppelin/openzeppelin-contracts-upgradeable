@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./ERC721Metadata.sol";
@@ -7,7 +7,7 @@ import "../../access/roles/MinterRole.sol";
 
 /**
  * @title ERC721MetadataMintable
- * @dev ERC721 minting logic with metadata
+ * @dev ERC721 minting logic with metadata.
  */
 contract ERC721MetadataMintable is Initializable, ERC721, ERC721Metadata, MinterRole {
     function initialize(address sender) public initializer {
@@ -17,7 +17,7 @@ contract ERC721MetadataMintable is Initializable, ERC721, ERC721Metadata, Minter
     }
 
     /**
-     * @dev Function to mint tokens
+     * @dev Function to mint tokens.
      * @param to The address that will receive the minted tokens.
      * @param tokenId The token id to mint.
      * @param tokenURI The token URI of the minted token.

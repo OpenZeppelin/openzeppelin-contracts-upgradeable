@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../validation/TimedCrowdsale.sol";
@@ -24,8 +24,9 @@ contract IncreasingPriceCrowdsale is Initializable, TimedCrowdsale {
     function initialize(uint256 initialRate, uint256 finalRate) public initializer {
         assert(TimedCrowdsale._hasBeenInitialized());
 
-        require(finalRate > 0);
-        require(initialRate > finalRate);
+        require(finalRate > 0, "IncreasingPriceCrowdsale: final rate is 0");
+        // solhint-disable-next-line max-line-length
+        require(initialRate > finalRate, "IncreasingPriceCrowdsale: initial rate is not greater than final rate");
         _initialRate = initialRate;
         _finalRate = finalRate;
     }
@@ -35,7 +36,7 @@ contract IncreasingPriceCrowdsale is Initializable, TimedCrowdsale {
      * all calls to it are a mistake.
      */
     function rate() public view returns (uint256) {
-        revert();
+        revert("IncreasingPriceCrowdsale: rate() called");
     }
 
     /**

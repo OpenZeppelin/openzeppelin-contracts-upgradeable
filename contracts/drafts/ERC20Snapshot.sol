@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../math/SafeMath.sol";
@@ -32,7 +32,7 @@ contract ERC20Snapshot is Initializable, ERC20 {
     }
 
     mapping (address => Snapshots) private _accountBalanceSnapshots;
-    Snapshots private _totalSupplySnaphots;
+    Snapshots private _totalSupplySnapshots;
 
     // Snapshot ids increase monotonically, with the first value being 1. An id of 0 is invalid.
     Counters.Counter private _currentSnapshotId;
@@ -57,7 +57,7 @@ contract ERC20Snapshot is Initializable, ERC20 {
     }
 
     function totalSupplyAt(uint256 snapshotId) public view returns(uint256) {
-        (bool snapshotted, uint256 value) = _valueAt(snapshotId, _totalSupplySnaphots);
+        (bool snapshotted, uint256 value) = _valueAt(snapshotId, _totalSupplySnapshots);
 
         return snapshotted ? value : totalSupply();
     }
@@ -102,8 +102,9 @@ contract ERC20Snapshot is Initializable, ERC20 {
     function _valueAt(uint256 snapshotId, Snapshots storage snapshots)
         private view returns (bool, uint256)
     {
-        require(snapshotId > 0);
-        require(snapshotId <= _currentSnapshotId.current());
+        require(snapshotId > 0, "ERC20Snapshot: id is 0");
+        // solhint-disable-next-line max-line-length
+        require(snapshotId <= _currentSnapshotId.current(), "ERC20Snapshot: nonexistent id");
 
         uint256 index = snapshots.ids.findUpperBound(snapshotId);
 
@@ -119,7 +120,7 @@ contract ERC20Snapshot is Initializable, ERC20 {
     }
 
     function _updateTotalSupplySnapshot() private {
-        _updateSnapshot(_totalSupplySnaphots, totalSupply());
+        _updateSnapshot(_totalSupplySnapshots, totalSupply());
     }
 
     function _updateSnapshot(Snapshots storage snapshots, uint256 currentValue) private {

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 
@@ -24,16 +24,17 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
     // Mapping from token id to position in the allTokens array
     mapping(uint256 => uint256) private _allTokensIndex;
 
-    bytes4 private constant _INTERFACE_ID_ERC721_ENUMERABLE = 0x780e9d63;
     /*
-     * 0x780e9d63 ===
-     *     bytes4(keccak256('totalSupply()')) ^
-     *     bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
-     *     bytes4(keccak256('tokenByIndex(uint256)'))
+     *     bytes4(keccak256('totalSupply()')) == 0x18160ddd
+     *     bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) == 0x2f745c59
+     *     bytes4(keccak256('tokenByIndex(uint256)')) == 0x4f6ccce7
+     *
+     *     => 0x18160ddd ^ 0x2f745c59 ^ 0x4f6ccce7 == 0x780e9d63
      */
+    bytes4 private constant _INTERFACE_ID_ERC721_ENUMERABLE = 0x780e9d63;
 
     /**
-     * @dev Constructor function
+     * @dev Constructor function.
      */
     function initialize() public initializer {
         require(ERC721._hasBeenInitialized());
@@ -46,18 +47,18 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
     }
 
     /**
-     * @dev Gets the token ID at a given index of the tokens list of the requested owner
+     * @dev Gets the token ID at a given index of the tokens list of the requested owner.
      * @param owner address owning the tokens list to be accessed
      * @param index uint256 representing the index to be accessed of the requested tokens list
      * @return uint256 token ID at the given index of the tokens list owned by the requested address
      */
     function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256) {
-        require(index < balanceOf(owner));
+        require(index < balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
         return _ownedTokens[owner][index];
     }
 
     /**
-     * @dev Gets the total amount of tokens stored by the contract
+     * @dev Gets the total amount of tokens stored by the contract.
      * @return uint256 representing the total amount of tokens
      */
     function totalSupply() public view returns (uint256) {
@@ -66,12 +67,12 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
 
     /**
      * @dev Gets the token ID at a given index of all the tokens in this contract
-     * Reverts if the index is greater or equal to the total number of tokens
+     * Reverts if the index is greater or equal to the total number of tokens.
      * @param index uint256 representing the index to be accessed of the tokens list
      * @return uint256 token ID at the given index of the tokens list
      */
     function tokenByIndex(uint256 index) public view returns (uint256) {
-        require(index < totalSupply());
+        require(index < totalSupply(), "ERC721Enumerable: global index out of bounds");
         return _allTokens[index];
     }
 
@@ -91,8 +92,8 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
     }
 
     /**
-     * @dev Internal function to mint a new token
-     * Reverts if the given token ID already exists
+     * @dev Internal function to mint a new token.
+     * Reverts if the given token ID already exists.
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
@@ -105,9 +106,9 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
     }
 
     /**
-     * @dev Internal function to burn a specific token
-     * Reverts if the token does not exist
-     * Deprecated, use _burn(uint256) instead
+     * @dev Internal function to burn a specific token.
+     * Reverts if the token does not exist.
+     * Deprecated, use _burn(uint256) instead.
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
@@ -122,7 +123,7 @@ contract ERC721Enumerable is Initializable, Context, ERC165, ERC721, IERC721Enum
     }
 
     /**
-     * @dev Gets the list of token IDs of the requested owner
+     * @dev Gets the list of token IDs of the requested owner.
      * @param owner address owning the tokens
      * @return uint256[] List of token IDs owned by the requested address
      */

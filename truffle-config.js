@@ -1,4 +1,5 @@
 require('chai/register-should');
+
 const { GSNDevProvider } = require('@openzeppelin/gsn-provider');
 
 const solcStable = {

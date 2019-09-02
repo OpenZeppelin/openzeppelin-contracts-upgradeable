@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
@@ -28,8 +28,8 @@ contract FinalizableCrowdsale is Initializable, TimedCrowdsale {
      * work. Calls the contract's finalization function.
      */
     function finalize() public {
-        require(!_finalized);
-        require(hasClosed());
+        require(!_finalized, "FinalizableCrowdsale: already finalized");
+        require(hasClosed(), "FinalizableCrowdsale: not closed");
 
         _finalized = true;
 

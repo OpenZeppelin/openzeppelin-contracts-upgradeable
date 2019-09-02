@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
@@ -20,7 +20,7 @@ contract CappedCrowdsale is Initializable, Crowdsale {
     function initialize(uint256 cap) public initializer {
         assert(Crowdsale._hasBeenInitialized());
 
-        require(cap > 0);
+        require(cap > 0, "CappedCrowdsale: cap is 0");
         _cap = cap;
     }
 
@@ -46,7 +46,7 @@ contract CappedCrowdsale is Initializable, Crowdsale {
      */
     function _preValidatePurchase(address beneficiary, uint256 weiAmount) internal view {
         super._preValidatePurchase(beneficiary, weiAmount);
-        require(weiRaised().add(weiAmount) <= _cap);
+        require(weiRaised().add(weiAmount) <= _cap, "CappedCrowdsale: cap exceeded");
     }
 
     uint256[50] private ______gap;

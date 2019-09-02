@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "../GSN/Context.sol";
 import "../token/ERC20/IERC20.sol";
@@ -27,7 +27,7 @@ contract ERC20ReturnFalseMock is Context {
     }
 
     function allowance(address, address) public view returns (uint256) {
-        require(_dummy == 0);
+        require(_dummy == 0); // Duummy read from a state variable so that the function is view
         return 0;
     }
 }

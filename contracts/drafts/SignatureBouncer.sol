@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 
@@ -51,7 +51,7 @@ contract SignatureBouncer is Initializable, Context, SignerRole {
     }
 
     /**
-     * @dev requires that a valid signature of a signer was provided
+     * @dev Requires that a valid signature of a signer was provided.
      */
     modifier onlyValidSignature(bytes memory signature) {
         require(_isValidSignature(_msgSender(), signature), "SignatureBouncer: invalid signature for caller");
@@ -59,7 +59,7 @@ contract SignatureBouncer is Initializable, Context, SignerRole {
     }
 
     /**
-     * @dev requires that a valid signature with a specified method of a signer was provided
+     * @dev Requires that a valid signature with a specified method of a signer was provided.
      */
     modifier onlyValidSignatureAndMethod(bytes memory signature) {
         // solhint-disable-next-line max-line-length
@@ -68,7 +68,7 @@ contract SignatureBouncer is Initializable, Context, SignerRole {
     }
 
     /**
-     * @dev requires that a valid signature with a specified method and params of a signer was provided
+     * @dev Requires that a valid signature with a specified method and params of a signer was provided.
      */
     modifier onlyValidSignatureAndData(bytes memory signature) {
         // solhint-disable-next-line max-line-length
@@ -115,8 +115,8 @@ contract SignatureBouncer is Initializable, Context, SignerRole {
     }
 
     /**
-     * @dev internal function to convert a hash to an eth signed message
-     * and then recover the signature and check it against the signer role
+     * @dev Internal function to convert a hash to an eth signed message
+     * and then recover the signature and check it against the signer role.
      * @return bool
      */
     function _isValidDataHash(bytes32 hash, bytes memory signature) internal view returns (bool) {

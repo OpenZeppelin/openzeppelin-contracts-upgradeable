@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./SafeERC20.sol";
@@ -6,7 +6,7 @@ import "./SafeERC20.sol";
 /**
  * @title TokenTimelock
  * @dev TokenTimelock is a token holder contract that will allow a
- * beneficiary to extract the tokens after a given release time
+ * beneficiary to extract the tokens after a given release time.
  */
 contract TokenTimelock is Initializable {
     using SafeERC20 for IERC20;
@@ -22,7 +22,7 @@ contract TokenTimelock is Initializable {
 
     function initialize (IERC20 token, address beneficiary, uint256 releaseTime) public initializer {
         // solhint-disable-next-line not-rely-on-time
-        require(releaseTime > block.timestamp);
+        require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token;
         _beneficiary = beneficiary;
         _releaseTime = releaseTime;
@@ -54,10 +54,10 @@ contract TokenTimelock is Initializable {
      */
     function release() public {
         // solhint-disable-next-line not-rely-on-time
-        require(block.timestamp >= _releaseTime);
+        require(block.timestamp >= _releaseTime, "TokenTimelock: current time is before release time");
 
         uint256 amount = _token.balanceOf(address(this));
-        require(amount > 0);
+        require(amount > 0, "TokenTimelock: no tokens to release");
 
         _token.safeTransfer(_beneficiary, amount);
     }

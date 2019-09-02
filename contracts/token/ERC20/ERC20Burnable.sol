@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 
@@ -6,25 +6,25 @@ import "../../GSN/Context.sol";
 import "./ERC20.sol";
 
 /**
- * @title Burnable Token
- * @dev Token that can be irreversibly burned (destroyed).
+ * @dev Extension of `ERC20` that allows token holders to destroy both their own
+ * tokens and those that they have an allowance for, in a way that can be
+ * recognized off-chain (via event analysis).
  */
 contract ERC20Burnable is Initializable, Context, ERC20 {
     /**
-     * @dev Burns a specific amount of tokens.
-     * @param amount The amount of token to be burned.
+     * @dev Destoys `amount` tokens from the caller.
+     *
+     * See `ERC20._burn`.
      */
     function burn(uint256 amount) public {
         _burn(_msgSender(), amount);
     }
 
     /**
-     * @dev Burns a specific amount of tokens from the target address and decrements allowance
-     * @param from address The account whose tokens will be burned.
-     * @param value uint256 The amount of token to be burned.
+     * @dev See `ERC20._burnFrom`.
      */
-    function burnFrom(address from, uint256 value) public {
-        _burnFrom(from, value);
+    function burnFrom(address account, uint256 amount) public {
+        _burnFrom(account, amount);
     }
 
     uint256[50] private ______gap;

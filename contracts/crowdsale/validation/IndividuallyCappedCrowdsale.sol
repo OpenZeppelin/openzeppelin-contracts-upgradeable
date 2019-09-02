@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../../math/SafeMath.sol";
@@ -55,11 +55,12 @@ contract IndividuallyCappedCrowdsale is Initializable, Crowdsale, CapperRole {
      */
     function _preValidatePurchase(address beneficiary, uint256 weiAmount) internal view {
         super._preValidatePurchase(beneficiary, weiAmount);
-        require(_contributions[beneficiary].add(weiAmount) <= _caps[beneficiary]);
+        // solhint-disable-next-line max-line-length
+        require(_contributions[beneficiary].add(weiAmount) <= _caps[beneficiary], "IndividuallyCappedCrowdsale: beneficiary's cap exceeded");
     }
 
     /**
-     * @dev Extend parent behavior to update beneficiary contributions
+     * @dev Extend parent behavior to update beneficiary contributions.
      * @param beneficiary Token purchaser
      * @param weiAmount Amount of wei contributed
      */

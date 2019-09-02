@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "../Crowdsale.sol";
@@ -17,7 +17,10 @@ contract MintedCrowdsale is Initializable, Crowdsale {
      */
     function _deliverTokens(address beneficiary, uint256 tokenAmount) internal {
         // Potentially dangerous assumption about the type of the token.
-        require(ERC20Mintable(address(token())).mint(beneficiary, tokenAmount));
+        require(
+            ERC20Mintable(address(token())).mint(beneficiary, tokenAmount),
+                "MintedCrowdsale: minting failed"
+        );
     }
 
     uint256[50] private ______gap;

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
 
@@ -13,8 +13,8 @@ import "./PostDeliveryCrowdsale.sol";
  */
 contract RefundablePostDeliveryCrowdsale is Initializable, RefundableCrowdsale, PostDeliveryCrowdsale {
     function withdrawTokens(address beneficiary) public {
-        require(finalized());
-        require(goalReached());
+        require(finalized(), "RefundablePostDeliveryCrowdsale: not finalized");
+        require(goalReached(), "RefundablePostDeliveryCrowdsale: goal not reached");
 
         super.withdrawTokens(beneficiary);
     }
