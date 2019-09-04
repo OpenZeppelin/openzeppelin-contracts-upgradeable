@@ -14,6 +14,7 @@ contract PostDeliveryCrowdsale is Initializable, TimedCrowdsale {
     using SafeMath for uint256;
 
     mapping(address => uint256) private _balances;
+    __unstable__TokenVault private _vault;
 
     function initialize() public initializer {
         // conditional added to make initializer idempotent in case of diamond inheritance
@@ -54,8 +55,6 @@ contract PostDeliveryCrowdsale is Initializable, TimedCrowdsale {
         _balances[beneficiary] = _balances[beneficiary].add(tokenAmount);
         _deliverTokens(address(_vault), tokenAmount);
     }
-
-    __unstable__TokenVault private _vault;
 
     uint256[49] private ______gap;
 }
