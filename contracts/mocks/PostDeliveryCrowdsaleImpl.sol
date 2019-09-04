@@ -9,5 +9,6 @@ contract PostDeliveryCrowdsaleImpl is PostDeliveryCrowdsale {
     {
         Crowdsale.initialize(rate, wallet, token);
         TimedCrowdsale.initialize(openingTime, closingTime);
+        PostDeliveryCrowdsale.initialize();
     }
 }

@@ -17,5 +17,6 @@ contract RefundablePostDeliveryCrowdsaleImpl is RefundablePostDeliveryCrowdsale 
         Crowdsale.initialize(rate, wallet, token);
         TimedCrowdsale.initialize(openingTime, closingTime);
         RefundableCrowdsale.initialize(goal);
+        PostDeliveryCrowdsale.initialize();
     }
 }
