@@ -19,7 +19,10 @@ contract('RefundablePostDeliveryCrowdsale', function ([_, investor, wallet, purc
     this.afterClosingTime = this.closingTime.add(time.duration.seconds(1));
     this.token = await SimpleToken.new();
     this.crowdsale = await RefundablePostDeliveryCrowdsaleImpl.new(
-      this.openingTime, this.closingTime, rate, wallet, this.token.address, goal
+      this.openingTime, this.closingTime, rate, wallet, this.token.address, goal,
+      {
+        gas: '0xffffff',
+      }
     );
     await this.token.transfer(this.crowdsale.address, tokenSupply);
   });
