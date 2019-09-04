@@ -26,15 +26,15 @@ contract('GSNRecipient', function ([_, payee]) {
     });
 
     it('funds can be withdrawn', async function () {
-      expect(await balance.difference(payee, () =>
-        this.recipient.withdrawDeposits(amount, payee))
-      ).to.be.bignumber.equal(amount);
+      const balanceTracker = await balance.tracker(payee);
+      await this.recipient.withdrawDeposits(amount, payee);
+      expect(await balanceTracker.delta()).to.be.bignumber.equal(amount);
     });
 
     it('partial funds can be withdrawn', async function () {
-      expect(await balance.difference(payee, async () =>
-        this.recipient.withdrawDeposits(amount.divn(2), payee))
-      ).to.be.bignumber.equal(amount.divn(2));
+      const balanceTracker = await balance.tracker(payee);
+      await this.recipient.withdrawDeposits(amount.divn(2), payee);
+      expect(await balanceTracker.delta()).to.be.bignumber.equal(amount.divn(2));
     });
 
     it('reverts on overwithdrawals', async function () {
