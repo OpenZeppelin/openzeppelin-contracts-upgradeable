@@ -1,5 +1,7 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "./IERC777.sol";
 import "./IERC777Recipient.sol";
 import "./IERC777Sender.sol";
@@ -23,11 +25,11 @@ import "../../introspection/IERC1820Registry.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777 is IERC777, IERC20 {
+contract ERC777 is Initializable, IERC777, IERC20 {
     using SafeMath for uint256;
     using Address for address;
 
-    IERC1820Registry private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    IERC1820Registry constant private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
     mapping(address => uint256) private _balances;
 
@@ -63,11 +65,11 @@ contract ERC777 is IERC777, IERC20 {
     /**
      * @dev `defaultOperators` may be an empty array.
      */
-    constructor(
+    function initialize(
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) public {
+    ) public initializer {
         _name = name;
         _symbol = symbol;
 
@@ -471,4 +473,6 @@ contract ERC777 is IERC777, IERC20 {
             require(!to.isContract(), "ERC777: token recipient contract has no implementer for ERC777TokensRecipient");
         }
     }
+
+    uint256[50] private ______gap;
 }

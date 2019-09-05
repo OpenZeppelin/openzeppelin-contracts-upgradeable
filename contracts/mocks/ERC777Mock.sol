@@ -9,7 +9,9 @@ contract ERC777Mock is ERC777 {
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) public ERC777(name, symbol, defaultOperators) {
+    ) public {
+        ERC777.initialize(name, symbol, defaultOperators);
+
         _mint(msg.sender, initialHolder, initialBalance, "", "");
     }
 
