@@ -25,7 +25,7 @@ npm install @openzeppelin/contracts-ethereum-package
 
 - [StandaloneERC20](contracts/token/ERC20/StandaloneERC20.sol): ERC20 token implementation, optionally mintable and pausable.
 - [StandaloneERC721](contracts/token/ERC721/StandaloneERC721.sol): ERC721 non-fungible token implementation with metadata and enumerable extensions, optionally mintable and pausable.
-- [TokenVesting](contracts/drafts/TokenVesting.sol): tToken holder contract that can release its token balance gradually like a typical vesting scheme, with a cliff and vesting period, optionally revocable.
+- [TokenVesting](contracts/drafts/TokenVesting.sol): Token holder contract that can release its token balance gradually like a typical vesting scheme, with a cliff and vesting period, optionally revocable.
 - [PaymentSplitter](contracts/payment/PaymentSplitter.sol): Splits payments among a group of addresses proportionately to some number of shares they own.
 
 ## Using via the OpenZeppelin CLI
