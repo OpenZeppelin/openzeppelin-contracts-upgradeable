@@ -16,6 +16,7 @@ contract GSNBouncerSignature is Initializable, GSNBouncerBase {
     }
 
     function initialize(address trustedSigner) public initializer {
+        require(trustedSigner != address(0), "Trusted Signer can not be a ZeroAddress");
         _setTrustedSigner(trustedSigner);
     }
 
@@ -46,7 +47,11 @@ contract GSNBouncerSignature is Initializable, GSNBouncerBase {
             address(this) // Prevents replays in multiple recipients
         );
         if (keccak256(blob).toEthSignedMessageHash().recover(approvalData) == _getTrustedSigner()) {
+             if (_getTrustedSigner() != address(0)){
             return _approveRelayedCall();
+            } else {
+            return _rejectRelayedCall(uint256(GSNBouncerSignatureErrorCodes.INVALID_SIGNER));
+            }
         } else {
             return _rejectRelayedCall(uint256(GSNBouncerSignatureErrorCodes.INVALID_SIGNER));
         }
