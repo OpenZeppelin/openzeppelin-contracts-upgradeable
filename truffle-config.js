@@ -51,6 +51,7 @@ module.exports = {
       port: 8565,
       network_id: '3', // eslint-disable-line camelcase
       gasPrice: 2000000000,
+      from: '0x09902a56d04a9446601a0d451e07459dc5af0820',
     },
 
     rinkeby: {

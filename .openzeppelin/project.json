@@ -2,7 +2,7 @@
   "manifestVersion": "2.2",
   "name": "@openzeppelin/contracts-ethereum-package",
   "publish": true,
-  "version": "2.2.3",
+  "version": "2.3.0",
   "contracts": {
     "StandaloneERC20": "StandaloneERC20",
     "StandaloneERC721": "StandaloneERC721",
@@ -11,9 +11,10 @@
   },
   "dependencies": {},
   "compiler": {
-    "manager": "truffle",
+    "manager": "openzeppelin",
     "compilerSettings": {
       "optimizer": {}
-    }
+    },
+    "solcVersion": "0.5.11"
   }
 }
