@@ -19,7 +19,13 @@ contract GSNContext is Initializable, Context {
     event RelayHubChanged(address indexed oldRelayHub, address indexed newRelayHub);
 
     function initialize() public initializer {
-        _upgradeRelayHub(0xD216153c06E857cD7f72665E0aF1d7D82172F494);
+        setDefaultRelayHub();
+    }
+
+    function setDefaultRelayHub() public {
+        if (_getRelayHub() == address(0)) {
+            _upgradeRelayHub(0xD216153c06E857cD7f72665E0aF1d7D82172F494);
+        }
     }
 
     function _getRelayHub() internal view returns (address relayHub) {
