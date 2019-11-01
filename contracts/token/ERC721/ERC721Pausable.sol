@@ -22,8 +22,8 @@ contract ERC721Pausable is Initializable, ERC721, Pausable {
         super.setApprovalForAll(to, approved);
     }
 
-    function transferFrom(address from, address to, uint256 tokenId) public whenNotPaused {
-        super.transferFrom(from, to, tokenId);
+    function _transferFrom(address from, address to, uint256 tokenId) internal whenNotPaused {
+        super._transferFrom(from, to, tokenId);
     }
 
     uint256[50] private ______gap;

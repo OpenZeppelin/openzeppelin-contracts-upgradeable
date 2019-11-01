@@ -41,7 +41,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
      *     bytes4(keccak256('approve(address,uint256)')) == 0x095ea7b3
      *     bytes4(keccak256('getApproved(uint256)')) == 0x081812fc
      *     bytes4(keccak256('setApprovalForAll(address,bool)')) == 0xa22cb465
-     *     bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c5
      *     bytes4(keccak256('transferFrom(address,address,uint256)')) == 0x23b872dd
      *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) == 0x42842e0e
      *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)')) == 0xb88d4fde
@@ -142,7 +142,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
 
     /**
      * @dev Transfers the ownership of a given token ID to another address.
-     * Usage of this method is discouraged, use `safeTransferFrom` whenever possible.
+     * Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
      * Requires the msg.sender to be the owner, approved, or operator.
      * @param from current owner of the token
      * @param to address to receive the ownership of the given token ID
@@ -157,7 +157,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
 
     /**
      * @dev Safely transfers the ownership of a given token ID to another address
-     * If the target address is a contract, it must implement `onERC721Received`,
+     * If the target address is a contract, it must implement {IERC721Receiver-onERC721Received},
      * which is called upon a safe transfer, and return the magic value
      * `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`; otherwise,
      * the transfer is reverted.
@@ -172,7 +172,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
 
     /**
      * @dev Safely transfers the ownership of a given token ID to another address
-     * If the target address is a contract, it must implement `onERC721Received`,
+     * If the target address is a contract, it must implement {IERC721Receiver-onERC721Received},
      * which is called upon a safe transfer, and return the magic value
      * `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`; otherwise,
      * the transfer is reverted.
@@ -183,7 +183,24 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
      * @param _data bytes data to send along with a safe transfer check
      */
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) public {
-        transferFrom(from, to, tokenId);
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
+        _safeTransferFrom(from, to, tokenId, _data);
+    }
+
+    /**
+     * @dev Safely transfers the ownership of a given token ID to another address
+     * If the target address is a contract, it must implement `onERC721Received`,
+     * which is called upon a safe transfer, and return the magic value
+     * `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`; otherwise,
+     * the transfer is reverted.
+     * Requires the _msgSender() to be the owner, approved, or operator
+     * @param from current owner of the token
+     * @param to address to receive the ownership of the given token ID
+     * @param tokenId uint256 ID of the token to be transferred
+     * @param _data bytes data to send along with a safe transfer check
+     */
+    function _safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) internal {
+        _transferFrom(from, to, tokenId);
         require(_checkOnERC721Received(from, to, tokenId, _data), "ERC721: transfer to non ERC721Receiver implementer");
     }
 
@@ -211,6 +228,36 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
     }
 
     /**
+     * @dev Internal function to safely mint a new token.
+     * Reverts if the given token ID already exists.
+     * If the target address is a contract, it must implement `onERC721Received`,
+     * which is called upon a safe transfer, and return the magic value
+     * `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`; otherwise,
+     * the transfer is reverted.
+     * @param to The address that will own the minted token
+     * @param tokenId uint256 ID of the token to be minted
+     */
+    function _safeMint(address to, uint256 tokenId) internal {
+        _safeMint(to, tokenId, "");
+    }
+
+    /**
+     * @dev Internal function to safely mint a new token.
+     * Reverts if the given token ID already exists.
+     * If the target address is a contract, it must implement `onERC721Received`,
+     * which is called upon a safe transfer, and return the magic value
+     * `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`; otherwise,
+     * the transfer is reverted.
+     * @param to The address that will own the minted token
+     * @param tokenId uint256 ID of the token to be minted
+     * @param _data bytes data to send along with a safe transfer check
+     */
+    function _safeMint(address to, uint256 tokenId, bytes memory _data) internal {
+        _mint(to, tokenId);
+        require(_checkOnERC721Received(address(0), to, tokenId, _data), "ERC721: transfer to non ERC721Receiver implementer");
+    }
+
+    /**
      * @dev Internal function to mint a new token.
      * Reverts if the given token ID already exists.
      * @param to The address that will own the minted token
@@ -229,7 +276,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
     /**
      * @dev Internal function to burn a specific token.
      * Reverts if the token does not exist.
-     * Deprecated, use _burn(uint256) instead.
+     * Deprecated, use {_burn} instead.
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
@@ -255,7 +302,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
 
     /**
      * @dev Internal function to transfer ownership of a given token ID to another address.
-     * As opposed to transferFrom, this imposes no restrictions on msg.sender.
+     * As opposed to {transferFrom}, this imposes no restrictions on msg.sender.
      * @param from current owner of the token
      * @param to address to receive the ownership of the given token ID
      * @param tokenId uint256 ID of the token to be transferred
@@ -275,7 +322,7 @@ contract ERC721 is Initializable, Context, ERC165, IERC721 {
     }
 
     /**
-     * @dev Internal function to invoke `onERC721Received` on a target address.
+     * @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target address.
      * The call is not executed if the target address is not a contract.
      *
      * This function is deprecated.

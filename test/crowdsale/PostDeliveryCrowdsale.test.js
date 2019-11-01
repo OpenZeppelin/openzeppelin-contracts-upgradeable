@@ -1,4 +1,6 @@
-const { BN, ether, shouldFail, time } = require('openzeppelin-test-helpers');
+const { BN, ether, expectRevert, time } = require('openzeppelin-test-helpers');
+
+const { expect } = require('chai');
 
 const PostDeliveryCrowdsaleImpl = artifacts.require('PostDeliveryCrowdsaleImpl');
 const SimpleToken = artifacts.require('SimpleTokenMock');
@@ -36,12 +38,12 @@ contract('PostDeliveryCrowdsale', function ([_, investor, wallet, purchaser]) {
       });
 
       it('does not immediately assign tokens to beneficiaries', async function () {
-        (await this.crowdsale.balanceOf(investor)).should.be.bignumber.equal(value);
-        (await this.token.balanceOf(investor)).should.be.bignumber.equal('0');
+        expect(await this.crowdsale.balanceOf(investor)).to.be.bignumber.equal(value);
+        expect(await this.token.balanceOf(investor)).to.be.bignumber.equal('0');
       });
 
       it('does not allow beneficiaries to withdraw tokens before crowdsale ends', async function () {
-        await shouldFail.reverting.withMessage(this.crowdsale.withdrawTokens(investor),
+        await expectRevert(this.crowdsale.withdrawTokens(investor),
           'PostDeliveryCrowdsale: not closed'
         );
       });
@@ -53,13 +55,13 @@ contract('PostDeliveryCrowdsale', function ([_, investor, wallet, purchaser]) {
 
         it('allows beneficiaries to withdraw tokens', async function () {
           await this.crowdsale.withdrawTokens(investor);
-          (await this.crowdsale.balanceOf(investor)).should.be.bignumber.equal('0');
-          (await this.token.balanceOf(investor)).should.be.bignumber.equal(value);
+          expect(await this.crowdsale.balanceOf(investor)).to.be.bignumber.equal('0');
+          expect(await this.token.balanceOf(investor)).to.be.bignumber.equal(value);
         });
 
         it('rejects multiple withdrawals', async function () {
           await this.crowdsale.withdrawTokens(investor);
-          await shouldFail.reverting.withMessage(this.crowdsale.withdrawTokens(investor),
+          await expectRevert(this.crowdsale.withdrawTokens(investor),
             'PostDeliveryCrowdsale: beneficiary is not due any tokens'
           );
         });

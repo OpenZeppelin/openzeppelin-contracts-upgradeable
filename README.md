@@ -90,7 +90,7 @@ On our site you will find a few [guides] to learn about the different parts of O
 
 ## Security
 
-OpenZeppelin Contracts is maintained by [OpenZeppelin](https://openzeppelin.com) the company, and developed following our high standards for code quality and security. OpenZeppelin Contracts is meant to provide tested and community-audited code, but please use common sense when doing anything that deals with real money! We take no responsibility for your implementation decisions and any security problems you might experience.
+OpenZeppelin Contracts is maintained by [OpenZeppelin] the company, and developed following our high standards for code quality and security. OpenZeppelin Contracts is meant to provide tested and community-audited code, but please use common sense when doing anything that deals with real money! We take no responsibility for your implementation decisions and any security problems you might experience.
 
 The core development principles and strategies that OpenZeppelin Contracts is based on include: security in depth, simple and modular code, clarity-driven naming conventions, comprehensive unit testing, pre-and-post-condition sanity checks, code consistency, and regular audits.
 
@@ -106,8 +106,8 @@ OpenZeppelin exists thanks to its contributors. There are many ways you can part
 
 OpenZeppelin is released under the [MIT License](LICENSE).
 
-[API docs]: https://docs.openzeppelin.org/v2.3.0/api/token/erc20
-[guides]: https://docs.openzeppelin.org/v2.3.0/get-started
-[forum]: https://forum.zeppelin.solutions
-[Zeppelin]: https://zeppelin.solutions
+[API docs]: https://docs.openzeppelin.com/contracts/2.x/api/token/erc20
+[guides]: https://docs.openzeppelin.com/contracts/2.x/
+[forum]: https://forum.openzeppelin.com
+[OpenZeppelin]: https://openzeppelin.com
 [contribution guide]: CONTRIBUTING.md

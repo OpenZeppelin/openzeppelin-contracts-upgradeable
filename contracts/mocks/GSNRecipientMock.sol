@@ -1,8 +1,10 @@
 pragma solidity ^0.5.0;
 
+import "./ContextMock.sol";
 import "../GSN/GSNRecipient.sol";
 
-contract GSNRecipientMock is GSNRecipient {
+// By inheriting from GSNRecipient, Context's internal functions are overridden automatically
+contract GSNRecipientMock is ContextMock, GSNRecipient {
     constructor() public {
         GSNRecipient.initialize();
     }
@@ -19,11 +21,15 @@ contract GSNRecipientMock is GSNRecipient {
         return (0, "");
     }
 
-    function preRelayedCall(bytes calldata) external returns (bytes32) {
+    function _preRelayedCall(bytes memory) internal returns (bytes32) {
         // solhint-disable-previous-line no-empty-blocks
     }
 
-    function postRelayedCall(bytes calldata, bool, uint256, bytes32) external {
+    function _postRelayedCall(bytes memory, bool, uint256, bytes32) internal {
         // solhint-disable-previous-line no-empty-blocks
+    }
+
+    function upgradeRelayHub(address newRelayHub) public {
+        return _upgradeRelayHub(newRelayHub);
     }
 }

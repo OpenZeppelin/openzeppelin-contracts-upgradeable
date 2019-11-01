@@ -1,12 +1,13 @@
 pragma solidity ^0.5.0;
 
+import "../GSN/Context.sol";
 import "../token/ERC777/IERC777.sol";
 import "../token/ERC777/IERC777Sender.sol";
 import "../token/ERC777/IERC777Recipient.sol";
 import "../introspection/IERC1820Registry.sol";
 import "../introspection/ERC1820Implementer.sol";
 
-contract ERC777SenderRecipientMock is IERC777Sender, IERC777Recipient, ERC1820Implementer {
+contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, ERC1820Implementer {
     event TokensToSendCalled(
         address operator,
         address from,
@@ -43,7 +44,7 @@ contract ERC777SenderRecipientMock is IERC777Sender, IERC777Recipient, ERC1820Im
         address operator,
         address from,
         address to,
-        uint amount,
+        uint256 amount,
         bytes calldata userData,
         bytes calldata operatorData
     ) external {
@@ -51,7 +52,7 @@ contract ERC777SenderRecipientMock is IERC777Sender, IERC777Recipient, ERC1820Im
             revert();
         }
 
-        IERC777 token = IERC777(msg.sender);
+        IERC777 token = IERC777(_msgSender());
 
         uint256 fromBalance = token.balanceOf(from);
         // when called due to burn, to will be the zero address, which will have a balance of 0
@@ -74,7 +75,7 @@ contract ERC777SenderRecipientMock is IERC777Sender, IERC777Recipient, ERC1820Im
         address operator,
         address from,
         address to,
-        uint amount,
+        uint256 amount,
         bytes calldata userData,
         bytes calldata operatorData
     ) external{
@@ -82,7 +83,7 @@ contract ERC777SenderRecipientMock is IERC777Sender, IERC777Recipient, ERC1820Im
             revert();
         }
 
-        IERC777 token = IERC777(msg.sender);
+        IERC777 token = IERC777(_msgSender());
 
         uint256 fromBalance = token.balanceOf(from);
         // when called due to burn, to will be the zero address, which will have a balance of 0

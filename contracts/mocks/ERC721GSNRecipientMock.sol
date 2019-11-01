@@ -1,18 +1,18 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import "../token/ERC721/ERC721.sol";
 import "../GSN/GSNRecipient.sol";
-import "../GSN/bouncers/GSNBouncerSignature.sol";
+import "../GSN/GSNRecipientSignature.sol";
 
 /**
  * @title ERC721GSNRecipientMock
  * A simple ERC721 mock that has GSN support enabled
  */
-contract ERC721GSNRecipientMock is ERC721, GSNRecipient, GSNBouncerSignature {
+contract ERC721GSNRecipientMock is ERC721, GSNRecipient, GSNRecipientSignature {
     constructor(address trustedSigner) public {
         ERC721.initialize();
         GSNRecipient.initialize();
-        GSNBouncerSignature.initialize(trustedSigner);
+        GSNRecipientSignature.initialize(trustedSigner);
     }
 
     function mint(uint256 tokenId) public {

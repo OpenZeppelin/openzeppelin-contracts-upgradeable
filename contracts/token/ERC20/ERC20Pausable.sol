@@ -6,7 +6,11 @@ import "../../lifecycle/Pausable.sol";
 
 /**
  * @title Pausable token
- * @dev ERC20 modified with pausable transfers.
+ * @dev ERC20 with pausable transfers and allowances.
+ *
+ * Useful if you want to stop trades until the end of a crowdsale, or have
+ * an emergency switch for freezing all token transfers in the event of a large
+ * bug.
  */
 contract ERC20Pausable is Initializable, ERC20, Pausable {
     function initialize(address sender) public initializer {
@@ -25,11 +29,11 @@ contract ERC20Pausable is Initializable, ERC20, Pausable {
         return super.approve(spender, value);
     }
 
-    function increaseAllowance(address spender, uint addedValue) public whenNotPaused returns (bool) {
+    function increaseAllowance(address spender, uint256 addedValue) public whenNotPaused returns (bool) {
         return super.increaseAllowance(spender, addedValue);
     }
 
-    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused returns (bool) {
+    function decreaseAllowance(address spender, uint256 subtractedValue) public whenNotPaused returns (bool) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
 

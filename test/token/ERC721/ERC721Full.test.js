@@ -1,4 +1,5 @@
-const { BN, shouldFail } = require('openzeppelin-test-helpers');
+const { BN, expectRevert } = require('openzeppelin-test-helpers');
+const { expect } = require('chai');
 
 const { shouldBehaveLikeERC721 } = require('./ERC721.behavior');
 const { shouldSupportInterfaces } = require('../../introspection/SupportsInterface.behavior');
@@ -40,11 +41,11 @@ contract('ERC721Full', function ([
       });
 
       it('adjusts owner tokens by index', async function () {
-        (await this.token.tokenOfOwnerByIndex(newOwner, 0)).should.be.bignumber.equal(thirdTokenId);
+        expect(await this.token.tokenOfOwnerByIndex(newOwner, 0)).to.be.bignumber.equal(thirdTokenId);
       });
 
       it('adjusts all tokens list', async function () {
-        (await this.token.tokenByIndex(2)).should.be.bignumber.equal(thirdTokenId);
+        expect(await this.token.tokenByIndex(2)).to.be.bignumber.equal(thirdTokenId);
       });
     });
 
@@ -54,17 +55,17 @@ contract('ERC721Full', function ([
       });
 
       it('removes that token from the token list of the owner', async function () {
-        (await this.token.tokenOfOwnerByIndex(owner, 0)).should.be.bignumber.equal(secondTokenId);
+        expect(await this.token.tokenOfOwnerByIndex(owner, 0)).to.be.bignumber.equal(secondTokenId);
       });
 
       it('adjusts all tokens list', async function () {
-        (await this.token.tokenByIndex(0)).should.be.bignumber.equal(secondTokenId);
+        expect(await this.token.tokenByIndex(0)).to.be.bignumber.equal(secondTokenId);
       });
 
       it('burns all tokens', async function () {
         await this.token.burn(secondTokenId, { from: owner });
-        (await this.token.totalSupply()).should.be.bignumber.equal('0');
-        await shouldFail.reverting.withMessage(
+        expect(await this.token.totalSupply()).to.be.bignumber.equal('0');
+        await expectRevert(
           this.token.tokenByIndex(0), 'ERC721Enumerable: global index out of bounds'
         );
       });
@@ -74,20 +75,20 @@ contract('ERC721Full', function ([
       const sampleUri = 'mock://mytoken';
 
       it('has a name', async function () {
-        (await this.token.name()).should.be.equal(name);
+        expect(await this.token.name()).to.be.equal(name);
       });
 
       it('has a symbol', async function () {
-        (await this.token.symbol()).should.be.equal(symbol);
+        expect(await this.token.symbol()).to.be.equal(symbol);
       });
 
       it('sets and returns metadata for a token id', async function () {
         await this.token.setTokenURI(firstTokenId, sampleUri);
-        (await this.token.tokenURI(firstTokenId)).should.be.equal(sampleUri);
+        expect(await this.token.tokenURI(firstTokenId)).to.be.equal(sampleUri);
       });
 
       it('reverts when setting metadata for non existent token id', async function () {
-        await shouldFail.reverting.withMessage(
+        await expectRevert(
           this.token.setTokenURI(nonExistentTokenId, sampleUri), 'ERC721Metadata: URI set of nonexistent token'
         );
       });
@@ -95,15 +96,15 @@ contract('ERC721Full', function ([
       it('can burn token with metadata', async function () {
         await this.token.setTokenURI(firstTokenId, sampleUri);
         await this.token.burn(firstTokenId, { from: owner });
-        (await this.token.exists(firstTokenId)).should.equal(false);
+        expect(await this.token.exists(firstTokenId)).to.equal(false);
       });
 
       it('returns empty metadata for token', async function () {
-        (await this.token.tokenURI(firstTokenId)).should.be.equal('');
+        expect(await this.token.tokenURI(firstTokenId)).to.be.equal('');
       });
 
       it('reverts when querying metadata for non existent token id', async function () {
-        await shouldFail.reverting.withMessage(
+        await expectRevert(
           this.token.tokenURI(nonExistentTokenId), 'ERC721Metadata: URI query for nonexistent token'
         );
       });
@@ -112,28 +113,28 @@ contract('ERC721Full', function ([
     describe('tokensOfOwner', function () {
       it('returns total tokens of owner', async function () {
         const tokenIds = await this.token.tokensOfOwner(owner);
-        tokenIds.length.should.equal(2);
-        tokenIds[0].should.be.bignumber.equal(firstTokenId);
-        tokenIds[1].should.be.bignumber.equal(secondTokenId);
+        expect(tokenIds.length).to.equal(2);
+        expect(tokenIds[0]).to.be.bignumber.equal(firstTokenId);
+        expect(tokenIds[1]).to.be.bignumber.equal(secondTokenId);
       });
     });
 
     describe('totalSupply', function () {
       it('returns total token supply', async function () {
-        (await this.token.totalSupply()).should.be.bignumber.equal('2');
+        expect(await this.token.totalSupply()).to.be.bignumber.equal('2');
       });
     });
 
     describe('tokenOfOwnerByIndex', function () {
       describe('when the given index is lower than the amount of tokens owned by the given address', function () {
         it('returns the token ID placed at the given index', async function () {
-          (await this.token.tokenOfOwnerByIndex(owner, 0)).should.be.bignumber.equal(firstTokenId);
+          expect(await this.token.tokenOfOwnerByIndex(owner, 0)).to.be.bignumber.equal(firstTokenId);
         });
       });
 
       describe('when the index is greater than or equal to the total tokens owned by the given address', function () {
         it('reverts', async function () {
-          await shouldFail.reverting.withMessage(
+          await expectRevert(
             this.token.tokenOfOwnerByIndex(owner, 2), 'ERC721Enumerable: owner index out of bounds'
           );
         });
@@ -141,7 +142,7 @@ contract('ERC721Full', function ([
 
       describe('when the given address does not own any token', function () {
         it('reverts', async function () {
-          await shouldFail.reverting.withMessage(
+          await expectRevert(
             this.token.tokenOfOwnerByIndex(another, 0), 'ERC721Enumerable: owner index out of bounds'
           );
         });
@@ -154,16 +155,17 @@ contract('ERC721Full', function ([
         });
 
         it('returns correct token IDs for target', async function () {
-          (await this.token.balanceOf(another)).should.be.bignumber.equal('2');
+          expect(await this.token.balanceOf(another)).to.be.bignumber.equal('2');
           const tokensListed = await Promise.all(
             [0, 1].map(i => this.token.tokenOfOwnerByIndex(another, i))
           );
-          tokensListed.map(t => t.toNumber()).should.have.members([firstTokenId.toNumber(), secondTokenId.toNumber()]);
+          expect(tokensListed.map(t => t.toNumber())).to.have.members([firstTokenId.toNumber(),
+            secondTokenId.toNumber()]);
         });
 
         it('returns empty collection for original owner', async function () {
-          (await this.token.balanceOf(owner)).should.be.bignumber.equal('0');
-          await shouldFail.reverting.withMessage(
+          expect(await this.token.balanceOf(owner)).to.be.bignumber.equal('0');
+          await expectRevert(
             this.token.tokenOfOwnerByIndex(owner, 0), 'ERC721Enumerable: owner index out of bounds'
           );
         });
@@ -175,11 +177,12 @@ contract('ERC721Full', function ([
         const tokensListed = await Promise.all(
           [0, 1].map(i => this.token.tokenByIndex(i))
         );
-        tokensListed.map(t => t.toNumber()).should.have.members([firstTokenId.toNumber(), secondTokenId.toNumber()]);
+        expect(tokensListed.map(t => t.toNumber())).to.have.members([firstTokenId.toNumber(),
+          secondTokenId.toNumber()]);
       });
 
       it('should revert if index is greater than supply', async function () {
-        await shouldFail.reverting.withMessage(
+        await expectRevert(
           this.token.tokenByIndex(2), 'ERC721Enumerable: global index out of bounds'
         );
       });
@@ -193,7 +196,7 @@ contract('ERC721Full', function ([
           await this.token.mint(newOwner, newTokenId, { from: minter });
           await this.token.mint(newOwner, anotherNewTokenId, { from: minter });
 
-          (await this.token.totalSupply()).should.be.bignumber.equal('3');
+          expect(await this.token.totalSupply()).to.be.bignumber.equal('3');
 
           const tokensListed = await Promise.all(
             [0, 1, 2].map(i => this.token.tokenByIndex(i))
@@ -201,7 +204,7 @@ contract('ERC721Full', function ([
           const expectedTokens = [firstTokenId, secondTokenId, newTokenId, anotherNewTokenId].filter(
             x => (x !== tokenId)
           );
-          tokensListed.map(t => t.toNumber()).should.have.members(expectedTokens.map(t => t.toNumber()));
+          expect(tokensListed.map(t => t.toNumber())).to.have.members(expectedTokens.map(t => t.toNumber()));
         });
       });
     });

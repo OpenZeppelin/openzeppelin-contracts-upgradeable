@@ -5,8 +5,8 @@ import "@openzeppelin/upgrades/contracts/Initializable.sol";
 /**
  * @dev Contract module that helps prevent reentrant calls to a function.
  *
- * Inheriting from `ReentrancyGuard` will make the `nonReentrant` modifier
- * available, which can be aplied to functions to make sure there are no nested
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
  * (reentrant) calls to them.
  *
  * Note that because there is a single `nonReentrant` guard, functions marked as
@@ -15,7 +15,7 @@ import "@openzeppelin/upgrades/contracts/Initializable.sol";
  * points to them.
  */
 contract ReentrancyGuard is Initializable {
-    /// @dev counter to allow mutex lock with only one SSTORE operation
+    // counter to allow mutex lock with only one SSTORE operation
     uint256 private _guardCounter;
 
     function initialize() public initializer {

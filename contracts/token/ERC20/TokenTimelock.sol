@@ -4,9 +4,13 @@ import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./SafeERC20.sol";
 
 /**
- * @title TokenTimelock
- * @dev TokenTimelock is a token holder contract that will allow a
- * beneficiary to extract the tokens after a given release time.
+ * @dev A token holder contract that will allow a beneficiary to extract the
+ * tokens after a given release time.
+ *
+ * Useful for simple vesting schedules like "advisors get all of their tokens
+ * after 1 year".
+ *
+ * For a more complete vesting schedule, see {TokenVesting}.
  */
 contract TokenTimelock is Initializable {
     using SafeERC20 for IERC20;

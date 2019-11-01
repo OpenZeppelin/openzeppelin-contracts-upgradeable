@@ -4,7 +4,7 @@ import "@openzeppelin/upgrades/contracts/Initializable.sol";
 import "./ERC20Mintable.sol";
 
 /**
- * @dev Extension of `ERC20Mintable` that adds a cap to the supply of tokens.
+ * @dev Extension of {ERC20Mintable} that adds a cap to the supply of tokens.
  */
 contract ERC20Capped is Initializable, ERC20Mintable {
     uint256 private _cap;
@@ -28,7 +28,7 @@ contract ERC20Capped is Initializable, ERC20Mintable {
     }
 
     /**
-     * @dev See `ERC20Mintable.mint`.
+     * @dev See {ERC20Mintable-mint}.
      *
      * Requirements:
      *

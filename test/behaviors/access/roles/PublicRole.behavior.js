@@ -1,5 +1,7 @@
-const { shouldFail, constants, expectEvent } = require('openzeppelin-test-helpers');
+const { expectRevert, constants, expectEvent } = require('openzeppelin-test-helpers');
 const { ZERO_ADDRESS } = constants;
+
+const { expect } = require('chai');
 
 function capitalize (str) {
   return str.replace(/\b\w/g, l => l.toUpperCase());
@@ -25,9 +27,9 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
   describe('should behave like public role', function () {
     beforeEach('check preconditions', async function () {
-      (await this.contract[`is${rolename}`](authorized)).should.equal(true);
-      (await this.contract[`is${rolename}`](otherAuthorized)).should.equal(true);
-      (await this.contract[`is${rolename}`](other)).should.equal(false);
+      expect(await this.contract[`is${rolename}`](authorized)).to.equal(true);
+      expect(await this.contract[`is${rolename}`](otherAuthorized)).to.equal(true);
+      expect(await this.contract[`is${rolename}`](other)).to.equal(false);
     });
 
     if (manager === undefined) { // Managed roles are only assigned by the manager, and none are set at construction
@@ -39,7 +41,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
     }
 
     it('reverts when querying roles for the null account', async function () {
-      await shouldFail.reverting.withMessage(this.contract[`is${rolename}`](ZERO_ADDRESS),
+      await expectRevert(this.contract[`is${rolename}`](ZERO_ADDRESS),
         'Roles: account is the zero address'
       );
     });
@@ -57,7 +59,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
         const from = other;
 
         it('reverts', async function () {
-          await shouldFail.reverting.withMessage(this.contract[`only${rolename}Mock`]({ from }),
+          await expectRevert(this.contract[`only${rolename}Mock`]({ from }),
             `${rolename}Role: caller does not have the ${rolename} role`
           );
         });
@@ -70,7 +72,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
       context(`from ${manager ? 'the manager' : 'a role-haver'} account`, function () {
         it('adds role to a new account', async function () {
           await this.contract[`add${rolename}`](other, { from });
-          (await this.contract[`is${rolename}`](other)).should.equal(true);
+          expect(await this.contract[`is${rolename}`](other)).to.equal(true);
         });
 
         it(`emits a ${rolename}Added event`, async function () {
@@ -79,13 +81,13 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
         });
 
         it('reverts when adding role to an already assigned account', async function () {
-          await shouldFail.reverting.withMessage(this.contract[`add${rolename}`](authorized, { from }),
+          await expectRevert(this.contract[`add${rolename}`](authorized, { from }),
             'Roles: account already has role'
           );
         });
 
         it('reverts when adding role to the null account', async function () {
-          await shouldFail.reverting.withMessage(this.contract[`add${rolename}`](ZERO_ADDRESS, { from }),
+          await expectRevert(this.contract[`add${rolename}`](ZERO_ADDRESS, { from }),
             'Roles: account is the zero address'
           );
         });
@@ -99,8 +101,8 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
       context(`from ${manager ? 'the manager' : 'any'} account`, function () {
         it('removes role from an already assigned account', async function () {
           await this.contract[`remove${rolename}`](authorized, { from });
-          (await this.contract[`is${rolename}`](authorized)).should.equal(false);
-          (await this.contract[`is${rolename}`](otherAuthorized)).should.equal(true);
+          expect(await this.contract[`is${rolename}`](authorized)).to.equal(false);
+          expect(await this.contract[`is${rolename}`](otherAuthorized)).to.equal(true);
         });
 
         it(`emits a ${rolename}Removed event`, async function () {
@@ -109,13 +111,13 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
         });
 
         it('reverts when removing from an unassigned account', async function () {
-          await shouldFail.reverting.withMessage(this.contract[`remove${rolename}`](other, { from }),
+          await expectRevert(this.contract[`remove${rolename}`](other, { from }),
             'Roles: account does not have role'
           );
         });
 
         it('reverts when removing role from the null account', async function () {
-          await shouldFail.reverting.withMessage(this.contract[`remove${rolename}`](ZERO_ADDRESS, { from }),
+          await expectRevert(this.contract[`remove${rolename}`](ZERO_ADDRESS, { from }),
             'Roles: account is the zero address'
           );
         });
@@ -125,7 +127,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
     describe('renouncing roles', function () {
       it('renounces an assigned role', async function () {
         await this.contract[`renounce${rolename}`]({ from: authorized });
-        (await this.contract[`is${rolename}`](authorized)).should.equal(false);
+        expect(await this.contract[`is${rolename}`](authorized)).to.equal(false);
       });
 
       it(`emits a ${rolename}Removed event`, async function () {
@@ -134,7 +136,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
       });
 
       it('reverts when renouncing unassigned role', async function () {
-        await shouldFail.reverting.withMessage(this.contract[`renounce${rolename}`]({ from: other }),
+        await expectRevert(this.contract[`renounce${rolename}`]({ from: other }),
           'Roles: account does not have role'
         );
       });
