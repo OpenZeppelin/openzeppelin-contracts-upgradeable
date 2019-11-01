@@ -1,5 +1,7 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 /*
  * @dev Provides information about the current execution context, including the
  * sender of the transaction and its data. While these are generally available
@@ -10,7 +12,7 @@ pragma solidity ^0.5.0;
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-contract Context {
+contract Context is Initializable {
     // Empty internal constructor, to prevent people from mistakenly deploying
     // an instance of this contract, which should be used via inheritance.
     constructor () internal { }

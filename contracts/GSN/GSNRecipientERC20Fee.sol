@@ -33,7 +33,8 @@ contract GSNRecipientERC20Fee is Initializable, GSNRecipient {
      */
     function initialize(string memory name, string memory symbol) public initializer {
         if (_token == __unstable__ERC20PrimaryAdmin(0)) {
-            _token = new __unstable__ERC20PrimaryAdmin(name, symbol, 18, address(this));
+            _token = new __unstable__ERC20PrimaryAdmin();
+            _token.initialize(name, symbol, 18, address(this));
         }
 
         GSNRecipient.initialize();
@@ -116,10 +117,10 @@ contract GSNRecipientERC20Fee is Initializable, GSNRecipient {
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20PrimaryAdmin is ERC20, ERC20Detailed, Secondary {
+contract __unstable__ERC20PrimaryAdmin is Initializable, ERC20, ERC20Detailed, Secondary {
     uint256 private constant UINT256_MAX = 2**256 - 1;
 
-    constructor(string memory name, string memory symbol, uint8 decimals, address sender) public {
+    function initialize(string memory name, string memory symbol, uint8 decimals, address sender) public initializer {
         ERC20Detailed.initialize(name, symbol, decimals);
         Secondary.initialize(sender);
     }

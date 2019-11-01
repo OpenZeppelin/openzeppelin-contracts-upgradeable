@@ -1,5 +1,7 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "./IERC1820Implementer.sol";
 
 /**
@@ -10,7 +12,7 @@ import "./IERC1820Implementer.sol";
  * {IERC1820Registry-setInterfaceImplementer} should then be called for the
  * registration to be complete.
  */
-contract ERC1820Implementer is IERC1820Implementer {
+contract ERC1820Implementer is Initializable, IERC1820Implementer {
     bytes32 constant private ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
 
     mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
