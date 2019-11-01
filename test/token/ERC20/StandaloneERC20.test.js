@@ -1,6 +1,6 @@
 const { shouldBehaveLikeERC20Mintable } = require('./behaviors/ERC20Mintable.behavior');
 
-const { shouldFail, BN } = require('openzeppelin-test-helpers');
+const { expectRevert, BN } = require('openzeppelin-test-helpers');
 
 const StandaloneERC20 = artifacts.require('StandaloneERC20');
 
@@ -36,7 +36,7 @@ contract('StandaloneERC20', function ([
 
   describe('with all arguments', function () {
     it('reverts if initial balance is zero', async function () {
-      await shouldFail.reverting(
+      await expectRevert.unspecified(
         initializeFull(this.token, name, symbol, decimals, 0, ZERO_ADDRESS, minters, pausers, deployer)
       );
     });

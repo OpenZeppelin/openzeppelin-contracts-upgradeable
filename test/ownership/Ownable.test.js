@@ -1,4 +1,4 @@
-const { shouldFail } = require('openzeppelin-test-helpers');
+const { expectRevert } = require('openzeppelin-test-helpers');
 const { shouldBehaveLikeOwnable } = require('./Ownable.behavior');
 
 const Ownable = artifacts.require('OwnableMock');
@@ -9,7 +9,7 @@ contract('Ownable', function ([_, owner, anyone, ...otherAccounts]) {
   });
 
   it('cannot be reinitialized', async function () {
-    await shouldFail.reverting(this.ownable.initialize(anyone));
+    await expectRevert.unspecified(this.ownable.initialize(anyone));
   });
 
   shouldBehaveLikeOwnable(owner, otherAccounts);

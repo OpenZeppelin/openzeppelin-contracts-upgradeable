@@ -3,8 +3,8 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const ERC20Mintable = artifacts.require('ERC20Mintable');
-const TokenVesting = artifacts.require('TokenVesting');
+const ERC20Mintable = artifacts.require('ERC20MintableMock');
+const TokenVesting = artifacts.require('TokenVestingMock');
 
 contract('TokenVesting', function ([_, owner, beneficiary]) {
   const amount = new BN('1000');

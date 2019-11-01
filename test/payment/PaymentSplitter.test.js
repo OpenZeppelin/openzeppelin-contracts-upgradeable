@@ -3,7 +3,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const PaymentSplitter = artifacts.require('PaymentSplitter');
+const PaymentSplitter = artifacts.require('PaymentSplitterMock');
 
 contract('PaymentSplitter', function ([_, owner, payee1, payee2, payee3, nonpayee1, payer1]) {
   const amount = ether('1');
