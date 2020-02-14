@@ -1,13 +1,17 @@
-const { BN, constants, expectRevert } = require('openzeppelin-test-helpers');
+const { accounts, contract } = require('@openzeppelin/test-environment');
+
+const { BN, constants, expectRevert } = require('@openzeppelin/test-helpers');
 const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const ERC20Mock = artifacts.require('ERC20Mock');
-const ERC20Mintable = artifacts.require('ERC20MintableMock');
-const ERC20Migrator = artifacts.require('ERC20MigratorMock');
+const ERC20Mock = contract.fromArtifact('ERC20Mock');
+const ERC20Mintable = contract.fromArtifact('ERC20MintableMock');
+const ERC20Migrator = contract.fromArtifact('ERC20MigratorMock');
 
-contract('ERC20Migrator', function ([_, owner, recipient, anotherAccount]) {
+describe('ERC20Migrator', function () {
+  const [ owner ] = accounts;
+
   const totalSupply = new BN('200');
 
   it('reverts with a null legacy token address', async function () {

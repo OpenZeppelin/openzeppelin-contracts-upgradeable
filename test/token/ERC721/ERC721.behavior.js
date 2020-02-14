@@ -1,10 +1,11 @@
-const { BN, constants, expectEvent, expectRevert } = require('openzeppelin-test-helpers');
+const { contract } = require('@openzeppelin/test-environment');
+const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 const { ZERO_ADDRESS } = constants;
 const { shouldSupportInterfaces } = require('../../introspection/SupportsInterface.behavior');
 
-const ERC721ReceiverMock = artifacts.require('ERC721ReceiverMock.sol');
-const ERC721Mock = artifacts.require('ERC721Mock.sol');
+const ERC721Mock = contract.fromArtifact('ERC721Mock');
+const ERC721ReceiverMock = contract.fromArtifact('ERC721ReceiverMock');
 
 function shouldBehaveLikeERC721 (
   creator,
@@ -306,9 +307,9 @@ function shouldBehaveLikeERC721 (
 
         describe('to a receiver contract that throws', function () {
           it('reverts', async function () {
-            const invalidReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
+            const revertingReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
             await expectRevert(
-              this.token.safeTransferFrom(owner, invalidReceiver.address, tokenId, { from: owner }),
+              this.token.safeTransferFrom(owner, revertingReceiver.address, tokenId, { from: owner }),
               'ERC721ReceiverMock: reverting'
             );
           });
@@ -316,9 +317,10 @@ function shouldBehaveLikeERC721 (
 
         describe('to a contract that does not implement the required function', function () {
           it('reverts', async function () {
-            const invalidReceiver = this.token;
-            await expectRevert.unspecified(
-              this.token.safeTransferFrom(owner, invalidReceiver.address, tokenId, { from: owner })
+            const nonReceiver = this.token;
+            await expectRevert(
+              this.token.safeTransferFrom(owner, nonReceiver.address, tokenId, { from: owner }),
+              'ERC721: transfer to non ERC721Receiver implementer'
             );
           });
         });
@@ -368,9 +370,9 @@ function shouldBehaveLikeERC721 (
 
         context('to a receiver contract that throws', function () {
           it('reverts', async function () {
-            const invalidReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
+            const revertingReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
             await expectRevert(
-              this.ERC721Mock.safeMint(invalidReceiver.address, tokenId),
+              this.ERC721Mock.safeMint(revertingReceiver.address, tokenId),
               'ERC721ReceiverMock: reverting'
             );
           });
@@ -378,9 +380,10 @@ function shouldBehaveLikeERC721 (
 
         context('to a contract that does not implement the required function', function () {
           it('reverts', async function () {
-            const invalidReceiver = this.token;
-            await expectRevert.unspecified(
-              this.ERC721Mock.safeMint(invalidReceiver.address, tokenId)
+            const nonReceiver = this.token;
+            await expectRevert(
+              this.ERC721Mock.safeMint(nonReceiver.address, tokenId),
+              'ERC721: transfer to non ERC721Receiver implementer'
             );
           });
         });
@@ -582,6 +585,35 @@ function shouldBehaveLikeERC721 (
         it('reverts', async function () {
           await expectRevert(this.token.setApprovalForAll(owner, true, { from: owner }),
             'ERC721: approve to caller');
+        });
+      });
+    });
+
+    describe('getApproved', async function () {
+      context('when token is not minted', async function () {
+        it('reverts', async function () {
+          await expectRevert(
+            this.token.getApproved(unknownTokenId, { from: minter }),
+            'ERC721: approved query for nonexistent token'
+          );
+        });
+      });
+
+      context('when token has been minted ', async function () {
+        it('should return the zero address', async function () {
+          expect(await this.token.getApproved(firstTokenId)).to.be.equal(
+            ZERO_ADDRESS
+          );
+        });
+
+        context('when account has been approved', async function () {
+          beforeEach(async function () {
+            await this.token.approve(approved, firstTokenId, { from: owner });
+          });
+
+          it('should return approved account', async function () {
+            expect(await this.token.getApproved(firstTokenId)).to.be.equal(approved);
+          });
         });
       });
     });

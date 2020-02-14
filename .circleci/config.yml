@@ -6,15 +6,7 @@ version: 2
 aliases:
   - &defaults
     docker:
-      - image: circleci/node:8
-
-  - &npm_install_if_necessary
-    run:
-      name: Install npm dependencies
-      command: |
-        if [ ! -d node_modules ]; then
-          npm ci
-        fi
+      - image: circleci/node:10
 
   - &cache_key_node_modules
     key: v1-node_modules-{{ checksum "package-lock.json" }}
@@ -26,7 +18,19 @@ jobs:
       - checkout
       - restore_cache:
           <<: *cache_key_node_modules
-      - *npm_install_if_necessary
+      - run:
+          name: Install npm dependencies and prepare
+          command: |
+            if [ ! -d node_modules ]; then
+              npm ci
+            else
+              npm run prepare
+            fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+            - build
       - save_cache:
           paths:
             - node_modules
@@ -36,9 +40,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          <<: *cache_key_node_modules
-      - *npm_install_if_necessary
+      - attach_workspace:
+          at: .
       - run:
           name: Linter
           command: npm run lint
@@ -46,20 +49,18 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          <<: *cache_key_node_modules
-      - *npm_install_if_necessary
+      - attach_workspace:
+          at: .
       - run:
           name: Unit tests
           command: npm run test
+
   coverage:
-    docker:
-      - image: circleci/node:8
+    <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          <<: *cache_key_node_modules
-      - *npm_install_if_necessary
+      - attach_workspace:
+          at: .
       - run:
           name: Unit tests with coverage report
           command: npm run coverage
@@ -80,3 +81,4 @@ workflows:
       - coverage:
           requires:
             - dependencies
+

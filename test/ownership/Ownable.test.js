@@ -1,9 +1,14 @@
-const { expectRevert } = require('openzeppelin-test-helpers');
+
+const { accounts, contract } = require('@openzeppelin/test-environment');
+const { expectRevert } = require('@openzeppelin/test-helpers');
+
 const { shouldBehaveLikeOwnable } = require('./Ownable.behavior');
 
-const Ownable = artifacts.require('OwnableMock');
+const Ownable = contract.fromArtifact('OwnableMock');
 
-contract('Ownable', function ([_, owner, anyone, ...otherAccounts]) {
+describe('Ownable', function () {
+  const [ owner, anyone, ...otherAccounts ] = accounts;
+
   beforeEach(async function () {
     this.ownable = await Ownable.new({ from: owner });
   });

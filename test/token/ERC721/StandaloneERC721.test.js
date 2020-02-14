@@ -1,8 +1,11 @@
-require('openzeppelin-test-helpers');
+const { accounts, contract } = require('@openzeppelin/test-environment');
 
-const StandaloneERC721 = artifacts.require('StandaloneERC721');
+require('chai').should();
 
-contract('StandaloneERC721', function ([_, deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts]) {
+const StandaloneERC721 = contract.fromArtifact('StandaloneERC721');
+
+describe('StandaloneERC721', function () {
+  const [ deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts] = accounts;
   const name = 'StandaloneERC721';
   const symbol = 'SAERC721';
 

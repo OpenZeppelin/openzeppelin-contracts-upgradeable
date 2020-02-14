@@ -47,7 +47,7 @@ contract Secondary is Initializable, Context {
     function transferPrimary(address recipient) public onlyPrimary {
         require(recipient != address(0), "Secondary: new primary is the zero address");
         _primary = recipient;
-        emit PrimaryTransferred(_primary);
+        emit PrimaryTransferred(recipient);
     }
 
     uint256[50] private ______gap;

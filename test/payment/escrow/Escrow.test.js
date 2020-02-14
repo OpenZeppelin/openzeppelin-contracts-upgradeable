@@ -1,9 +1,13 @@
-require('openzeppelin-test-helpers');
+const { accounts, contract } = require('@openzeppelin/test-environment');
+
+require('@openzeppelin/test-helpers');
 const { shouldBehaveLikeEscrow } = require('./Escrow.behavior');
 
-const Escrow = artifacts.require('EscrowMock');
+const Escrow = contract.fromArtifact('EscrowMock');
 
-contract('Escrow', function ([_, primary, ...otherAccounts]) {
+describe('Escrow', function () {
+  const [ primary, ...otherAccounts ] = accounts;
+
   beforeEach(async function () {
     this.escrow = await Escrow.new({ from: primary });
   });

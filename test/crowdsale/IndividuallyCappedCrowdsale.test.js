@@ -1,13 +1,17 @@
-const { BN, ether, expectRevert } = require('openzeppelin-test-helpers');
+const { accounts, contract } = require('@openzeppelin/test-environment');
+
+const { BN, ether, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const IndividuallyCappedCrowdsaleImpl = artifacts.require('IndividuallyCappedCrowdsaleImpl');
-const SimpleToken = artifacts.require('SimpleTokenMock');
+const IndividuallyCappedCrowdsaleImpl = contract.fromArtifact('IndividuallyCappedCrowdsaleImpl');
+const SimpleToken = contract.fromArtifact('SimpleTokenMock');
+
 const { shouldBehaveLikePublicRole } = require('../behaviors/access/roles/PublicRole.behavior');
 
-contract('IndividuallyCappedCrowdsale', function (
-  [_, capper, otherCapper, wallet, alice, bob, charlie, other, ...otherAccounts]) {
+describe('IndividuallyCappedCrowdsale', function () {
+  const [ capper, otherCapper, wallet, alice, bob, charlie, other, ...otherAccounts ] = accounts;
+
   const rate = new BN(1);
   const capAlice = ether('10');
   const capBob = ether('2');

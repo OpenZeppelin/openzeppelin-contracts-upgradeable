@@ -1,12 +1,15 @@
+const { accounts, contract } = require('@openzeppelin/test-environment');
+const { expectRevert, BN } = require('@openzeppelin/test-helpers');
+
 const { shouldBehaveLikeERC20Mintable } = require('./behaviors/ERC20Mintable.behavior');
 
-const { expectRevert, BN } = require('openzeppelin-test-helpers');
+require('chai').should();
 
-const StandaloneERC20 = artifacts.require('StandaloneERC20');
+const StandaloneERC20 = contract.fromArtifact('StandaloneERC20');
 
-contract('StandaloneERC20', function ([
-  _, deployer, initialHolder, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts
-]) {
+describe('StandaloneERC20', function () {
+  const [ deployer, initialHolder, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts ] = accounts;
+
   const name = 'StandaloneERC20';
   const symbol = 'SAERC20';
   const decimals = new BN(18);
