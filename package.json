@@ -64,7 +64,7 @@
     "lodash.startcase": "^4.4.0",
     "micromatch": "^4.0.2",
     "mocha": "^7.0.0",
-    "nodemon": "^1.19.0",
+    "nodemon": "^2.0.2",
     "npm-install-peers": "^1.2.1",
     "openzeppelin-docs-utils": "github:OpenZeppelin/docs-utils",
     "openzeppelin-docsite": "github:OpenZeppelin/openzeppelin-docsite#ee1df82d52ad3df4337b20392627975091f8d5b3",
