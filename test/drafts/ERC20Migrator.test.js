@@ -16,7 +16,7 @@ describe('ERC20Migrator', function () {
 
   it('reverts with a null legacy token address', async function () {
     await expectRevert(ERC20Migrator.new(ZERO_ADDRESS),
-      'ERC20Migrator: legacy token is the zero address'
+      'ERC20Migrator: legacy token is the zero address',
     );
   });
 
@@ -34,13 +34,13 @@ describe('ERC20Migrator', function () {
     describe('beginMigration', function () {
       it('reverts with a null new token address', async function () {
         await expectRevert(this.migrator.beginMigration(ZERO_ADDRESS),
-          'ERC20Migrator: new token is the zero address'
+          'ERC20Migrator: new token is the zero address',
         );
       });
 
       it('reverts if not a minter of the token', async function () {
         await expectRevert(this.migrator.beginMigration(this.newToken.address),
-          'ERC20Migrator: not a minter for new token'
+          'ERC20Migrator: not a minter for new token',
         );
       });
 
@@ -53,7 +53,7 @@ describe('ERC20Migrator', function () {
         await this.newToken.addMinter(this.migrator.address);
         await this.migrator.beginMigration(this.newToken.address);
         await expectRevert(this.migrator.beginMigration(this.newToken.address),
-          'ERC20Migrator: migration already started'
+          'ERC20Migrator: migration already started',
         );
       });
     });
@@ -73,7 +73,7 @@ describe('ERC20Migrator', function () {
 
           it('reverts', async function () {
             await expectRevert(this.migrator.migrateAll(owner),
-              'ERC20Migrator: migration not started'
+              'ERC20Migrator: migration not started',
             );
           });
         });
@@ -89,7 +89,7 @@ describe('ERC20Migrator', function () {
 
           it('reverts', async function () {
             await expectRevert(this.migrator.migrate(owner, amount),
-              'ERC20Migrator: migration not started'
+              'ERC20Migrator: migration not started',
             );
           });
         });
@@ -193,7 +193,7 @@ describe('ERC20Migrator', function () {
 
           it('reverts', async function () {
             await expectRevert(this.migrator.migrate(owner, amount),
-              'SafeERC20: low-level call failed'
+              'SafeERC20: low-level call failed',
             );
           });
         });

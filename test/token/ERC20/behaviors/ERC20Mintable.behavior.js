@@ -43,7 +43,7 @@ function shouldBehaveLikeERC20Mintable (minter, [other]) {
 
         it('reverts', async function () {
           await expectRevert(this.token.mint(other, amount, { from }),
-            'MinterRole: caller does not have the Minter role'
+            'MinterRole: caller does not have the Minter role',
           );
         });
       });

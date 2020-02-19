@@ -42,7 +42,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
     it('reverts when querying roles for the null account', async function () {
       await expectRevert(this.contract[`is${rolename}`](ZERO_ADDRESS),
-        'Roles: account is the zero address'
+        'Roles: account is the zero address',
       );
     });
 
@@ -60,7 +60,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
         it('reverts', async function () {
           await expectRevert(this.contract[`only${rolename}Mock`]({ from }),
-            `${rolename}Role: caller does not have the ${rolename} role`
+            `${rolename}Role: caller does not have the ${rolename} role`,
           );
         });
       });
@@ -82,13 +82,13 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
         it('reverts when adding role to an already assigned account', async function () {
           await expectRevert(this.contract[`add${rolename}`](authorized, { from }),
-            'Roles: account already has role'
+            'Roles: account already has role',
           );
         });
 
         it('reverts when adding role to the null account', async function () {
           await expectRevert(this.contract[`add${rolename}`](ZERO_ADDRESS, { from }),
-            'Roles: account is the zero address'
+            'Roles: account is the zero address',
           );
         });
       });
@@ -112,13 +112,13 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
         it('reverts when removing from an unassigned account', async function () {
           await expectRevert(this.contract[`remove${rolename}`](other, { from }),
-            'Roles: account does not have role'
+            'Roles: account does not have role',
           );
         });
 
         it('reverts when removing role from the null account', async function () {
           await expectRevert(this.contract[`remove${rolename}`](ZERO_ADDRESS, { from }),
-            'Roles: account is the zero address'
+            'Roles: account is the zero address',
           );
         });
       });
@@ -137,7 +137,7 @@ function shouldBehaveLikePublicRole (authorized, otherAuthorized, [other], rolen
 
       it('reverts when renouncing unassigned role', async function () {
         await expectRevert(this.contract[`renounce${rolename}`]({ from: other }),
-          'Roles: account does not have role'
+          'Roles: account does not have role',
         );
       });
     });

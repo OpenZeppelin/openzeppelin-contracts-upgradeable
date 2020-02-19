@@ -13,7 +13,7 @@ describe('EnumerableSet', function () {
 
   async function expectMembersMatch (set, members) {
     await Promise.all(members.map(async account =>
-      expect(await set.contains(account)).to.equal(true)
+      expect(await set.contains(account)).to.equal(true),
     ));
 
     expect(await set.enumerate()).to.have.same.members(members);
@@ -21,7 +21,7 @@ describe('EnumerableSet', function () {
     expect(await set.length()).to.bignumber.equal(members.length.toString());
 
     expect(await Promise.all([...Array(members.length).keys()].map(index =>
-      set.get(index)
+      set.get(index),
     ))).to.have.same.members(members);
   }
 

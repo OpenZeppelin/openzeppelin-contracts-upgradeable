@@ -82,7 +82,7 @@ describe('AllowanceCrowdsale', function () {
     it('creation reverts', async function () {
       this.token = await SimpleToken.new({ from: tokenWallet });
       await expectRevert(AllowanceCrowdsaleImpl.new(rate, wallet, this.token.address, ZERO_ADDRESS),
-        'AllowanceCrowdsale: token wallet is the zero address'
+        'AllowanceCrowdsale: token wallet is the zero address',
       );
     });
   });

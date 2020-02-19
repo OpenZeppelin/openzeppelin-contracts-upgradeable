@@ -15,33 +15,33 @@ function shouldBehaveLikeERC721PausedToken (owner, [receiver, operator]) {
 
     it('reverts when trying to approve', async function () {
       await expectRevert(
-        this.token.approve(receiver, firstTokenId, { from: owner }), 'Pausable: paused'
+        this.token.approve(receiver, firstTokenId, { from: owner }), 'Pausable: paused',
       );
     });
 
     it('reverts when trying to setApprovalForAll', async function () {
       await expectRevert(
-        this.token.setApprovalForAll(operator, true, { from: owner }), 'Pausable: paused'
+        this.token.setApprovalForAll(operator, true, { from: owner }), 'Pausable: paused',
       );
     });
 
     it('reverts when trying to transferFrom', async function () {
       await expectRevert(
-        this.token.transferFrom(owner, receiver, firstTokenId, { from: owner }), 'Pausable: paused'
+        this.token.transferFrom(owner, receiver, firstTokenId, { from: owner }), 'Pausable: paused',
       );
     });
 
     it('reverts when trying to safeTransferFrom', async function () {
       await expectRevert(
-        this.token.safeTransferFrom(owner, receiver, firstTokenId, { from: owner }), 'Pausable: paused'
+        this.token.safeTransferFrom(owner, receiver, firstTokenId, { from: owner }), 'Pausable: paused',
       );
     });
 
     it('reverts when trying to safeTransferFrom with data', async function () {
       await expectRevert(
         this.token.methods['safeTransferFrom(address,address,uint256,bytes)'](
-          owner, receiver, firstTokenId, mockData, { from: owner }
-        ), 'Pausable: paused'
+          owner, receiver, firstTokenId, mockData, { from: owner },
+        ), 'Pausable: paused',
       );
     });
 

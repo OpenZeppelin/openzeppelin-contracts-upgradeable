@@ -37,7 +37,7 @@ describe('Pausable', function () {
 
     it('cannot take drastic measure in non-pause', async function () {
       await expectRevert(this.pausable.drasticMeasure({ from: other }),
-        'Pausable: not paused'
+        'Pausable: not paused',
       );
       expect(await this.pausable.drasticMeasureTaken()).to.equal(false);
     });
@@ -50,7 +50,7 @@ describe('Pausable', function () {
 
       it('reverts when pausing from non-pauser', async function () {
         await expectRevert(this.pausable.pause({ from: other }),
-          'PauserRole: caller does not have the Pauser role'
+          'PauserRole: caller does not have the Pauser role',
         );
       });
 
@@ -84,7 +84,7 @@ describe('Pausable', function () {
 
           it('reverts when unpausing from non-pauser', async function () {
             await expectRevert(this.pausable.unpause({ from: other }),
-              'PauserRole: caller does not have the Pauser role'
+              'PauserRole: caller does not have the Pauser role',
             );
           });
 
@@ -105,7 +105,7 @@ describe('Pausable', function () {
 
             it('should prevent drastic measure', async function () {
               await expectRevert(this.pausable.drasticMeasure({ from: other }),
-                'Pausable: not paused'
+                'Pausable: not paused',
               );
             });
 

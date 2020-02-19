@@ -25,10 +25,10 @@ describe('WhitelistCrowdsale', function () {
 
   async function purchaseExpectRevert (crowdsale, beneficiary, value) {
     await expectRevert(crowdsale.buyTokens(beneficiary, { from: beneficiary, value }),
-      'WhitelistCrowdsale: beneficiary doesn\'t have the Whitelisted role'
+      'WhitelistCrowdsale: beneficiary doesn\'t have the Whitelisted role',
     );
     await expectRevert(crowdsale.sendTransaction({ from: beneficiary, value }),
-      'WhitelistCrowdsale: beneficiary doesn\'t have the Whitelisted role'
+      'WhitelistCrowdsale: beneficiary doesn\'t have the Whitelisted role',
     );
   }
 

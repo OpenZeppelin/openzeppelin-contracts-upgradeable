@@ -33,26 +33,26 @@ describe('IncreasingPriceCrowdsale', function () {
 
     it('reverts with a final rate larger than the initial rate', async function () {
       await expectRevert(IncreasingPriceCrowdsaleImpl.new(
-        this.startTime, this.closingTime, wallet, this.token.address, initialRate, initialRate.addn(1)
+        this.startTime, this.closingTime, wallet, this.token.address, initialRate, initialRate.addn(1),
       ), 'IncreasingPriceCrowdsale: initial rate is not greater than final rate');
     });
 
     it('reverts with a final rate equal to the initial rate', async function () {
       await expectRevert(IncreasingPriceCrowdsaleImpl.new(
-        this.startTime, this.closingTime, wallet, this.token.address, initialRate, initialRate
+        this.startTime, this.closingTime, wallet, this.token.address, initialRate, initialRate,
       ), 'IncreasingPriceCrowdsale: initial rate is not greater than final rate');
     });
 
     it('reverts with a final rate of zero', async function () {
       await expectRevert(IncreasingPriceCrowdsaleImpl.new(
-        this.startTime, this.closingTime, wallet, this.token.address, initialRate, 0
+        this.startTime, this.closingTime, wallet, this.token.address, initialRate, 0,
       ), 'IncreasingPriceCrowdsale: final rate is 0');
     });
 
     context('with crowdsale', function () {
       beforeEach(async function () {
         this.crowdsale = await IncreasingPriceCrowdsaleImpl.new(
-          this.startTime, this.closingTime, wallet, this.token.address, initialRate, finalRate
+          this.startTime, this.closingTime, wallet, this.token.address, initialRate, finalRate,
         );
         await this.token.transfer(this.crowdsale.address, tokenSupply);
       });
@@ -64,7 +64,7 @@ describe('IncreasingPriceCrowdsale', function () {
 
       it('reverts when the base Crowdsale\'s rate function is called', async function () {
         await expectRevert(this.crowdsale.rate(),
-          'IncreasingPriceCrowdsale: rate() called'
+          'IncreasingPriceCrowdsale: rate() called',
         );
       });
 

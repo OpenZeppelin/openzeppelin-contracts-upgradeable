@@ -22,13 +22,13 @@ describe('FinalizableCrowdsale', function () {
 
     this.token = await ERC20.new();
     this.crowdsale = await FinalizableCrowdsaleImpl.new(
-      this.openingTime, this.closingTime, rate, wallet, this.token.address
+      this.openingTime, this.closingTime, rate, wallet, this.token.address,
     );
   });
 
   it('cannot be finalized before ending', async function () {
     await expectRevert(this.crowdsale.finalize({ from: other }),
-      'FinalizableCrowdsale: not closed'
+      'FinalizableCrowdsale: not closed',
     );
   });
 
@@ -41,7 +41,7 @@ describe('FinalizableCrowdsale', function () {
     await time.increaseTo(this.afterClosingTime);
     await this.crowdsale.finalize({ from: other });
     await expectRevert(this.crowdsale.finalize({ from: other }),
-      'FinalizableCrowdsale: already finalized'
+      'FinalizableCrowdsale: already finalized',
     );
   });
 

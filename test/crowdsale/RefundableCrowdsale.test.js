@@ -32,14 +32,14 @@ describe('RefundableCrowdsale', function () {
   it('rejects a goal of zero', async function () {
     await expectRevert(
       RefundableCrowdsaleImpl.new(this.openingTime, this.closingTime, rate, wallet, this.token.address, 0),
-      'RefundableCrowdsale: goal is 0'
+      'RefundableCrowdsale: goal is 0',
     );
   });
 
   context('with crowdsale', function () {
     beforeEach(async function () {
       this.crowdsale = await RefundableCrowdsaleImpl.new(
-        this.openingTime, this.closingTime, rate, wallet, this.token.address, goal
+        this.openingTime, this.closingTime, rate, wallet, this.token.address, goal,
       );
 
       await this.token.transfer(this.crowdsale.address, tokenSupply);
@@ -48,7 +48,7 @@ describe('RefundableCrowdsale', function () {
     context('before opening time', function () {
       it('denies refunds', async function () {
         await expectRevert(this.crowdsale.claimRefund(investor),
-          'RefundableCrowdsale: not finalized'
+          'RefundableCrowdsale: not finalized',
         );
       });
     });
@@ -60,7 +60,7 @@ describe('RefundableCrowdsale', function () {
 
       it('denies refunds', async function () {
         await expectRevert(this.crowdsale.claimRefund(investor),
-          'RefundableCrowdsale: not finalized'
+          'RefundableCrowdsale: not finalized',
         );
       });
 
@@ -96,7 +96,7 @@ describe('RefundableCrowdsale', function () {
 
           it('denies refunds', async function () {
             await expectRevert(this.crowdsale.claimRefund(investor),
-              'RefundableCrowdsale: goal reached'
+              'RefundableCrowdsale: goal reached',
             );
           });
 

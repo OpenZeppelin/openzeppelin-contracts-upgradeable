@@ -58,15 +58,15 @@ function shouldBehaveLikeERC777OperatorSend (holder, recipient, operator, data, 
       it('reverts when sending more than the balance', async function () {
         const balance = await this.token.balanceOf(holder);
         await expectRevert.unspecified(
-          this.token.operatorSend(holder, recipient, balance.addn(1), data, operatorData, { from: operator })
+          this.token.operatorSend(holder, recipient, balance.addn(1), data, operatorData, { from: operator }),
         );
       });
 
       it('reverts when sending to the zero address', async function () {
         await expectRevert.unspecified(
           this.token.operatorSend(
-            holder, ZERO_ADDRESS, new BN('1'), data, operatorData, { from: operator }
-          )
+            holder, ZERO_ADDRESS, new BN('1'), data, operatorData, { from: operator },
+          ),
         );
       });
     });
@@ -78,7 +78,7 @@ function shouldBehaveLikeERC777OperatorSend (holder, recipient, operator, data, 
 
       it('reverts when sending a non-zero amount', async function () {
         await expectRevert.unspecified(
-          this.token.operatorSend(holder, recipient, new BN('1'), data, operatorData, { from: operator })
+          this.token.operatorSend(holder, recipient, new BN('1'), data, operatorData, { from: operator }),
         );
       });
 
@@ -86,8 +86,8 @@ function shouldBehaveLikeERC777OperatorSend (holder, recipient, operator, data, 
         // This is not yet reflected in the spec
         await expectRevert.unspecified(
           this.token.operatorSend(
-            ZERO_ADDRESS, recipient, new BN('0'), data, operatorData, { from: operator }
-          )
+            ZERO_ADDRESS, recipient, new BN('0'), data, operatorData, { from: operator },
+          ),
         );
       });
     });
@@ -135,7 +135,7 @@ function shouldBehaveLikeERC777OperatorBurn (holder, operator, data, operatorDat
       it('reverts when burning more than the balance', async function () {
         const balance = await this.token.balanceOf(holder);
         await expectRevert.unspecified(
-          this.token.operatorBurn(holder, balance.addn(1), data, operatorData, { from: operator })
+          this.token.operatorBurn(holder, balance.addn(1), data, operatorData, { from: operator }),
         );
       });
     });
@@ -147,7 +147,7 @@ function shouldBehaveLikeERC777OperatorBurn (holder, operator, data, operatorDat
 
       it('reverts when burning a non-zero amount', async function () {
         await expectRevert.unspecified(
-          this.token.operatorBurn(holder, new BN('1'), data, operatorData, { from: operator })
+          this.token.operatorBurn(holder, new BN('1'), data, operatorData, { from: operator }),
         );
       });
 
@@ -155,8 +155,8 @@ function shouldBehaveLikeERC777OperatorBurn (holder, operator, data, operatorDat
         // This is not yet reflected in the spec
         await expectRevert.unspecified(
           this.token.operatorBurn(
-            ZERO_ADDRESS, new BN('0'), data, operatorData, { from: operator }
-          )
+            ZERO_ADDRESS, new BN('0'), data, operatorData, { from: operator },
+          ),
         );
       });
     });
@@ -326,13 +326,13 @@ function shouldBehaveLikeERC777SendBurnMintInternalWithReceiveHook (operator, am
 
     it('operatorSend reverts', async function () {
       await expectRevert.unspecified(
-        this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator })
+        this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator }),
       );
     });
 
     it('mint (internal) reverts', async function () {
       await expectRevert.unspecified(
-        this.token.mintInternal(operator, this.recipient, amount, data, operatorData)
+        this.token.mintInternal(operator, this.recipient, amount, data, operatorData),
       );
     });
   });
@@ -420,7 +420,7 @@ function shouldBehaveLikeERC777SendBurnWithSendHook (operator, amount, data, ope
 
     it('operatorSend reverts', async function () {
       await expectRevert.unspecified(
-        this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator })
+        this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator }),
       );
     });
 
@@ -430,7 +430,7 @@ function shouldBehaveLikeERC777SendBurnWithSendHook (operator, amount, data, ope
 
     it('operatorBurn reverts', async function () {
       await expectRevert.unspecified(
-        this.token.operatorBurn(this.sender, amount, data, operatorData, { from: operator })
+        this.token.operatorBurn(this.sender, amount, data, operatorData, { from: operator }),
       );
     });
   });
@@ -489,7 +489,7 @@ function shouldBehaveLikeERC777SendBurnWithSendHook (operator, amount, data, ope
       const { tx } = await burnFromHolder(this.token, this.sender, amount, data, { from: this.sender });
 
       await assertTokensToSendCalled(
-        this.token, tx, this.sender, this.sender, ZERO_ADDRESS, amount, data, null, preSenderBalance
+        this.token, tx, this.sender, this.sender, ZERO_ADDRESS, amount, data, null, preSenderBalance,
       );
     });
 
@@ -499,7 +499,7 @@ function shouldBehaveLikeERC777SendBurnWithSendHook (operator, amount, data, ope
       const { tx } = await this.token.operatorBurn(this.sender, amount, data, operatorData, { from: operator });
 
       await assertTokensToSendCalled(
-        this.token, tx, operator, this.sender, ZERO_ADDRESS, amount, data, operatorData, preSenderBalance
+        this.token, tx, operator, this.sender, ZERO_ADDRESS, amount, data, operatorData, preSenderBalance,
       );
     });
   });

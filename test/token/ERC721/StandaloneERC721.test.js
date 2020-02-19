@@ -5,7 +5,7 @@ require('chai').should();
 const StandaloneERC721 = contract.fromArtifact('StandaloneERC721');
 
 describe('StandaloneERC721', function () {
-  const [ deployer, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts] = accounts;
+  const [ deployer, minterA, minterB, pauserA, pauserB] = accounts;
   const name = 'StandaloneERC721';
   const symbol = 'SAERC721';
 

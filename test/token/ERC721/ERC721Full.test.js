@@ -66,7 +66,7 @@ describe('ERC721Full', function () {
         await this.token.burn(secondTokenId, { from: owner });
         expect(await this.token.totalSupply()).to.be.bignumber.equal('0');
         await expectRevert(
-          this.token.tokenByIndex(0), 'ERC721Enumerable: global index out of bounds'
+          this.token.tokenByIndex(0), 'ERC721Enumerable: global index out of bounds',
         );
       });
     });
@@ -90,7 +90,7 @@ describe('ERC721Full', function () {
 
         it('reverts when queried for non existent token id', async function () {
           await expectRevert(
-            this.token.tokenURI(nonExistentTokenId), 'ERC721Metadata: URI query for nonexistent token'
+            this.token.tokenURI(nonExistentTokenId), 'ERC721Metadata: URI query for nonexistent token',
           );
         });
 
@@ -101,7 +101,7 @@ describe('ERC721Full', function () {
 
         it('reverts when setting for non existent token id', async function () {
           await expectRevert(
-            this.token.setTokenURI(nonExistentTokenId, sampleUri), 'ERC721Metadata: URI set of nonexistent token'
+            this.token.setTokenURI(nonExistentTokenId, sampleUri), 'ERC721Metadata: URI set of nonexistent token',
           );
         });
 
@@ -139,7 +139,7 @@ describe('ERC721Full', function () {
 
           expect(await this.token.exists(firstTokenId)).to.equal(false);
           await expectRevert(
-            this.token.tokenURI(firstTokenId), 'ERC721Metadata: URI query for nonexistent token'
+            this.token.tokenURI(firstTokenId), 'ERC721Metadata: URI query for nonexistent token',
           );
         });
       });
@@ -170,7 +170,7 @@ describe('ERC721Full', function () {
       describe('when the index is greater than or equal to the total tokens owned by the given address', function () {
         it('reverts', async function () {
           await expectRevert(
-            this.token.tokenOfOwnerByIndex(owner, 2), 'ERC721Enumerable: owner index out of bounds'
+            this.token.tokenOfOwnerByIndex(owner, 2), 'ERC721Enumerable: owner index out of bounds',
           );
         });
       });
@@ -178,7 +178,7 @@ describe('ERC721Full', function () {
       describe('when the given address does not own any token', function () {
         it('reverts', async function () {
           await expectRevert(
-            this.token.tokenOfOwnerByIndex(other, 0), 'ERC721Enumerable: owner index out of bounds'
+            this.token.tokenOfOwnerByIndex(other, 0), 'ERC721Enumerable: owner index out of bounds',
           );
         });
       });
@@ -192,7 +192,7 @@ describe('ERC721Full', function () {
         it('returns correct token IDs for target', async function () {
           expect(await this.token.balanceOf(other)).to.be.bignumber.equal('2');
           const tokensListed = await Promise.all(
-            [0, 1].map(i => this.token.tokenOfOwnerByIndex(other, i))
+            [0, 1].map(i => this.token.tokenOfOwnerByIndex(other, i)),
           );
           expect(tokensListed.map(t => t.toNumber())).to.have.members([firstTokenId.toNumber(),
             secondTokenId.toNumber()]);
@@ -201,7 +201,7 @@ describe('ERC721Full', function () {
         it('returns empty collection for original owner', async function () {
           expect(await this.token.balanceOf(owner)).to.be.bignumber.equal('0');
           await expectRevert(
-            this.token.tokenOfOwnerByIndex(owner, 0), 'ERC721Enumerable: owner index out of bounds'
+            this.token.tokenOfOwnerByIndex(owner, 0), 'ERC721Enumerable: owner index out of bounds',
           );
         });
       });
@@ -210,7 +210,7 @@ describe('ERC721Full', function () {
     describe('tokenByIndex', function () {
       it('should return all tokens', async function () {
         const tokensListed = await Promise.all(
-          [0, 1].map(i => this.token.tokenByIndex(i))
+          [0, 1].map(i => this.token.tokenByIndex(i)),
         );
         expect(tokensListed.map(t => t.toNumber())).to.have.members([firstTokenId.toNumber(),
           secondTokenId.toNumber()]);
@@ -218,7 +218,7 @@ describe('ERC721Full', function () {
 
       it('should revert if index is greater than supply', async function () {
         await expectRevert(
-          this.token.tokenByIndex(2), 'ERC721Enumerable: global index out of bounds'
+          this.token.tokenByIndex(2), 'ERC721Enumerable: global index out of bounds',
         );
       });
 
@@ -234,10 +234,10 @@ describe('ERC721Full', function () {
           expect(await this.token.totalSupply()).to.be.bignumber.equal('3');
 
           const tokensListed = await Promise.all(
-            [0, 1, 2].map(i => this.token.tokenByIndex(i))
+            [0, 1, 2].map(i => this.token.tokenByIndex(i)),
           );
           const expectedTokens = [firstTokenId, secondTokenId, newTokenId, anotherNewTokenId].filter(
-            x => (x !== tokenId)
+            x => (x !== tokenId),
           );
           expect(tokensListed.map(t => t.toNumber())).to.have.members(expectedTokens.map(t => t.toNumber()));
         });

@@ -28,21 +28,21 @@ describe('TokenVesting', function () {
 
     await expectRevert(
       TokenVesting.new(beneficiary, this.start, cliffDuration, duration, true, { from: owner }),
-      'TokenVesting: cliff is longer than duration'
+      'TokenVesting: cliff is longer than duration',
     );
   });
 
   it('reverts with a null beneficiary', async function () {
     await expectRevert(
       TokenVesting.new(ZERO_ADDRESS, this.start, this.cliffDuration, this.duration, true, { from: owner }),
-      'TokenVesting: beneficiary is the zero address'
+      'TokenVesting: beneficiary is the zero address',
     );
   });
 
   it('reverts with a null duration', async function () {
     // cliffDuration should also be 0, since the duration must be larger than the cliff
     await expectRevert(
-      TokenVesting.new(beneficiary, this.start, 0, 0, true, { from: owner }), 'TokenVesting: duration is 0'
+      TokenVesting.new(beneficiary, this.start, 0, 0, true, { from: owner }), 'TokenVesting: duration is 0',
     );
   });
 
@@ -52,7 +52,7 @@ describe('TokenVesting', function () {
     this.start = now.sub(this.duration).sub(time.duration.minutes(1));
     await expectRevert(
       TokenVesting.new(beneficiary, this.start, this.cliffDuration, this.duration, true, { from: owner }),
-      'TokenVesting: final time is before current time'
+      'TokenVesting: final time is before current time',
     );
   });
 
@@ -75,7 +75,7 @@ describe('TokenVesting', function () {
 
     it('cannot be released before cliff', async function () {
       await expectRevert(this.vesting.release(this.token.address),
-        'TokenVesting: no tokens are due'
+        'TokenVesting: no tokens are due',
       );
     });
 
@@ -129,11 +129,11 @@ describe('TokenVesting', function () {
 
     it('should fail to be revoked by owner if revocable not set', async function () {
       const vesting = await TokenVesting.new(
-        beneficiary, this.start, this.cliffDuration, this.duration, false, { from: owner }
+        beneficiary, this.start, this.cliffDuration, this.duration, false, { from: owner },
       );
 
       await expectRevert(vesting.revoke(this.token.address, { from: owner }),
-        'TokenVesting: cannot revoke'
+        'TokenVesting: cannot revoke',
       );
     });
 
@@ -162,7 +162,7 @@ describe('TokenVesting', function () {
     it('should fail to be revoked a second time', async function () {
       await this.vesting.revoke(this.token.address, { from: owner });
       await expectRevert(this.vesting.revoke(this.token.address, { from: owner }),
-        'TokenVesting: token already revoked'
+        'TokenVesting: token already revoked',
       );
     });
 

@@ -41,7 +41,7 @@ describe('IndividuallyCappedCrowdsale', function () {
 
     it('reverts when a non-capper sets a cap', async function () {
       await expectRevert(this.crowdsale.setCap(alice, capAlice, { from: other }),
-        'CapperRole: caller does not have the Capper role'
+        'CapperRole: caller does not have the Capper role',
       );
     });
 
@@ -61,29 +61,29 @@ describe('IndividuallyCappedCrowdsale', function () {
         it('should reject payments outside cap', async function () {
           await this.crowdsale.buyTokens(alice, { value: capAlice });
           await expectRevert(this.crowdsale.buyTokens(alice, { value: 1 }),
-            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded'
+            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded',
           );
         });
 
         it('should reject payments that exceed cap', async function () {
           await expectRevert(this.crowdsale.buyTokens(alice, { value: capAlice.addn(1) }),
-            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded'
+            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded',
           );
           await expectRevert(this.crowdsale.buyTokens(bob, { value: capBob.addn(1) }),
-            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded'
+            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded',
           );
         });
 
         it('should manage independent caps', async function () {
           await this.crowdsale.buyTokens(alice, { value: lessThanCapAlice });
           await expectRevert(this.crowdsale.buyTokens(bob, { value: lessThanCapAlice }),
-            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded'
+            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded',
           );
         });
 
         it('should default to a cap of zero', async function () {
           await expectRevert(this.crowdsale.buyTokens(charlie, { value: lessThanCapBoth }),
-            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded'
+            'IndividuallyCappedCrowdsale: beneficiary\'s cap exceeded',
           );
         });
       });
