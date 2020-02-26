@@ -12,7 +12,7 @@ import "../token/ERC20/ERC20Detailed.sol";
  * Note they can later distribute these tokens as they wish using `transfer` and other
  * `ERC20` functions.
  */
-contract SimpleToken is Initializable, Context,  ERC20, ERC20Detailed {
+contract SimpleToken is Initializable, Context, ERC20, ERC20Detailed {
 
     /**
      * @dev Constructor that gives _msgSender() all of existing tokens.

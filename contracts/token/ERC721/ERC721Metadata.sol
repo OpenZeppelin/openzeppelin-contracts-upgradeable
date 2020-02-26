@@ -14,11 +14,11 @@ contract ERC721Metadata is Initializable, Context, ERC165, ERC721, IERC721Metada
     // Token symbol
     string private _symbol;
 
-    // Base URI
-    string private _baseURI;
-
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
+
+    // Base URI
+    string private _baseURI;
 
     /*
      *     bytes4(keccak256('name()')) == 0x06fdde03
@@ -135,5 +135,5 @@ contract ERC721Metadata is Initializable, Context, ERC165, ERC721, IERC721Metada
         }
     }
 
-    uint256[50] private ______gap;
+    uint256[49] private ______gap;
 }

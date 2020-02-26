@@ -115,7 +115,7 @@ describe('ECDSA', function () {
           // Recover the signer address from the generated message and signature.
           expect(await this.ecdsa.recover(
             toEthSignedMessageHash(TEST_MESSAGE),
-            signature
+            signature,
           )).to.equal(other);
         });
       });
@@ -138,7 +138,7 @@ describe('ECDSA', function () {
         const signature = await web3.eth.sign(TEST_MESSAGE, other);
         await expectRevert(
           this.ecdsa.recover(TEST_MESSAGE.substring(2), signature),
-          'Failure message'
+          'Failure message',
         );
       });
     });

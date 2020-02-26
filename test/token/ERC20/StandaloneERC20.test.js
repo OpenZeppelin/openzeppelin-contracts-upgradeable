@@ -8,7 +8,7 @@ require('chai').should();
 const StandaloneERC20 = contract.fromArtifact('StandaloneERC20');
 
 describe('StandaloneERC20', function () {
-  const [ deployer, initialHolder, minterA, minterB, pauserA, pauserB, anyone, ...otherAccounts ] = accounts;
+  const [ deployer, initialHolder, minterA, minterB, pauserA, pauserB, ...otherAccounts ] = accounts;
 
   const name = 'StandaloneERC20';
   const symbol = 'SAERC20';
@@ -40,7 +40,7 @@ describe('StandaloneERC20', function () {
   describe('with all arguments', function () {
     it('reverts if initial balance is zero', async function () {
       await expectRevert.unspecified(
-        initializeFull(this.token, name, symbol, decimals, 0, ZERO_ADDRESS, minters, pausers, deployer)
+        initializeFull(this.token, name, symbol, decimals, 0, ZERO_ADDRESS, minters, pausers, deployer),
       );
     });
 
@@ -63,7 +63,7 @@ describe('StandaloneERC20', function () {
     context('with token', async function () {
       beforeEach(async function () {
         await initializeFull(
-          this.token, name, symbol, decimals, initialSupply, initialHolder, minters, pausers, deployer
+          this.token, name, symbol, decimals, initialSupply, initialHolder, minters, pausers, deployer,
         );
       });
 

@@ -27,7 +27,7 @@ describe('SampleCrowdsale', function () {
     this.token = await SampleCrowdsaleToken.new({ from: deployer });
     this.crowdsale = await SampleCrowdsale.new(
       this.openingTime, this.closingTime, RATE, wallet, CAP, this.token.address, GOAL,
-      { from: owner }
+      { from: owner },
     );
 
     await this.token.addMinter(this.crowdsale.address, { from: deployer });
@@ -46,7 +46,7 @@ describe('SampleCrowdsale', function () {
   it('should not accept payments before start', async function () {
     await expectRevert(this.crowdsale.send(ether('1')), 'TimedCrowdsale: not open');
     await expectRevert(this.crowdsale.buyTokens(investor, { from: investor, value: ether('1') }),
-      'TimedCrowdsale: not open'
+      'TimedCrowdsale: not open',
     );
   });
 
@@ -65,7 +65,7 @@ describe('SampleCrowdsale', function () {
     await time.increaseTo(this.afterClosingTime);
     await expectRevert(this.crowdsale.send(ether('1')), 'TimedCrowdsale: not open');
     await expectRevert(this.crowdsale.buyTokens(investor, { value: ether('1'), from: investor }),
-      'TimedCrowdsale: not open'
+      'TimedCrowdsale: not open',
     );
   });
 
@@ -104,7 +104,7 @@ describe('SampleCrowdsale', function () {
 
     it('creation reverts', async function () {
       await expectRevert(SampleCrowdsale.new(
-        this.openingTime, this.closingTime, RATE, wallet, CAP, this.token.address, HIGH_GOAL
+        this.openingTime, this.closingTime, RATE, wallet, CAP, this.token.address, HIGH_GOAL,
       ), 'SampleCrowdSale: goal is greater than cap');
     });
   });

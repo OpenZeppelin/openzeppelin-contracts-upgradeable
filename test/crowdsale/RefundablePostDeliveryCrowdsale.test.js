@@ -28,7 +28,7 @@ describe('RefundablePostDeliveryCrowdsale', function () {
       this.openingTime, this.closingTime, rate, wallet, this.token.address, goal,
       {
         gas: '0xffffff',
-      }
+      },
     );
     await this.token.transfer(this.crowdsale.address, tokenSupply);
   });
@@ -52,7 +52,7 @@ describe('RefundablePostDeliveryCrowdsale', function () {
 
       it('does not allow beneficiaries to withdraw tokens before crowdsale ends', async function () {
         await expectRevert(this.crowdsale.withdrawTokens(investor),
-          'RefundablePostDeliveryCrowdsale: not finalized'
+          'RefundablePostDeliveryCrowdsale: not finalized',
         );
       });
 
@@ -64,7 +64,7 @@ describe('RefundablePostDeliveryCrowdsale', function () {
 
         it('rejects token withdrawals', async function () {
           await expectRevert(this.crowdsale.withdrawTokens(investor),
-            'RefundablePostDeliveryCrowdsale: goal not reached'
+            'RefundablePostDeliveryCrowdsale: goal not reached',
           );
         });
       });
@@ -84,7 +84,7 @@ describe('RefundablePostDeliveryCrowdsale', function () {
 
       it('does not allow beneficiaries to withdraw tokens before crowdsale ends', async function () {
         await expectRevert(this.crowdsale.withdrawTokens(investor),
-          'RefundablePostDeliveryCrowdsale: not finalized'
+          'RefundablePostDeliveryCrowdsale: not finalized',
         );
       });
 
@@ -103,7 +103,7 @@ describe('RefundablePostDeliveryCrowdsale', function () {
         it('rejects multiple withdrawals', async function () {
           await this.crowdsale.withdrawTokens(investor);
           await expectRevert(this.crowdsale.withdrawTokens(investor),
-            'PostDeliveryCrowdsale: beneficiary is not due any tokens'
+            'PostDeliveryCrowdsale: beneficiary is not due any tokens',
           );
         });
       });

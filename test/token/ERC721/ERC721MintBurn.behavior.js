@@ -6,7 +6,7 @@ const { expect } = require('chai');
 function shouldBehaveLikeMintAndBurnERC721 (
   creator,
   minter,
-  [owner, newOwner, approved]
+  [owner, newOwner, approved],
 ) {
   const firstTokenId = new BN(1);
   const secondTokenId = new BN(2);
@@ -51,7 +51,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
         it('reverts', async function () {
           await expectRevert(
             this.token.mint(ZERO_ADDRESS, thirdTokenId, { from: minter }),
-            'ERC721: mint to the zero address'
+            'ERC721: mint to the zero address',
           );
         });
       });
@@ -59,7 +59,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
       describe('when the given token ID was already tracked by this contract', function () {
         it('reverts', async function () {
           await expectRevert(this.token.mint(owner, firstTokenId, { from: minter }),
-            'ERC721: token already minted.'
+            'ERC721: token already minted.',
           );
         });
       });
@@ -98,7 +98,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
         it('burns the given token ID and adjusts the balance of the owner', async function () {
           await expectRevert(
             this.token.ownerOf(tokenId),
-            'ERC721: owner query for nonexistent token'
+            'ERC721: owner query for nonexistent token',
           );
           expect(await this.token.balanceOf(owner)).to.be.bignumber.equal('1');
         });
@@ -122,7 +122,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
         context('getApproved', function () {
           it('reverts', async function () {
             await expectRevert(
-              this.token.getApproved(tokenId), 'ERC721: approved query for nonexistent token'
+              this.token.getApproved(tokenId), 'ERC721: approved query for nonexistent token',
             );
           });
         });
@@ -131,7 +131,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
       describe('when the given token ID was not tracked by this contract', function () {
         it('reverts', async function () {
           await expectRevert(
-            this.token.burn(unknownTokenId, { from: creator }), 'ERC721: operator query for nonexistent token'
+            this.token.burn(unknownTokenId, { from: creator }), 'ERC721: operator query for nonexistent token',
           );
         });
       });

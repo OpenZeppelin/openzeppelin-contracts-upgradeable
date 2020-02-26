@@ -24,7 +24,7 @@ describe('PostDeliveryCrowdsale', function () {
     this.afterClosingTime = this.closingTime.add(time.duration.seconds(1));
     this.token = await SimpleToken.new();
     this.crowdsale = await PostDeliveryCrowdsaleImpl.new(
-      this.openingTime, this.closingTime, rate, wallet, this.token.address
+      this.openingTime, this.closingTime, rate, wallet, this.token.address,
     );
     await this.token.transfer(this.crowdsale.address, tokenSupply);
   });
@@ -48,7 +48,7 @@ describe('PostDeliveryCrowdsale', function () {
 
       it('does not allow beneficiaries to withdraw tokens before crowdsale ends', async function () {
         await expectRevert(this.crowdsale.withdrawTokens(investor),
-          'PostDeliveryCrowdsale: not closed'
+          'PostDeliveryCrowdsale: not closed',
         );
       });
 
@@ -66,7 +66,7 @@ describe('PostDeliveryCrowdsale', function () {
         it('rejects multiple withdrawals', async function () {
           await this.crowdsale.withdrawTokens(investor);
           await expectRevert(this.crowdsale.withdrawTokens(investor),
-            'PostDeliveryCrowdsale: beneficiary is not due any tokens'
+            'PostDeliveryCrowdsale: beneficiary is not due any tokens',
           );
         });
       });

@@ -31,10 +31,10 @@ describe('PausableCrowdsale', function () {
 
     it('purchases do not work', async function () {
       await expectRevert(this.crowdsale.sendTransaction({ from: other, value }),
-        'Pausable: paused'
+        'Pausable: paused',
       );
       await expectRevert(this.crowdsale.buyTokens(other, { from: other, value }),
-        'Pausable: paused'
+        'Pausable: paused',
       );
     });
 

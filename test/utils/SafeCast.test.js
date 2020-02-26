@@ -29,14 +29,14 @@ describe('SafeCast', async () => {
       it(`reverts when downcasting 2^${bits} (${maxValue.addn(1)})`, async function () {
         await expectRevert(
           this.safeCast[`toUint${bits}`](maxValue.addn(1)),
-          `SafeCast: value doesn't fit in ${bits} bits`
+          `SafeCast: value doesn't fit in ${bits} bits`,
         );
       });
 
       it(`reverts when downcasting 2^${bits} + 1 (${maxValue.addn(2)})`, async function () {
         await expectRevert(
           this.safeCast[`toUint${bits}`](maxValue.addn(2)),
-          `SafeCast: value doesn't fit in ${bits} bits`
+          `SafeCast: value doesn't fit in ${bits} bits`,
         );
       });
     });

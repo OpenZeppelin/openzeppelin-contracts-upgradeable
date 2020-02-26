@@ -45,12 +45,16 @@ jobs:
       - run:
           name: Linter
           command: npm run lint
+  
   test:
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Recompile contracts
+          command: npm run compile
       - run:
           name: Unit tests
           command: npm run test

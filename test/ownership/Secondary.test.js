@@ -25,7 +25,7 @@ describe('Secondary', function () {
 
     it('reverts when anyone calls onlyPrimary functions', async function () {
       await expectRevert(this.secondary.onlyPrimaryMock({ from: other }),
-        'Secondary: caller is not the primary account'
+        'Secondary: caller is not the primary account',
       );
     });
   });
@@ -39,13 +39,13 @@ describe('Secondary', function () {
 
     it('reverts when transferring to the null address', async function () {
       await expectRevert(this.secondary.transferPrimary(ZERO_ADDRESS, { from: primary }),
-        'Secondary: new primary is the zero address'
+        'Secondary: new primary is the zero address',
       );
     });
 
     it('reverts when called by anyone', async function () {
       await expectRevert(this.secondary.transferPrimary(newPrimary, { from: other }),
-        'Secondary: caller is not the primary account'
+        'Secondary: caller is not the primary account',
       );
     });
 
@@ -60,7 +60,7 @@ describe('Secondary', function () {
 
       it('reverts when the old primary account calls onlyPrimary functions', async function () {
         await expectRevert(this.secondary.onlyPrimaryMock({ from: primary }),
-          'Secondary: caller is not the primary account'
+          'Secondary: caller is not the primary account',
         );
       });
     });

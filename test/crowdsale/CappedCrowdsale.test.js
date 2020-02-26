@@ -21,7 +21,7 @@ describe('CappedCrowdsale', function () {
 
   it('rejects a cap of zero', async function () {
     await expectRevert(CappedCrowdsaleImpl.new(rate, wallet, this.token.address, 0),
-      'CappedCrowdsale: cap is 0'
+      'CappedCrowdsale: cap is 0',
     );
   });
 
