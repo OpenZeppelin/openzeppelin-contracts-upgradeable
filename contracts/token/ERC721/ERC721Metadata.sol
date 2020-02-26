@@ -135,5 +135,5 @@ contract ERC721Metadata is Initializable, Context, ERC165, ERC721, IERC721Metada
         }
     }
 
-    uint256[50] private ______gap;
+    uint256[49] private ______gap;
 }
