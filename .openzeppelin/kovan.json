@@ -1,233 +1,11 @@
 {
   "contracts": {
-    "StandaloneERC20": {
-      "address": "0x77172f931948C164f79a360F014D75D88A5c45e8",
-      "constructorCode": "60806040525b5b61000b565b61372e8061001a6000396000f3fe",
-      "bodyBytecodeHash": "e85eba9d1581c280b848dcd3b157b8b519012a715adc705ed19e0e3b2d1331fe",
-      "localBytecodeHash": "b890f33a22c45c2844f4de44eff9cc344d9249ecc90dfd23e8d852b2e2fe0eeb",
-      "deployedBytecodeHash": "b890f33a22c45c2844f4de44eff9cc344d9249ecc90dfd23e8d852b2e2fe0eeb",
-      "types": {
-        "t_bool": {
-          "id": "t_bool",
-          "kind": "elementary",
-          "label": "bool"
-        },
-        "t_uint256": {
-          "id": "t_uint256",
-          "kind": "elementary",
-          "label": "uint256"
-        },
-        "t_array:50<t_uint256>": {
-          "id": "t_array:50<t_uint256>",
-          "valueType": "t_uint256",
-          "length": "50",
-          "kind": "array",
-          "label": "uint256[50]"
-        },
-        "t_string": {
-          "id": "t_string",
-          "kind": "elementary",
-          "label": "string"
-        },
-        "t_uint8": {
-          "id": "t_uint8",
-          "kind": "elementary",
-          "label": "uint8"
-        },
-        "t_mapping<t_uint256>": {
-          "id": "t_mapping<t_uint256>",
-          "valueType": "t_uint256",
-          "label": "mapping(key => uint256)",
-          "kind": "mapping"
-        },
-        "t_struct<Roles.Role>": {
-          "id": "t_struct<Roles.Role>",
-          "kind": "struct",
-          "label": "Roles.Role",
-          "members": [
-            {
-              "label": "bearer",
-              "astId": 1261,
-              "type": "t_mapping<t_bool>",
-              "src": "150:32:7"
-            }
-          ]
-        },
-        "t_mapping<t_bool>": {
-          "id": "t_mapping<t_bool>",
-          "valueType": "t_bool",
-          "label": "mapping(key => bool)",
-          "kind": "mapping"
-        }
-      },
-      "storage": [
-        {
-          "contract": "Initializable",
-          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
-          "label": "initialized",
-          "astId": 3,
-          "type": "t_bool",
-          "src": "757:24:0"
-        },
-        {
-          "contract": "Initializable",
-          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
-          "label": "initializing",
-          "astId": 5,
-          "type": "t_bool",
-          "src": "876:25:0"
-        },
-        {
-          "contract": "Initializable",
-          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
-          "label": "______gap",
-          "astId": 61,
-          "type": "t_array:50<t_uint256>",
-          "src": "1951:29:0"
-        },
-        {
-          "contract": "ERC20Detailed",
-          "path": "contracts/token/ERC20/ERC20Detailed.sol",
-          "label": "_name",
-          "astId": 11159,
-          "type": "t_string",
-          "src": "224:20:131"
-        },
-        {
-          "contract": "ERC20Detailed",
-          "path": "contracts/token/ERC20/ERC20Detailed.sol",
-          "label": "_symbol",
-          "astId": 11161,
-          "type": "t_string",
-          "src": "250:22:131"
-        },
-        {
-          "contract": "ERC20Detailed",
-          "path": "contracts/token/ERC20/ERC20Detailed.sol",
-          "label": "_decimals",
-          "astId": 11163,
-          "type": "t_uint8",
-          "src": "278:23:131"
-        },
-        {
-          "contract": "ERC20Detailed",
-          "path": "contracts/token/ERC20/ERC20Detailed.sol",
-          "label": "______gap",
-          "astId": 11215,
-          "type": "t_array:50<t_uint256>",
-          "src": "1654:29:131"
-        },
-        {
-          "contract": "ERC20",
-          "path": "contracts/token/ERC20/ERC20.sol",
-          "label": "_balances",
-          "astId": 10639,
-          "type": "t_mapping<t_uint256>",
-          "src": "1418:46:128"
-        },
-        {
-          "contract": "ERC20",
-          "path": "contracts/token/ERC20/ERC20.sol",
-          "label": "_allowances",
-          "astId": 10645,
-          "type": "t_mapping<t_uint256>",
-          "src": "1471:69:128"
-        },
-        {
-          "contract": "ERC20",
-          "path": "contracts/token/ERC20/ERC20.sol",
-          "label": "_totalSupply",
-          "astId": 10647,
-          "type": "t_uint256",
-          "src": "1547:28:128"
-        },
-        {
-          "contract": "ERC20",
-          "path": "contracts/token/ERC20/ERC20.sol",
-          "label": "______gap",
-          "astId": 11031,
-          "type": "t_array:50<t_uint256>",
-          "src": "8173:29:128"
-        },
-        {
-          "contract": "MinterRole",
-          "path": "contracts/access/roles/MinterRole.sol",
-          "label": "_minters",
-          "astId": 1481,
-          "type": "t_struct<Roles.Role>",
-          "src": "327:27:9"
-        },
-        {
-          "contract": "MinterRole",
-          "path": "contracts/access/roles/MinterRole.sol",
-          "label": "______gap",
-          "astId": 1581,
-          "type": "t_array:50<t_uint256>",
-          "src": "1193:29:9"
-        },
-        {
-          "contract": "ERC20Mintable",
-          "path": "contracts/token/ERC20/ERC20Mintable.sol",
-          "label": "______gap",
-          "astId": 11264,
-          "type": "t_array:50<t_uint256>",
-          "src": "831:29:132"
-        },
-        {
-          "contract": "PauserRole",
-          "path": "contracts/access/roles/PauserRole.sol",
-          "label": "_pausers",
-          "astId": 1604,
-          "type": "t_struct<Roles.Role>",
-          "src": "327:27:10"
-        },
-        {
-          "contract": "PauserRole",
-          "path": "contracts/access/roles/PauserRole.sol",
-          "label": "______gap",
-          "astId": 1704,
-          "type": "t_array:50<t_uint256>",
-          "src": "1193:29:10"
-        },
-        {
-          "contract": "Pausable",
-          "path": "contracts/lifecycle/Pausable.sol",
-          "label": "_paused",
-          "astId": 5582,
-          "type": "t_bool",
-          "src": "909:20:44"
-        },
-        {
-          "contract": "Pausable",
-          "path": "contracts/lifecycle/Pausable.sol",
-          "label": "______gap",
-          "astId": 5665,
-          "type": "t_array:50<t_uint256>",
-          "src": "2163:29:44"
-        },
-        {
-          "contract": "ERC20Pausable",
-          "path": "contracts/token/ERC20/ERC20Pausable.sol",
-          "label": "______gap",
-          "astId": 11387,
-          "type": "t_array:50<t_uint256>",
-          "src": "1371:29:133"
-        }
-      ],
-      "warnings": {
-        "hasConstructor": false,
-        "hasSelfDestruct": false,
-        "hasDelegateCall": false,
-        "hasInitialValuesInDeclarations": false,
-        "uninitializedBaseContracts": []
-      }
-    },
     "StandaloneERC721": {
-      "address": "0xBe11B1E14215442d728EB36b8Dd7ce3b2DDcB79f",
-      "constructorCode": "60806040525b5b61000b565b614a688061001a6000396000f3fe",
-      "bodyBytecodeHash": "4c4911b0db948d783dd8e71b2bc11b81c442c8959103e31484b62e71770008da",
-      "localBytecodeHash": "eacf0c4c879c1a73d9692b4332f807e3ddb4cccf89bf1ea01fee7744898a56e9",
-      "deployedBytecodeHash": "eacf0c4c879c1a73d9692b4332f807e3ddb4cccf89bf1ea01fee7744898a56e9",
+      "address": "0x7c8c90201ABfE56747Fb35776Bbf6004D5e2FC9d",
+      "constructorCode": "6080604052614852806100136000396000f3fe",
+      "bodyBytecodeHash": "88b94d215b26608378556f9b1eaa4c698e55d1f925c92ab2a1896edc517a4ace",
+      "localBytecodeHash": "d2ff23778047a3016e041423d2417366c2b4205da01d6f19b6691ed4cb9bf690",
+      "deployedBytecodeHash": "d2ff23778047a3016e041423d2417366c2b4205da01d6f19b6691ed4cb9bf690",
       "types": {
         "t_bool": {
           "id": "t_bool",
@@ -270,7 +48,7 @@
           "members": [
             {
               "label": "_value",
-              "astId": 3804,
+              "astId": 3810,
               "type": "t_uint256",
               "src": "1024:14:29"
             }
@@ -312,6 +90,13 @@
           "label": "mapping(key => string)",
           "kind": "mapping"
         },
+        "t_array:49<t_uint256>": {
+          "id": "t_array:49<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "49",
+          "kind": "array",
+          "label": "uint256[49]"
+        },
         "t_struct<Roles.Role>": {
           "id": "t_struct<Roles.Role>",
           "kind": "struct",
@@ -319,7 +104,7 @@
           "members": [
             {
               "label": "bearer",
-              "astId": 1261,
+              "astId": 1267,
               "type": "t_mapping<t_bool>",
               "src": "150:32:7"
             }
@@ -347,15 +132,15 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "______gap",
-          "astId": 61,
+          "astId": 67,
           "type": "t_array:50<t_uint256>",
-          "src": "1951:29:0"
+          "src": "1982:29:0"
         },
         {
           "contract": "ERC165",
           "path": "contracts/introspection/ERC165.sol",
           "label": "_supportedInterfaces",
-          "astId": 5215,
+          "astId": 5221,
           "type": "t_mapping<t_bool>",
           "src": "565:52:38"
         },
@@ -363,7 +148,7 @@
           "contract": "ERC165",
           "path": "contracts/introspection/ERC165.sol",
           "label": "______gap",
-          "astId": 5260,
+          "astId": 5266,
           "type": "t_array:50<t_uint256>",
           "src": "1729:29:38"
         },
@@ -371,119 +156,127 @@
           "contract": "ERC721",
           "path": "contracts/token/ERC721/ERC721.sol",
           "label": "_tokenOwner",
-          "astId": 12030,
+          "astId": 12307,
           "type": "t_mapping<t_address>",
-          "src": "886:48:138"
+          "src": "886:48:141"
         },
         {
           "contract": "ERC721",
           "path": "contracts/token/ERC721/ERC721.sol",
           "label": "_tokenApprovals",
-          "astId": 12034,
+          "astId": 12311,
           "type": "t_mapping<t_address>",
-          "src": "990:52:138"
+          "src": "990:52:141"
         },
         {
           "contract": "ERC721",
           "path": "contracts/token/ERC721/ERC721.sol",
           "label": "_ownedTokensCount",
-          "astId": 12038,
+          "astId": 12315,
           "type": "t_mapping<t_struct<Counters.Counter>>",
-          "src": "1100:63:138"
+          "src": "1100:63:141"
         },
         {
           "contract": "ERC721",
           "path": "contracts/token/ERC721/ERC721.sol",
           "label": "_operatorApprovals",
-          "astId": 12044,
+          "astId": 12321,
           "type": "t_mapping<t_bool>",
-          "src": "1218:73:138"
+          "src": "1218:73:141"
         },
         {
           "contract": "ERC721",
           "path": "contracts/token/ERC721/ERC721.sol",
           "label": "______gap",
-          "astId": 12656,
+          "astId": 12967,
           "type": "t_array:50<t_uint256>",
-          "src": "15262:29:138"
+          "src": "16014:29:141"
         },
         {
           "contract": "ERC721Enumerable",
           "path": "contracts/token/ERC721/ERC721Enumerable.sol",
           "label": "_ownedTokens",
-          "astId": 12714,
+          "astId": 13025,
           "type": "t_mapping<t_array:dyn<t_uint256>>",
-          "src": "502:50:140"
+          "src": "502:50:143"
         },
         {
           "contract": "ERC721Enumerable",
           "path": "contracts/token/ERC721/ERC721Enumerable.sol",
           "label": "_ownedTokensIndex",
-          "astId": 12718,
+          "astId": 13029,
           "type": "t_mapping<t_uint256>",
-          "src": "622:53:140"
+          "src": "622:53:143"
         },
         {
           "contract": "ERC721Enumerable",
           "path": "contracts/token/ERC721/ERC721Enumerable.sol",
           "label": "_allTokens",
-          "astId": 12721,
+          "astId": 13032,
           "type": "t_array:dyn<t_uint256>",
-          "src": "736:28:140"
+          "src": "736:28:143"
         },
         {
           "contract": "ERC721Enumerable",
           "path": "contracts/token/ERC721/ERC721Enumerable.sol",
           "label": "_allTokensIndex",
-          "astId": 12725,
+          "astId": 13036,
           "type": "t_mapping<t_uint256>",
-          "src": "835:51:140"
+          "src": "835:51:143"
         },
         {
           "contract": "ERC721Enumerable",
           "path": "contracts/token/ERC721/ERC721Enumerable.sol",
           "label": "______gap",
-          "astId": 13056,
+          "astId": 13367,
           "type": "t_array:50<t_uint256>",
-          "src": "9053:29:140"
+          "src": "9053:29:143"
         },
         {
           "contract": "ERC721Metadata",
           "path": "contracts/token/ERC721/ERC721Metadata.sol",
           "label": "_name",
-          "astId": 13126,
+          "astId": 13437,
           "type": "t_string",
-          "src": "323:20:143"
+          "src": "323:20:146"
         },
         {
           "contract": "ERC721Metadata",
           "path": "contracts/token/ERC721/ERC721Metadata.sol",
           "label": "_symbol",
-          "astId": 13128,
+          "astId": 13439,
           "type": "t_string",
-          "src": "370:22:143"
+          "src": "370:22:146"
         },
         {
           "contract": "ERC721Metadata",
           "path": "contracts/token/ERC721/ERC721Metadata.sol",
           "label": "_tokenURIs",
-          "astId": 13132,
+          "astId": 13443,
           "type": "t_mapping<t_string>",
-          "src": "438:45:143"
+          "src": "438:45:146"
+        },
+        {
+          "contract": "ERC721Metadata",
+          "path": "contracts/token/ERC721/ERC721Metadata.sol",
+          "label": "_baseURI",
+          "astId": 13445,
+          "type": "t_string",
+          "src": "506:23:146"
         },
         {
           "contract": "ERC721Metadata",
           "path": "contracts/token/ERC721/ERC721Metadata.sol",
           "label": "______gap",
-          "astId": 13263,
-          "type": "t_array:50<t_uint256>",
-          "src": "3086:29:143"
+          "astId": 13615,
+          "type": "t_array:49<t_uint256>",
+          "src": "4297:29:146"
         },
         {
           "contract": "MinterRole",
           "path": "contracts/access/roles/MinterRole.sol",
           "label": "_minters",
-          "astId": 1481,
+          "astId": 1487,
           "type": "t_struct<Roles.Role>",
           "src": "327:27:9"
         },
@@ -491,7 +284,7 @@
           "contract": "MinterRole",
           "path": "contracts/access/roles/MinterRole.sol",
           "label": "______gap",
-          "astId": 1581,
+          "astId": 1587,
           "type": "t_array:50<t_uint256>",
           "src": "1193:29:9"
         },
@@ -499,15 +292,15 @@
           "contract": "ERC721MetadataMintable",
           "path": "contracts/token/ERC721/ERC721MetadataMintable.sol",
           "label": "______gap",
-          "astId": 13333,
+          "astId": 13685,
           "type": "t_array:50<t_uint256>",
-          "src": "1057:29:144"
+          "src": "1057:29:147"
         },
         {
           "contract": "PauserRole",
           "path": "contracts/access/roles/PauserRole.sol",
           "label": "_pausers",
-          "astId": 1604,
+          "astId": 1610,
           "type": "t_struct<Roles.Role>",
           "src": "327:27:10"
         },
@@ -515,7 +308,7 @@
           "contract": "PauserRole",
           "path": "contracts/access/roles/PauserRole.sol",
           "label": "______gap",
-          "astId": 1704,
+          "astId": 1710,
           "type": "t_array:50<t_uint256>",
           "src": "1193:29:10"
         },
@@ -523,7 +316,7 @@
           "contract": "Pausable",
           "path": "contracts/lifecycle/Pausable.sol",
           "label": "_paused",
-          "astId": 5582,
+          "astId": 5617,
           "type": "t_bool",
           "src": "909:20:44"
         },
@@ -531,7 +324,7 @@
           "contract": "Pausable",
           "path": "contracts/lifecycle/Pausable.sol",
           "label": "______gap",
-          "astId": 5665,
+          "astId": 5700,
           "type": "t_array:50<t_uint256>",
           "src": "2163:29:44"
         },
@@ -539,9 +332,9 @@
           "contract": "ERC721Pausable",
           "path": "contracts/token/ERC721/ERC721Pausable.sol",
           "label": "______gap",
-          "astId": 13519,
+          "astId": 13871,
           "type": "t_array:50<t_uint256>",
-          "src": "869:29:146"
+          "src": "869:29:149"
         }
       ],
       "warnings": {
@@ -549,15 +342,317 @@
         "hasSelfDestruct": false,
         "hasDelegateCall": false,
         "hasInitialValuesInDeclarations": false,
-        "uninitializedBaseContracts": []
+        "uninitializedBaseContracts": [],
+        "storageUncheckedVars": [
+          {
+            "contract": "ERC721",
+            "path": "contracts/token/ERC721/ERC721.sol",
+            "label": "_ownedTokensCount",
+            "astId": 12315,
+            "type": "t_mapping<t_struct<Counters.Counter>>",
+            "src": "1100:63:141"
+          },
+          {
+            "contract": "MinterRole",
+            "path": "contracts/access/roles/MinterRole.sol",
+            "label": "_minters",
+            "astId": 1487,
+            "type": "t_struct<Roles.Role>",
+            "src": "327:27:9"
+          },
+          {
+            "contract": "PauserRole",
+            "path": "contracts/access/roles/PauserRole.sol",
+            "label": "_pausers",
+            "astId": 1610,
+            "type": "t_struct<Roles.Role>",
+            "src": "327:27:10"
+          }
+        ],
+        "storageDiff": [
+          {
+            "action": "replace",
+            "updated": {
+              "index": 18,
+              "contract": "ERC721Metadata",
+              "path": "contracts/token/ERC721/ERC721Metadata.sol",
+              "label": "_baseURI",
+              "astId": 13445,
+              "type": "t_string",
+              "src": "506:23:146"
+            },
+            "original": {
+              "index": 18,
+              "contract": "ERC721Metadata",
+              "path": "contracts/token/ERC721/ERC721Metadata.sol",
+              "label": "______gap",
+              "astId": 13263,
+              "type": "t_array:50<t_uint256>",
+              "src": "3086:29:143"
+            }
+          },
+          {
+            "action": "insert",
+            "updated": {
+              "index": 19,
+              "contract": "ERC721Metadata",
+              "path": "contracts/token/ERC721/ERC721Metadata.sol",
+              "label": "______gap",
+              "astId": 13615,
+              "type": "t_array:49<t_uint256>",
+              "src": "4297:29:146"
+            }
+          }
+        ]
+      }
+    },
+    "StandaloneERC20": {
+      "address": "0x7Eefff0D65f49007aAAFa08a047f8A11B12f6944",
+      "constructorCode": "6080604052613351806100136000396000f3fe",
+      "bodyBytecodeHash": "5fece1bdf65e93391feb0bdf0c967cf306feb4e9cba3e43431d5974146bf0093",
+      "localBytecodeHash": "3c51effc0b3d25e6a30b6e16ce9a93a6705be6927185f8b0af083a6a3cc3e905",
+      "deployedBytecodeHash": "3c51effc0b3d25e6a30b6e16ce9a93a6705be6927185f8b0af083a6a3cc3e905",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_array:50<t_uint256>": {
+          "id": "t_array:50<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "50",
+          "kind": "array",
+          "label": "uint256[50]"
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_uint8": {
+          "id": "t_uint8",
+          "kind": "elementary",
+          "label": "uint8"
+        },
+        "t_mapping<t_uint256>": {
+          "id": "t_mapping<t_uint256>",
+          "valueType": "t_uint256",
+          "label": "mapping(key => uint256)",
+          "kind": "mapping"
+        },
+        "t_struct<Roles.Role>": {
+          "id": "t_struct<Roles.Role>",
+          "kind": "struct",
+          "label": "Roles.Role",
+          "members": [
+            {
+              "label": "bearer",
+              "astId": 1267,
+              "type": "t_mapping<t_bool>",
+              "src": "150:32:7"
+            }
+          ]
+        },
+        "t_mapping<t_bool>": {
+          "id": "t_mapping<t_bool>",
+          "valueType": "t_bool",
+          "label": "mapping(key => bool)",
+          "kind": "mapping"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 3,
+          "type": "t_bool",
+          "src": "757:24:0"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 5,
+          "type": "t_bool",
+          "src": "876:25:0"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
+          "label": "______gap",
+          "astId": 67,
+          "type": "t_array:50<t_uint256>",
+          "src": "1982:29:0"
+        },
+        {
+          "contract": "ERC20Detailed",
+          "path": "contracts/token/ERC20/ERC20Detailed.sol",
+          "label": "_name",
+          "astId": 11436,
+          "type": "t_string",
+          "src": "224:20:134"
+        },
+        {
+          "contract": "ERC20Detailed",
+          "path": "contracts/token/ERC20/ERC20Detailed.sol",
+          "label": "_symbol",
+          "astId": 11438,
+          "type": "t_string",
+          "src": "250:22:134"
+        },
+        {
+          "contract": "ERC20Detailed",
+          "path": "contracts/token/ERC20/ERC20Detailed.sol",
+          "label": "_decimals",
+          "astId": 11440,
+          "type": "t_uint8",
+          "src": "278:23:134"
+        },
+        {
+          "contract": "ERC20Detailed",
+          "path": "contracts/token/ERC20/ERC20Detailed.sol",
+          "label": "______gap",
+          "astId": 11492,
+          "type": "t_array:50<t_uint256>",
+          "src": "1654:29:134"
+        },
+        {
+          "contract": "ERC20",
+          "path": "contracts/token/ERC20/ERC20.sol",
+          "label": "_balances",
+          "astId": 10916,
+          "type": "t_mapping<t_uint256>",
+          "src": "1418:46:131"
+        },
+        {
+          "contract": "ERC20",
+          "path": "contracts/token/ERC20/ERC20.sol",
+          "label": "_allowances",
+          "astId": 10922,
+          "type": "t_mapping<t_uint256>",
+          "src": "1471:69:131"
+        },
+        {
+          "contract": "ERC20",
+          "path": "contracts/token/ERC20/ERC20.sol",
+          "label": "_totalSupply",
+          "astId": 10924,
+          "type": "t_uint256",
+          "src": "1547:28:131"
+        },
+        {
+          "contract": "ERC20",
+          "path": "contracts/token/ERC20/ERC20.sol",
+          "label": "______gap",
+          "astId": 11308,
+          "type": "t_array:50<t_uint256>",
+          "src": "8172:29:131"
+        },
+        {
+          "contract": "MinterRole",
+          "path": "contracts/access/roles/MinterRole.sol",
+          "label": "_minters",
+          "astId": 1487,
+          "type": "t_struct<Roles.Role>",
+          "src": "327:27:9"
+        },
+        {
+          "contract": "MinterRole",
+          "path": "contracts/access/roles/MinterRole.sol",
+          "label": "______gap",
+          "astId": 1587,
+          "type": "t_array:50<t_uint256>",
+          "src": "1193:29:9"
+        },
+        {
+          "contract": "ERC20Mintable",
+          "path": "contracts/token/ERC20/ERC20Mintable.sol",
+          "label": "______gap",
+          "astId": 11541,
+          "type": "t_array:50<t_uint256>",
+          "src": "831:29:135"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "contracts/access/roles/PauserRole.sol",
+          "label": "_pausers",
+          "astId": 1610,
+          "type": "t_struct<Roles.Role>",
+          "src": "327:27:10"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "contracts/access/roles/PauserRole.sol",
+          "label": "______gap",
+          "astId": 1710,
+          "type": "t_array:50<t_uint256>",
+          "src": "1193:29:10"
+        },
+        {
+          "contract": "Pausable",
+          "path": "contracts/lifecycle/Pausable.sol",
+          "label": "_paused",
+          "astId": 5617,
+          "type": "t_bool",
+          "src": "909:20:44"
+        },
+        {
+          "contract": "Pausable",
+          "path": "contracts/lifecycle/Pausable.sol",
+          "label": "______gap",
+          "astId": 5700,
+          "type": "t_array:50<t_uint256>",
+          "src": "2163:29:44"
+        },
+        {
+          "contract": "ERC20Pausable",
+          "path": "contracts/token/ERC20/ERC20Pausable.sol",
+          "label": "______gap",
+          "astId": 11664,
+          "type": "t_array:50<t_uint256>",
+          "src": "1371:29:136"
+        }
+      ],
+      "warnings": {
+        "hasConstructor": false,
+        "hasSelfDestruct": false,
+        "hasDelegateCall": false,
+        "hasInitialValuesInDeclarations": false,
+        "uninitializedBaseContracts": [],
+        "storageUncheckedVars": [
+          {
+            "contract": "MinterRole",
+            "path": "contracts/access/roles/MinterRole.sol",
+            "label": "_minters",
+            "astId": 1487,
+            "type": "t_struct<Roles.Role>",
+            "src": "327:27:9"
+          },
+          {
+            "contract": "PauserRole",
+            "path": "contracts/access/roles/PauserRole.sol",
+            "label": "_pausers",
+            "astId": 1610,
+            "type": "t_struct<Roles.Role>",
+            "src": "327:27:10"
+          }
+        ],
+        "storageDiff": []
       }
     },
     "TokenVesting": {
-      "address": "0x80Fe1041c782AfE6fBefC308947b60a546D0fC1D",
-      "constructorCode": "60806040525b5b61000b565b611f958061001a6000396000f3fe",
-      "bodyBytecodeHash": "bed509f74341ca413ee16f728b8d7ad30668fbbc9c01cc89eae2d42b7dd889b1",
-      "localBytecodeHash": "e85035b45c1eb8d67f8826346fef6173562c2f82dc58ba40e4d72bca6a56405f",
-      "deployedBytecodeHash": "e85035b45c1eb8d67f8826346fef6173562c2f82dc58ba40e4d72bca6a56405f",
+      "address": "0x2989a98BB3a178c7ef56BeB7453ffD69A636D499",
+      "constructorCode": "6080604052611de2806100136000396000f3fe",
+      "bodyBytecodeHash": "53b6c1230e5389805143264fff3365c615b5f0af3bb66a345f0c1537407097c4",
+      "localBytecodeHash": "375eceb6a96eaef3ac4f275ddd18e1caceab47d4729444085f99b6d9520eb451",
+      "deployedBytecodeHash": "375eceb6a96eaef3ac4f275ddd18e1caceab47d4729444085f99b6d9520eb451",
       "types": {
         "t_bool": {
           "id": "t_bool",
@@ -615,31 +710,31 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "______gap",
-          "astId": 61,
+          "astId": 67,
           "type": "t_array:50<t_uint256>",
-          "src": "1951:29:0"
+          "src": "1982:29:0"
         },
         {
           "contract": "Ownable",
           "path": "contracts/ownership/Ownable.sol",
           "label": "_owner",
-          "astId": 9652,
+          "astId": 9929,
           "type": "t_address",
-          "src": "526:22:121"
+          "src": "526:22:124"
         },
         {
           "contract": "Ownable",
           "path": "contracts/ownership/Ownable.sol",
           "label": "______gap",
-          "astId": 9765,
+          "astId": 10042,
           "type": "t_array:50<t_uint256>",
-          "src": "2471:29:121"
+          "src": "2471:29:124"
         },
         {
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_beneficiary",
-          "astId": 4676,
+          "astId": 4682,
           "type": "t_address",
           "src": "1148:28:35"
         },
@@ -647,7 +742,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_cliff",
-          "astId": 4678,
+          "astId": 4684,
           "type": "t_uint256",
           "src": "1278:22:35"
         },
@@ -655,7 +750,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_start",
-          "astId": 4680,
+          "astId": 4686,
           "type": "t_uint256",
           "src": "1306:22:35"
         },
@@ -663,7 +758,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_duration",
-          "astId": 4682,
+          "astId": 4688,
           "type": "t_uint256",
           "src": "1334:25:35"
         },
@@ -671,7 +766,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_revocable",
-          "astId": 4684,
+          "astId": 4690,
           "type": "t_bool",
           "src": "1366:23:35"
         },
@@ -679,7 +774,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_released",
-          "astId": 4688,
+          "astId": 4694,
           "type": "t_mapping<t_uint256>",
           "src": "1396:46:35"
         },
@@ -687,7 +782,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "_revoked",
-          "astId": 4692,
+          "astId": 4698,
           "type": "t_mapping<t_bool>",
           "src": "1448:42:35"
         },
@@ -695,7 +790,7 @@
           "contract": "TokenVesting",
           "path": "contracts/drafts/TokenVesting.sol",
           "label": "______gap",
-          "astId": 5041,
+          "astId": 5047,
           "type": "t_array:50<t_uint256>",
           "src": "6241:29:35"
         }
@@ -705,15 +800,17 @@
         "hasSelfDestruct": false,
         "hasDelegateCall": false,
         "hasInitialValuesInDeclarations": false,
-        "uninitializedBaseContracts": []
+        "uninitializedBaseContracts": [],
+        "storageUncheckedVars": [],
+        "storageDiff": []
       }
     },
     "PaymentSplitter": {
-      "address": "0x3dB52A5cd6606dA265bf03C9fD6946220b945c40",
-      "constructorCode": "60806040525b5b61000b565b6112f18061001a6000396000f3fe",
-      "bodyBytecodeHash": "35557e8a7b14e305cbe138016823233ea344a4366601f5dc7d81c92847e395dd",
-      "localBytecodeHash": "e24988d860877b42d9dd9bca60f90dd8f0cfc019a46019a3dcead150d6d79613",
-      "deployedBytecodeHash": "e24988d860877b42d9dd9bca60f90dd8f0cfc019a46019a3dcead150d6d79613",
+      "address": "0xD2B727697f831DC1b3e532C494E722d547a48341",
+      "constructorCode": "60806040526111d3806100136000396000f3fe",
+      "bodyBytecodeHash": "35fd934084a8702affa3466e8127098f9cdad9ae7aa9e2d49263951636d03111",
+      "localBytecodeHash": "536cbeb9a18239c63f290e19987649b2fdf97ed17832cdde1dead9275d877409",
+      "deployedBytecodeHash": "536cbeb9a18239c63f290e19987649b2fdf97ed17832cdde1dead9275d877409",
       "types": {
         "t_bool": {
           "id": "t_bool",
@@ -772,57 +869,57 @@
           "contract": "Initializable",
           "path": "@openzeppelin/upgrades/contracts/Initializable.sol",
           "label": "______gap",
-          "astId": 61,
+          "astId": 67,
           "type": "t_array:50<t_uint256>",
-          "src": "1951:29:0"
+          "src": "1982:29:0"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "_totalShares",
-          "astId": 9878,
+          "astId": 10155,
           "type": "t_uint256",
-          "src": "1229:28:123"
+          "src": "1229:28:126"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "_totalReleased",
-          "astId": 9880,
+          "astId": 10157,
           "type": "t_uint256",
-          "src": "1263:30:123"
+          "src": "1263:30:126"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "_shares",
-          "astId": 9884,
+          "astId": 10161,
           "type": "t_mapping<t_uint256>",
-          "src": "1300:43:123"
+          "src": "1300:43:126"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "_released",
-          "astId": 9888,
+          "astId": 10165,
           "type": "t_mapping<t_uint256>",
-          "src": "1349:45:123"
+          "src": "1349:45:126"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "_payees",
-          "astId": 9891,
+          "astId": 10168,
           "type": "t_array:dyn<t_address>",
-          "src": "1400:25:123"
+          "src": "1400:25:126"
         },
         {
           "contract": "PaymentSplitter",
           "path": "contracts/payment/PaymentSplitter.sol",
           "label": "______gap",
-          "astId": 10144,
+          "astId": 10421,
           "type": "t_array:50<t_uint256>",
-          "src": "5190:29:123"
+          "src": "5190:29:126"
         }
       ],
       "warnings": {
@@ -830,7 +927,9 @@
         "hasSelfDestruct": false,
         "hasDelegateCall": false,
         "hasInitialValuesInDeclarations": false,
-        "uninitializedBaseContracts": []
+        "uninitializedBaseContracts": [],
+        "storageUncheckedVars": [],
+        "storageDiff": []
       }
     }
   },
@@ -845,7 +944,7 @@
     "address": "0xB6F8F11b166D526932ee04ffe4D25B810f619E34"
   },
   "provider": {
-    "address": "0x9658302F762E9eFE241378BF5E7C14904299Ea15"
+    "address": "0xBd8311c30718C766868C2ee95CAdc7532c757352"
   },
-  "version": "2.4.0"
+  "version": "2.5.0"
 }
