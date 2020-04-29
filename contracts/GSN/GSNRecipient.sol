@@ -97,7 +97,7 @@ contract GSNRecipient is Initializable, IRelayRecipient, Context {
      *
      * IMPORTANT: Contracts derived from {GSNRecipient} should never use `msg.sender`, and use {_msgSender} instead.
      */
-    function _msgSender() internal view returns (address payable) {
+    function _msgSender() internal view returns (address) {
         if (msg.sender != _relayHub) {
             return msg.sender;
         } else {
