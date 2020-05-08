@@ -5,7 +5,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const RefundEscrow = contract.fromArtifact('RefundEscrow');
+const RefundEscrow = contract.fromArtifact('RefundEscrowMock');
 
 describe('RefundEscrow', function () {
   const [ owner, beneficiary, refundee1, refundee2 ] = accounts;

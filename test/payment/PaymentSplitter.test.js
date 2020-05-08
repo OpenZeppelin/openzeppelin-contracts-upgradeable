@@ -5,7 +5,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const PaymentSplitter = contract.fromArtifact('PaymentSplitter');
+const PaymentSplitter = contract.fromArtifact('PaymentSplitterMock');
 
 describe('PaymentSplitter', function () {
   const [ owner, payee1, payee2, payee3, nonpayee1, payer1 ] = accounts;
