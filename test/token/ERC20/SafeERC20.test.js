@@ -5,14 +5,14 @@ const { expectRevert } = require('@openzeppelin/test-helpers');
 const ERC20ReturnFalseMock = contract.fromArtifact('ERC20ReturnFalseMock');
 const ERC20ReturnTrueMock = contract.fromArtifact('ERC20ReturnTrueMock');
 const ERC20NoReturnMock = contract.fromArtifact('ERC20NoReturnMock');
-const SafeERC20Wrapper = contract.fromArtifact('SafeERC20Wrapper');
+const SafeERC20Mock = contract.fromArtifact('SafeERC20Mock');
 
 describe('SafeERC20', function () {
   const [ hasNoCode ] = accounts;
 
   describe('with address that has no contract code', function () {
     beforeEach(async function () {
-      this.wrapper = await SafeERC20Wrapper.new(hasNoCode);
+      this.wrapper = await SafeERC20Mock.new(hasNoCode);
     });
 
     shouldRevertOnAllCalls('SafeERC20: call to non-contract');
@@ -20,7 +20,7 @@ describe('SafeERC20', function () {
 
   describe('with token that returns false on all calls', function () {
     beforeEach(async function () {
-      this.wrapper = await SafeERC20Wrapper.new((await ERC20ReturnFalseMock.new()).address);
+      this.wrapper = await SafeERC20Mock.new((await ERC20ReturnFalseMock.new()).address);
     });
 
     shouldRevertOnAllCalls('SafeERC20: ERC20 operation did not succeed');
@@ -28,7 +28,7 @@ describe('SafeERC20', function () {
 
   describe('with token that returns true on all calls', function () {
     beforeEach(async function () {
-      this.wrapper = await SafeERC20Wrapper.new((await ERC20ReturnTrueMock.new()).address);
+      this.wrapper = await SafeERC20Mock.new((await ERC20ReturnTrueMock.new()).address);
     });
 
     shouldOnlyRevertOnErrors();
@@ -36,7 +36,7 @@ describe('SafeERC20', function () {
 
   describe('with token that returns no boolean values', function () {
     beforeEach(async function () {
-      this.wrapper = await SafeERC20Wrapper.new((await ERC20NoReturnMock.new()).address);
+      this.wrapper = await SafeERC20Mock.new((await ERC20NoReturnMock.new()).address);
     });
 
     shouldOnlyRevertOnErrors();

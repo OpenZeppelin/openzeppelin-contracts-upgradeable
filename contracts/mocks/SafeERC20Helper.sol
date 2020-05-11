@@ -91,7 +91,7 @@ contract ERC20NoReturnMock is Context {
     }
 }
 
-contract SafeERC20Wrapper is Context {
+contract SafeERC20Mock is Context {
     using SafeERC20 for IERC20;
 
     IERC20 private _token;
