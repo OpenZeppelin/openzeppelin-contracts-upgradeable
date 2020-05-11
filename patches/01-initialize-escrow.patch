@@ -1,0 +1,13 @@
+diff --git a/contracts/payment/PullPayment.sol b/contracts/payment/PullPayment.sol
+index 69d2fc5c..f71282d3 100644
+--- a/contracts/payment/PullPayment.sol
++++ b/contracts/payment/PullPayment.sol
+@@ -33,7 +33,7 @@ contract PullPaymentUpgradeable is Initializable {
+         
+         
+         _escrow = new EscrowUpgradeable();
+-    
++        _escrow.initialize();
+     }
+
+
