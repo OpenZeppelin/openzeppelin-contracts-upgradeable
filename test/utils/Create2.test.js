@@ -3,7 +3,7 @@ const { balance, BN, ether, expectRevert, send } = require('@openzeppelin/test-h
 
 const { expect } = require('chai');
 
-const Create2Impl = contract.fromArtifact('Create2Impl');
+const Create2Mock = contract.fromArtifact('Create2Mock');
 const ERC20Mock = contract.fromArtifact('ERC20Mock');
 const ERC1820Implementer = contract.fromArtifact('ERC1820Implementer');
 
@@ -21,7 +21,7 @@ describe('Create2', function () {
   const constructorByteCode = `${ERC20Mock.bytecode}${encodedParams}`;
 
   beforeEach(async function () {
-    this.factory = await Create2Impl.new();
+    this.factory = await Create2Mock.new();
   });
 
   it('should compute the correct contract address', async function () {

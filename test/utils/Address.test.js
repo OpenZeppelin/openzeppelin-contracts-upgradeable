@@ -3,14 +3,14 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 const { balance, ether, expectRevert, send } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 
-const AddressImpl = contract.fromArtifact('AddressImpl');
+const AddressMock = contract.fromArtifact('AddressMock');
 const EtherReceiver = contract.fromArtifact('EtherReceiverMock');
 
 describe('Address', function () {
   const [ recipient, other ] = accounts;
 
   beforeEach(async function () {
-    this.mock = await AddressImpl.new();
+    this.mock = await AddressMock.new();
   });
 
   describe('isContract', function () {
@@ -19,7 +19,7 @@ describe('Address', function () {
     });
 
     it('should return true for contract address', async function () {
-      const contract = await AddressImpl.new();
+      const contract = await AddressMock.new();
       expect(await this.mock.isContract(contract.address)).to.equal(true);
     });
   });

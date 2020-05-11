@@ -2,7 +2,7 @@ pragma solidity ^0.6.0;
 
 import "../utils/Arrays.sol";
 
-contract ArraysImpl {
+contract ArraysMock {
     using Arrays for uint256[];
 
     uint256[] private _array;

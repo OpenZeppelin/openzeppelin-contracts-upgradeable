@@ -2,7 +2,7 @@ pragma solidity ^0.6.0;
 
 import "../utils/Address.sol";
 
-contract AddressImpl {
+contract AddressMock {
     function isContract(address account) external view returns (bool) {
         return Address.isContract(account);
     }

@@ -3,14 +3,14 @@ require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ArraysImpl = contract.fromArtifact('ArraysImpl');
+const ArraysMock = contract.fromArtifact('ArraysMock');
 
 describe('Arrays', function () {
   context('Even number of elements', function () {
     const EVEN_ELEMENTS_ARRAY = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     beforeEach(async function () {
-      this.arrays = await ArraysImpl.new(EVEN_ELEMENTS_ARRAY);
+      this.arrays = await ArraysMock.new(EVEN_ELEMENTS_ARRAY);
     });
 
     it('should return correct index for the basic case', async function () {
@@ -38,7 +38,7 @@ describe('Arrays', function () {
     const ODD_ELEMENTS_ARRAY = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
     beforeEach(async function () {
-      this.arrays = await ArraysImpl.new(ODD_ELEMENTS_ARRAY);
+      this.arrays = await ArraysMock.new(ODD_ELEMENTS_ARRAY);
     });
 
     it('should return correct index for the basic case', async function () {
@@ -66,7 +66,7 @@ describe('Arrays', function () {
     const WITH_GAP_ARRAY = [11, 12, 13, 14, 15, 20, 21, 22, 23, 24];
 
     beforeEach(async function () {
-      this.arrays = await ArraysImpl.new(WITH_GAP_ARRAY);
+      this.arrays = await ArraysMock.new(WITH_GAP_ARRAY);
     });
 
     it('should return index of first element in next filled range', async function () {
@@ -76,7 +76,7 @@ describe('Arrays', function () {
 
   context('Empty array', function () {
     beforeEach(async function () {
-      this.arrays = await ArraysImpl.new([]);
+      this.arrays = await ArraysMock.new([]);
     });
 
     it('should always return 0 for empty array', async function () {

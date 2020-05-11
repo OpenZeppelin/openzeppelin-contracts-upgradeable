@@ -2,7 +2,7 @@ pragma solidity ^0.6.0;
 
 import "../utils/Counters.sol";
 
-contract CountersImpl {
+contract CountersMock {
     using Counters for Counters.Counter;
 
     Counters.Counter private _counter;
