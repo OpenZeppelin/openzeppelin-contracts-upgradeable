@@ -1,5 +1,5 @@
 {
-  "name": "openzeppelin-solidity",
+  "name": "openzeppelin-ethereum-package",
   "version": "3.0.0",
   "description": "Secure Smart Contract library for Solidity",
   "files": [
