@@ -4,7 +4,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const Ownable = contract.fromArtifact('OwnableMock');
+const Ownable = contract.fromArtifact('OwnableMockUpgradeable');
 
 describe('Ownable', function () {
   const [ owner, other ] = accounts;

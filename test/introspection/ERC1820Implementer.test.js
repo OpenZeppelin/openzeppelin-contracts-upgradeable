@@ -5,7 +5,7 @@ const { bufferToHex, keccak256 } = require('ethereumjs-util');
 
 const { expect } = require('chai');
 
-const ERC1820ImplementerMock = contract.fromArtifact('ERC1820ImplementerMock');
+const ERC1820ImplementerMock = contract.fromArtifact('ERC1820ImplementerMockUpgradeable');
 
 describe('ERC1820Implementer', function () {
   const [ registryFunder, implementee, other ] = accounts;

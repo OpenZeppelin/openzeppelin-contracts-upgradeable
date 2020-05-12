@@ -5,7 +5,7 @@ const { toEthSignedMessageHash, fixSignature } = require('../helpers/sign');
 
 const { expect } = require('chai');
 
-const ECDSAMock = contract.fromArtifact('ECDSAMock');
+const ECDSAMock = contract.fromArtifact('ECDSAMockUpgradeable');
 
 const TEST_MESSAGE = web3.utils.sha3('OpenZeppelin');
 const WRONG_MESSAGE = web3.utils.sha3('Nope');

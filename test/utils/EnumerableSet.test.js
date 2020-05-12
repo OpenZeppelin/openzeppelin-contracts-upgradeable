@@ -2,7 +2,7 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 const { expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 
-const EnumerableSetMock = contract.fromArtifact('EnumerableSetMock');
+const EnumerableSetMock = contract.fromArtifact('EnumerableSetMockUpgradeable');
 
 describe('EnumerableSet', function () {
   const [ accountA, accountB, accountC ] = accounts;

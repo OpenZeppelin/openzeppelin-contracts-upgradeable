@@ -5,7 +5,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const ERC721PresetMinterPauserAutoId = contract.fromArtifact('ERC721PresetMinterPauserAutoIdMock');
+const ERC721PresetMinterPauserAutoId = contract.fromArtifact('ERC721PresetMinterPauserAutoIdMockUpgradeable');
 
 describe('ERC721PresetMinterPauserAutoId', function () {
   const [ deployer, other ] = accounts;

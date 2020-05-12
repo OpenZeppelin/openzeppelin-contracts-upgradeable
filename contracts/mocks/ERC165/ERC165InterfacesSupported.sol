@@ -1,6 +1,7 @@
 pragma solidity ^0.6.0;
 
 import "../../introspection/IERC165.sol";
+import "../../Initializable.sol";
 
 /**
  * https://eips.ethereum.org/EIPS/eip-214#specification
@@ -12,7 +13,7 @@ import "../../introspection/IERC165.sol";
  * therefore, because this contract is staticcall'd we need to not emit events (which is how solidity-coverage works)
  * solidity-coverage ignores the /mocks folder, so we duplicate its implementation here to avoid instrumenting it
  */
-contract SupportsInterfaceWithLookupMock is IERC165 {
+contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165 {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
@@ -27,9 +28,22 @@ contract SupportsInterfaceWithLookupMock is IERC165 {
      * @dev A contract implementing SupportsInterfaceWithLookup
      * implement ERC165 itself.
      */
-    constructor () public {
-        _registerInterface(INTERFACE_ID_ERC165);
+
+    constructor() public  {
+        __SupportsInterfaceWithLookupMock_init();
     }
+
+    function __SupportsInterfaceWithLookupMock_init() internal initializer {
+        __SupportsInterfaceWithLookupMock_init_unchained();
+    }
+
+    function __SupportsInterfaceWithLookupMock_init_unchained() internal initializer {
+
+
+        _registerInterface(INTERFACE_ID_ERC165);
+
+    }
+
 
     /**
      * @dev Implement supportsInterface(bytes4) using a lookup table.
@@ -45,12 +59,30 @@ contract SupportsInterfaceWithLookupMock is IERC165 {
         require(interfaceId != 0xffffffff, "ERC165InterfacesSupported: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
     }
+
+    uint256[49] private __gap;
 }
 
-contract ERC165InterfacesSupported is SupportsInterfaceWithLookupMock {
-    constructor (bytes4[] memory interfaceIds) public {
+contract ERC165InterfacesSupportedUpgradeable is Initializable, SupportsInterfaceWithLookupMockUpgradeable {
+
+    constructor(bytes4[] memory interfaceIds) public  {
+        __ERC165InterfacesSupported_init(interfaceIds);
+    }
+
+    function __ERC165InterfacesSupported_init(bytes4[] memory interfaceIds) internal initializer {
+        __SupportsInterfaceWithLookupMock_init_unchained();
+        __ERC165InterfacesSupported_init_unchained(interfaceIds);
+    }
+
+    function __ERC165InterfacesSupported_init_unchained(bytes4[] memory interfaceIds) internal initializer {
+
+
         for (uint256 i = 0; i < interfaceIds.length; i++) {
             _registerInterface(interfaceIds[i]);
         }
+
     }
+
+
+    uint256[50] private __gap;
 }

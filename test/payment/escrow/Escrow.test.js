@@ -3,7 +3,7 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 require('@openzeppelin/test-helpers');
 const { shouldBehaveLikeEscrow } = require('./Escrow.behavior');
 
-const Escrow = contract.fromArtifact('EscrowMock');
+const Escrow = contract.fromArtifact('EscrowMockUpgradeable');
 
 describe('Escrow', function () {
   const [ owner, ...otherAccounts ] = accounts;

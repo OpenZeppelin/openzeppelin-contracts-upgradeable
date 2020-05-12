@@ -1,8 +1,23 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
+import "../Initializable.sol";
 
-contract ContextMock is Context {
+contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
+    constructor() public  {
+        __ContextMock_init();
+    }
+
+    function __ContextMock_init() internal initializer {
+        __Context_init_unchained();
+        __ContextMock_init_unchained();
+    }
+
+    function __ContextMock_init_unchained() internal initializer {
+
+
+    }
+
     event Sender(address sender);
 
     function msgSender() public {
@@ -14,14 +29,31 @@ contract ContextMock is Context {
     function msgData(uint256 integerValue, string memory stringValue) public {
         emit Data(_msgData(), integerValue, stringValue);
     }
+
+    uint256[50] private __gap;
 }
 
-contract ContextMockCaller {
-    function callSender(ContextMock context) public {
+contract ContextMockCallerUpgradeable is Initializable {
+    constructor() public  {
+        __ContextMockCaller_init();
+    }
+
+    function __ContextMockCaller_init() internal initializer {
+        __ContextMockCaller_init_unchained();
+    }
+
+    function __ContextMockCaller_init_unchained() internal initializer {
+
+
+    }
+
+    function callSender(ContextMockUpgradeable context) public {
         context.msgSender();
     }
 
-    function callData(ContextMock context, uint256 integerValue, string memory stringValue) public {
+    function callData(ContextMockUpgradeable context, uint256 integerValue, string memory stringValue) public {
         context.msgData(integerValue, stringValue);
     }
+
+    uint256[50] private __gap;
 }

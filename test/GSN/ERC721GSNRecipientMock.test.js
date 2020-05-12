@@ -6,7 +6,7 @@ const gsn = require('@openzeppelin/gsn-helpers');
 const { fixSignature } = require('../helpers/sign');
 const { utils: { toBN } } = require('web3');
 
-const ERC721GSNRecipientMock = contract.fromArtifact('ERC721GSNRecipientMock');
+const ERC721GSNRecipientMock = contract.fromArtifact('ERC721GSNRecipientMockUpgradeable');
 
 describe('ERC721GSNRecipient (integration)', function () {
   const [ signer, sender ] = accounts;

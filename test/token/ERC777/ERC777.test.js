@@ -17,8 +17,8 @@ const {
   shouldBehaveLikeERC20,
 } = require('../ERC20/ERC20.behavior');
 
-const ERC777 = contract.fromArtifact('ERC777Mock');
-const ERC777SenderRecipientMock = contract.fromArtifact('ERC777SenderRecipientMock');
+const ERC777 = contract.fromArtifact('ERC777MockUpgradeable');
+const ERC777SenderRecipientMock = contract.fromArtifact('ERC777SenderRecipientMockUpgradeable');
 
 describe('ERC777', function () {
   const [ registryFunder, holder, defaultOperatorA, defaultOperatorB, newOperator, anyone ] = accounts;

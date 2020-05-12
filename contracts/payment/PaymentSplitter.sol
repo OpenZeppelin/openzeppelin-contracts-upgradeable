@@ -2,6 +2,7 @@ pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
 import "../math/SafeMath.sol";
+import "../Initializable.sol";
 
 /**
  * @title PaymentSplitter
@@ -16,7 +17,7 @@ import "../math/SafeMath.sol";
  * accounts but kept in this contract, and the actual transfer is triggered as a separate step by calling the {release}
  * function.
  */
-contract PaymentSplitter is Context {
+contract PaymentSplitterUpgradeable is Initializable, ContextUpgradeable {
     using SafeMath for uint256;
 
     event PayeeAdded(address account, uint256 shares);
@@ -37,7 +38,15 @@ contract PaymentSplitter is Context {
      * All addresses in `payees` must be non-zero. Both arrays must have the same non-zero length, and there must be no
      * duplicates in `payees`.
      */
-    constructor (address[] memory payees, uint256[] memory shares) public payable {
+
+    function __PaymentSplitter_init(address[] memory payees, uint256[] memory shares) internal initializer {
+        __Context_init_unchained();
+        __PaymentSplitter_init_unchained(payees, shares);
+    }
+
+    function __PaymentSplitter_init_unchained(address[] memory payees, uint256[] memory shares) internal initializer {
+
+
         // solhint-disable-next-line max-line-length
         require(payees.length == shares.length, "PaymentSplitter: payees and shares length mismatch");
         require(payees.length > 0, "PaymentSplitter: no payees");
@@ -45,7 +54,9 @@ contract PaymentSplitter is Context {
         for (uint256 i = 0; i < payees.length; i++) {
             _addPayee(payees[i], shares[i]);
         }
+
     }
+
 
     /**
      * @dev The Ether received will be logged with {PaymentReceived} events. Note that these events are not fully
@@ -129,4 +140,6 @@ contract PaymentSplitter is Context {
         _totalShares = _totalShares.add(shares_);
         emit PayeeAdded(account, shares_);
     }
+
+    uint256[45] private __gap;
 }

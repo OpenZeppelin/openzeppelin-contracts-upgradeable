@@ -4,7 +4,7 @@ const { expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const AccessControlMock = contract.fromArtifact('AccessControlMock');
+const AccessControlMock = contract.fromArtifact('AccessControlMockUpgradeable');
 
 describe('AccessControl', function () {
   const [ admin, authorized, otherAuthorized, other, otherAdmin ] = accounts;

@@ -6,7 +6,7 @@ const { fixSignature } = require('../helpers/sign');
 const { utils: { toBN } } = require('web3');
 const { ZERO_ADDRESS } = constants;
 
-const GSNRecipientSignatureMock = contract.fromArtifact('GSNRecipientSignatureMock');
+const GSNRecipientSignatureMock = contract.fromArtifact('GSNRecipientSignatureMockUpgradeable');
 
 describe('GSNRecipientSignature', function () {
   const [ signer, other ] = accounts;

@@ -1,6 +1,7 @@
 pragma solidity ^0.6.0;
 
 import "./ConditionalEscrow.sol";
+import "../../Initializable.sol";
 
 /**
  * @title RefundEscrow
@@ -12,7 +13,7 @@ import "./ConditionalEscrow.sol";
  * withdrawal by the beneficiary, or refunds to the depositors. All interactions
  * with `RefundEscrow` will be made through the owner contract.
  */
-contract RefundEscrow is ConditionalEscrow {
+contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable {
     enum State { Active, Refunding, Closed }
 
     event RefundsClosed();
@@ -25,11 +26,24 @@ contract RefundEscrow is ConditionalEscrow {
      * @dev Constructor.
      * @param beneficiary The beneficiary of the deposits.
      */
-    constructor (address payable beneficiary) public {
+
+    function __RefundEscrow_init(address payable beneficiary) internal initializer {
+        __Context_init_unchained();
+        __Ownable_init_unchained();
+        __Escrow_init_unchained();
+        __ConditionalEscrow_init_unchained();
+        __RefundEscrow_init_unchained(beneficiary);
+    }
+
+    function __RefundEscrow_init_unchained(address payable beneficiary) internal initializer {
+
+
         require(beneficiary != address(0), "RefundEscrow: beneficiary is the zero address");
         _beneficiary = beneficiary;
         _state = State.Active;
+
     }
+
 
     /**
      * @return The current state of the escrow.
@@ -88,4 +102,6 @@ contract RefundEscrow is ConditionalEscrow {
     function withdrawalAllowed(address) public view override returns (bool) {
         return _state == State.Refunding;
     }
+
+    uint256[49] private __gap;
 }

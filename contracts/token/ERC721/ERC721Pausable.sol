@@ -2,6 +2,7 @@ pragma solidity ^0.6.0;
 
 import "./ERC721.sol";
 import "../../utils/Pausable.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev ERC721 token with pausable token transfers, minting and burning.
@@ -10,7 +11,19 @@ import "../../utils/Pausable.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC721Pausable is ERC721, Pausable {
+abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable, PausableUpgradeable {
+    function __ERC721Pausable_init() internal initializer {
+        __Context_init_unchained();
+        __ERC165_init_unchained();
+        __Pausable_init_unchained();
+        __ERC721Pausable_init_unchained();
+    }
+
+    function __ERC721Pausable_init_unchained() internal initializer {
+
+
+    }
+
     /**
      * @dev See {ERC721-_beforeTokenTransfer}.
      *
@@ -23,4 +36,6 @@ abstract contract ERC721Pausable is ERC721, Pausable {
 
         require(!paused(), "ERC721Pausable: token transfer while paused");
     }
+
+    uint256[50] private __gap;
 }

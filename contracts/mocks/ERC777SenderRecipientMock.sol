@@ -6,8 +6,25 @@ import "../token/ERC777/IERC777Sender.sol";
 import "../token/ERC777/IERC777Recipient.sol";
 import "../introspection/IERC1820Registry.sol";
 import "../introspection/ERC1820Implementer.sol";
+import "../Initializable.sol";
 
-contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, ERC1820Implementer {
+contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeable, IERC777Sender, IERC777Recipient, ERC1820ImplementerUpgradeable {
+    constructor() public  {
+        __ERC777SenderRecipientMock_init();
+    }
+
+    function __ERC777SenderRecipientMock_init() internal initializer {
+        __Context_init_unchained();
+        __ERC1820Implementer_init_unchained();
+        __ERC777SenderRecipientMock_init_unchained();
+    }
+
+    function __ERC777SenderRecipientMock_init_unchained() internal initializer {
+
+        _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+
+    }
+
     event TokensToSendCalled(
         address operator,
         address from,
@@ -35,7 +52,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
     bool private _shouldRevertSend;
     bool private _shouldRevertReceive;
 
-    IERC1820Registry private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    IERC1820Registry private _erc1820 ;
 
     bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
     bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
@@ -144,5 +161,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
     function burn(IERC777 token, uint256 amount, bytes memory data) public {
         token.burn(amount, data);
     }
+
+    uint256[49] private __gap;
 }
 

@@ -5,7 +5,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const ERC721BurnableMock = contract.fromArtifact('ERC721BurnableMock');
+const ERC721BurnableMock = contract.fromArtifact('ERC721BurnableMockUpgradeable');
 
 describe('ERC721Burnable', function () {
   const [owner, approved] = accounts;

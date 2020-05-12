@@ -1,8 +1,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/EnumerableMap.sol";
+import "../Initializable.sol";
 
-contract EnumerableMapMock {
+contract EnumerableMapMockUpgradeable is Initializable {
+    constructor() public  {
+        __EnumerableMapMock_init();
+    }
+
+    function __EnumerableMapMock_init() internal initializer {
+        __EnumerableMapMock_init_unchained();
+    }
+
+    function __EnumerableMapMock_init_unchained() internal initializer {
+
+
+    }
+
     using EnumerableMap for EnumerableMap.UintToAddressMap;
 
     event OperationResult(bool result);
@@ -35,4 +49,6 @@ contract EnumerableMapMock {
     function get(uint256 key) public view returns (address) {
         return _map.get(key);
     }
+
+    uint256[48] private __gap;
 }

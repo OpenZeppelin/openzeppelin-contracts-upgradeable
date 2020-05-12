@@ -7,7 +7,7 @@ const { keccak256, bufferToHex } = require('ethereumjs-util');
 
 const { expect } = require('chai');
 
-const MerkleProofWrapper = contract.fromArtifact('MerkleProofWrapper');
+const MerkleProofWrapper = contract.fromArtifact('MerkleProofWrapperUpgradeable');
 
 describe('MerkleProof', function () {
   beforeEach(async function () {

@@ -10,8 +10,8 @@ const {
   shouldBehaveLikeERC20Approve,
 } = require('./ERC20.behavior');
 
-const ERC20Mock = contract.fromArtifact('ERC20Mock');
-const ERC20DecimalsMock = contract.fromArtifact('ERC20DecimalsMock');
+const ERC20Mock = contract.fromArtifact('ERC20MockUpgradeable');
+const ERC20DecimalsMock = contract.fromArtifact('ERC20DecimalsMockUpgradeable');
 
 describe('ERC20', function () {
   const [ initialHolder, recipient, anotherAccount ] = accounts;

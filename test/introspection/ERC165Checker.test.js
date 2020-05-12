@@ -3,9 +3,9 @@ require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ERC165CheckerMock = contract.fromArtifact('ERC165CheckerMock');
-const ERC165NotSupported = contract.fromArtifact('ERC165NotSupported');
-const ERC165InterfacesSupported = contract.fromArtifact('ERC165InterfacesSupported');
+const ERC165CheckerMock = contract.fromArtifact('ERC165CheckerMockUpgradeable');
+const ERC165NotSupported = contract.fromArtifact('ERC165NotSupportedUpgradeable');
+const ERC165InterfacesSupported = contract.fromArtifact('ERC165InterfacesSupportedUpgradeable');
 
 const DUMMY_ID = '0xdeadbeef';
 const DUMMY_ID_2 = '0xcafebabe';

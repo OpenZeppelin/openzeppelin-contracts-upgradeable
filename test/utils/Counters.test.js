@@ -3,7 +3,7 @@ const { expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const CountersMock = contract.fromArtifact('CountersMock');
+const CountersMock = contract.fromArtifact('CountersMockUpgradeable');
 
 describe('Counters', function () {
   beforeEach(async function () {

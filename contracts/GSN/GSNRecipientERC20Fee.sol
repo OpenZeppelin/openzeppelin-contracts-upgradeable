@@ -5,6 +5,7 @@ import "../math/SafeMath.sol";
 import "../access/Ownable.sol";
 import "../token/ERC20/SafeERC20.sol";
 import "../token/ERC20/ERC20.sol";
+import "../Initializable.sol";
 
 /**
  * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that charges transaction fees in a special purpose ERC20
@@ -15,7 +16,7 @@ import "../token/ERC20/ERC20.sol";
  * whose only minter is the recipient, so the strategy must be implemented in a derived contract, making use of the
  * internal {_mint} function.
  */
-contract GSNRecipientERC20Fee is GSNRecipient {
+contract GSNRecipientERC20FeeUpgradeable is Initializable, GSNRecipientUpgradeable {
     using SafeERC20 for __unstable__ERC20Owned;
     using SafeMath for uint256;
 
@@ -28,9 +29,20 @@ contract GSNRecipientERC20Fee is GSNRecipient {
     /**
      * @dev The arguments to the constructor are the details that the gas payment token will have: `name` and `symbol`. `decimals` is hard-coded to 18.
      */
-    constructor(string memory name, string memory symbol) public {
-        _token = new __unstable__ERC20Owned(name, symbol);
+
+    function __GSNRecipientERC20Fee_init(string memory name, string memory symbol) internal initializer {
+        __Context_init_unchained();
+        __GSNRecipient_init_unchained();
+        __GSNRecipientERC20Fee_init_unchained(name, symbol);
     }
+
+    function __GSNRecipientERC20Fee_init_unchained(string memory name, string memory symbol) internal initializer {
+
+
+        _token = new __unstable__ERC20Owned(name, symbol);
+
+    }
+
 
     /**
      * @dev Returns the gas payment token.
@@ -102,6 +114,8 @@ contract GSNRecipientERC20Fee is GSNRecipient {
         // After the relayed call has been executed and the actual charge estimated, the excess pre-charge is returned
         _token.safeTransfer(from, maxPossibleCharge.sub(actualCharge));
     }
+
+    uint256[49] private __gap;
 }
 
 /**
@@ -111,10 +125,26 @@ contract GSNRecipientERC20Fee is GSNRecipient {
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20Owned is ERC20, Ownable {
+contract __unstable__ERC20Owned is Initializable, ERC20Upgradeable, OwnableUpgradeable {
     uint256 private constant _UINT256_MAX = 2**256 - 1;
 
-    constructor(string memory name, string memory symbol) public ERC20(name, symbol) { }
+
+    constructor(string memory name, string memory symbol) public  {
+        ____unstable__ERC20Owned_init(name, symbol);
+    }
+
+    function ____unstable__ERC20Owned_init(string memory name, string memory symbol) internal initializer {
+        __Context_init_unchained();
+        __ERC20_init_unchained(name, symbol);
+        __Ownable_init_unchained();
+        ____unstable__ERC20Owned_init_unchained(name, symbol);
+    }
+
+    function ____unstable__ERC20Owned_init_unchained(string memory name, string memory symbol) internal initializer {
+
+
+    }
+
 
     // The owner (GSNRecipientERC20Fee) can mint tokens
     function mint(address account, uint256 amount) public onlyOwner {
@@ -147,4 +177,6 @@ contract __unstable__ERC20Owned is ERC20, Ownable {
             return super.transferFrom(sender, recipient, amount);
         }
     }
+
+    uint256[50] private __gap;
 }
