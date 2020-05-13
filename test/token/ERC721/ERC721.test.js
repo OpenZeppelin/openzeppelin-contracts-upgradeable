@@ -7,8 +7,8 @@ const { expect } = require('chai');
 
 const { shouldSupportInterfaces } = require('../../introspection/SupportsInterface.behavior');
 
-const ERC721Mock = contract.fromArtifact('ERC721MockUpgradeable');
-const ERC721ReceiverMock = contract.fromArtifact('ERC721ReceiverMockUpgradeable');
+const ERC721Mock = contract.fromArtifact('ERC721MockUpgradeSafe');
+const ERC721ReceiverMock = contract.fromArtifact('ERC721ReceiverMockUpgradeSafe');
 
 describe('ERC721', function () {
   const [owner, newOwner, approved, anotherApproved, operator, other] = accounts;

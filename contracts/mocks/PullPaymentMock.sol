@@ -4,7 +4,7 @@ import "../payment/PullPayment.sol";
 import "../Initializable.sol";
 
 // mock class using PullPayment
-contract PullPaymentMockUpgradeable is Initializable, PullPaymentUpgradeable {
+contract PullPaymentMockUpgradeSafe is Initializable, PullPaymentUpgradeSafe {
 
     constructor() public payable {
         __PullPaymentMock_init();

@@ -2,8 +2,8 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 
 require('@openzeppelin/test-helpers');
 
-const ContextMock = contract.fromArtifact('ContextMockUpgradeable');
-const ContextMockCaller = contract.fromArtifact('ContextMockCallerUpgradeable');
+const ContextMock = contract.fromArtifact('ContextMockUpgradeSafe');
+const ContextMockCaller = contract.fromArtifact('ContextMockCallerUpgradeSafe');
 
 const { shouldBehaveLikeRegularContext } = require('./Context.behavior');
 

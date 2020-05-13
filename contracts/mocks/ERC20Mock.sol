@@ -4,7 +4,7 @@ import "../token/ERC20/ERC20.sol";
 import "../Initializable.sol";
 
 // mock class using ERC20
-contract ERC20MockUpgradeable is Initializable, ERC20Upgradeable {
+contract ERC20MockUpgradeSafe is Initializable, ERC20UpgradeSafe {
 
     constructor(
         string memory name,

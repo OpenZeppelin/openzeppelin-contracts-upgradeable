@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../cryptography/ECDSA.sol";
 import "../Initializable.sol";
 
-contract ECDSAMockUpgradeable is Initializable {
+contract ECDSAMockUpgradeSafe is Initializable {
     constructor() public  {
         __ECDSAMock_init();
     }

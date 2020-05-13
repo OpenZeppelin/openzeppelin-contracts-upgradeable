@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../access/AccessControl.sol";
 import "../Initializable.sol";
 
-contract AccessControlMockUpgradeable is Initializable, AccessControlUpgradeable {
+contract AccessControlMockUpgradeSafe is Initializable, AccessControlUpgradeSafe {
 
     constructor() public  {
         __AccessControlMock_init();

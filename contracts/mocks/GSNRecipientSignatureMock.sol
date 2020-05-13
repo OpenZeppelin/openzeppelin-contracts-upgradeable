@@ -4,7 +4,7 @@ import "../GSN/GSNRecipient.sol";
 import "../GSN/GSNRecipientSignature.sol";
 import "../Initializable.sol";
 
-contract GSNRecipientSignatureMockUpgradeable is Initializable, GSNRecipientUpgradeable, GSNRecipientSignatureUpgradeable {
+contract GSNRecipientSignatureMockUpgradeSafe is Initializable, GSNRecipientUpgradeSafe, GSNRecipientSignatureUpgradeSafe {
 
     constructor(address trustedSigner) public  {
         __GSNRecipientSignatureMock_init(trustedSigner);

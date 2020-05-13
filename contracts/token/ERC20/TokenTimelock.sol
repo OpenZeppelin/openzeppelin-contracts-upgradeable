@@ -12,7 +12,7 @@ import "../../Initializable.sol";
  *
  * For a more complete vesting schedule, see {TokenVesting}.
  */
-contract TokenTimelockUpgradeable is Initializable {
+contract TokenTimelockUpgradeSafe is Initializable {
     using SafeERC20 for IERC20;
 
     // ERC20 basic token contract being held

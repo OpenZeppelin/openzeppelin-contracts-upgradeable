@@ -4,7 +4,7 @@ import "../GSN/GSNRecipient.sol";
 import "../GSN/GSNRecipientERC20Fee.sol";
 import "../Initializable.sol";
 
-contract GSNRecipientERC20FeeMockUpgradeable is Initializable, GSNRecipientUpgradeable, GSNRecipientERC20FeeUpgradeable {
+contract GSNRecipientERC20FeeMockUpgradeSafe is Initializable, GSNRecipientUpgradeSafe, GSNRecipientERC20FeeUpgradeSafe {
 
     constructor(string memory name, string memory symbol) public  {
         __GSNRecipientERC20FeeMock_init(name, symbol);

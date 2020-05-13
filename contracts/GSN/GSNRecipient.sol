@@ -16,7 +16,7 @@ import "../Initializable.sol";
  * information on how to use the pre-built {GSNRecipientSignature} and
  * {GSNRecipientERC20Fee}, or how to write your own.
  */
-abstract contract GSNRecipientUpgradeable is Initializable, IRelayRecipient, ContextUpgradeable {
+abstract contract GSNRecipientUpgradeSafe is Initializable, IRelayRecipient, ContextUpgradeSafe {
     function __GSNRecipient_init() internal initializer {
         __Context_init_unchained();
         __GSNRecipient_init_unchained();

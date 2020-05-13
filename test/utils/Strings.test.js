@@ -3,7 +3,7 @@ const { constants } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const StringsMock = contract.fromArtifact('StringsMockUpgradeable');
+const StringsMock = contract.fromArtifact('StringsMockUpgradeSafe');
 
 describe('Strings', function () {
   beforeEach(async function () {

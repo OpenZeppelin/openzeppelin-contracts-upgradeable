@@ -21,8 +21,8 @@ import "../Initializable.sol";
  * instead of Solidity's `transfer` function. Payees can query their due
  * payments with {payments}, and retrieve them with {withdrawPayments}.
  */
-contract PullPaymentUpgradeable is Initializable {
-    EscrowUpgradeable private _escrow;
+contract PullPaymentUpgradeSafe is Initializable {
+    EscrowUpgradeSafe private _escrow;
 
 
     function __PullPayment_init() internal initializer {
@@ -32,7 +32,7 @@ contract PullPaymentUpgradeable is Initializable {
     function __PullPayment_init_unchained() internal initializer {
 
 
-        _escrow = new EscrowUpgradeable();
+        _escrow = new EscrowUpgradeSafe();
         _escrow.initialize();
     }
 

@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import '../token/ERC20/TokenTimelock.sol';
 import "../Initializable.sol";
 
-contract TokenTimelockMockUpgradeable is Initializable, TokenTimelockUpgradeable {
+contract TokenTimelockMockUpgradeSafe is Initializable, TokenTimelockUpgradeSafe {
 
     constructor(IERC20 token, address beneficiary, uint256 releaseTime) public  {
         __TokenTimelockMock_init(token, beneficiary, releaseTime);

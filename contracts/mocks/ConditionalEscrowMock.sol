@@ -4,7 +4,7 @@ import "../payment/escrow/ConditionalEscrow.sol";
 import "../Initializable.sol";
 
 // mock class using ConditionalEscrow
-contract ConditionalEscrowMockUpgradeable is Initializable, ConditionalEscrowUpgradeable {
+contract ConditionalEscrowMockUpgradeSafe is Initializable, ConditionalEscrowUpgradeSafe {
     constructor() public  {
         __ConditionalEscrowMock_init();
     }

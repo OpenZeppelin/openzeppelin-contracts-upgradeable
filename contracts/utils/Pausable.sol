@@ -12,7 +12,7 @@ import "../Initializable.sol";
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
  */
-contract PausableUpgradeable is Initializable, ContextUpgradeable {
+contract PausableUpgradeSafe is Initializable, ContextUpgradeSafe {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */

@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../introspection/ERC1820Implementer.sol";
 import "../Initializable.sol";
 
-contract ERC1820ImplementerMockUpgradeable is Initializable, ERC1820ImplementerUpgradeable {
+contract ERC1820ImplementerMockUpgradeSafe is Initializable, ERC1820ImplementerUpgradeSafe {
     constructor() public  {
         __ERC1820ImplementerMock_init();
     }

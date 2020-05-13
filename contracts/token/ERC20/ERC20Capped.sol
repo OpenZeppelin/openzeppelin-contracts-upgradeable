@@ -6,7 +6,7 @@ import "../../Initializable.sol";
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
  */
-abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
+abstract contract ERC20CappedUpgradeSafe is Initializable, ERC20UpgradeSafe {
     uint256 private _cap;
 
     /**

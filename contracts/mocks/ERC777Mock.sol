@@ -4,7 +4,7 @@ import "../GSN/Context.sol";
 import "../token/ERC777/ERC777.sol";
 import "../Initializable.sol";
 
-contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgradeable {
+contract ERC777MockUpgradeSafe is Initializable, ContextUpgradeSafe, ERC777UpgradeSafe {
 
     constructor(
         address initialHolder,

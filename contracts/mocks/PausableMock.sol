@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/Pausable.sol";
 import "../Initializable.sol";
 
-contract PausableMockUpgradeable is Initializable, PausableUpgradeable {
+contract PausableMockUpgradeSafe is Initializable, PausableUpgradeSafe {
     bool public drasticMeasureTaken;
     uint256 public count;
 

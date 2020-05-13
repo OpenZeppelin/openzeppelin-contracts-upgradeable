@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/Strings.sol";
 import "../Initializable.sol";
 
-contract StringsMockUpgradeable is Initializable {
+contract StringsMockUpgradeSafe is Initializable {
     constructor() public  {
         __StringsMock_init();
     }

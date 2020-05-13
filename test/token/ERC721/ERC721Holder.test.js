@@ -4,8 +4,8 @@ const { BN } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ERC721Holder = contract.fromArtifact('ERC721HolderUpgradeable');
-const ERC721Mock = contract.fromArtifact('ERC721MockUpgradeable');
+const ERC721Holder = contract.fromArtifact('ERC721HolderUpgradeSafe');
+const ERC721Mock = contract.fromArtifact('ERC721MockUpgradeSafe');
 
 describe('ERC721Holder', function () {
   const [ owner ] = accounts;

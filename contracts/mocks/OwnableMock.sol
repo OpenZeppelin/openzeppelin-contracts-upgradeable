@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../access/Ownable.sol";
 import "../Initializable.sol";
 
-contract OwnableMockUpgradeable is Initializable, OwnableUpgradeable {
+contract OwnableMockUpgradeSafe is Initializable, OwnableUpgradeSafe {
     constructor() public  {
         __OwnableMock_init();
     }

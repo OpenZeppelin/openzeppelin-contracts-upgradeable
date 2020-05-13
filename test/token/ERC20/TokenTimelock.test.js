@@ -4,8 +4,8 @@ const { BN, expectRevert, time } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ERC20Mock = contract.fromArtifact('ERC20MockUpgradeable');
-const TokenTimelock = contract.fromArtifact('TokenTimelockMockUpgradeable');
+const ERC20Mock = contract.fromArtifact('ERC20MockUpgradeSafe');
+const TokenTimelock = contract.fromArtifact('TokenTimelockMockUpgradeSafe');
 
 describe('TokenTimelock', function () {
   const [ beneficiary ] = accounts;

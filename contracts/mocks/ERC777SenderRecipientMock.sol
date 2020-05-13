@@ -8,7 +8,7 @@ import "../introspection/IERC1820Registry.sol";
 import "../introspection/ERC1820Implementer.sol";
 import "../Initializable.sol";
 
-contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeable, IERC777Sender, IERC777Recipient, ERC1820ImplementerUpgradeable {
+contract ERC777SenderRecipientMockUpgradeSafe is Initializable, ContextUpgradeSafe, IERC777Sender, IERC777Recipient, ERC1820ImplementerUpgradeSafe {
     constructor() public  {
         __ERC777SenderRecipientMock_init();
     }

@@ -14,7 +14,7 @@ import "../Initializable.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-contract OwnableUpgradeable is Initializable, ContextUpgradeable {
+contract OwnableUpgradeSafe is Initializable, ContextUpgradeSafe {
     address private _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);

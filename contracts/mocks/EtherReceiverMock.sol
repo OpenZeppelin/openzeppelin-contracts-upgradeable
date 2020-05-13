@@ -1,7 +1,7 @@
 pragma solidity ^0.6.0;
 import "../Initializable.sol";
 
-contract EtherReceiverMockUpgradeable is Initializable {
+contract EtherReceiverMockUpgradeSafe is Initializable {
     constructor() public  {
         __EtherReceiverMock_init();
     }

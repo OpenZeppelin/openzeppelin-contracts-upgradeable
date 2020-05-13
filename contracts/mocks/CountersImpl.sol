@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/Counters.sol";
 import "../Initializable.sol";
 
-contract CountersMockUpgradeable is Initializable {
+contract CountersMockUpgradeSafe is Initializable {
     constructor() public  {
         __CountersMock_init();
     }

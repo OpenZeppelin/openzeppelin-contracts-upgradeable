@@ -5,7 +5,7 @@ import "../token/ERC20/IERC20.sol";
 import "../token/ERC20/SafeERC20.sol";
 import "../Initializable.sol";
 
-contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
+contract ERC20ReturnFalseMockUpgradeSafe is Initializable, ContextUpgradeSafe {
     constructor() public  {
         __ERC20ReturnFalseMock_init();
     }
@@ -49,7 +49,7 @@ contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
     uint256[48] private __gap;
 }
 
-contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
+contract ERC20ReturnTrueMockUpgradeSafe is Initializable, ContextUpgradeSafe {
     constructor() public  {
         __ERC20ReturnTrueMock_init();
     }
@@ -96,7 +96,7 @@ contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
     uint256[48] private __gap;
 }
 
-contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
+contract ERC20NoReturnMockUpgradeSafe is Initializable, ContextUpgradeSafe {
     constructor() public  {
         __ERC20NoReturnMock_init();
     }
@@ -140,7 +140,7 @@ contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
     uint256[48] private __gap;
 }
 
-contract SafeERC20MockUpgradeable is Initializable, ContextUpgradeable {
+contract SafeERC20MockUpgradeSafe is Initializable, ContextUpgradeSafe {
     using SafeERC20 for IERC20;
 
     IERC20 private _token;
@@ -184,7 +184,7 @@ contract SafeERC20MockUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function setAllowance(uint256 allowance_) public {
-        ERC20ReturnTrueMockUpgradeable(address(_token)).setAllowance(allowance_);
+        ERC20ReturnTrueMockUpgradeSafe(address(_token)).setAllowance(allowance_);
     }
 
     function allowance() public view returns (uint256) {

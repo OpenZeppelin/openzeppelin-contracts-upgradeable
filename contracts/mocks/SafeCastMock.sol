@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/SafeCast.sol";
 import "../Initializable.sol";
 
-contract SafeCastMockUpgradeable is Initializable {
+contract SafeCastMockUpgradeSafe is Initializable {
     constructor() public  {
         __SafeCastMock_init();
     }

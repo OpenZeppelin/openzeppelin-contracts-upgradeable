@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../token/ERC721/ERC721Burnable.sol";
 import "../Initializable.sol";
 
-contract ERC721BurnableMockUpgradeable is Initializable, ERC721BurnableUpgradeable {
+contract ERC721BurnableMockUpgradeSafe is Initializable, ERC721BurnableUpgradeSafe {
 
     constructor(string memory name, string memory symbol) public  {
         __ERC721BurnableMock_init(name, symbol);

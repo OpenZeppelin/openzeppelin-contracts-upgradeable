@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../introspection/ERC165.sol";
 import "../Initializable.sol";
 
-contract ERC165MockUpgradeable is Initializable, ERC165Upgradeable {
+contract ERC165MockUpgradeSafe is Initializable, ERC165UpgradeSafe {
     constructor() public  {
         __ERC165Mock_init();
     }

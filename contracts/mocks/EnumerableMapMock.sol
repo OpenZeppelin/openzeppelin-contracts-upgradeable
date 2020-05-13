@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/EnumerableMap.sol";
 import "../Initializable.sol";
 
-contract EnumerableMapMockUpgradeable is Initializable {
+contract EnumerableMapMockUpgradeSafe is Initializable {
     constructor() public  {
         __EnumerableMapMock_init();
     }

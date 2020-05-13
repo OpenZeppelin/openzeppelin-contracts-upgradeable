@@ -23,7 +23,7 @@ import "../Initializable.sol";
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to aother accounts
  */
-contract ERC721PresetMinterPauserAutoIdUpgradeable is Initializable, ContextUpgradeable, AccessControlUpgradeable, ERC721BurnableUpgradeable, ERC721PausableUpgradeable {
+contract ERC721PresetMinterPauserAutoIdUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC721BurnableUpgradeSafe, ERC721PausableUpgradeSafe {
     using Counters for Counters.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -115,7 +115,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is Initializable, ContextUpgr
         _unpause();
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721Upgradeable, ERC721PausableUpgradeable) {
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721UpgradeSafe, ERC721PausableUpgradeSafe) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 

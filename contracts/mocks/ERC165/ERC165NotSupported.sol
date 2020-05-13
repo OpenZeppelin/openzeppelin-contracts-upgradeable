@@ -1,7 +1,7 @@
 pragma solidity ^0.6.0;
 import "../../Initializable.sol";
 
-contract ERC165NotSupportedUpgradeable is Initializable {
+contract ERC165NotSupportedUpgradeSafe is Initializable {
     constructor() public  {
         __ERC165NotSupported_init();
     }

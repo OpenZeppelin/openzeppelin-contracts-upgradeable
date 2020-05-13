@@ -3,7 +3,7 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 const { BN, ether, expectRevert } = require('@openzeppelin/test-helpers');
 const { shouldBehaveLikeERC20Capped } = require('./behaviors/ERC20Capped.behavior');
 
-const ERC20Capped = contract.fromArtifact('ERC20CappedMockUpgradeable');
+const ERC20Capped = contract.fromArtifact('ERC20CappedMockUpgradeSafe');
 
 describe('ERC20Capped', function () {
   const [ minter, ...otherAccounts ] = accounts;

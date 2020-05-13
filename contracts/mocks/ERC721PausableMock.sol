@@ -7,7 +7,7 @@ import "../Initializable.sol";
  * @title ERC721PausableMock
  * This mock just provides a public mint, burn and exists functions for testing purposes
  */
-contract ERC721PausableMockUpgradeable is Initializable, ERC721PausableUpgradeable {
+contract ERC721PausableMockUpgradeSafe is Initializable, ERC721PausableUpgradeSafe {
 
     constructor(string memory name, string memory symbol) public  {
         __ERC721PausableMock_init(name, symbol);

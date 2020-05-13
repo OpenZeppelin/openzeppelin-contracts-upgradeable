@@ -36,7 +36,7 @@ import "../Initializable.sol";
  * roles. More complex role relationships can be created by using
  * {_setRoleAdmin}.
  */
-abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable {
+abstract contract AccessControlUpgradeSafe is Initializable, ContextUpgradeSafe {
     function __AccessControl_init() internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();

@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../GSN/Context.sol";
 import "../Initializable.sol";
 
-contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
+contract ContextMockUpgradeSafe is Initializable, ContextUpgradeSafe {
     constructor() public  {
         __ContextMock_init();
     }
@@ -33,7 +33,7 @@ contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
     uint256[50] private __gap;
 }
 
-contract ContextMockCallerUpgradeable is Initializable {
+contract ContextMockCallerUpgradeSafe is Initializable {
     constructor() public  {
         __ContextMockCaller_init();
     }
@@ -47,11 +47,11 @@ contract ContextMockCallerUpgradeable is Initializable {
 
     }
 
-    function callSender(ContextMockUpgradeable context) public {
+    function callSender(ContextMockUpgradeSafe context) public {
         context.msgSender();
     }
 
-    function callData(ContextMockUpgradeable context, uint256 integerValue, string memory stringValue) public {
+    function callData(ContextMockUpgradeSafe context, uint256 integerValue, string memory stringValue) public {
         context.msgData(integerValue, stringValue);
     }
 

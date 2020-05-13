@@ -18,7 +18,7 @@ import "../../Initializable.sol";
   * payment method should be its owner, and provide public methods redirecting
   * to the escrow's deposit and withdraw.
   */
-contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
+contract EscrowUpgradeSafe is Initializable, OwnableUpgradeSafe {
     function initialize() public {
         __Escrow_init();
     }

@@ -4,7 +4,7 @@ import "../token/ERC20/ERC20Snapshot.sol";
 import "../Initializable.sol";
 
 
-contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable {
+contract ERC20SnapshotMockUpgradeSafe is Initializable, ERC20SnapshotUpgradeSafe {
 
     constructor(
         string memory name,

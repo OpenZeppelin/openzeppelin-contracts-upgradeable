@@ -25,7 +25,7 @@ import "../../Initializable.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777, IERC20 {
+contract ERC777UpgradeSafe is Initializable, ContextUpgradeSafe, IERC777, IERC20 {
     using SafeMath for uint256;
     using Address for address;
 

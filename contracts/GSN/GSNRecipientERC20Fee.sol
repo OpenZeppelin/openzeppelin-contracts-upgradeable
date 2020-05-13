@@ -16,7 +16,7 @@ import "../Initializable.sol";
  * whose only minter is the recipient, so the strategy must be implemented in a derived contract, making use of the
  * internal {_mint} function.
  */
-contract GSNRecipientERC20FeeUpgradeable is Initializable, GSNRecipientUpgradeable {
+contract GSNRecipientERC20FeeUpgradeSafe is Initializable, GSNRecipientUpgradeSafe {
     using SafeERC20 for __unstable__ERC20Owned;
     using SafeMath for uint256;
 
@@ -125,7 +125,7 @@ contract GSNRecipientERC20FeeUpgradeable is Initializable, GSNRecipientUpgradeab
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20Owned is Initializable, ERC20Upgradeable, OwnableUpgradeable {
+contract __unstable__ERC20Owned is Initializable, ERC20UpgradeSafe, OwnableUpgradeSafe {
     uint256 private constant _UINT256_MAX = 2**256 - 1;
 
 

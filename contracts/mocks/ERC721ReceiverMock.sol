@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../token/ERC721/IERC721Receiver.sol";
 import "../Initializable.sol";
 
-contract ERC721ReceiverMockUpgradeable is Initializable, IERC721Receiver {
+contract ERC721ReceiverMockUpgradeSafe is Initializable, IERC721Receiver {
     bytes4 private _retval;
     bool private _reverts;
 

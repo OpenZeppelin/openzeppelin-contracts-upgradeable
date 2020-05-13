@@ -13,7 +13,7 @@ import "../../Initializable.sol";
  * withdrawal by the beneficiary, or refunds to the depositors. All interactions
  * with `RefundEscrow` will be made through the owner contract.
  */
-contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable {
+contract RefundEscrowUpgradeSafe is Initializable, ConditionalEscrowUpgradeSafe {
     enum State { Active, Refunding, Closed }
 
     event RefundsClosed();

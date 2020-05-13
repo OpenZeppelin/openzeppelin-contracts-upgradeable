@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "./IERC721Receiver.sol";
 import "../../Initializable.sol";
 
-contract ERC721HolderUpgradeable is Initializable, IERC721Receiver {
+contract ERC721HolderUpgradeSafe is Initializable, IERC721Receiver {
     function __ERC721Holder_init() internal initializer {
         __ERC721Holder_init_unchained();
     }

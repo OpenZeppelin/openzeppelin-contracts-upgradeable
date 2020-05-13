@@ -17,7 +17,7 @@ git checkout $(git ls-files -d)
 
 # git add contracts
 
-rs "contract\.fromArtifact\('([^I].*?)'\)" "contract.fromArtifact('\${1}Upgradeable')" test
+rs "contract\.fromArtifact\('([^I].*?)'\)" "contract.fromArtifact('\${1}UpgradeSafe')" test
 
 cat patches/* | patch -p1
 

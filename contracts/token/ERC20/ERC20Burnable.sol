@@ -9,7 +9,7 @@ import "../../Initializable.sol";
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable, ERC20Upgradeable {
+abstract contract ERC20BurnableUpgradeSafe is Initializable, ContextUpgradeSafe, ERC20UpgradeSafe {
     function __ERC20Burnable_init() internal initializer {
         __Context_init_unchained();
         __ERC20Burnable_init_unchained();

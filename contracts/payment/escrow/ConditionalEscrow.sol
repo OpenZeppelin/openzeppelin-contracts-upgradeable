@@ -8,7 +8,7 @@ import "../../Initializable.sol";
  * @dev Base abstract escrow to only allow withdrawal if a condition is met.
  * @dev Intended usage: See {Escrow}. Same usage guidelines apply here.
  */
-abstract contract ConditionalEscrowUpgradeable is Initializable, EscrowUpgradeable {
+abstract contract ConditionalEscrowUpgradeSafe is Initializable, EscrowUpgradeSafe {
     function __ConditionalEscrow_init() internal initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();

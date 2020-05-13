@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../token/ERC20/ERC20.sol";
 import "../Initializable.sol";
 
-contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
+contract ERC20DecimalsMockUpgradeSafe is Initializable, ERC20UpgradeSafe {
 
     constructor(string memory name, string memory symbol, uint8 decimals) public  {
         __ERC20DecimalsMock_init(name, symbol, decimals);

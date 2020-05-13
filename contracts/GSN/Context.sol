@@ -11,7 +11,7 @@ import "../Initializable.sol";
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-contract ContextUpgradeable is Initializable {
+contract ContextUpgradeSafe is Initializable {
     // Empty internal constructor, to prevent people from mistakenly deploying
     // an instance of this contract, which should be used via inheritance.
 

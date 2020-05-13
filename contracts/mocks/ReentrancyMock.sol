@@ -4,7 +4,7 @@ import "../utils/ReentrancyGuard.sol";
 import "./ReentrancyAttack.sol";
 import "../Initializable.sol";
 
-contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable {
+contract ReentrancyMockUpgradeSafe is Initializable, ReentrancyGuardUpgradeSafe {
     uint256 public counter;
 
 
@@ -45,7 +45,7 @@ contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable 
         }
     }
 
-    function countAndCall(ReentrancyAttackUpgradeable attacker) public nonReentrant {
+    function countAndCall(ReentrancyAttackUpgradeSafe attacker) public nonReentrant {
         _count();
         bytes4 func = bytes4(keccak256("callback()"));
         attacker.callSender(func);

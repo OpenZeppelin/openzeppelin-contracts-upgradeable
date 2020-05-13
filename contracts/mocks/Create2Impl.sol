@@ -4,7 +4,7 @@ import "../utils/Create2.sol";
 import "../introspection/ERC1820Implementer.sol";
 import "../Initializable.sol";
 
-contract Create2MockUpgradeable is Initializable {
+contract Create2MockUpgradeSafe is Initializable {
     constructor() public  {
         __Create2Mock_init();
     }
@@ -24,7 +24,7 @@ contract Create2MockUpgradeable is Initializable {
 
     function deployERC1820Implementer(uint256 value, bytes32 salt) public {
         // solhint-disable-next-line indent
-        Create2.deploy(value, salt, type(ERC1820ImplementerUpgradeable).creationCode);
+        Create2.deploy(value, salt, type(ERC1820ImplementerUpgradeSafe).creationCode);
     }
 
     function computeAddress(bytes32 salt, bytes32 codeHash) public view returns (address) {

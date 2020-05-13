@@ -3,8 +3,8 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 const { balance, ether, expectRevert, send } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 
-const AddressMock = contract.fromArtifact('AddressMockUpgradeable');
-const EtherReceiver = contract.fromArtifact('EtherReceiverMockUpgradeable');
+const AddressMock = contract.fromArtifact('AddressMockUpgradeSafe');
+const EtherReceiver = contract.fromArtifact('EtherReceiverMockUpgradeSafe');
 
 describe('Address', function () {
   const [ recipient, other ] = accounts;

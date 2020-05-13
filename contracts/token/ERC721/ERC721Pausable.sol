@@ -11,7 +11,7 @@ import "../../Initializable.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable, PausableUpgradeable {
+abstract contract ERC721PausableUpgradeSafe is Initializable, ERC721UpgradeSafe, PausableUpgradeSafe {
     function __ERC721Pausable_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();

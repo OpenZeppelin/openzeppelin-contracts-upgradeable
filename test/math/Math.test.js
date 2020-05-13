@@ -3,7 +3,7 @@ const { BN } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const MathMock = contract.fromArtifact('MathMockUpgradeable');
+const MathMock = contract.fromArtifact('MathMockUpgradeSafe');
 
 describe('Math', function () {
   const min = new BN('1234');

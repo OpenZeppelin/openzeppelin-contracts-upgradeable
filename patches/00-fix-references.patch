@@ -2,17 +2,17 @@ diff --git a/contracts/mocks/ContextMock.sol b/contracts/mocks/ContextMock.sol
 index ae989969..5975438f 100644
 --- a/contracts/mocks/ContextMock.sol
 +++ b/contracts/mocks/ContextMock.sol
-@@ -45,11 +45,11 @@ contract ContextMockCallerUpgradeable is Initializable {
+@@ -45,11 +45,11 @@ contract ContextMockCallerUpgradeSafe is Initializable {
          
      }
  
 -    function callSender(ContextMock context) public {
-+    function callSender(ContextMockUpgradeable context) public {
++    function callSender(ContextMockUpgradeSafe context) public {
          context.msgSender();
      }
  
 -    function callData(ContextMock context, uint256 integerValue, string memory stringValue) public {
-+    function callData(ContextMockUpgradeable context, uint256 integerValue, string memory stringValue) public {
++    function callData(ContextMockUpgradeSafe context, uint256 integerValue, string memory stringValue) public {
          context.msgData(integerValue, stringValue);
      }
  }
@@ -20,12 +20,12 @@ diff --git a/contracts/mocks/Create2Impl.sol b/contracts/mocks/Create2Impl.sol
 index 5661a5ea..216f0266 100644
 --- a/contracts/mocks/Create2Impl.sol
 +++ b/contracts/mocks/Create2Impl.sol
-@@ -24,7 +24,7 @@ contract Create2MockUpgradeable is Initializable {
+@@ -24,7 +24,7 @@ contract Create2MockUpgradeSafe is Initializable {
  
      function deployERC1820Implementer(uint256 value, bytes32 salt) public {
          // solhint-disable-next-line indent
 -        Create2.deploy(value, salt, type(ERC1820Implementer).creationCode);
-+        Create2.deploy(value, salt, type(ERC1820ImplementerUpgradeable).creationCode);
++        Create2.deploy(value, salt, type(ERC1820ImplementerUpgradeSafe).creationCode);
      }
  
      function computeAddress(bytes32 salt, bytes32 codeHash) public view returns (address) {
@@ -33,46 +33,46 @@ diff --git a/contracts/mocks/ERC721GSNRecipientMock.sol b/contracts/mocks/ERC721
 index 322ba7ca..1b75ceb8 100644
 --- a/contracts/mocks/ERC721GSNRecipientMock.sol
 +++ b/contracts/mocks/ERC721GSNRecipientMock.sol
-@@ -35,10 +35,10 @@ contract ERC721GSNRecipientMockUpgradeable is Initializable, ERC721Upgradeable,
+@@ -35,10 +35,10 @@ contract ERC721GSNRecipientMockUpgradeSafe is Initializable, ERC721UpgradeSafe,
      }
  
-     function _msgSender() internal view override(ContextUpgradeable, GSNRecipientUpgradeable) returns (address payable) {
+     function _msgSender() internal view override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) returns (address payable) {
 -        return GSNRecipient._msgSender();
-+        return GSNRecipientUpgradeable._msgSender();
++        return GSNRecipientUpgradeSafe._msgSender();
      }
  
-     function _msgData() internal view override(ContextUpgradeable, GSNRecipientUpgradeable) returns (bytes memory) {
+     function _msgData() internal view override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) returns (bytes memory) {
 -        return GSNRecipient._msgData();
-+        return GSNRecipientUpgradeable._msgData();
++        return GSNRecipientUpgradeSafe._msgData();
      }
  }
 diff --git a/contracts/mocks/GSNRecipientMock.sol b/contracts/mocks/GSNRecipientMock.sol
 index 4f29dec0..95ea1db1 100644
 --- a/contracts/mocks/GSNRecipientMock.sol
 +++ b/contracts/mocks/GSNRecipientMock.sol
-@@ -44,10 +44,10 @@ contract GSNRecipientMockUpgradeable is Initializable, ContextMockUpgradeable, G
+@@ -44,10 +44,10 @@ contract GSNRecipientMockUpgradeSafe is Initializable, ContextMockUpgradeSafe, G
      }
  
-     function _msgSender() internal override(ContextUpgradeable, GSNRecipientUpgradeable) view virtual returns (address payable) {
+     function _msgSender() internal override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) view virtual returns (address payable) {
 -        return GSNRecipient._msgSender();
-+        return GSNRecipientUpgradeable._msgSender();
++        return GSNRecipientUpgradeSafe._msgSender();
      }
  
-     function _msgData() internal override(ContextUpgradeable, GSNRecipientUpgradeable) view virtual returns (bytes memory) {
+     function _msgData() internal override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) view virtual returns (bytes memory) {
 -        return GSNRecipient._msgData();
-+        return GSNRecipientUpgradeable._msgData();
++        return GSNRecipientUpgradeSafe._msgData();
      }
  }
 diff --git a/contracts/mocks/ReentrancyMock.sol b/contracts/mocks/ReentrancyMock.sol
 index 4884937f..4fe0b398 100644
 --- a/contracts/mocks/ReentrancyMock.sol
 +++ b/contracts/mocks/ReentrancyMock.sol
-@@ -45,7 +45,7 @@ contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable
+@@ -45,7 +45,7 @@ contract ReentrancyMockUpgradeSafe is Initializable, ReentrancyGuardUpgradeSafe
          }
      }
  
 -    function countAndCall(ReentrancyAttack attacker) public nonReentrant {
-+    function countAndCall(ReentrancyAttackUpgradeable attacker) public nonReentrant {
++    function countAndCall(ReentrancyAttackUpgradeSafe attacker) public nonReentrant {
          _count();
          bytes4 func = bytes4(keccak256("callback()"));
          attacker.callSender(func);
@@ -80,12 +80,12 @@ diff --git a/contracts/mocks/SafeERC20Helper.sol b/contracts/mocks/SafeERC20Help
 index 53828632..9fcf9cc6 100644
 --- a/contracts/mocks/SafeERC20Helper.sol
 +++ b/contracts/mocks/SafeERC20Helper.sol
-@@ -178,7 +178,7 @@ contract SafeERC20MockUpgradeable is Initializable, ContextUpgradeable {
+@@ -178,7 +178,7 @@ contract SafeERC20MockUpgradeSafe is Initializable, ContextUpgradeSafe {
      }
  
      function setAllowance(uint256 allowance_) public {
 -        ERC20ReturnTrueMock(address(_token)).setAllowance(allowance_);
-+        ERC20ReturnTrueMockUpgradeable(address(_token)).setAllowance(allowance_);
++        ERC20ReturnTrueMockUpgradeSafe(address(_token)).setAllowance(allowance_);
      }
  
      function allowance() public view returns (uint256) {
@@ -96,18 +96,18 @@ index 9decf658..3763f2dc 100644
 @@ -22,7 +22,7 @@ import "../Initializable.sol";
   * payments with {payments}, and retrieve them with {withdrawPayments}.
   */
- contract PullPaymentUpgradeable is Initializable {
+ contract PullPaymentUpgradeSafe is Initializable {
 -    Escrow private _escrow;
-+    EscrowUpgradeable private _escrow;
++    EscrowUpgradeSafe private _escrow;
  
      
      function __PullPayment_init() internal initializer {
-@@ -32,7 +32,7 @@ contract PullPaymentUpgradeable is Initializable {
+@@ -32,7 +32,7 @@ contract PullPaymentUpgradeSafe is Initializable {
      function __PullPayment_init_unchained() internal initializer {
          
          
 -        _escrow = new Escrow();
-+        _escrow = new EscrowUpgradeable();
++        _escrow = new EscrowUpgradeSafe();
      
      }
  

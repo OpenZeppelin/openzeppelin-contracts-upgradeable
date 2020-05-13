@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import '../payment/escrow/RefundEscrow.sol';
 import "../Initializable.sol";
 
-contract RefundEscrowMockUpgradeable is Initializable, RefundEscrowUpgradeable {
+contract RefundEscrowMockUpgradeSafe is Initializable, RefundEscrowUpgradeSafe {
 
     constructor(address payable beneficiary) public payable {
         __RefundEscrowMock_init(beneficiary);

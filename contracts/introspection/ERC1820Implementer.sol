@@ -11,7 +11,7 @@ import "../Initializable.sol";
  * {IERC1820Registry-setInterfaceImplementer} should then be called for the
  * registration to be complete.
  */
-contract ERC1820ImplementerUpgradeable is Initializable, IERC1820Implementer {
+contract ERC1820ImplementerUpgradeSafe is Initializable, IERC1820Implementer {
     function __ERC1820Implementer_init() internal initializer {
         __ERC1820Implementer_init_unchained();
     }

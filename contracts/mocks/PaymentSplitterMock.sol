@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import '../payment/PaymentSplitter.sol';
 import "../Initializable.sol";
 
-contract PaymentSplitterMockUpgradeable is Initializable, PaymentSplitterUpgradeable {
+contract PaymentSplitterMockUpgradeSafe is Initializable, PaymentSplitterUpgradeSafe {
 
     constructor(address[] memory payees, uint256[] memory shares) public payable {
         __PaymentSplitterMock_init(payees, shares);

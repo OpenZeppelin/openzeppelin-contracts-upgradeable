@@ -11,7 +11,7 @@ import "../../Initializable.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC20PausableUpgradeable is Initializable, ERC20Upgradeable, PausableUpgradeable {
+abstract contract ERC20PausableUpgradeSafe is Initializable, ERC20UpgradeSafe, PausableUpgradeSafe {
     function __ERC20Pausable_init() internal initializer {
         __Context_init_unchained();
         __Pausable_init_unchained();

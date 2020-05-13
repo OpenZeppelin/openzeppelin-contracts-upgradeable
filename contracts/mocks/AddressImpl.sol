@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/Address.sol";
 import "../Initializable.sol";
 
-contract AddressMockUpgradeable is Initializable {
+contract AddressMockUpgradeSafe is Initializable {
     constructor() public  {
         __AddressMock_init();
     }

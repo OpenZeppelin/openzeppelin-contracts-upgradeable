@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import { MerkleProof } from "../cryptography/MerkleProof.sol";
 import "../Initializable.sol";
 
-contract MerkleProofWrapperUpgradeable is Initializable {
+contract MerkleProofWrapperUpgradeSafe is Initializable {
     constructor() public  {
         __MerkleProofWrapper_init();
     }

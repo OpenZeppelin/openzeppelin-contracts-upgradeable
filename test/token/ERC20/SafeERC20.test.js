@@ -2,10 +2,10 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 
 const { expectRevert } = require('@openzeppelin/test-helpers');
 
-const ERC20ReturnFalseMock = contract.fromArtifact('ERC20ReturnFalseMockUpgradeable');
-const ERC20ReturnTrueMock = contract.fromArtifact('ERC20ReturnTrueMockUpgradeable');
-const ERC20NoReturnMock = contract.fromArtifact('ERC20NoReturnMockUpgradeable');
-const SafeERC20Mock = contract.fromArtifact('SafeERC20MockUpgradeable');
+const ERC20ReturnFalseMock = contract.fromArtifact('ERC20ReturnFalseMockUpgradeSafe');
+const ERC20ReturnTrueMock = contract.fromArtifact('ERC20ReturnTrueMockUpgradeSafe');
+const ERC20NoReturnMock = contract.fromArtifact('ERC20NoReturnMockUpgradeSafe');
+const SafeERC20Mock = contract.fromArtifact('SafeERC20MockUpgradeSafe');
 
 describe('SafeERC20', function () {
   const [ hasNoCode ] = accounts;

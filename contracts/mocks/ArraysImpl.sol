@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/Arrays.sol";
 import "../Initializable.sol";
 
-contract ArraysMockUpgradeable is Initializable {
+contract ArraysMockUpgradeSafe is Initializable {
     using Arrays for uint256[];
 
     uint256[] private _array;

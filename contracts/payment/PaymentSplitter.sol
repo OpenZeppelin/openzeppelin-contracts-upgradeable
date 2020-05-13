@@ -17,7 +17,7 @@ import "../Initializable.sol";
  * accounts but kept in this contract, and the actual transfer is triggered as a separate step by calling the {release}
  * function.
  */
-contract PaymentSplitterUpgradeable is Initializable, ContextUpgradeable {
+contract PaymentSplitterUpgradeSafe is Initializable, ContextUpgradeSafe {
     using SafeMath for uint256;
 
     event PayeeAdded(address account, uint256 shares);

@@ -4,7 +4,7 @@ const { MAX_UINT256 } = constants;
 
 const { expect } = require('chai');
 
-const SafeMathMock = contract.fromArtifact('SafeMathMockUpgradeable');
+const SafeMathMock = contract.fromArtifact('SafeMathMockUpgradeSafe');
 
 describe('SafeMath', function () {
   beforeEach(async function () {

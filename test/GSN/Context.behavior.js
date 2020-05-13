@@ -2,7 +2,7 @@ const { contract } = require('@openzeppelin/test-environment');
 
 const { BN, expectEvent } = require('@openzeppelin/test-helpers');
 
-const ContextMock = contract.fromArtifact('ContextMockUpgradeable');
+const ContextMock = contract.fromArtifact('ContextMockUpgradeSafe');
 
 function shouldBehaveLikeRegularContext (sender) {
   describe('msgSender', function () {

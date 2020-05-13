@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import '../payment/escrow/Escrow.sol';
 import "../Initializable.sol";
 
-contract EscrowMockUpgradeable is Initializable, EscrowUpgradeable {
+contract EscrowMockUpgradeSafe is Initializable, EscrowUpgradeSafe {
     constructor() public  {
         __EscrowMock_init();
     }

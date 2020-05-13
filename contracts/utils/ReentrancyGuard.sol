@@ -17,7 +17,7 @@ import "../Initializable.sol";
  * to protect against it, check out our blog post
  * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
  */
-contract ReentrancyGuardUpgradeable is Initializable {
+contract ReentrancyGuardUpgradeSafe is Initializable {
     bool private _notEntered;
 
 

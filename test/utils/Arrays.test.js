@@ -3,7 +3,7 @@ require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ArraysMock = contract.fromArtifact('ArraysMockUpgradeable');
+const ArraysMock = contract.fromArtifact('ArraysMockUpgradeSafe');
 
 describe('Arrays', function () {
   context('Even number of elements', function () {

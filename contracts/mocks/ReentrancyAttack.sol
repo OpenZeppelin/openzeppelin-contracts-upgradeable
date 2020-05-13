@@ -2,7 +2,7 @@ pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
 import "../Initializable.sol";
-contract ReentrancyAttackUpgradeable is Initializable, ContextUpgradeable {
+contract ReentrancyAttackUpgradeSafe is Initializable, ContextUpgradeSafe {
     constructor() public  {
         __ReentrancyAttack_init();
     }

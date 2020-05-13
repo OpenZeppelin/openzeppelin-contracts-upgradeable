@@ -5,7 +5,7 @@ import "../GSN/GSNRecipient.sol";
 import "../Initializable.sol";
 
 // By inheriting from GSNRecipient, Context's internal functions are overridden automatically
-contract GSNRecipientMockUpgradeable is Initializable, ContextMockUpgradeable, GSNRecipientUpgradeable {
+contract GSNRecipientMockUpgradeSafe is Initializable, ContextMockUpgradeSafe, GSNRecipientUpgradeSafe {
     constructor() public  {
         __GSNRecipientMock_init();
     }
@@ -43,12 +43,12 @@ contract GSNRecipientMockUpgradeable is Initializable, ContextMockUpgradeable, G
         return _upgradeRelayHub(newRelayHub);
     }
 
-    function _msgSender() internal override(ContextUpgradeable, GSNRecipientUpgradeable) view virtual returns (address payable) {
-        return GSNRecipientUpgradeable._msgSender();
+    function _msgSender() internal override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) view virtual returns (address payable) {
+        return GSNRecipientUpgradeSafe._msgSender();
     }
 
-    function _msgData() internal override(ContextUpgradeable, GSNRecipientUpgradeable) view virtual returns (bytes memory) {
-        return GSNRecipientUpgradeable._msgData();
+    function _msgData() internal override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) view virtual returns (bytes memory) {
+        return GSNRecipientUpgradeSafe._msgData();
     }
 
     uint256[50] private __gap;

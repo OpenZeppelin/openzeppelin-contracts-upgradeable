@@ -11,7 +11,7 @@ import "../Initializable.sol";
  * typical vesting scheme, with a cliff and vesting period. Optionally revocable by the
  * owner.
  */
-contract TokenVestingUpgradeable is Initializable, OwnableUpgradeable {
+contract TokenVestingUpgradeSafe is Initializable, OwnableUpgradeSafe {
     // The vesting schedule is time-based (i.e. using block timestamps as opposed to e.g. block numbers), and is
     // therefore sensitive to timestamp manipulation (which is something miners can do, to a certain degree). Therefore,
     // it is recommended to avoid using short time durations (less than a minute). Typical vesting schemes, with a

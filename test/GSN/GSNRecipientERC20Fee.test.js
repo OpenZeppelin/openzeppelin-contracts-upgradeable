@@ -5,8 +5,8 @@ const gsn = require('@openzeppelin/gsn-helpers');
 
 const { expect } = require('chai');
 
-const GSNRecipientERC20FeeMock = contract.fromArtifact('GSNRecipientERC20FeeMockUpgradeable');
-const ERC20 = contract.fromArtifact('ERC20Upgradeable');
+const GSNRecipientERC20FeeMock = contract.fromArtifact('GSNRecipientERC20FeeMockUpgradeSafe');
+const ERC20 = contract.fromArtifact('ERC20UpgradeSafe');
 const IRelayHub = contract.fromArtifact('IRelayHub');
 
 describe('GSNRecipientERC20Fee', function () {

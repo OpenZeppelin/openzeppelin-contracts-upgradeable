@@ -3,9 +3,9 @@ const { balance, BN, ether, expectRevert, send } = require('@openzeppelin/test-h
 
 const { expect } = require('chai');
 
-const Create2Mock = contract.fromArtifact('Create2MockUpgradeable');
-const ERC20Mock = contract.fromArtifact('ERC20MockUpgradeable');
-const ERC1820Implementer = contract.fromArtifact('ERC1820ImplementerUpgradeable');
+const Create2Mock = contract.fromArtifact('Create2MockUpgradeSafe');
+const ERC20Mock = contract.fromArtifact('ERC20MockUpgradeSafe');
+const ERC1820Implementer = contract.fromArtifact('ERC1820ImplementerUpgradeSafe');
 
 describe('Create2', function () {
   const [deployerAccount] = accounts;

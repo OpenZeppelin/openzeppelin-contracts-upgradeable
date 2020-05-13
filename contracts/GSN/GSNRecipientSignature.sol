@@ -10,7 +10,7 @@ import "../Initializable.sol";
  * performs validations off-chain. Note that nothing is charged to the user in this scheme. Thus, the server should make
  * sure to account for this in their economic and threat model.
  */
-contract GSNRecipientSignatureUpgradeable is Initializable, GSNRecipientUpgradeable {
+contract GSNRecipientSignatureUpgradeSafe is Initializable, GSNRecipientUpgradeSafe {
     using ECDSA for bytes32;
 
     address private _trustedSigner;

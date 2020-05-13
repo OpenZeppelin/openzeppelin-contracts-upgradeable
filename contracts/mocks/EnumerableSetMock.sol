@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/EnumerableSet.sol";
 import "../Initializable.sol";
 
-contract EnumerableSetMockUpgradeable is Initializable {
+contract EnumerableSetMockUpgradeSafe is Initializable {
     constructor() public  {
         __EnumerableSetMock_init();
     }

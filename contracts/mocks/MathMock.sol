@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "../math/Math.sol";
 import "../Initializable.sol";
 
-contract MathMockUpgradeable is Initializable {
+contract MathMockUpgradeSafe is Initializable {
     constructor() public  {
         __MathMock_init();
     }

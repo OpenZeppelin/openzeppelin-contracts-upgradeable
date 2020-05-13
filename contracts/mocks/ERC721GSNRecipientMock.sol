@@ -9,7 +9,7 @@ import "../Initializable.sol";
  * @title ERC721GSNRecipientMock
  * A simple ERC721 mock that has GSN support enabled
  */
-contract ERC721GSNRecipientMockUpgradeable is Initializable, ERC721Upgradeable, GSNRecipientUpgradeable, GSNRecipientSignatureUpgradeable {
+contract ERC721GSNRecipientMockUpgradeSafe is Initializable, ERC721UpgradeSafe, GSNRecipientUpgradeSafe, GSNRecipientSignatureUpgradeSafe {
 
     constructor(string memory name, string memory symbol, address trustedSigner) public  {
         __ERC721GSNRecipientMock_init(name, symbol, trustedSigner);
@@ -34,12 +34,12 @@ contract ERC721GSNRecipientMockUpgradeable is Initializable, ERC721Upgradeable, 
         _mint(_msgSender(), tokenId);
     }
 
-    function _msgSender() internal view override(ContextUpgradeable, GSNRecipientUpgradeable) returns (address payable) {
-        return GSNRecipientUpgradeable._msgSender();
+    function _msgSender() internal view override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) returns (address payable) {
+        return GSNRecipientUpgradeSafe._msgSender();
     }
 
-    function _msgData() internal view override(ContextUpgradeable, GSNRecipientUpgradeable) returns (bytes memory) {
-        return GSNRecipientUpgradeable._msgData();
+    function _msgData() internal view override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) returns (bytes memory) {
+        return GSNRecipientUpgradeSafe._msgData();
     }
 
     uint256[50] private __gap;
