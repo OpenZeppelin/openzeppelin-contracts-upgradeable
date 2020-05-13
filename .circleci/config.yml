@@ -72,9 +72,6 @@ workflows:
   everything:
     jobs:
       - dependencies
-      - lint:
-          requires:
-            - dependencies
       - test:
           requires:
             - dependencies
