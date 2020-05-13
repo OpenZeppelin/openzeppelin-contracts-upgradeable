@@ -75,7 +75,3 @@ workflows:
       - test:
           requires:
             - dependencies
-      - coverage:
-          requires:
-            - dependencies
-
