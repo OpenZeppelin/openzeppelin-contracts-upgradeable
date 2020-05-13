@@ -4,8 +4,8 @@
   "publish": true,
   "version": "3.0.0",
   "contracts": {
-    "ERC20PresetMinterPauserUpgradeable": "ERC20PresetMinterPauserUpgradeable",
-    "ERC721PresetMinterPauserAutoIdUpgradeable": "ERC721PresetMinterPauserAutoIdUpgradeable"
+    "ERC20PresetMinterPauserUpgradeSafe": "ERC20PresetMinterPauserUpgradeSafe",
+    "ERC721PresetMinterPauserAutoIdUpgradeSafe": "ERC721PresetMinterPauserAutoIdUpgradeSafe"
   },
   "dependencies": {},
   "compiler": {
@@ -18,7 +18,10 @@
     },
     "solcVersion": "0.6.7",
     "artifactsDir": "build/contracts",
-    "contractsDir": "contracts"
+    "contractsDir": "contracts",
+    "typechain": {
+      "enabled": false
+    }
   },
   "telemetryOptIn": false
 }
