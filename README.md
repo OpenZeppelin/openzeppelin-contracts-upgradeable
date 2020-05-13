@@ -1,69 +1,89 @@
 # <img src="logo.png" alt="OpenZeppelin" height="40px">
 
-[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts.svg)](https://www.npmjs.org/package/@openzeppelin/contracts)
-[![Build Status](https://circleci.com/gh/OpenZeppelin/openzeppelin-contracts.svg?style=shield)](https://circleci.com/gh/OpenZeppelin/openzeppelin-contracts)
-[![Coverage Status](https://codecov.io/gh/OpenZeppelin/openzeppelin-contracts/graph/badge.svg)](https://codecov.io/gh/OpenZeppelin/openzeppelin-contracts)
+## OpenZeppelin Contracts Ethereum Package
 
-**A library for secure smart contract development.** Build on a solid foundation of community-vetted code.
+[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts-ethereum-package.svg)](https://www.npmjs.org/package/@openzeppelin/contracts-ethereum-package)
+[![Build Status](https://circleci.com/gh/OpenZeppelin/openzeppelin-contracts-ethereum-package.svg?style=shield)](https://circleci.com/gh/OpenZeppelin/openzeppelin-contracts-ethereum-package)
 
- * Implementations of standards like [ERC20](https://docs.openzeppelin.com/contracts/erc20) and [ERC721](https://docs.openzeppelin.com/contracts/erc721).
- * Flexible [role-based permissioning](https://docs.openzeppelin.com/contracts/access-control) scheme.
- * Reusable [Solidity components](https://docs.openzeppelin.com/contracts/utilities) to build custom contracts and complex decentralized systems.
- * First-class integration with the [Gas Station Network](https://docs.openzeppelin.com/contracts/gsn) for systems with no gas fees!
- * Audited by leading security firms.
+**OpenZeppelin Contracts is a library for secure smart contract development.** It provides implementations of standards like ERC20 and ERC721 which you can deploy as-is or extend to suit your needs, as well as Solidity components to build custom contracts and more complex decentralized systems.
 
-## Overview
+This fork of OpenZeppelin is set up as a **reusable Ethereum Package**. It is deployed to the kovan, rinkeby, and ropsten test networks, as well as to the main Ethereum network. You can reuse any of the pre-deployed on-chain contracts by simply linking to them using the [OpenZeppelin SDK](https://github.com/openzeppelin/openzeppelin-sdk), or reuse their Solidity source code as with the [vanilla version of OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts).
 
-### Installation
+## Differences with openzeppelin-contracts
 
-```console
-$ npm install @openzeppelin/contracts
+This package contains the same contracts as the vanilla [openzeppelin-contracts](https://github.com/openZeppelin/openzeppelin-contracts), but modified to be safe for upgrades. The main difference is that _all contracts in this package are potentially upgradeable_: you will notice that no contracts have constructors defined, but use [initializer functions](https://docs.zeppelinos.org/docs/writing_contracts.html#initializers) instead. Also, this package is set up as an Ethereum package, and provides a small set of pre-deployed logic contracts that can be used directly via the OpenZeppelin SDK, without needing to deploy them again.
+
+All contracts have an `UpgradeSafe` suffix to avoid confusion with their counterparts in OpenZeppelin Contracts. For example, `ERC20` becomes `ERC20UpgradeSafe`.
+
+All in all, **you should use this package instead of openzeppelin-solidity if you are managing your project via the OpenZeppelin CLI**.
+
+## Install
+
+```
+npm install @openzeppelin/contracts-ethereum-package
 ```
 
-OpenZeppelin Contracts features a [stable API](https://docs.openzeppelin.com/contracts/releases-stability#api-stability), which means your contracts won't break unexpectedly when upgrading to a newer minor version.
+## Deployed logic contracts
 
-### Usage
+- [ERC20PresetMinterPauserUpgradeSafe]: ERC20 token with minter and pauser roles
+- [ERC721PresetMinterPauserAutoIdUpgradeSafe]: ERC721 non-fungible token with minter and pauser roles, as well as incremental ids
 
-Once installed, you can use the contracts in the library by importing them:
+## Using via the OpenZeppelin CLI
+
+You can easily create upgradeable instances of any of the logic contracts listed above using the OpenZeppelin CLI. This will rely on the pre-deployed instances in mainnet, kovan, ropsten, or rinkeby, greatly reducing your gas deployment costs. To do this, just [create a new OpenZeppelin SDK project](https://docs.zeppelinos.org/docs/deploying.html) and [link to this package](https://docs.zeppelinos.org/docs/linking.html).
+
+```bash
+$ npm install -g @openzeppelin/cli
+$ openzeppelin init
+$ openzeppelin link @openzeppelin/contracts-ethereum-package
+> Installing...
+$ openzeppelin deploy @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
+> Creating...
+```
+
+To create an instance of a contract, use the `openzeppelin create` command. As an example, you can run the following to create an upgradeable ERC20 named MyToken, with symbol TKN and 8 decimals, and an initial supply of 100 tokens assigned to the address HOLDER, with a MINTER and a PAUSER. Remember to replace $HOLDER, $MINTER, and $PAUSER with actual addresses when you run this command; you can specify more than one (or none at all) minters and pausers.
+
+```
+$ openzeppelin create
+? Pick a contract to instantiate: @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
+? Pick a network: development
+✓ Deploying @openzeppelin/contracts-ethereum-package dependency to network
+? Do you want to call a function on the instance after creating it?: Yes
+? Select which function: * initialize(name: string, symbol: string)
+? name (string): MyToken
+? symbol (string): MYT
+✓ Setting everything up to create contract instances
+✓ Instance created at 0x2612Af3A521c2df9EAF28422Ca335b04AdF3ac66
+```
+
+OpenZeppelin will create an upgradeable ERC20 instance and keep track of its address in the `.openzeppelin/rinkeby.json` file. Should you update your version of the openzeppelin contracts ethereum package later down the road, you can simply run `openzeppelin update` to upgrade all your ERC20 instances to the latest version.
+
+You can also deploy a ERC721 token by choosing the `ERC721PresetMinterPauserAutoIdUpgradeSafe` contract when running `openzeppelin create`. Refer to the `initialize` function of each of the predeployed logic contracts to see which parameters are required for initialization.
+
+## Extending contracts
+
+If you prefer to write your custom contracts, import the ones from this package and extend them through inheritance. Note that **you must use this package and not `@openzeppelin/contracts` if you are [writing upgradeable contracts](https://docs.zeppelinos.org/docs/writing_contracts.html)**.
 
 ```solidity
 pragma solidity ^0.5.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721Full.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721Mintable.sol";
+import '@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol';
+import '@openzeppelin/contracts-ethereum-package/contracts/presets/ERC721PresetMinterPauserAutoId.sol';
 
-contract MyNFT is ERC721Full, ERC721Mintable {
-    constructor() ERC721Full("MyNFT", "MNFT") public {
-    }
+contract MyNFT is Initializable, ERC721PresetMinterPauserAutoId {
+  function initialize() public initializer {
+    ERC721PresetMinterPauserAutoId.initialize("name", "SYM");
+  }
 }
 ```
 
-_If you're new to smart contract development, head to [Developing Smart Contracts](https://docs.openzeppelin.com/learn/developing-smart-contracts) to learn about creating a new project and compiling your contracts._
-
-To keep your system secure, you should **always** use the installed code as-is, and neither copy-paste it from online sources, nor modify it yourself. The library is designed so that only the contracts and functions you use are deployed, so you don't need to worry about it needlessly increasing gas costs.
-
-## Learn More
-
-The guides in the sidebar will teach about different concepts, and how to use the related contracts that OpenZeppelin Contracts provides:
-
-* [Access Control](https://docs.openzeppelin.com/contracts/access-control): decide who can perform each of the actions on your system.
-* [Tokens](https://docs.openzeppelin.com/contracts/tokens): create tradeable assets or collectives, and distribute them via [Crowdsales](https://docs.openzeppelin.com/contracts/crowdsales).
-* [Gas Station Network](https://docs.openzeppelin.com/contracts/gsn): let your users interact with your contracts without having to pay for gas themselves.
-* [Utilities](https://docs.openzeppelin.com/contracts/utilities): generic useful tools, including non-overflowing math, signature verification, and trustless paying systems.
-
-The [full API](https://docs.openzeppelin.com/contracts/api/token/ERC20) is also thoroughly documented, and serves as a great reference when developing your smart contract application. You can also ask for help or follow Contracts's development in the [community forum](https://forum.openzeppelin.com).
-
-Finally, you may want to take a look at the [guides on our blog](https://blog.openzeppelin.com/guides), which cover several common use cases and good practices.. The following articles provide great background reading, though please note, some of the referenced tools have changed as the tooling in the ecosystem continues to rapidly evolve.
-
-* [The Hitchhiker’s Guide to Smart Contracts in Ethereum](https://blog.openzeppelin.com/the-hitchhikers-guide-to-smart-contracts-in-ethereum-848f08001f05) will help you get an overview of the various tools available for smart contract development, and help you set up your environment.
-* [A Gentle Introduction to Ethereum Programming, Part 1](https://blog.openzeppelin.com/a-gentle-introduction-to-ethereum-programming-part-1-783cc7796094) provides very useful information on an introductory level, including many basic concepts from the Ethereum platform.
-* For a more in-depth dive, you may read the guide [Designing the Architecture for Your Ethereum Application](https://blog.openzeppelin.com/designing-the-architecture-for-your-ethereum-application-9cec086f8317), which discusses how to better structure your application and its relationship to the real world.
+On our site you will find a few [guides] to learn about the different parts of OpenZeppelin, as well as [documentation for the API][API docs]. Keep in mind that the API docs are work in progress, and don’t hesitate to ask questions in [our forum][forum].
 
 ## Security
 
-This project is maintained by [OpenZeppelin](https://openzeppelin.com), and developed following our high standards for code quality and security. OpenZeppelin is meant to provide tested and community-audited code, but please use common sense when doing anything that deals with real money! We take no responsibility for your implementation decisions and any security problems you might experience.
+OpenZeppelin Contracts is maintained by [OpenZeppelin] the company, and developed following our high standards for code quality and security. OpenZeppelin Contracts is meant to provide tested and community-audited code, but please use common sense when doing anything that deals with real money! We take no responsibility for your implementation decisions and any security problems you might experience.
 
-The core development principles and strategies that OpenZeppelin is based on include: security in depth, simple and modular code, clarity-driven naming conventions, comprehensive unit testing, pre-and-post-condition sanity checks, code consistency, and regular audits.
+The core development principles and strategies that OpenZeppelin Contracts is based on include: security in depth, simple and modular code, clarity-driven naming conventions, comprehensive unit testing, pre-and-post-condition sanity checks, code consistency, and regular audits.
 
 The latest audit was done on October 2018 on version 2.0.0.
 
@@ -71,8 +91,16 @@ Please report any security issues you find to security@openzeppelin.org.
 
 ## Contribute
 
-OpenZeppelin exists thanks to its contributors. There are many ways you can participate and help build high quality software. Check out the [contribution guide](CONTRIBUTING.md)!
+OpenZeppelin exists thanks to its contributors. There are many ways you can participate and help build high quality software. Check out the [contribution guide]!
 
 ## License
 
 OpenZeppelin is released under the [MIT License](LICENSE).
+
+[API docs]: https://docs.openzeppelin.com/contracts/2.x/api/token/erc20
+[guides]: https://docs.openzeppelin.com/contracts/2.x/
+[forum]: https://forum.openzeppelin.com
+[OpenZeppelin]: https://openzeppelin.com
+[contribution guide]: CONTRIBUTING.md
+[ERC20PresetMinterPauserUpgradeSafe]: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
+[ERC721PresetMinterPauserAutoIdUpgradeSafe]: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC721PresetMinterPauserAutoId
