@@ -7,15 +7,15 @@
 
 **OpenZeppelin Contracts is a library for secure smart contract development.** It provides implementations of standards like ERC20 and ERC721 which you can deploy as-is or extend to suit your needs, as well as Solidity components to build custom contracts and more complex decentralized systems.
 
-This fork of OpenZeppelin is set up as a **reusable Ethereum Package**. It is deployed to the kovan, rinkeby, and ropsten test networks, as well as to the main Ethereum network. You can reuse any of the pre-deployed on-chain contracts by simply linking to them using the [OpenZeppelin SDK](https://github.com/openzeppelin/openzeppelin-sdk), or reuse their Solidity source code as with the [vanilla version of OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts).
+This fork of OpenZeppelin is set up as a **reusable Ethereum Package**. It is deployed to the kovan, rinkeby, and ropsten test networks, as well as to the main Ethereum network. You can reuse any of the pre-deployed on-chain contracts by simply linking to them using the [OpenZeppelin CLI](https://docs.openzeppelin.com/cli), or reuse their Solidity source code as with the [vanilla version of OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts).
 
-## Differences with openzeppelin-contracts
+## Differences with OpenZeppelin Contracts
 
-This package contains the same contracts as the vanilla [openzeppelin-contracts](https://github.com/openZeppelin/openzeppelin-contracts), but modified to be safe for upgrades. The main difference is that _all contracts in this package are potentially upgradeable_: you will notice that no contracts have constructors defined, but use [initializer functions](https://docs.zeppelinos.org/docs/writing_contracts.html#initializers) instead. Also, this package is set up as an Ethereum package, and provides a small set of pre-deployed logic contracts that can be used directly via the OpenZeppelin SDK, without needing to deploy them again.
+This package contains the same contracts as the vanilla [OpenZeppelin Contracts](https://github.com/openZeppelin/openzeppelin-contracts), but modified for use with upgradeable contracts. The main difference is that _all contracts in this package are potentially upgradeable_: you will notice that no contracts have constructors defined, but use [initializer functions](https://docs.openzeppelin.com/upgrades/writing-upgradeable#initializers) instead. Also, this package is set up as an Ethereum package, and provides a small set of pre-deployed logic contracts that can be used directly via the OpenZeppelin SDK, without needing to deploy them again.
 
 All contracts have an `UpgradeSafe` suffix to avoid confusion with their counterparts in OpenZeppelin Contracts. For example, `ERC20` becomes `ERC20UpgradeSafe`.
 
-All in all, **you should use this package instead of openzeppelin-solidity if you are managing your project via the OpenZeppelin CLI**.
+All in all, **you should use this package instead of @openzeppelin/contracts if you are creating upgradeable contracts**.
 
 ## Install
 
@@ -30,50 +30,63 @@ npm install @openzeppelin/contracts-ethereum-package
 
 ## Using via the OpenZeppelin CLI
 
-You can easily create upgradeable instances of any of the logic contracts listed above using the OpenZeppelin CLI. This will rely on the pre-deployed instances in mainnet, kovan, ropsten, or rinkeby, greatly reducing your gas deployment costs. To do this, just [create a new OpenZeppelin SDK project](https://docs.zeppelinos.org/docs/deploying.html) and [link to this package](https://docs.zeppelinos.org/docs/linking.html).
+You can easily create upgradeable instances of any of the logic contracts listed above using the OpenZeppelin CLI. This will rely on the pre-deployed instances in mainnet, kovan, ropsten, or rinkeby, greatly reducing your gas deployment costs. To do this, just [create a new OpenZeppelin CLI project](https://docs.openzeppelin.com/cli/getting-started) and [link to this package](https://docs.openzeppelin.com/cli/dependencies#linking-the-contracts-ethereum-package).
 
 ```bash
-$ npm install -g @openzeppelin/cli
-$ openzeppelin init
-$ openzeppelin link @openzeppelin/contracts-ethereum-package
+$ mkdir mytoken && cd mytoken
+$ npm init -y
+$ npm install @openzeppelin/cli
+$ npx oz init
+$ npx oz link @openzeppelin/contracts-ethereum-package
 > Installing...
-$ openzeppelin deploy @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
-> Creating...
+$ npx oz deploy @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
 ```
 
-To create an instance of a contract, use the `openzeppelin create` command. As an example, you can run the following to create an upgradeable ERC20 named MyToken, with symbol TKN and 8 decimals, and an initial supply of 100 tokens assigned to the address HOLDER, with a MINTER and a PAUSER. Remember to replace $HOLDER, $MINTER, and $PAUSER with actual addresses when you run this command; you can specify more than one (or none at all) minters and pausers.
+To deploy a contract, use the `openzeppelin deploy` command. 
+
+As an example, you can run the following to deploy an upgradeable ERC20 named MyToken, with symbol MYT and 18 decimals, with the deployer being a Minter and a Pauser.
 
 ```
-$ openzeppelin create
-? Pick a contract to instantiate: @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
-? Pick a network: development
-✓ Deploying @openzeppelin/contracts-ethereum-package dependency to network
-? Do you want to call a function on the instance after creating it?: Yes
-? Select which function: * initialize(name: string, symbol: string)
-? name (string): MyToken
-? symbol (string): MYT
+$ npx oz deploy
+No contracts found to compile.
+? Choose the kind of deployment upgradeable
+? Pick a network development
+? Pick a contract to deploy @openzeppelin/contracts-ethereum-package/ERC20PresetMinterPauserUpgradeSafe
+✓ Deploying @openzeppelin/contracts-ethereum-package dependency to network dev-1589433413492
+All implementations are up to date
+? Call a function to initialize the instance after creating it? Yes
+? Select which function initialize(name: string, symbol: string)
+? name: string: MyToken
+? symbol: string: MYT
 ✓ Setting everything up to create contract instances
-✓ Instance created at 0x2612Af3A521c2df9EAF28422Ca335b04AdF3ac66
+✓ Instance created at 0x59d3631c86BbE35EF041872d502F218A39FBa150
+To upgrade this instance run 'oz upgrade'
+0x59d3631c86BbE35EF041872d502F218A39FBa150
 ```
 
-OpenZeppelin will create an upgradeable ERC20 instance and keep track of its address in the `.openzeppelin/rinkeby.json` file. Should you update your version of the openzeppelin contracts ethereum package later down the road, you can simply run `openzeppelin update` to upgrade all your ERC20 instances to the latest version.
+OpenZeppelin will create an upgradeable ERC20 instance and keep track of its address in the `.openzeppelin/<network>.json` file. Should you update your version of the openzeppelin contracts ethereum package later down the road, you can simply run `npx oz upgrade` to upgrade your ERC20 instances to the latest version.
 
-You can also deploy a ERC721 token by choosing the `ERC721PresetMinterPauserAutoIdUpgradeSafe` contract when running `openzeppelin create`. Refer to the `initialize` function of each of the predeployed logic contracts to see which parameters are required for initialization.
+You can also deploy an ERC721 token by choosing the `ERC721PresetMinterPauserAutoIdUpgradeSafe` contract when running `npx oz deploy`. Refer to the `initialize` function of each of the predeployed logic contracts to see which parameters are required for initialization.
 
 ## Extending contracts
 
-If you prefer to write your custom contracts, import the ones from this package and extend them through inheritance. Note that **you must use this package and not `@openzeppelin/contracts` if you are [writing upgradeable contracts](https://docs.zeppelinos.org/docs/writing_contracts.html)**.
+If you prefer to write your own custom contracts, import the ones from this package and extend them through inheritance. Note that **you must use this package and not `@openzeppelin/contracts` if you are [writing upgradeable contracts](https://docs.openzeppelin.com/upgrades/writing-upgradeable)**.
 
 ```solidity
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.2;
 
-import '@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol';
-import '@openzeppelin/contracts-ethereum-package/contracts/presets/ERC721PresetMinterPauserAutoId.sol';
+import "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol";
+import "@openzeppelin/contracts-ethereum-package/contracts/presets/ERC721PresetMinterPauserAutoId.sol";
 
-contract MyNFT is Initializable, ERC721PresetMinterPauserAutoId {
-  function initialize() public initializer {
-    ERC721PresetMinterPauserAutoId.initialize("name", "SYM");
-  }
+
+contract MyNFT is Initializable, ERC721PresetMinterPauserAutoIdUpgradeSafe {
+    function initialize() public initializer {
+        ERC721PresetMinterPauserAutoIdUpgradeSafe.initialize(
+            "MyNFT",
+            "MYN",
+            "https://example.com/token/"
+        );
+    }
 }
 ```
 
@@ -97,8 +110,8 @@ OpenZeppelin exists thanks to its contributors. There are many ways you can part
 
 OpenZeppelin is released under the [MIT License](LICENSE).
 
-[API docs]: https://docs.openzeppelin.com/contracts/2.x/api/token/erc20
-[guides]: https://docs.openzeppelin.com/contracts/2.x/
+[API docs]: https://docs.openzeppelin.com/contracts/api/token/erc20
+[guides]: https://docs.openzeppelin.com
 [forum]: https://forum.openzeppelin.com
 [OpenZeppelin]: https://openzeppelin.com
 [contribution guide]: CONTRIBUTING.md
