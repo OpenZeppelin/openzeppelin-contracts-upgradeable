@@ -75,11 +75,10 @@ If you prefer to write your own custom contracts, import the ones from this pack
 ```solidity
 pragma solidity ^0.6.2;
 
-import "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol";
 import "@openzeppelin/contracts-ethereum-package/contracts/presets/ERC721PresetMinterPauserAutoId.sol";
 
 
-contract MyNFT is Initializable, ERC721PresetMinterPauserAutoIdUpgradeSafe {
+contract MyNFT is ERC721PresetMinterPauserAutoIdUpgradeSafe {
     function initialize() public initializer {
         ERC721PresetMinterPauserAutoIdUpgradeSafe.initialize(
             "MyNFT",
