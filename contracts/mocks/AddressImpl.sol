@@ -3,8 +3,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/Address.sol";
+import "../Initializable.sol";
 
-contract AddressImpl {
+contract AddressImplUpgradeSafe is Initializable {
+    constructor() public  {
+        __AddressImpl_init();
+    }
+
+    function __AddressImpl_init() internal initializer {
+        __AddressImpl_init_unchained();
+    }
+
+    function __AddressImpl_init_unchained() internal initializer {
+
+
+    }
+
     event CallReturnValue(string data);
 
     function isContract(address account) external view returns (bool) {
@@ -29,4 +43,6 @@ contract AddressImpl {
 
     // sendValue's tests require the contract to hold Ether
     receive () external payable { }
+
+    uint256[50] private __gap;
 }

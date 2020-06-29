@@ -6,7 +6,7 @@ const { ZERO_ADDRESS } = constants;
 const { expect } = require('chai');
 
 const { shouldBehaveLikeERC1155 } = require('./ERC1155.behavior');
-const ERC1155Mock = contract.fromArtifact('ERC1155Mock');
+const ERC1155Mock = contract.fromArtifact('ERC1155MockUpgradeSafe');
 
 describe('ERC1155', function () {
   const [operator, tokenHolder, tokenBatchHolder, ...otherAccounts] = accounts;

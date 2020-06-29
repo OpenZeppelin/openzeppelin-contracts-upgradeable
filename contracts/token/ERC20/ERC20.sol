@@ -6,6 +6,7 @@ import "../../GSN/Context.sol";
 import "./IERC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -31,7 +32,7 @@ import "../../utils/Address.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-contract ERC20 is Context, IERC20 {
+contract ERC20UpgradeSafe is Initializable, ContextUpgradeSafe, IERC20 {
     using SafeMath for uint256;
     using Address for address;
 
@@ -54,11 +55,21 @@ contract ERC20 is Context, IERC20 {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor (string memory name, string memory symbol) public {
+
+    function __ERC20_init(string memory name, string memory symbol) internal initializer {
+        __Context_init_unchained();
+        __ERC20_init_unchained(name, symbol);
+    }
+
+    function __ERC20_init_unchained(string memory name, string memory symbol) internal initializer {
+
+
         _name = name;
         _symbol = symbol;
         _decimals = 18;
+
     }
+
 
     /**
      * @dev Returns the name of the token.
@@ -304,4 +315,6 @@ contract ERC20 is Context, IERC20 {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
+
+    uint256[44] private __gap;
 }

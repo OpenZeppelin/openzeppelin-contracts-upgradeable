@@ -3,6 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./IERC1820Implementer.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC1820Implementer} interface.
@@ -12,7 +13,16 @@ import "./IERC1820Implementer.sol";
  * {IERC1820Registry-setInterfaceImplementer} should then be called for the
  * registration to be complete.
  */
-contract ERC1820Implementer is IERC1820Implementer {
+contract ERC1820ImplementerUpgradeSafe is Initializable, IERC1820Implementer {
+    function __ERC1820Implementer_init() internal initializer {
+        __ERC1820Implementer_init_unchained();
+    }
+
+    function __ERC1820Implementer_init_unchained() internal initializer {
+
+
+    }
+
     bytes32 constant private _ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
 
     mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
@@ -34,4 +44,6 @@ contract ERC1820Implementer is IERC1820Implementer {
     function _registerInterfaceForAddress(bytes32 interfaceHash, address account) internal virtual {
         _supportedInterfaces[interfaceHash][account] = true;
     }
+
+    uint256[49] private __gap;
 }

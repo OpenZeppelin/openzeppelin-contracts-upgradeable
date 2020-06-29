@@ -7,6 +7,7 @@ import "../GSN/Context.sol";
 import "../token/ERC20/ERC20.sol";
 import "../token/ERC20/ERC20Burnable.sol";
 import "../token/ERC20/ERC20Pausable.sol";
+import "../Initializable.sol";
 
 /**
  * @dev {ERC20} token, including:
@@ -22,7 +23,7 @@ import "../token/ERC20/ERC20Pausable.sol";
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to other accounts.
  */
-contract ERC20PresetMinterPauser is Context, AccessControl, ERC20Burnable, ERC20Pausable {
+contract ERC20PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC20BurnableUpgradeSafe, ERC20PausableUpgradeSafe {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
@@ -32,12 +33,31 @@ contract ERC20PresetMinterPauser is Context, AccessControl, ERC20Burnable, ERC20
      *
      * See {ERC20-constructor}.
      */
-    constructor(string memory name, string memory symbol) public ERC20(name, symbol) {
+
+    function initialize(string memory name, string memory symbol) public {
+        __ERC20PresetMinterPauser_init(name, symbol);
+    }
+
+    function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal initializer {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+        __ERC20_init_unchained(name, symbol);
+        __ERC20Burnable_init_unchained();
+        __Pausable_init_unchained();
+        __ERC20Pausable_init_unchained();
+        __ERC20PresetMinterPauser_init_unchained(name, symbol);
+    }
+
+    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal initializer {
+
+
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
+
     }
+
 
     /**
      * @dev Creates `amount` new tokens for `to`.
@@ -81,7 +101,9 @@ contract ERC20PresetMinterPauser is Context, AccessControl, ERC20Burnable, ERC20
         _unpause();
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override(ERC20, ERC20Pausable) {
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override(ERC20UpgradeSafe, ERC20PausableUpgradeSafe) {
         super._beforeTokenTransfer(from, to, amount);
     }
+
+    uint256[50] private __gap;
 }

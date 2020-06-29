@@ -7,7 +7,7 @@ const { expect } = require('chai');
 
 const { shouldSupportInterfaces } = require('../../introspection/SupportsInterface.behavior');
 
-const ERC1155ReceiverMock = contract.fromArtifact('ERC1155ReceiverMock');
+const ERC1155ReceiverMock = contract.fromArtifact('ERC1155ReceiverMockUpgradeSafe');
 
 function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, multiTokenHolder, recipient, proxy]) {
   const firstTokenId = new BN(1);

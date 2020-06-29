@@ -7,6 +7,7 @@ import "../GSN/Context.sol";
 import "../token/ERC1155/ERC1155.sol";
 import "../token/ERC1155/ERC1155Burnable.sol";
 import "../token/ERC1155/ERC1155Pausable.sol";
+import "../Initializable.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -22,7 +23,7 @@ import "../token/ERC1155/ERC1155Pausable.sol";
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to other accounts.
  */
-contract ERC1155PresetMinterPauser is Context, AccessControl, ERC1155Burnable, ERC1155Pausable {
+contract ERC1155PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC1155BurnableUpgradeSafe, ERC1155PausableUpgradeSafe {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
@@ -30,12 +31,32 @@ contract ERC1155PresetMinterPauser is Context, AccessControl, ERC1155Burnable, E
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
      * deploys the contract.
      */
-    constructor(string memory uri) public ERC1155(uri) {
+
+    function initialize(string memory uri) public {
+        __ERC1155PresetMinterPauser_init(uri);
+    }
+
+    function __ERC1155PresetMinterPauser_init(string memory uri) internal initializer {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+        __ERC165_init_unchained();
+        __ERC1155_init_unchained(uri);
+        __ERC1155Burnable_init_unchained();
+        __Pausable_init_unchained();
+        __ERC1155Pausable_init_unchained();
+        __ERC1155PresetMinterPauser_init_unchained(uri);
+    }
+
+    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal initializer {
+
+
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
+
     }
+
 
     /**
      * @dev Creates `amount` new tokens for `to`, of token type `id`.
@@ -97,8 +118,10 @@ contract ERC1155PresetMinterPauser is Context, AccessControl, ERC1155Burnable, E
         uint256[] memory amounts,
         bytes memory data
     )
-        internal virtual override(ERC1155, ERC1155Pausable)
+        internal virtual override(ERC1155UpgradeSafe, ERC1155PausableUpgradeSafe)
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+
+    uint256[50] private __gap;
 }

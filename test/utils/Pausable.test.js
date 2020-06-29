@@ -4,7 +4,7 @@ const { expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const PausableMock = contract.fromArtifact('PausableMock');
+const PausableMock = contract.fromArtifact('PausableMockUpgradeSafe');
 
 describe('Pausable', function () {
   const [ pauser ] = accounts;

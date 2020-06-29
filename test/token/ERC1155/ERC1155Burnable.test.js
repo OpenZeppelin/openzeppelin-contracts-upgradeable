@@ -4,7 +4,7 @@ const { BN, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const ERC1155BurnableMock = contract.fromArtifact('ERC1155BurnableMock');
+const ERC1155BurnableMock = contract.fromArtifact('ERC1155BurnableMockUpgradeSafe');
 
 describe('ERC1155Burnable', function () {
   const [ holder, operator, other ] = accounts;

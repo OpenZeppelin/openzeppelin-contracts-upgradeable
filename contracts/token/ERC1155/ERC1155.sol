@@ -9,6 +9,7 @@ import "../../GSN/Context.sol";
 import "../../introspection/ERC165.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
+import "../../Initializable.sol";
 
 /**
  *
@@ -18,7 +19,7 @@ import "../../utils/Address.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
+contract ERC1155UpgradeSafe is Initializable, ContextUpgradeSafe, ERC165UpgradeSafe, IERC1155, IERC1155MetadataURI {
     using SafeMath for uint256;
     using Address for address;
 
@@ -52,7 +53,16 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {_setURI}.
      */
-    constructor (string memory uri) public {
+
+    function __ERC1155_init(string memory uri) internal initializer {
+        __Context_init_unchained();
+        __ERC165_init_unchained();
+        __ERC1155_init_unchained(uri);
+    }
+
+    function __ERC1155_init_unchained(string memory uri) internal initializer {
+
+
         _setURI(uri);
 
         // register the supported interfaces to conform to ERC1155 via ERC165
@@ -60,7 +70,9 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
         // register the supported interfaces to conform to ERC1155MetadataURI via ERC165
         _registerInterface(_INTERFACE_ID_ERC1155_METADATA_URI);
+
     }
+
 
     /**
      * @dev See {IERC1155MetadataURI-uri}.
@@ -410,4 +422,6 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
         return array;
     }
+
+    uint256[47] private __gap;
 }

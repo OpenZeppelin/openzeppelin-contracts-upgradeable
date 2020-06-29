@@ -4,13 +4,28 @@ pragma solidity ^0.6.0;
 
 import "../utils/ReentrancyGuard.sol";
 import "./ReentrancyAttack.sol";
+import "../Initializable.sol";
 
-contract ReentrancyMock is ReentrancyGuard {
+contract ReentrancyMockUpgradeSafe is Initializable, ReentrancyGuardUpgradeSafe {
     uint256 public counter;
 
-    constructor () public {
-        counter = 0;
+
+    constructor() public  {
+        __ReentrancyMock_init();
     }
+
+    function __ReentrancyMock_init() internal initializer {
+        __ReentrancyGuard_init_unchained();
+        __ReentrancyMock_init_unchained();
+    }
+
+    function __ReentrancyMock_init_unchained() internal initializer {
+
+
+        counter = 0;
+
+    }
+
 
     function callback() external nonReentrant {
         _count();
@@ -32,7 +47,7 @@ contract ReentrancyMock is ReentrancyGuard {
         }
     }
 
-    function countAndCall(ReentrancyAttack attacker) public nonReentrant {
+    function countAndCall(ReentrancyAttackUpgradeSafe attacker) public nonReentrant {
         _count();
         bytes4 func = bytes4(keccak256("callback()"));
         attacker.callSender(func);
@@ -41,4 +56,6 @@ contract ReentrancyMock is ReentrancyGuard {
     function _count() private {
         counter += 1;
     }
+
+    uint256[49] private __gap;
 }

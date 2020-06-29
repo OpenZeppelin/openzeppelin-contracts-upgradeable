@@ -10,6 +10,7 @@ import "../../token/ERC20/IERC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../introspection/IERC1820Registry.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -26,7 +27,7 @@ import "../../introspection/IERC1820Registry.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777 is Context, IERC777, IERC20 {
+contract ERC777UpgradeSafe is Initializable, ContextUpgradeSafe, IERC777, IERC20 {
     using SafeMath for uint256;
     using Address for address;
 
@@ -66,11 +67,23 @@ contract ERC777 is Context, IERC777, IERC20 {
     /**
      * @dev `defaultOperators` may be an empty array.
      */
-    constructor(
+
+    function __ERC777_init(
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) public {
+    ) internal initializer {
+        __Context_init_unchained();
+        __ERC777_init_unchained(name, symbol, defaultOperators);
+    }
+
+    function __ERC777_init_unchained(
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators
+    ) internal initializer {
+
+
         _name = name;
         _symbol = symbol;
 
@@ -82,7 +95,9 @@ contract ERC777 is Context, IERC777, IERC20 {
         // register interfaces
         _ERC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("ERC777Token"), address(this));
         _ERC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("ERC20Token"), address(this));
+
     }
+
 
     /**
      * @dev See {IERC777-name}.
@@ -500,4 +515,6 @@ contract ERC777 is Context, IERC777, IERC20 {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address operator, address from, address to, uint256 amount) internal virtual { }
+
+    uint256[41] private __gap;
 }

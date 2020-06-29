@@ -4,6 +4,7 @@ pragma solidity ^0.6.0;
 
 import "./GSNRecipient.sol";
 import "../cryptography/ECDSA.sol";
+import "../Initializable.sol";
 
 /**
  * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that allows relayed transactions through when they are
@@ -11,7 +12,7 @@ import "../cryptography/ECDSA.sol";
  * performs validations off-chain. Note that nothing is charged to the user in this scheme. Thus, the server should make
  * sure to account for this in their economic and threat model.
  */
-contract GSNRecipientSignature is GSNRecipient {
+contract GSNRecipientSignatureUpgradeSafe is Initializable, GSNRecipientUpgradeSafe {
     using ECDSA for bytes32;
 
     address private _trustedSigner;
@@ -23,10 +24,21 @@ contract GSNRecipientSignature is GSNRecipient {
     /**
      * @dev Sets the trusted signer that is going to be producing signatures to approve relayed calls.
      */
-    constructor(address trustedSigner) public {
+
+    function __GSNRecipientSignature_init(address trustedSigner) internal initializer {
+        __Context_init_unchained();
+        __GSNRecipient_init_unchained();
+        __GSNRecipientSignature_init_unchained(trustedSigner);
+    }
+
+    function __GSNRecipientSignature_init_unchained(address trustedSigner) internal initializer {
+
+
         require(trustedSigner != address(0), "GSNRecipientSignature: trusted signer is the zero address");
         _trustedSigner = trustedSigner;
+
     }
+
 
     /**
      * @dev Ensures that only transactions with a trusted signature can be relayed through the GSN.
@@ -69,4 +81,6 @@ contract GSNRecipientSignature is GSNRecipient {
     function _preRelayedCall(bytes memory) internal virtual override returns (bytes32) { }
 
     function _postRelayedCall(bytes memory, bool, uint256, bytes32) internal virtual override { }
+
+    uint256[49] private __gap;
 }

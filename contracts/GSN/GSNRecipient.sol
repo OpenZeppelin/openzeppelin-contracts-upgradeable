@@ -5,6 +5,7 @@ pragma solidity ^0.6.0;
 import "./IRelayRecipient.sol";
 import "./IRelayHub.sol";
 import "./Context.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Base GSN recipient contract: includes the {IRelayRecipient} interface
@@ -17,9 +18,20 @@ import "./Context.sol";
  * information on how to use the pre-built {GSNRecipientSignature} and
  * {GSNRecipientERC20Fee}, or how to write your own.
  */
-abstract contract GSNRecipient is IRelayRecipient, Context {
+abstract contract GSNRecipientUpgradeSafe is Initializable, IRelayRecipient, ContextUpgradeSafe {
+    function __GSNRecipient_init() internal initializer {
+        __Context_init_unchained();
+        __GSNRecipient_init_unchained();
+    }
+
+    function __GSNRecipient_init_unchained() internal initializer {
+
+        _relayHub = 0xD216153c06E857cD7f72665E0aF1d7D82172F494;
+
+    }
+
     // Default RelayHub address, deployed on mainnet and all testnets at the same address
-    address private _relayHub = 0xD216153c06E857cD7f72665E0aF1d7D82172F494;
+    address private _relayHub ;
 
     uint256 constant private _RELAYED_CALL_ACCEPTED = 0;
     uint256 constant private _RELAYED_CALL_REJECTED = 11;
@@ -227,4 +239,6 @@ abstract contract GSNRecipient is IRelayRecipient, Context {
 
         return actualData;
     }
+
+    uint256[49] private __gap;
 }

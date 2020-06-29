@@ -1,8 +1,8 @@
 const { accounts, contract } = require('@openzeppelin/test-environment');
 const { BN } = require('@openzeppelin/test-helpers');
 
-const ERC1155Holder = contract.fromArtifact('ERC1155Holder');
-const ERC1155Mock = contract.fromArtifact('ERC1155Mock');
+const ERC1155Holder = contract.fromArtifact('ERC1155HolderMockUpgradeSafe');
+const ERC1155Mock = contract.fromArtifact('ERC1155MockUpgradeSafe');
 
 const { expect } = require('chai');
 

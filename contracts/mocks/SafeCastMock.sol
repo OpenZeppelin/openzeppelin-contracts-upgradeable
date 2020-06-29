@@ -3,8 +3,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/SafeCast.sol";
+import "../Initializable.sol";
 
-contract SafeCastMock {
+contract SafeCastMockUpgradeSafe is Initializable {
+    constructor() public  {
+        __SafeCastMock_init();
+    }
+
+    function __SafeCastMock_init() internal initializer {
+        __SafeCastMock_init_unchained();
+    }
+
+    function __SafeCastMock_init_unchained() internal initializer {
+
+
+    }
+
     using SafeCast for uint;
     using SafeCast for int;
 
@@ -55,4 +69,6 @@ contract SafeCastMock {
     function toInt8(int a) public pure returns (int8) {
         return a.toInt8();
     }
+
+    uint256[50] private __gap;
 }

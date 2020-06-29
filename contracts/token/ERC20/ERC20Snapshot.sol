@@ -6,6 +6,7 @@ import "../../math/SafeMath.sol";
 import "../../utils/Arrays.sol";
 import "../../utils/Counters.sol";
 import "./ERC20.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev This contract extends an ERC20 token with a snapshot mechanism. When a snapshot is created, the balances and
@@ -31,7 +32,17 @@ import "./ERC20.sol";
  * only significant for the first transfer that immediately follows a snapshot for a particular account. Subsequent
  * transfers will have normal cost until the next snapshot, and so on.
  */
-abstract contract ERC20Snapshot is ERC20 {
+abstract contract ERC20SnapshotUpgradeSafe is Initializable, ERC20UpgradeSafe {
+    function __ERC20Snapshot_init() internal initializer {
+        __Context_init_unchained();
+        __ERC20Snapshot_init_unchained();
+    }
+
+    function __ERC20Snapshot_init_unchained() internal initializer {
+
+
+    }
+
     // Inspired by Jordi Baylina's MiniMeToken to record historical balances:
     // https://github.com/Giveth/minimd/blob/ea04d950eea153a04c51fa510b068b9dded390cb/contracts/MiniMeToken.sol
 
@@ -181,4 +192,6 @@ abstract contract ERC20Snapshot is ERC20 {
             return ids[ids.length - 1];
         }
     }
+
+    uint256[46] private __gap;
 }

@@ -3,8 +3,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/Counters.sol";
+import "../Initializable.sol";
 
-contract CountersImpl {
+contract CountersMockUpgradeSafe is Initializable {
+    constructor() public  {
+        __CountersMock_init();
+    }
+
+    function __CountersMock_init() internal initializer {
+        __CountersMock_init_unchained();
+    }
+
+    function __CountersMock_init_unchained() internal initializer {
+
+
+    }
+
     using Counters for Counters.Counter;
 
     Counters.Counter private _counter;
@@ -20,4 +34,6 @@ contract CountersImpl {
     function decrement() public {
         _counter.decrement();
     }
+
+    uint256[49] private __gap;
 }

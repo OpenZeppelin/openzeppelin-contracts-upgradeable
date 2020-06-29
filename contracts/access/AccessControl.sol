@@ -5,6 +5,7 @@ pragma solidity ^0.6.0;
 import "../utils/EnumerableSet.sol";
 import "../utils/Address.sol";
 import "../GSN/Context.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -41,7 +42,17 @@ import "../GSN/Context.sol";
  * grant and revoke this role. Extra precautions should be taken to secure
  * accounts that have been granted it.
  */
-abstract contract AccessControl is Context {
+abstract contract AccessControlUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __AccessControl_init() internal initializer {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+    }
+
+    function __AccessControl_init_unchained() internal initializer {
+
+
+    }
+
     using EnumerableSet for EnumerableSet.AddressSet;
     using Address for address;
 
@@ -214,4 +225,6 @@ abstract contract AccessControl is Context {
             emit RoleRevoked(role, account, _msgSender());
         }
     }
+
+    uint256[49] private __gap;
 }

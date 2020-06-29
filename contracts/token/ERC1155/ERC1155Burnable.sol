@@ -3,6 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./ERC1155.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev Extension of {ERC1155} that allows token holders to destroy both their
@@ -10,7 +11,18 @@ import "./ERC1155.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Burnable is ERC1155 {
+abstract contract ERC1155BurnableUpgradeSafe is Initializable, ERC1155UpgradeSafe {
+    function __ERC1155Burnable_init() internal initializer {
+        __Context_init_unchained();
+        __ERC165_init_unchained();
+        __ERC1155Burnable_init_unchained();
+    }
+
+    function __ERC1155Burnable_init_unchained() internal initializer {
+
+
+    }
+
     function burn(address account, uint256 id, uint256 value) public virtual {
         require(
             account == _msgSender() || isApprovedForAll(account, _msgSender()),
@@ -28,4 +40,6 @@ abstract contract ERC1155Burnable is ERC1155 {
 
         _burnBatch(account, ids, values);
     }
+
+    uint256[50] private __gap;
 }

@@ -3,7 +3,7 @@ const { expectRevert } = require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
-const CountersImpl = contract.fromArtifact('CountersImpl');
+const CountersImpl = contract.fromArtifact('CountersMockUpgradeSafe');
 
 describe('Counters', function () {
   beforeEach(async function () {

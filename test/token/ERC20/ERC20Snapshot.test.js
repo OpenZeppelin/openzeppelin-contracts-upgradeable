@@ -1,7 +1,7 @@
 const { accounts, contract } = require('@openzeppelin/test-environment');
 
 const { BN, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
-const ERC20SnapshotMock = contract.fromArtifact('ERC20SnapshotMock');
+const ERC20SnapshotMock = contract.fromArtifact('ERC20SnapshotMockUpgradeSafe');
 
 const { expect } = require('chai');
 

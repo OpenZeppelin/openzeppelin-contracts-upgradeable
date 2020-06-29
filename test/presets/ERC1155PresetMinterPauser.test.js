@@ -5,9 +5,9 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const ERC1155PresetMinterPauser = contract.fromArtifact('ERC1155PresetMinterPauser');
+const ERC1155PresetMinterPauser = contract.fromArtifact('ERC1155PresetMinterPauserMockUpgradeSafe');
 
-describe('ERC1155PresetMinterPauser', function () {
+describe.only('ERC1155PresetMinterPauser', function () {
   const [ deployer, other ] = accounts;
 
   const firstTokenId = new BN('845');
