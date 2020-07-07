@@ -1,0 +1,27 @@
+{
+  "manifestVersion": "2.2",
+  "name": "@openzeppelin/contracts-ethereum-package",
+  "publish": true,
+  "version": "3.0.0",
+  "contracts": {
+    "ERC20PresetMinterPauserUpgradeSafe": "ERC20PresetMinterPauserUpgradeSafe",
+    "ERC721PresetMinterPauserAutoIdUpgradeSafe": "ERC721PresetMinterPauserAutoIdUpgradeSafe"
+  },
+  "dependencies": {},
+  "compiler": {
+    "manager": "openzeppelin",
+    "compilerSettings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": "200"
+      }
+    },
+    "solcVersion": "0.6.7",
+    "artifactsDir": "build/contracts",
+    "contractsDir": "contracts",
+    "typechain": {
+      "enabled": false
+    }
+  },
+  "telemetryOptIn": false
+}
