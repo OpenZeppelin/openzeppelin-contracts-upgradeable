@@ -2,7 +2,7 @@
   "manifestVersion": "2.2",
   "name": "@openzeppelin/contracts-ethereum-package",
   "publish": true,
-  "version": "3.0.0",
+  "version": "3.1.0",
   "contracts": {
     "ERC20PresetMinterPauserUpgradeSafe": "ERC20PresetMinterPauserUpgradeSafe",
     "ERC721PresetMinterPauserAutoIdUpgradeSafe": "ERC721PresetMinterPauserAutoIdUpgradeSafe"
