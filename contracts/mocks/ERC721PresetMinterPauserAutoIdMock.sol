@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../presets/ERC721PresetMinterPauserAutoId.sol';
+import "../presets/ERC721PresetMinterPauserAutoId.sol";
 import "../Initializable.sol";
 
 contract ERC721PresetMinterPauserAutoIdMockUpgradeSafe is Initializable, ERC721PresetMinterPauserAutoIdUpgradeSafe {
@@ -17,7 +17,7 @@ contract ERC721PresetMinterPauserAutoIdMockUpgradeSafe is Initializable, ERC721P
         __ERC721Burnable_init_unchained();
         __Pausable_init_unchained();
         __ERC721Pausable_init_unchained();
-        __ERC721PresetMinterPauserAutoId_init_unchained(name, symbol, baseURI);
+        __ERC721PresetMinterPauserAutoId_init_unchained(baseURI);
         __ERC721PresetMinterPauserAutoIdMock_init_unchained(name, symbol, baseURI);
     }
 

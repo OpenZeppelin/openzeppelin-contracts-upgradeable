@@ -25,22 +25,17 @@ contract ERC777MockUpgradeSafe is Initializable, ContextUpgradeSafe, ERC777Upgra
     ) internal initializer {
         __Context_init_unchained();
         __ERC777_init_unchained(name, symbol, defaultOperators);
-        __ERC777Mock_init_unchained(initialHolder, initialBalance, name, symbol, defaultOperators);
+        __ERC777Mock_init_unchained(initialHolder, initialBalance);
     }
 
     function __ERC777Mock_init_unchained(
         address initialHolder,
-        uint256 initialBalance,
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators
+        uint256 initialBalance
     ) internal initializer {
-
 
         _mint(initialHolder, initialBalance, "", "");
 
     }
-
 
     function mintInternal (
         address to,

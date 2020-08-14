@@ -23,16 +23,13 @@ contract ERC20MockUpgradeSafe is Initializable, ERC20UpgradeSafe {
     ) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
-        __ERC20Mock_init_unchained(name, symbol, initialAccount, initialBalance);
+        __ERC20Mock_init_unchained(initialAccount, initialBalance);
     }
 
     function __ERC20Mock_init_unchained(
-        string memory name,
-        string memory symbol,
         address initialAccount,
         uint256 initialBalance
     ) internal initializer {
-
 
         _mint(initialAccount, initialBalance);
 

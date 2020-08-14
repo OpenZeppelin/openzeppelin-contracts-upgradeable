@@ -51,10 +51,10 @@ contract ERC721PresetMinterPauserAutoIdUpgradeSafe is Initializable, ContextUpgr
         __ERC721Burnable_init_unchained();
         __Pausable_init_unchained();
         __ERC721Pausable_init_unchained();
-        __ERC721PresetMinterPauserAutoId_init_unchained(name, symbol, baseURI);
+        __ERC721PresetMinterPauserAutoId_init_unchained(baseURI);
     }
 
-    function __ERC721PresetMinterPauserAutoId_init_unchained(string memory name, string memory symbol, string memory baseURI) internal initializer {
+    function __ERC721PresetMinterPauserAutoId_init_unchained(string memory baseURI) internal initializer {
 
 
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());

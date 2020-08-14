@@ -43,10 +43,10 @@ contract ERC20PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe
         __ERC20Burnable_init_unchained();
         __Pausable_init_unchained();
         __ERC20Pausable_init_unchained();
-        __ERC20PresetMinterPauser_init_unchained(name, symbol);
+        __ERC20PresetMinterPauser_init_unchained();
     }
 
-    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal initializer {
+    function __ERC20PresetMinterPauser_init_unchained() internal initializer {
 
 
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());

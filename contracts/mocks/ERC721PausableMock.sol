@@ -19,14 +19,12 @@ contract ERC721PausableMockUpgradeSafe is Initializable, ERC721PausableUpgradeSa
         __ERC721_init_unchained(name, symbol);
         __Pausable_init_unchained();
         __ERC721Pausable_init_unchained();
-        __ERC721PausableMock_init_unchained(name, symbol);
+        __ERC721PausableMock_init_unchained();
     }
 
-    function __ERC721PausableMock_init_unchained(string memory name, string memory symbol) internal initializer {
-
-
+    function __ERC721PausableMock_init_unchained() internal initializer {
+    
     }
-
 
     function mint(address to, uint256 tokenId) public {
         super._mint(to, tokenId);

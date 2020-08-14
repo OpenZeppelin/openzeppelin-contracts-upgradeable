@@ -25,19 +25,16 @@ contract ERC20PausableMockUpgradeSafe is Initializable, ERC20PausableUpgradeSafe
         __ERC20_init_unchained(name, symbol);
         __Pausable_init_unchained();
         __ERC20Pausable_init_unchained();
-        __ERC20PausableMock_init_unchained(name, symbol, initialAccount, initialBalance);
+        __ERC20PausableMock_init_unchained(initialAccount, initialBalance);
     }
 
     function __ERC20PausableMock_init_unchained(
-        string memory name,
-        string memory symbol,
         address initialAccount,
         uint256 initialBalance
     ) internal initializer {
-
-
+        
         _mint(initialAccount, initialBalance);
-
+   
     }
 
 

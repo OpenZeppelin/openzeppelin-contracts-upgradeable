@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../presets/ERC20PresetMinterPauser.sol';
+import "../presets/ERC20PresetMinterPauser.sol";
 import "../Initializable.sol";
 
 contract ERC20PresetMinterPauserMockUpgradeSafe is Initializable, ERC20PresetMinterPauserUpgradeSafe {
@@ -16,13 +16,11 @@ contract ERC20PresetMinterPauserMockUpgradeSafe is Initializable, ERC20PresetMin
         __ERC20Burnable_init_unchained();
         __Pausable_init_unchained();
         __ERC20Pausable_init_unchained();
-        __ERC20PresetMinterPauser_init_unchained(name, symbol);
+        __ERC20PresetMinterPauser_init_unchained();
         __ERC20PresetMinterPauserMock_init_unchained(name, symbol);
     }
 
     function __ERC20PresetMinterPauserMock_init_unchained(string memory name, string memory symbol) internal initializer {
-
-
 
     }
 
