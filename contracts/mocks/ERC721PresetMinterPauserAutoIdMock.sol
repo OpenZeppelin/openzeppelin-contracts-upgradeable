@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../presets/ERC721PresetMinterPauserAutoId.sol';
+import "../presets/ERC721PresetMinterPauserAutoId.sol";
 import "../Initializable.sol";
 
 contract ERC721PresetMinterPauserAutoIdMockUpgradeSafe is Initializable, ERC721PresetMinterPauserAutoIdUpgradeSafe {

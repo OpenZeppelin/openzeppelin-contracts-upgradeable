@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../payment/escrow/RefundEscrow.sol';
+import "../payment/escrow/RefundEscrow.sol";
 import "../Initializable.sol";
 
 contract RefundEscrowMockUpgradeSafe is Initializable, RefundEscrowUpgradeSafe {

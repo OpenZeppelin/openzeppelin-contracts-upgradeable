@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../payment/PaymentSplitter.sol';
+import "../payment/PaymentSplitter.sol";
 import "../Initializable.sol";
 
 contract PaymentSplitterMockUpgradeSafe is Initializable, PaymentSplitterUpgradeSafe {

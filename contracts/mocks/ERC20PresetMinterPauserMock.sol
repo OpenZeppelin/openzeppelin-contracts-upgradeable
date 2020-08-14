@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../presets/ERC20PresetMinterPauser.sol';
+import "../presets/ERC20PresetMinterPauser.sol";
 import "../Initializable.sol";
 
 contract ERC20PresetMinterPauserMockUpgradeSafe is Initializable, ERC20PresetMinterPauserUpgradeSafe {

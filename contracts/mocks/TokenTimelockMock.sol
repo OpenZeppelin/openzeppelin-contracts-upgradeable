@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import '../token/ERC20/TokenTimelock.sol';
+import "../token/ERC20/TokenTimelock.sol";
 import "../Initializable.sol";
 
 contract TokenTimelockMockUpgradeSafe is Initializable, TokenTimelockUpgradeSafe {
