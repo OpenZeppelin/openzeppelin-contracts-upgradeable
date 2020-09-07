@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "zos-lib/contracts/Initializable.sol";
+import "../../zos-lib/Initializable.sol";
 import "./ERC721.sol";
 import "./ERC721Enumerable.sol";
 import "./ERC721Metadata.sol";

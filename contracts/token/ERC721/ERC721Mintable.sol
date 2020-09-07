@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "zos-lib/contracts/Initializable.sol";
+import "../../zos-lib/Initializable.sol";
 import "./ERC721.sol";
 import "../../access/roles/MinterRole.sol";
 
