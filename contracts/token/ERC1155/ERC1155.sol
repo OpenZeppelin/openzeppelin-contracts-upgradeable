@@ -355,7 +355,9 @@ contract ERC1155 is Initializable, Context, ERC165, IERC1155, IERC1155MetadataUR
         bytes memory data
     )
         internal
-    { }
+    {
+        // solhint-disable-previous-line no-empty-blocks
+    }
 
     function _doSafeTransferAcceptanceCheck(
         address operator,
@@ -368,6 +370,7 @@ contract ERC1155 is Initializable, Context, ERC165, IERC1155, IERC1155MetadataUR
         private
     {
         if (to.isContract()) {
+            // solhint-disable-next-line avoid-low-level-calls
             (bool success, bytes memory returndata) = to.call(abi.encodeWithSelector(
                 IERC1155Receiver(to).onERC1155Received.selector,
                 operator,
@@ -406,6 +409,7 @@ contract ERC1155 is Initializable, Context, ERC165, IERC1155, IERC1155MetadataUR
         private
     {
         if (to.isContract()) {
+            // solhint-disable-next-line avoid-low-level-calls
             (bool success, bytes memory returndata) = to.call(abi.encodeWithSelector(
                 IERC1155Receiver(to).onERC1155BatchReceived.selector,
                 operator,

@@ -27,7 +27,7 @@
     // Code style
     "array-bracket-spacing": ["off"],
     "camelcase": ["error", {"properties": "always"}],
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["off"],
     "comma-spacing": ["error", {"before": false, "after": true}],
     "dot-notation": ["error", {"allowKeywords": true, "allowPattern": ""}],
     "eol-last": ["error", "always"],
