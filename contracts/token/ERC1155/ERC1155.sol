@@ -2,6 +2,8 @@
 
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "./IERC1155.sol";
 import "./IERC1155MetadataURI.sol";
 import "./IERC1155Receiver.sol";
@@ -18,7 +20,7 @@ import "../../utils/Address.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
+contract ERC1155 is Initializable, Context, ERC165, IERC1155, IERC1155MetadataURI {
     using SafeMath for uint256;
     using Address for address;
 
@@ -52,7 +54,9 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {_setURI}.
      */
-    constructor (string memory uri) public {
+    function initialize(string memory uri) public initializer {
+        ERC165.initialize();
+
         _setURI(uri);
 
         // register the supported interfaces to conform to ERC1155 via ERC165

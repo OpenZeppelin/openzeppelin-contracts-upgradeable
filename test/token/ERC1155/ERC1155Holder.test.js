@@ -18,6 +18,7 @@ describe('ERC1155Holder', function () {
   beforeEach(async function () {
     this.multiToken = await ERC1155Mock.new(uri, { from: creator });
     this.holder = await ERC1155Holder.new();
+    await this.holder.initialize();
     await this.multiToken.mintBatch(creator, multiTokenIds, multiTokenAmounts, '0x', { from: creator });
   });
 

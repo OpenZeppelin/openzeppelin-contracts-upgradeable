@@ -2,6 +2,8 @@
 
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "../../introspection/IERC165.sol";
 
 /**
@@ -10,7 +12,7 @@ import "../../introspection/IERC165.sol";
  *
  * _Available since v3.1._
  */
-contract IERC1155 is IERC165 {
+contract IERC1155 is Initializable, IERC165 {
     /**
      * @dev Emitted when `value` tokens of token type `id` are transferred from `from` to `to` by `operator`.
      */

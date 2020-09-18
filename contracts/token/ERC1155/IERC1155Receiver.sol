@@ -2,12 +2,14 @@
 
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "../../introspection/IERC165.sol";
 
 /**
  * _Available since v3.1._
  */
-contract IERC1155Receiver is IERC165 {
+contract IERC1155Receiver is Initializable, IERC165 {
 
     /**
         @dev Handles the receipt of a single ERC1155 token type. This function is

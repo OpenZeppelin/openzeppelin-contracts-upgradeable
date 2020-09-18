@@ -2,6 +2,8 @@
 
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "./IERC1155.sol";
 
 /**
@@ -10,7 +12,7 @@ import "./IERC1155.sol";
  *
  * _Available since v3.1._
  */
-contract IERC1155MetadataURI is IERC1155 {
+contract IERC1155MetadataURI is Initializable, IERC1155 {
     /**
      * @dev Returns the URI for token type `id`.
      *

@@ -2,6 +2,8 @@
 
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
 import "./ERC1155.sol";
 
 /**
@@ -10,7 +12,7 @@ import "./ERC1155.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155Burnable is ERC1155 {
+contract ERC1155Burnable is Initializable, ERC1155 {
     function burn(address account, uint256 id, uint256 value) public {
         require(
             account == _msgSender() || isApprovedForAll(account, _msgSender()),
