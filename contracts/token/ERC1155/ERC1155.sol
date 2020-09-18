@@ -443,4 +443,6 @@ contract ERC1155 is Initializable, Context, ERC165, IERC1155, IERC1155MetadataUR
 
         return array;
     }
+
+    uint256[50] private ______gap;
 }

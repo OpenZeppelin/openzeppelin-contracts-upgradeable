@@ -19,4 +19,6 @@ contract ERC1155Receiver is Initializable, ERC165, IERC1155Receiver {
             ERC1155Receiver(0).onERC1155BatchReceived.selector
         );
     }
+
+    uint256[50] private ______gap;
 }

@@ -17,4 +17,6 @@ contract ERC1155Holder is Initializable, ERC1155Receiver {
     function onERC1155BatchReceived(address, address, uint256[] memory, uint256[] memory, bytes memory) public returns (bytes4) {
         return this.onERC1155BatchReceived.selector;
     }
+
+    uint256[50] private ______gap;
 }

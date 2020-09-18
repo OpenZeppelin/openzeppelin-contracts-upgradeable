@@ -30,4 +30,6 @@ contract ERC1155Burnable is Initializable, ERC1155 {
 
         _burnBatch(account, ids, values);
     }
+
+    uint256[50] private ______gap;
 }
