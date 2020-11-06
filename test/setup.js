@@ -1,3 +1,4 @@
+// a different comment!
 const { deployRelayHub } = require('@openzeppelin/gsn-helpers');
 
 before('deploy GSN RelayHub', async function () {

@@ -1,0 +1,16 @@
+name: Patch Upstream
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 10 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: upstream-patched
+          fetch-depth: 0
+      - run: bash -x scripts/merge-upstream.sh
