@@ -1,0 +1,23 @@
+name: Transpile
+
+on:
+  push:
+    branches: [upstream-patched]
+
+jobs:
+  transpile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-
+      - run: npm ci
+      - run: bash scripts/transpile.sh
