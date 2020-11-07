@@ -19,7 +19,6 @@ jobs:
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: npm-
       - run: npm ci
-      - run: npm run lint
       - run: npm run test
 
   coverage:
