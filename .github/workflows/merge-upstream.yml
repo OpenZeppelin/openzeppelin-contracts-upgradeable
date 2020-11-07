@@ -1,4 +1,4 @@
-name: Patch Upstream
+name: Merge upstream
 
 on:
   workflow_dispatch: {}
