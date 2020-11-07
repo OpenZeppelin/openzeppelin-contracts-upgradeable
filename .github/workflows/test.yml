@@ -20,19 +20,3 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
       - run: npm run test
-
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10.x
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-v2-
-      - run: npm ci
-      - run: npm run coverage
-      - uses: codecov/codecov-action@v1
