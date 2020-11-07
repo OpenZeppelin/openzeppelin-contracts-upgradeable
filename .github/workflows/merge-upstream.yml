@@ -1,4 +1,4 @@
-name: Patch Upstream
+name: Merge upstream
 
 on:
   workflow_dispatch: {}
@@ -13,4 +13,5 @@ jobs:
         with:
           ref: upstream-patched
           fetch-depth: 0
+          ssh-key: ${{secrets.DEPLOY_KEY}}
       - run: bash -x scripts/merge-upstream.sh
