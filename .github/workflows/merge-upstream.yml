@@ -9,6 +9,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: ${{github.token}}
       - uses: actions/checkout@v2
         with:
           ref: upstream-patched

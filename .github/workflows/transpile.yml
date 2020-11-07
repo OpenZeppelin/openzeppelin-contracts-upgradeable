@@ -8,6 +8,9 @@ jobs:
   transpile:
     runs-on: ubuntu-latest
     steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: ${{github.token}}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -17,8 +20,8 @@ jobs:
           node-version: 10.x
       - uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v2-
       - run: npm ci
       - run: bash scripts/transpile-push.sh
