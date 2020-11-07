@@ -20,4 +20,4 @@ jobs:
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: npm-
       - run: npm ci
-      - run: bash scripts/transpile.sh
+      - run: bash scripts/transpile-push.sh
