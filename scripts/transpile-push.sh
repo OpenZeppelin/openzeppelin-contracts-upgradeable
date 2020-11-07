@@ -12,5 +12,7 @@ COMMIT="$(git rev-parse --short HEAD)"
 git add contracts
 git checkout --orphan master
 git reset --soft origin/master
-git commit -m "Transpile $COMMIT"
-git push origin master
+if ! git diff --cached --quiet; then
+  git commit -m "Transpile $COMMIT"
+  git push origin master
+fi
