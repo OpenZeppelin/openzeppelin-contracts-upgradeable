@@ -1,6 +1,7 @@
 name: Transpile
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [upstream-patched]
 
