@@ -18,4 +18,5 @@ contract PullPaymentMockUpgradeSafe is __Initializable, PullPaymentUpgradeSafe {
     function callTransfer(address dest, uint256 amount) public {
         _asyncTransfer(dest, amount);
     }
+    uint256[50] private __gap;
 }

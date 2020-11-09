@@ -137,4 +137,5 @@ contract PaymentSplitterUpgradeSafe is __Initializable, ContextUpgradeSafe {
         _totalShares = _totalShares.add(shares_);
         emit PayeeAdded(account, shares_);
     }
+    uint256[45] private __gap;
 }

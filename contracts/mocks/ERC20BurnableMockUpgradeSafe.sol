@@ -26,4 +26,5 @@ contract ERC20BurnableMockUpgradeSafe is __Initializable, ERC20BurnableUpgradeSa
     ) internal __initializer {
         _mint(initialAccount, initialBalance);
     }
+    uint256[50] private __gap;
 }

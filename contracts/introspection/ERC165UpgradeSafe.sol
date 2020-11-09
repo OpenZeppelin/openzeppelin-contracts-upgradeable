@@ -56,4 +56,5 @@ contract ERC165UpgradeSafe is __Initializable, IERC165UpgradeSafe {
         require(interfaceId != 0xffffffff, "ERC165: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
     }
+    uint256[49] private __gap;
 }

@@ -64,4 +64,5 @@ contract ReentrancyGuardUpgradeSafe is __Initializable {
         // https://eips.ethereum.org/EIPS/eip-2200)
         _status = _NOT_ENTERED;
     }
+    uint256[49] private __gap;
 }

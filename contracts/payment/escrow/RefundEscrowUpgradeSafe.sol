@@ -99,4 +99,5 @@ contract RefundEscrowUpgradeSafe is __Initializable, ConditionalEscrowUpgradeSaf
     function withdrawalAllowed(address) public view override returns (bool) {
         return _state == State.Refunding;
     }
+    uint256[49] private __gap;
 }

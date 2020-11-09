@@ -21,4 +21,5 @@ contract ECDSAMockUpgradeSafe is __Initializable {
     function toEthSignedMessageHash(bytes32 hash) public pure returns (bytes32) {
         return hash.toEthSignedMessageHash();
     }
+    uint256[50] private __gap;
 }

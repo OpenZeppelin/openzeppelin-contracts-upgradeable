@@ -112,6 +112,7 @@ contract GSNRecipientERC20FeeUpgradeSafe is __Initializable, GSNRecipientUpgrade
         // After the relayed call has been executed and the actual charge estimated, the excess pre-charge is returned
         _token.safeTransfer(from, maxPossibleCharge.sub(actualCharge));
     }
+    uint256[49] private __gap;
 }
 
 /**
@@ -167,4 +168,5 @@ contract __unstable__ERC20OwnedUpgradeSafe is __Initializable, ERC20UpgradeSafe,
             return super.transferFrom(sender, recipient, amount);
         }
     }
+    uint256[50] private __gap;
 }

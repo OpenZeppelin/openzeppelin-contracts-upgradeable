@@ -32,6 +32,7 @@ contract SampleHumanUpgradeSafe is __Initializable, InitializableUpgradeSafe {
   function initialize() public initializer {
     isHuman = true;
   }
+    uint256[49] private __gap;
 }
 
 /**
@@ -52,6 +53,7 @@ contract SampleMotherUpgradeSafe is __Initializable, InitializableUpgradeSafe, S
     SampleHumanUpgradeSafe.initialize();
     mother = value;
   }
+    uint256[49] private __gap;
 }
 
 /**
@@ -72,6 +74,7 @@ contract SampleGrampsUpgradeSafe is __Initializable, InitializableUpgradeSafe, S
     SampleHumanUpgradeSafe.initialize();
     gramps = value;
   }
+    uint256[49] private __gap;
 }
 
 /**
@@ -93,6 +96,7 @@ contract SampleFatherUpgradeSafe is __Initializable, InitializableUpgradeSafe, S
     SampleGrampsUpgradeSafe.initialize(_gramps);
     father = _father;
   }
+    uint256[49] private __gap;
 }
 
 /**
@@ -117,4 +121,5 @@ contract SampleChildUpgradeSafe is __Initializable, InitializableUpgradeSafe, Sa
     SampleFatherUpgradeSafe.initialize(_gramps, _father);
     child = _child;
   }
+    uint256[49] private __gap;
 }

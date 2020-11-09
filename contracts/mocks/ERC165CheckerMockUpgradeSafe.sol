@@ -25,4 +25,5 @@ contract ERC165CheckerMockUpgradeSafe is __Initializable {
     function supportsAllInterfaces(address account, bytes4[] memory interfaceIds) public view returns (bool) {
         return account.supportsAllInterfaces(interfaceIds);
     }
+    uint256[50] private __gap;
 }

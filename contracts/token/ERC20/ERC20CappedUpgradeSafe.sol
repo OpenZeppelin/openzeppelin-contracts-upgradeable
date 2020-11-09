@@ -46,4 +46,5 @@ abstract contract ERC20CappedUpgradeSafe is __Initializable, ERC20UpgradeSafe {
             require(totalSupply().add(amount) <= _cap, "ERC20Capped: cap exceeded");
         }
     }
+    uint256[49] private __gap;
 }

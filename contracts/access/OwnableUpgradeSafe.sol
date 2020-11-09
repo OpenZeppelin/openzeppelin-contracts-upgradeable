@@ -71,4 +71,5 @@ contract OwnableUpgradeSafe is __Initializable, ContextUpgradeSafe {
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
     }
+    uint256[49] private __gap;
 }

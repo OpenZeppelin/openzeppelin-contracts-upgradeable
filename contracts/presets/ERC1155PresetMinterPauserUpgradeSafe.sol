@@ -113,4 +113,5 @@ contract ERC1155PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgrade
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+    uint256[50] private __gap;
 }

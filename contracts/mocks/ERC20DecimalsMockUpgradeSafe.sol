@@ -15,4 +15,5 @@ contract ERC20DecimalsMockUpgradeSafe is __Initializable, ERC20UpgradeSafe {
     function __ERC20DecimalsMock_init_unchained(string memory name, string memory symbol, uint8 decimals) internal __initializer {
         _setupDecimals(decimals);
     }
+    uint256[50] private __gap;
 }

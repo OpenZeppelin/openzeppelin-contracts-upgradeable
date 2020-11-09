@@ -27,4 +27,5 @@ contract ERC721HolderUpgradeSafe is __Initializable, IERC721ReceiverUpgradeSafe 
     function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
         return this.onERC721Received.selector;
     }
+    uint256[50] private __gap;
 }

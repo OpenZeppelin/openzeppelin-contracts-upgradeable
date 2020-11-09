@@ -72,4 +72,5 @@ contract PullPaymentUpgradeSafe is __Initializable {
     function _asyncTransfer(address dest, uint256 amount) internal virtual {
         _escrow.deposit{ value: amount }(dest);
     }
+    uint256[49] private __gap;
 }

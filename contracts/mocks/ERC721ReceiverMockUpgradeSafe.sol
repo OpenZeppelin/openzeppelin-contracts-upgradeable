@@ -27,4 +27,5 @@ contract ERC721ReceiverMockUpgradeSafe is __Initializable, IERC721ReceiverUpgrad
         emit Received(operator, from, tokenId, data, gasleft());
         return _retval;
     }
+    uint256[49] private __gap;
 }

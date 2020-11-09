@@ -41,4 +41,5 @@ contract ERC1820ImplementerUpgradeSafe is __Initializable, IERC1820ImplementerUp
     function _registerInterfaceForAddress(bytes32 interfaceHash, address account) internal virtual {
         _supportedInterfaces[interfaceHash][account] = true;
     }
+    uint256[49] private __gap;
 }

@@ -24,6 +24,7 @@ contract ContextMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     function msgData(uint256 integerValue, string memory stringValue) public {
         emit Data(_msgData(), integerValue, stringValue);
     }
+    uint256[50] private __gap;
 }
 
 contract ContextMockCallerUpgradeSafe is __Initializable {
@@ -40,4 +41,5 @@ contract ContextMockCallerUpgradeSafe is __Initializable {
     function callData(ContextMockUpgradeSafe context, uint256 integerValue, string memory stringValue) public {
         context.msgData(integerValue, stringValue);
     }
+    uint256[50] private __gap;
 }

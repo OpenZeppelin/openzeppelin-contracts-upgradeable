@@ -40,6 +40,7 @@ contract ERC20ReturnFalseMockUpgradeSafe is __Initializable, ContextUpgradeSafe 
         require(_dummy == 0); // Duummy read from a state variable so that the function is view
         return 0;
     }
+    uint256[48] private __gap;
 }
 
 contract ERC20ReturnTrueMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
@@ -78,6 +79,7 @@ contract ERC20ReturnTrueMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     function allowance(address owner, address) public view returns (uint256) {
         return _allowances[owner];
     }
+    uint256[48] private __gap;
 }
 
 contract ERC20NoReturnMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
@@ -113,6 +115,7 @@ contract ERC20NoReturnMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     function allowance(address owner, address) public view returns (uint256) {
         return _allowances[owner];
     }
+    uint256[48] private __gap;
 }
 
 contract SafeERC20WrapperUpgradeSafe is __Initializable, ContextUpgradeSafe {
@@ -156,4 +159,5 @@ contract SafeERC20WrapperUpgradeSafe is __Initializable, ContextUpgradeSafe {
     function allowance() public view returns (uint256) {
         return _token.allowance(address(0), address(0));
     }
+    uint256[49] private __gap;
 }

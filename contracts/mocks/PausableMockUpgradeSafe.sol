@@ -35,4 +35,5 @@ contract PausableMockUpgradeSafe is __Initializable, PausableUpgradeSafe {
     function unpause() external {
         _unpause();
     }
+    uint256[48] private __gap;
 }

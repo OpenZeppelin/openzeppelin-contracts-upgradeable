@@ -25,4 +25,5 @@ contract GSNRecipientERC20FeeMockUpgradeSafe is __Initializable, GSNRecipientUpg
     function mockFunction() public {
         emit MockFunctionCalled(token().balanceOf(_msgSender()));
     }
+    uint256[50] private __gap;
 }

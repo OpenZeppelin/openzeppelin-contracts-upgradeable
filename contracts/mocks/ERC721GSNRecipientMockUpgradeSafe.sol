@@ -34,4 +34,5 @@ contract ERC721GSNRecipientMockUpgradeSafe is __Initializable, ERC721UpgradeSafe
     function _msgData() internal view override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) returns (bytes memory) {
         return GSNRecipientUpgradeSafe._msgData();
     }
+    uint256[50] private __gap;
 }

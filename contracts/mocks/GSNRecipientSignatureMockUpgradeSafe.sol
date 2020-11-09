@@ -21,4 +21,5 @@ contract GSNRecipientSignatureMockUpgradeSafe is __Initializable, GSNRecipientUp
     function mockFunction() public {
         emit MockFunctionCalled();
     }
+    uint256[50] private __gap;
 }

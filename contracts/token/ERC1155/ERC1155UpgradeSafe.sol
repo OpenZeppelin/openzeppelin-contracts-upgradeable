@@ -417,4 +417,5 @@ contract ERC1155UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165Upgrad
 
         return array;
     }
+    uint256[47] private __gap;
 }

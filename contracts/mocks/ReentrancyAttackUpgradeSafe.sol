@@ -17,4 +17,5 @@ contract ReentrancyAttackUpgradeSafe is __Initializable, ContextUpgradeSafe {
         (bool success,) = _msgSender().call(abi.encodeWithSelector(data));
         require(success, "ReentrancyAttack: failed call");
     }
+    uint256[50] private __gap;
 }

@@ -74,4 +74,5 @@ contract EscrowUpgradeSafe is __Initializable, OwnableUpgradeSafe {
 
         emit Withdrawn(payee, payment);
     }
+    uint256[49] private __gap;
 }

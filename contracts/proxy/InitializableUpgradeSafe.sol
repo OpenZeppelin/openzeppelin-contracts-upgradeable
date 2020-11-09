@@ -67,4 +67,5 @@ abstract contract InitializableUpgradeSafe is __Initializable {
         assembly { cs := extcodesize(self) }
         return cs == 0;
     }
+    uint256[49] private __gap;
 }

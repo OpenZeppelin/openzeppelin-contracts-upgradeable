@@ -27,4 +27,5 @@ contract CountersImplUpgradeSafe is __Initializable {
     function decrement() public {
         _counter.decrement();
     }
+    uint256[49] private __gap;
 }

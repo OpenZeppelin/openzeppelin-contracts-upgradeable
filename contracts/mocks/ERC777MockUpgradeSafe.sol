@@ -41,4 +41,5 @@ contract ERC777MockUpgradeSafe is __Initializable, ContextUpgradeSafe, ERC777Upg
     function approveInternal(address holder, address spender, uint256 value) public {
         _approve(holder, spender, value);
     }
+    uint256[50] private __gap;
 }

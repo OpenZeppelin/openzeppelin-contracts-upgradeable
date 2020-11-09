@@ -26,4 +26,5 @@ contract ConditionalEscrowMockUpgradeSafe is __Initializable, ConditionalEscrowU
     function withdrawalAllowed(address payee) public view override returns (bool) {
         return _allowed[payee];
     }
+    uint256[49] private __gap;
 }

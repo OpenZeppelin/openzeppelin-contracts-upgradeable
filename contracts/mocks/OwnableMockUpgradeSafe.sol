@@ -13,4 +13,5 @@ contract OwnableMockUpgradeSafe is __Initializable, OwnableUpgradeSafe {    func
 
     function __OwnableMock_init_unchained() internal __initializer {
     }
- }
+     uint256[50] private __gap;
+}

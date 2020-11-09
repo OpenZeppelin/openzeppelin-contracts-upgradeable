@@ -21,6 +21,7 @@ contract Implementation1UpgradeSafe is __Initializable, InitializableUpgradeSafe
   function setValue(uint _number) public {
     _value = _number;
   }
+    uint256[49] private __gap;
 }
 
 contract Implementation2UpgradeSafe is __Initializable, InitializableUpgradeSafe {
@@ -43,6 +44,7 @@ contract Implementation2UpgradeSafe is __Initializable, InitializableUpgradeSafe
   function getValue() public view returns (uint) {
     return _value;
   }
+    uint256[49] private __gap;
 }
 
 contract Implementation3UpgradeSafe is __Initializable, InitializableUpgradeSafe {
@@ -65,6 +67,7 @@ contract Implementation3UpgradeSafe is __Initializable, InitializableUpgradeSafe
   function getValue(uint _number) public view returns (uint) {
     return _value + _number;
   }
+    uint256[49] private __gap;
 }
 
 contract Implementation4UpgradeSafe is __Initializable, InitializableUpgradeSafe {
@@ -92,4 +95,5 @@ contract Implementation4UpgradeSafe is __Initializable, InitializableUpgradeSafe
   fallback() external {
     _value = 1;
   }
+    uint256[49] private __gap;
 }

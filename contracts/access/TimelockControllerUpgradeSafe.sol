@@ -285,4 +285,5 @@ contract TimelockControllerUpgradeSafe is __Initializable, AccessControlUpgradeS
         emit MinDelayChange(_minDelay, newDelay);
         _minDelay = newDelay;
     }
+    uint256[48] private __gap;
 }

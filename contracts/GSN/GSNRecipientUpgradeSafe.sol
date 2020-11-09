@@ -236,4 +236,5 @@ abstract contract GSNRecipientUpgradeSafe is __Initializable, IRelayRecipientUpg
 
         return actualData;
     }
+    uint256[49] private __gap;
 }

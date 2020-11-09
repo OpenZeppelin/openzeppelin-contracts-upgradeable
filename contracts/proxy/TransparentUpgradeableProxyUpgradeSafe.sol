@@ -157,4 +157,5 @@ contract TransparentUpgradeableProxyUpgradeSafe is __Initializable, UpgradeableP
         require(msg.sender != _admin(), "TransparentUpgradeableProxy: admin cannot fallback to proxy target");
         super._beforeFallback();
     }
+    uint256[50] private __gap;
 }

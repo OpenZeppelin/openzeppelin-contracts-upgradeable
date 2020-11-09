@@ -34,4 +34,5 @@ abstract contract ERC20PausableUpgradeSafe is __Initializable, ERC20UpgradeSafe,
 
         require(!paused(), "ERC20Pausable: token transfer while paused");
     }
+    uint256[50] private __gap;
 }

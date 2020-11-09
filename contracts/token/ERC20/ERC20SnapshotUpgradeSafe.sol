@@ -186,4 +186,5 @@ abstract contract ERC20SnapshotUpgradeSafe is __Initializable, ERC20UpgradeSafe 
             return ids[ids.length - 1];
         }
     }
+    uint256[46] private __gap;
 }

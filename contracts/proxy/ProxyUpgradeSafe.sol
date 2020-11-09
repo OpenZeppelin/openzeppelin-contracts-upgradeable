@@ -87,4 +87,5 @@ abstract contract ProxyUpgradeSafe is __Initializable {
      */
     function _beforeFallback() internal virtual {
     }
+    uint256[50] private __gap;
 }

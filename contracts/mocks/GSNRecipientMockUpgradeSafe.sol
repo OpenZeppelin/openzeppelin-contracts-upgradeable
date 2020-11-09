@@ -45,4 +45,5 @@ contract GSNRecipientMockUpgradeSafe is __Initializable, ContextMockUpgradeSafe,
     function _msgData() internal override(ContextUpgradeSafe, GSNRecipientUpgradeSafe) view virtual returns (bytes memory) {
         return GSNRecipientUpgradeSafe._msgData();
     }
+    uint256[50] private __gap;
 }

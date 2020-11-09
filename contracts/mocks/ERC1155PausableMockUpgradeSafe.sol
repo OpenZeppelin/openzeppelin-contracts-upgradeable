@@ -39,4 +39,5 @@ contract ERC1155PausableMockUpgradeSafe is __Initializable, ERC1155MockUpgradeSa
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+    uint256[50] private __gap;
 }

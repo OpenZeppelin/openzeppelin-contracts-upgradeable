@@ -31,4 +31,5 @@ contract SafeMathMockUpgradeSafe is __Initializable {
     function mod(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeSafe.mod(a, b);
     }
+    uint256[50] private __gap;
 }

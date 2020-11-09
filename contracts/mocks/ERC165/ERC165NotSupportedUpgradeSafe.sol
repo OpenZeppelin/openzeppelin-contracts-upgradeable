@@ -9,4 +9,5 @@ contract ERC165NotSupportedUpgradeSafe is __Initializable {    function __ERC165
 
     function __ERC165NotSupported_init_unchained() internal __initializer {
     }
- }
+     uint256[50] private __gap;
+}

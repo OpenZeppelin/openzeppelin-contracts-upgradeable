@@ -40,4 +40,5 @@ contract ERC721PausableMockUpgradeSafe is __Initializable, ERC721PausableUpgrade
     function unpause() external {
         _unpause();
     }
+    uint256[50] private __gap;
 }

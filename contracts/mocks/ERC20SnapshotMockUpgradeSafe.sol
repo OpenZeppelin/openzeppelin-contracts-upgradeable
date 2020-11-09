@@ -39,4 +39,5 @@ contract ERC20SnapshotMockUpgradeSafe is __Initializable, ERC20SnapshotUpgradeSa
     function burn(address account, uint256 amount) public {
         _burn(account, amount);
     }
+    uint256[50] private __gap;
 }

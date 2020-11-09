@@ -31,4 +31,5 @@ contract Create2ImplUpgradeSafe is __Initializable {
     }
 
     receive() payable external {}
+    uint256[50] private __gap;
 }

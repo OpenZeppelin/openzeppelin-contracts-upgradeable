@@ -45,4 +45,5 @@ abstract contract ERC20BurnableUpgradeSafe is __Initializable, ContextUpgradeSaf
         _approve(account, _msgSender(), decreasedAllowance);
         _burn(account, amount);
     }
+    uint256[50] private __gap;
 }

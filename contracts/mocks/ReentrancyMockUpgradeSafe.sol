@@ -47,4 +47,5 @@ contract ReentrancyMockUpgradeSafe is __Initializable, ReentrancyGuardUpgradeSaf
     function _count() private {
         counter += 1;
     }
+    uint256[49] private __gap;
 }

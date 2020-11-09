@@ -69,4 +69,5 @@ contract ERC1155ReceiverMockUpgradeSafe is __Initializable, IERC1155ReceiverUpgr
         emit BatchReceived(operator, from, ids, values, data, gasleft());
         return _batRetval;
     }
+    uint256[49] private __gap;
 }

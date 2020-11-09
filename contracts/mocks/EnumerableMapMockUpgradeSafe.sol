@@ -44,4 +44,5 @@ contract EnumerableMapMockUpgradeSafe is __Initializable {
     function get(uint256 key) public view returns (address) {
         return _map.get(key);
     }
+    uint256[48] private __gap;
 }

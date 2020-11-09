@@ -42,4 +42,5 @@ contract ERC20MockUpgradeSafe is __Initializable, ERC20UpgradeSafe {
     function approveInternal(address owner, address spender, uint256 value) public {
         _approve(owner, spender, value);
     }
+    uint256[50] private __gap;
 }

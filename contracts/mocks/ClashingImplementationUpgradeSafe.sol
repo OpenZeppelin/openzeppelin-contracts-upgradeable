@@ -24,4 +24,5 @@ contract ClashingImplementationUpgradeSafe is __Initializable {
   function delegatedFunction() external pure returns (bool) {
     return true;
   }
+    uint256[50] private __gap;
 }

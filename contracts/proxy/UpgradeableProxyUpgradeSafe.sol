@@ -83,4 +83,5 @@ contract UpgradeableProxyUpgradeSafe is __Initializable, ProxyUpgradeSafe {
             sstore(slot, newImplementation)
         }
     }
+    uint256[50] private __gap;
 }

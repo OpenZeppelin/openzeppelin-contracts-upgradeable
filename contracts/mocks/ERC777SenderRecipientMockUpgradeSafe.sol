@@ -156,5 +156,6 @@ contract ERC777SenderRecipientMockUpgradeSafe is __Initializable, ContextUpgrade
     function burn(IERC777UpgradeSafe token, uint256 amount, bytes memory data) public {
         token.burn(amount, data);
     }
+    uint256[49] private __gap;
 }
 

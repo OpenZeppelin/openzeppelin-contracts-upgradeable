@@ -31,4 +31,5 @@ abstract contract ERC721BurnableUpgradeSafe is __Initializable, ContextUpgradeSa
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721Burnable: caller is not owner nor approved");
         _burn(tokenId);
     }
+    uint256[50] private __gap;
 }

@@ -22,6 +22,7 @@ contract MigratableMockV1UpgradeSafe is __Initializable, InitializableUpgradeSaf
   function initialize(uint256 value) public payable initializer {
     x = value;
   }
+    uint256[49] private __gap;
 }
 
 /**
@@ -46,6 +47,7 @@ contract MigratableMockV2UpgradeSafe is __Initializable, MigratableMockV1Upgrade
     y = anotherValue;
     _migratedV2 = true;
   }
+    uint256[48] private __gap;
 }
 
 /**
@@ -71,4 +73,5 @@ contract MigratableMockV3UpgradeSafe is __Initializable, MigratableMockV2Upgrade
     y = oldX;
     _migratedV3 = true;
   }
+    uint256[49] private __gap;
 }

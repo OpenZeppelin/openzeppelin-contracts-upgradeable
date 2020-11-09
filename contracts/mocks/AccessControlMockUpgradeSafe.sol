@@ -19,4 +19,5 @@ contract AccessControlMockUpgradeSafe is __Initializable, AccessControlUpgradeSa
     function setRoleAdmin(bytes32 roleId, bytes32 adminRoleId) public {
         _setRoleAdmin(roleId, adminRoleId);
     }
+    uint256[50] private __gap;
 }

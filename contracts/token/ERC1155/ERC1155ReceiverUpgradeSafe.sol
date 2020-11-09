@@ -21,4 +21,5 @@ abstract contract ERC1155ReceiverUpgradeSafe is __Initializable, ERC165UpgradeSa
             ERC1155ReceiverUpgradeSafe(0).onERC1155BatchReceived.selector
         );
     }
+    uint256[50] private __gap;
 }

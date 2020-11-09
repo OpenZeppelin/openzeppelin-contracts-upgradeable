@@ -15,4 +15,5 @@ contract StringsMockUpgradeSafe is __Initializable {
     function fromUint256(uint256 value) public pure returns (string memory) {
         return StringsUpgradeSafe.toString(value);
     }
+    uint256[50] private __gap;
 }

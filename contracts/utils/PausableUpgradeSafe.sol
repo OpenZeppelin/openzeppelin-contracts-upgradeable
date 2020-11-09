@@ -93,4 +93,5 @@ contract PausableUpgradeSafe is __Initializable, ContextUpgradeSafe {
         _paused = false;
         emit Unpaused(_msgSender());
     }
+    uint256[49] private __gap;
 }

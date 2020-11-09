@@ -19,4 +19,5 @@ contract ERC721BurnableMockUpgradeSafe is __Initializable, ERC721BurnableUpgrade
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);
     }
+    uint256[50] private __gap;
 }

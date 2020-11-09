@@ -44,4 +44,5 @@ contract ERC20PausableMockUpgradeSafe is __Initializable, ERC20PausableUpgradeSa
     function burn(address from, uint256 amount) public {
         _burn(from, amount);
     }
+    uint256[50] private __gap;
 }

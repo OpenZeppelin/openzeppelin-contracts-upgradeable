@@ -31,4 +31,5 @@ abstract contract ConditionalEscrowUpgradeSafe is __Initializable, EscrowUpgrade
         require(withdrawalAllowed(payee), "ConditionalEscrow: payee is not allowed to withdraw");
         super.withdraw(payee);
     }
+    uint256[50] private __gap;
 }

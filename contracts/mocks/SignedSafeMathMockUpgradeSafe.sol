@@ -27,4 +27,5 @@ contract SignedSafeMathMockUpgradeSafe is __Initializable {
     function add(int256 a, int256 b) public pure returns (int256) {
         return SignedSafeMathUpgradeSafe.add(a, b);
     }
+    uint256[50] private __gap;
 }

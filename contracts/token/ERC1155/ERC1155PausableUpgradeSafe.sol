@@ -46,4 +46,5 @@ abstract contract ERC1155PausableUpgradeSafe is __Initializable, ERC1155UpgradeS
 
         require(!paused(), "ERC1155Pausable: token transfer while paused");
     }
+    uint256[50] private __gap;
 }

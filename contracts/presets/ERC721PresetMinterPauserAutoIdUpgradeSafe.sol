@@ -111,4 +111,5 @@ contract ERC721PresetMinterPauserAutoIdUpgradeSafe is __Initializable, ContextUp
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override(ERC721UpgradeSafe, ERC721PausableUpgradeSafe) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
+    uint256[49] private __gap;
 }

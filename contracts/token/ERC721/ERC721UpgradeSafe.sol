@@ -477,4 +477,5 @@ contract ERC721UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165Upgrade
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual { }
+    uint256[41] private __gap;
 }

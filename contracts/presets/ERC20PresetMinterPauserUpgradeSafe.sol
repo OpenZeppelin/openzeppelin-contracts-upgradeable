@@ -95,4 +95,5 @@ contract ERC20PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgradeSa
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override(ERC20UpgradeSafe, ERC20PausableUpgradeSafe) {
         super._beforeTokenTransfer(from, to, amount);
     }
+    uint256[50] private __gap;
 }

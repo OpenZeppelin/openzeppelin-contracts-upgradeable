@@ -52,6 +52,7 @@ contract SupportsInterfaceWithLookupMockUpgradeSafe is __Initializable, IERC165U
         require(interfaceId != 0xffffffff, "ERC165InterfacesSupported: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
     }
+    uint256[49] private __gap;
 }
 
 contract ERC165InterfacesSupportedUpgradeSafe is __Initializable, SupportsInterfaceWithLookupMockUpgradeSafe {
@@ -65,4 +66,5 @@ contract ERC165InterfacesSupportedUpgradeSafe is __Initializable, SupportsInterf
             _registerInterface(interfaceIds[i]);
         }
     }
+    uint256[50] private __gap;
 }

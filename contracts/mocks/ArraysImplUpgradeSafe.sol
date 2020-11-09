@@ -21,4 +21,5 @@ contract ArraysImplUpgradeSafe is __Initializable {
     function findUpperBound(uint256 element) external view returns (uint256) {
         return _array.findUpperBound(element);
     }
+    uint256[49] private __gap;
 }

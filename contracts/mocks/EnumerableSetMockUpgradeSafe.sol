@@ -40,6 +40,7 @@ contract EnumerableBytes32SetMockUpgradeSafe is __Initializable {
     function at(uint256 index) public view returns (bytes32) {
         return _set.at(index);
     }
+    uint256[48] private __gap;
 }
 
 // AddressSet
@@ -77,6 +78,7 @@ contract EnumerableAddressSetMockUpgradeSafe is __Initializable {
     function at(uint256 index) public view returns (address) {
         return _set.at(index);
     }
+    uint256[48] private __gap;
 }
 
 // UintSet
@@ -114,4 +116,5 @@ contract EnumerableUintSetMockUpgradeSafe is __Initializable {
     function at(uint256 index) public view returns (uint256) {
         return _set.at(index);
     }
+    uint256[48] private __gap;
 }

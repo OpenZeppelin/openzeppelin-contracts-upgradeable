@@ -37,4 +37,5 @@ abstract contract ERC1155BurnableUpgradeSafe is __Initializable, ERC1155UpgradeS
 
         _burnBatch(account, ids, values);
     }
+    uint256[50] private __gap;
 }

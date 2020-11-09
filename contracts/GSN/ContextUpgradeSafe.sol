@@ -28,4 +28,5 @@ abstract contract ContextUpgradeSafe is __Initializable {
         this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
         return msg.data;
     }
+    uint256[50] private __gap;
 }

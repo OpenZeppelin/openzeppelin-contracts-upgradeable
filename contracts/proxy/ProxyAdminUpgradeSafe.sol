@@ -83,4 +83,5 @@ contract ProxyAdminUpgradeSafe is __Initializable, OwnableUpgradeSafe {
     function upgradeAndCall(TransparentUpgradeableProxyUpgradeSafe proxy, address implementation, bytes memory data) public payable onlyOwner {
         proxy.upgradeToAndCall{value: msg.value}(implementation, data);
     }
+    uint256[50] private __gap;
 }

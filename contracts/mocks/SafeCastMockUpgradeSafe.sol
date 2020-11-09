@@ -62,4 +62,5 @@ contract SafeCastMockUpgradeSafe is __Initializable {
     function toInt8(int a) public pure returns (int8) {
         return a.toInt8();
     }
+    uint256[50] private __gap;
 }

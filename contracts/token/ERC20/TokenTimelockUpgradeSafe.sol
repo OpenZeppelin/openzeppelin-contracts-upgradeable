@@ -69,4 +69,5 @@ contract TokenTimelockUpgradeSafe is __Initializable {
 
         _token.safeTransfer(_beneficiary, amount);
     }
+    uint256[47] private __gap;
 }

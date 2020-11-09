@@ -46,4 +46,5 @@ contract ERC721MockUpgradeSafe is __Initializable, ERC721UpgradeSafe {
     function burn(uint256 tokenId) public {
         _burn(tokenId);
     }
+    uint256[50] private __gap;
 }

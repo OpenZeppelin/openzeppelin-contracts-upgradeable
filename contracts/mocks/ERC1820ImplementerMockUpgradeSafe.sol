@@ -16,4 +16,5 @@ contract ERC1820ImplementerMockUpgradeSafe is __Initializable, ERC1820Implemente
     function registerInterfaceForAddress(bytes32 interfaceHash, address account) public {
         _registerInterfaceForAddress(interfaceHash, account);
     }
+    uint256[50] private __gap;
 }

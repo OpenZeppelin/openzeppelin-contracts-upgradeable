@@ -46,4 +46,5 @@ contract AddressImplUpgradeSafe is __Initializable {
 
     // sendValue's tests require the contract to hold Ether
     receive () external payable { }
+    uint256[49] private __gap;
 }

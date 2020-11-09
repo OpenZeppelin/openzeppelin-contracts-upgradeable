@@ -19,4 +19,5 @@ contract ERC1155BurnableMockUpgradeSafe is __Initializable, ERC1155BurnableUpgra
     function mint(address to, uint256 id, uint256 value, bytes memory data) public {
         _mint(to, id, value, data);
     }
+    uint256[50] private __gap;
 }

@@ -18,4 +18,5 @@ contract ERC20CappedMockUpgradeSafe is __Initializable, ERC20CappedUpgradeSafe {
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);
     }
+    uint256[50] private __gap;
 }

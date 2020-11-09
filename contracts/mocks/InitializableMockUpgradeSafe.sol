@@ -41,4 +41,5 @@ contract InitializableMockUpgradeSafe is __Initializable, InitializableUpgradeSa
     require(false, "InitializableMock forced failure");
   }
 
+    uint256[48] private __gap;
 }

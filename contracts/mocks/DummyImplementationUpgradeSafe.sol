@@ -11,6 +11,7 @@ abstract contract ImplUpgradeSafe is __Initializable {
     function __Impl_init_unchained() internal __initializer {
     }
   function version() public pure virtual returns (string memory); 
+    uint256[50] private __gap;
 }
 
 contract DummyImplementationUpgradeSafe is __Initializable {
@@ -57,6 +58,7 @@ contract DummyImplementationUpgradeSafe is __Initializable {
   function reverts() public pure {
     require(false);
   }
+    uint256[47] private __gap;
 }
 
 contract DummyImplementationV2UpgradeSafe is __Initializable, DummyImplementationUpgradeSafe {
@@ -74,4 +76,5 @@ contract DummyImplementationV2UpgradeSafe is __Initializable, DummyImplementatio
   function version() public pure override returns (string memory) {
     return "V2";
   }
+    uint256[50] private __gap;
 }

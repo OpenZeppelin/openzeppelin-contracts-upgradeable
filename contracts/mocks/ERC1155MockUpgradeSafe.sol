@@ -40,4 +40,5 @@ contract ERC1155MockUpgradeSafe is __Initializable, ERC1155UpgradeSafe {
     function burnBatch(address owner, uint256[] memory ids, uint256[] memory values) public {
         _burnBatch(owner, ids, values);
     }
+    uint256[50] private __gap;
 }

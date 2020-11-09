@@ -76,4 +76,5 @@ contract GSNRecipientSignatureUpgradeSafe is __Initializable, GSNRecipientUpgrad
     function _preRelayedCall(bytes memory) internal virtual override returns (bytes32) { }
 
     function _postRelayedCall(bytes memory, bool, uint256, bytes32) internal virtual override { }
+    uint256[49] private __gap;
 }

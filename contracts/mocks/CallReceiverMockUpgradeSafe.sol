@@ -54,4 +54,5 @@ contract CallReceiverMockUpgradeSafe is __Initializable {
         sharedAnswer = "42";
         return "0x1234";
     }
+    uint256[48] private __gap;
 }

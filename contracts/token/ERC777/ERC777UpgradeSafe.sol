@@ -510,4 +510,5 @@ contract ERC777UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC777Upgrad
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(address operator, address from, address to, uint256 amount) internal virtual { }
+    uint256[41] private __gap;
 }

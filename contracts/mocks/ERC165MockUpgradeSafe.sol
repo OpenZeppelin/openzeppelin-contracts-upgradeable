@@ -16,4 +16,5 @@ contract ERC165MockUpgradeSafe is __Initializable, ERC165UpgradeSafe {
     function registerInterface(bytes4 interfaceId) public {
         _registerInterface(interfaceId);
     }
+    uint256[50] private __gap;
 }

@@ -222,4 +222,5 @@ abstract contract AccessControlUpgradeSafe is __Initializable, ContextUpgradeSaf
             emit RoleRevoked(role, account, _msgSender());
         }
     }
+    uint256[49] private __gap;
 }

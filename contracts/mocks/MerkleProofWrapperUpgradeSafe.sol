@@ -15,4 +15,5 @@ contract MerkleProofWrapperUpgradeSafe is __Initializable {
     function verify(bytes32[] memory proof, bytes32 root, bytes32 leaf) public pure returns (bool) {
         return MerkleProofUpgradeSafe.verify(proof, root, leaf);
     }
+    uint256[50] private __gap;
 }

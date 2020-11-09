@@ -35,4 +35,5 @@ abstract contract ERC721PausableUpgradeSafe is __Initializable, ERC721UpgradeSaf
 
         require(!paused(), "ERC721Pausable: token transfer while paused");
     }
+    uint256[50] private __gap;
 }

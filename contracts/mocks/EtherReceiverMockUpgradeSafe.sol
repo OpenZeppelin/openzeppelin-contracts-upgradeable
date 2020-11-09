@@ -21,4 +21,5 @@ contract EtherReceiverMockUpgradeSafe is __Initializable {
             revert();
         }
     }
+    uint256[49] private __gap;
 }
