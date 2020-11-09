@@ -14,5 +14,5 @@ git checkout --orphan master
 git reset --soft origin/master
 if ! git diff --cached --quiet; then
   git commit -m "Transpile $COMMIT"
-  git push origin master
 fi
+git push origin master
