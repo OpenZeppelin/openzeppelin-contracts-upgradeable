@@ -1,3 +1,5 @@
+// ignores the proxy tests
+
 const { internalTask } = require('@nomiclabs/buidler/config');
 
 const { TASK_TEST_GET_TEST_FILES } = require('@nomiclabs/buidler/builtin-tasks/task-names');
