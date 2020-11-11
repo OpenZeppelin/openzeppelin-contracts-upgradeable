@@ -1,3 +1,15 @@
+# Changelog for Upgrade Safe variant
+
+## 3.2.0 (2020-11-11)
+
+ * First release of Upgrade Safe variant, replacing Ethereum Package variant which is now deprecated.
+
+### Upgrading from OpenZeppelin Contracts Ethereum Package
+
+ * Previously only contracts were renamed with the `UpgradeSafe` suffix. In order to improve compatibility between
+   Upgrade Safe variant and the vanila OpenZeppelin Contracts package, now all contracts, interfaces, and libraries have
+   the `UpgradeSafe` suffix. The only exception is the `Initializable` contract which retains its original name.
+
 # Changelog
 
 ## Unreleased
