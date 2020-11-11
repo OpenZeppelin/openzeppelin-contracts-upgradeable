@@ -21,4 +21,6 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
+      - run: bash scripts/transpile.sh
+        if: github.ref != 'refs/heads/master'
       - run: npm run test
