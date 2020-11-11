@@ -6,15 +6,18 @@ extendEnvironment(env => {
   env.artifacts = {
     ...artifacts,
     require (name) {
-      try {
-        return artifacts.require(name + 'UpgradeSafeWithInit');
-      } catch (e) {
-        if (BuidlerError.isBuidlerError(e) && e.number === 700) {
-          return artifacts.require(name + 'UpgradeSafe');
-        } else {
-          throw e;
+      for (const suffix of ['UpgradeSafeWithInit', 'UpgradeSafe', '']) {
+        try {
+          return artifacts.require(name + suffix);
+        } catch (e) {
+          if (BuidlerError.isBuidlerError(e) && e.number === 700 && suffix !== '') {
+            continue;
+          } else {
+            throw e;
+          }
         }
       }
+      throw new Error('Unreachable');
     },
   };
 });
