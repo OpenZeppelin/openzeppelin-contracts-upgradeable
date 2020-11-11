@@ -22,5 +22,5 @@ jobs:
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: bash scripts/upgrade-safe/transpile.sh
-        if: github.ref != 'refs/heads/master'
+        if: github.event_name == 'pull_request'
       - run: npm run test
