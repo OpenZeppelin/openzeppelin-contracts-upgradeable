@@ -24,6 +24,9 @@ import "../proxy/Initializable.sol";
  * and pauser roles to other accounts.
  */
 contract ERC20PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC20BurnableUpgradeSafe, ERC20PausableUpgradeSafe {
+    function initialize(string memory name, string memory symbol) public virtual initializer {
+        __ERC20PresetMinterPauser_init(name, symbol);
+    }
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 

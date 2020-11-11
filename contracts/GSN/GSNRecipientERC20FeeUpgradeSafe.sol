@@ -123,7 +123,7 @@ contract GSNRecipientERC20FeeUpgradeSafe is Initializable, GSNRecipientUpgradeSa
  */
 // solhint-disable-next-line contract-name-camelcase
 contract __unstable__ERC20OwnedUpgradeSafe is Initializable, ERC20UpgradeSafe, OwnableUpgradeSafe {
-    function initialize(string memory name, string memory symbol) external initializer {
+    function initialize(string memory name, string memory symbol) public virtual initializer {
         ____unstable__ERC20Owned_init(name, symbol);
     }
     uint256 private constant _UINT256_MAX = 2**256 - 1;
