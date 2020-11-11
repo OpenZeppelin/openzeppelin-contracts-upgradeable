@@ -25,10 +25,10 @@ if git rev-parse --quiet --verify "$target"; then
   git reset --soft "$target"
   git checkout "$target"
 else
+  git checkout --orphan "$target"
   if [ -n "$base" ]; then
     git reset --soft "$base"
   fi
-  git checkout --orphan "$target"
 fi
 
 if ! git diff --quiet --cached; then
