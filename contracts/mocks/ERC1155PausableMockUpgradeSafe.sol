@@ -4,10 +4,10 @@ pragma solidity ^0.6.0;
 
 import "./ERC1155MockUpgradeSafe.sol";
 import "../token/ERC1155/ERC1155PausableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC1155PausableMockUpgradeSafe is __Initializable, ERC1155MockUpgradeSafe, ERC1155PausableUpgradeSafe {
-    function __ERC1155PausableMock_init(string memory uri) internal __initializer {
+contract ERC1155PausableMockUpgradeSafe is Initializable, ERC1155MockUpgradeSafe, ERC1155PausableUpgradeSafe {
+    function __ERC1155PausableMock_init(string memory uri) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155_init_unchained(uri);
@@ -17,7 +17,7 @@ contract ERC1155PausableMockUpgradeSafe is __Initializable, ERC1155MockUpgradeSa
         __ERC1155PausableMock_init_unchained(uri);
     }
 
-    function __ERC1155PausableMock_init_unchained(string memory uri) internal __initializer { }
+    function __ERC1155PausableMock_init_unchained(string memory uri) internal initializer { }
 
     function pause() external {
         _pause();

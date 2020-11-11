@@ -3,16 +3,16 @@
 pragma solidity ^0.6.0;
 
 import "../access/AccessControlUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract AccessControlMockUpgradeSafe is __Initializable, AccessControlUpgradeSafe {
-    function __AccessControlMock_init() internal __initializer {
+contract AccessControlMockUpgradeSafe is Initializable, AccessControlUpgradeSafe {
+    function __AccessControlMock_init() internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlMock_init_unchained();
     }
 
-    function __AccessControlMock_init_unchained() internal __initializer {
+    function __AccessControlMock_init_unchained() internal initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 

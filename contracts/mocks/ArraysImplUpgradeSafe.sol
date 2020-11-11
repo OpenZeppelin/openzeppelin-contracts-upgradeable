@@ -3,18 +3,18 @@
 pragma solidity ^0.6.0;
 
 import "../utils/ArraysUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ArraysImplUpgradeSafe is __Initializable {
+contract ArraysImplUpgradeSafe is Initializable {
     using ArraysUpgradeSafe for uint256[];
 
     uint256[] private _array;
 
-    function __ArraysImpl_init(uint256[] memory array) internal __initializer {
+    function __ArraysImpl_init(uint256[] memory array) internal initializer {
         __ArraysImpl_init_unchained(array);
     }
 
-    function __ArraysImpl_init_unchained(uint256[] memory array) internal __initializer {
+    function __ArraysImpl_init_unchained(uint256[] memory array) internal initializer {
         _array = array;
     }
 

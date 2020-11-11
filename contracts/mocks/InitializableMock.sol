@@ -2,21 +2,13 @@
 
 pragma solidity ^0.6.0;
 
-import "../proxy/InitializableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @title InitializableMock
  * @dev This contract is a mock to test initializable functionality
  */
-contract InitializableMockUpgradeSafe is __Initializable, InitializableUpgradeSafe {
-    function __InitializableMock_init() internal __initializer {
-        __Initializable_init_unchained();
-        __InitializableMock_init_unchained();
-    }
-
-    function __InitializableMock_init_unchained() internal __initializer {
-    }
+contract InitializableMock is Initializable {
 
   bool public initializerRan;
   uint256 public x;
@@ -41,5 +33,4 @@ contract InitializableMockUpgradeSafe is __Initializable, InitializableUpgradeSa
     require(false, "InitializableMock forced failure");
   }
 
-    uint256[48] private __gap;
 }

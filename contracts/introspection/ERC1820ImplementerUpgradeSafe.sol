@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./IERC1820ImplementerUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC1820Implementer} interface.
@@ -13,12 +13,12 @@ import "../Initializable.sol";
  * {IERC1820Registry-setInterfaceImplementer} should then be called for the
  * registration to be complete.
  */
-contract ERC1820ImplementerUpgradeSafe is __Initializable, IERC1820ImplementerUpgradeSafe {
-    function __ERC1820Implementer_init() internal __initializer {
+contract ERC1820ImplementerUpgradeSafe is Initializable, IERC1820ImplementerUpgradeSafe {
+    function __ERC1820Implementer_init() internal initializer {
         __ERC1820Implementer_init_unchained();
     }
 
-    function __ERC1820Implementer_init_unchained() internal __initializer {
+    function __ERC1820Implementer_init_unchained() internal initializer {
     }
     bytes32 constant private _ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
 

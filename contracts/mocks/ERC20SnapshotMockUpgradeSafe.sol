@@ -3,16 +3,16 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC20/ERC20SnapshotUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 
-contract ERC20SnapshotMockUpgradeSafe is __Initializable, ERC20SnapshotUpgradeSafe {
+contract ERC20SnapshotMockUpgradeSafe is Initializable, ERC20SnapshotUpgradeSafe {
     function __ERC20SnapshotMock_init(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Snapshot_init_unchained();
@@ -24,7 +24,7 @@ contract ERC20SnapshotMockUpgradeSafe is __Initializable, ERC20SnapshotUpgradeSa
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         _mint(initialAccount, initialBalance);
     }
 

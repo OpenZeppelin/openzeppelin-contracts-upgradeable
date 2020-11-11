@@ -5,7 +5,7 @@ pragma solidity ^0.6.0;
 import "../utils/EnumerableSetUpgradeSafe.sol";
 import "../utils/AddressUpgradeSafe.sol";
 import "../GSN/ContextUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -42,13 +42,13 @@ import "../Initializable.sol";
  * grant and revoke this role. Extra precautions should be taken to secure
  * accounts that have been granted it.
  */
-abstract contract AccessControlUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __AccessControl_init() internal __initializer {
+abstract contract AccessControlUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __AccessControl_init() internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
     }
 
-    function __AccessControl_init_unchained() internal __initializer {
+    function __AccessControl_init_unchained() internal initializer {
     }
     using EnumerableSetUpgradeSafe for EnumerableSetUpgradeSafe.AddressSet;
     using AddressUpgradeSafe for address;

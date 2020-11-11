@@ -5,7 +5,7 @@ pragma experimental ABIEncoderV2;
 
 import "./../math/SafeMathUpgradeSafe.sol";
 import "./AccessControlUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the
@@ -20,7 +20,7 @@ import "../Initializable.sol";
  * to position this {TimelockController} as the owner of a smart contract, with
  * a multisig or a DAO as the sole proposer.
  */
-contract TimelockControllerUpgradeSafe is __Initializable, AccessControlUpgradeSafe {
+contract TimelockControllerUpgradeSafe is Initializable, AccessControlUpgradeSafe {
 
     bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
@@ -53,13 +53,13 @@ contract TimelockControllerUpgradeSafe is __Initializable, AccessControlUpgradeS
     /**
      * @dev Initializes the contract with a given `minDelay`.
      */
-    function __TimelockController_init(uint256 minDelay, address[] memory proposers, address[] memory executors) internal __initializer {
+    function __TimelockController_init(uint256 minDelay, address[] memory proposers, address[] memory executors) internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
         __TimelockController_init_unchained(minDelay, proposers, executors);
     }
 
-    function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors) internal __initializer {
+    function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors) internal initializer {
         _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);

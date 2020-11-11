@@ -5,15 +5,15 @@ pragma solidity ^0.6.0;
 import "../GSN/ContextUpgradeSafe.sol";
 import "../token/ERC20/IERC20UpgradeSafe.sol";
 import "../token/ERC20/SafeERC20UpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC20ReturnFalseMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __ERC20ReturnFalseMock_init() internal __initializer {
+contract ERC20ReturnFalseMockUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __ERC20ReturnFalseMock_init() internal initializer {
         __Context_init_unchained();
         __ERC20ReturnFalseMock_init_unchained();
     }
 
-    function __ERC20ReturnFalseMock_init_unchained() internal __initializer {
+    function __ERC20ReturnFalseMock_init_unchained() internal initializer {
     }
     uint256 private _allowance;
 
@@ -43,13 +43,13 @@ contract ERC20ReturnFalseMockUpgradeSafe is __Initializable, ContextUpgradeSafe 
     uint256[48] private __gap;
 }
 
-contract ERC20ReturnTrueMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __ERC20ReturnTrueMock_init() internal __initializer {
+contract ERC20ReturnTrueMockUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __ERC20ReturnTrueMock_init() internal initializer {
         __Context_init_unchained();
         __ERC20ReturnTrueMock_init_unchained();
     }
 
-    function __ERC20ReturnTrueMock_init_unchained() internal __initializer {
+    function __ERC20ReturnTrueMock_init_unchained() internal initializer {
     }
     mapping (address => uint256) private _allowances;
 
@@ -82,13 +82,13 @@ contract ERC20ReturnTrueMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     uint256[48] private __gap;
 }
 
-contract ERC20NoReturnMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __ERC20NoReturnMock_init() internal __initializer {
+contract ERC20NoReturnMockUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __ERC20NoReturnMock_init() internal initializer {
         __Context_init_unchained();
         __ERC20NoReturnMock_init_unchained();
     }
 
-    function __ERC20NoReturnMock_init_unchained() internal __initializer {
+    function __ERC20NoReturnMock_init_unchained() internal initializer {
     }
     mapping (address => uint256) private _allowances;
 
@@ -118,17 +118,17 @@ contract ERC20NoReturnMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     uint256[48] private __gap;
 }
 
-contract SafeERC20WrapperUpgradeSafe is __Initializable, ContextUpgradeSafe {
+contract SafeERC20WrapperUpgradeSafe is Initializable, ContextUpgradeSafe {
     using SafeERC20UpgradeSafe for IERC20UpgradeSafe;
 
     IERC20UpgradeSafe private _token;
 
-    function __SafeERC20Wrapper_init(IERC20UpgradeSafe token) internal __initializer {
+    function __SafeERC20Wrapper_init(IERC20UpgradeSafe token) internal initializer {
         __Context_init_unchained();
         __SafeERC20Wrapper_init_unchained(token);
     }
 
-    function __SafeERC20Wrapper_init_unchained(IERC20UpgradeSafe token) internal __initializer {
+    function __SafeERC20Wrapper_init_unchained(IERC20UpgradeSafe token) internal initializer {
         _token = token;
     }
 

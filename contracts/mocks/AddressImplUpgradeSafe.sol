@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../utils/AddressUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract AddressImplUpgradeSafe is __Initializable {
-    function __AddressImpl_init() internal __initializer {
+contract AddressImplUpgradeSafe is Initializable {
+    function __AddressImpl_init() internal initializer {
         __AddressImpl_init_unchained();
     }
 
-    function __AddressImpl_init_unchained() internal __initializer {
+    function __AddressImpl_init_unchained() internal initializer {
     }
     string public sharedAnswer;
 

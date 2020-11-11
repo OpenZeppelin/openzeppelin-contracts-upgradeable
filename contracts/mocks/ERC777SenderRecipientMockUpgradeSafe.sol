@@ -8,16 +8,16 @@ import "../token/ERC777/IERC777SenderUpgradeSafe.sol";
 import "../token/ERC777/IERC777RecipientUpgradeSafe.sol";
 import "../introspection/IERC1820RegistryUpgradeSafe.sol";
 import "../introspection/ERC1820ImplementerUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC777SenderRecipientMockUpgradeSafe is __Initializable, ContextUpgradeSafe, IERC777SenderUpgradeSafe, IERC777RecipientUpgradeSafe, ERC1820ImplementerUpgradeSafe {
-    function __ERC777SenderRecipientMock_init() internal __initializer {
+contract ERC777SenderRecipientMockUpgradeSafe is Initializable, ContextUpgradeSafe, IERC777SenderUpgradeSafe, IERC777RecipientUpgradeSafe, ERC1820ImplementerUpgradeSafe {
+    function __ERC777SenderRecipientMock_init() internal initializer {
         __Context_init_unchained();
         __ERC1820Implementer_init_unchained();
         __ERC777SenderRecipientMock_init_unchained();
     }
 
-    function __ERC777SenderRecipientMock_init_unchained() internal __initializer {
+    function __ERC777SenderRecipientMock_init_unchained() internal initializer {
         _erc1820 = IERC1820RegistryUpgradeSafe(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
     }
     event TokensToSendCalled(

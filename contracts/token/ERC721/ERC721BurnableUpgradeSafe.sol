@@ -4,20 +4,20 @@ pragma solidity ^0.6.0;
 
 import "../../GSN/ContextUpgradeSafe.sol";
 import "./ERC721UpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be irreversibly burned (destroyed).
  */
-abstract contract ERC721BurnableUpgradeSafe is __Initializable, ContextUpgradeSafe, ERC721UpgradeSafe {
-    function __ERC721Burnable_init() internal __initializer {
+abstract contract ERC721BurnableUpgradeSafe is Initializable, ContextUpgradeSafe, ERC721UpgradeSafe {
+    function __ERC721Burnable_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721Burnable_init_unchained();
     }
 
-    function __ERC721Burnable_init_unchained() internal __initializer {
+    function __ERC721Burnable_init_unchained() internal initializer {
     }
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.

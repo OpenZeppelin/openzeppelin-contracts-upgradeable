@@ -4,16 +4,16 @@ pragma solidity ^0.6.0;
 
 import "../GSN/ContextUpgradeSafe.sol";
 import "../token/ERC777/ERC777UpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC777MockUpgradeSafe is __Initializable, ContextUpgradeSafe, ERC777UpgradeSafe {
+contract ERC777MockUpgradeSafe is Initializable, ContextUpgradeSafe, ERC777UpgradeSafe {
     function __ERC777Mock_init(
         address initialHolder,
         uint256 initialBalance,
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal __initializer {
+    ) internal initializer {
         __Context_init_unchained();
         __ERC777_init_unchained(name, symbol, defaultOperators);
         __ERC777Mock_init_unchained(initialHolder, initialBalance, name, symbol, defaultOperators);
@@ -25,7 +25,7 @@ contract ERC777MockUpgradeSafe is __Initializable, ContextUpgradeSafe, ERC777Upg
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal __initializer {
+    ) internal initializer {
         _mint(initialHolder, initialBalance, "", "");
     }
 

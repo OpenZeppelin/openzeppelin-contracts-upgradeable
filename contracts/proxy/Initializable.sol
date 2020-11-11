@@ -2,7 +2,6 @@
 
 // solhint-disable-next-line compiler-version
 pragma solidity >=0.4.24 <0.7.0;
-import "../Initializable.sol";
 
 
 /**
@@ -17,13 +16,7 @@ import "../Initializable.sol";
  * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure
  * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.
  */
-abstract contract InitializableUpgradeSafe is __Initializable {
-    function __Initializable_init() internal __initializer {
-        __Initializable_init_unchained();
-    }
-
-    function __Initializable_init_unchained() internal __initializer {
-    }
+abstract contract Initializable {
 
     /**
      * @dev Indicates that the contract has been initialized.
@@ -67,5 +60,4 @@ abstract contract InitializableUpgradeSafe is __Initializable {
         assembly { cs := extcodesize(self) }
         return cs == 0;
     }
-    uint256[49] private __gap;
 }

@@ -3,16 +3,16 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC20/ERC20PausableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 // mock class using ERC20Pausable
-contract ERC20PausableMockUpgradeSafe is __Initializable, ERC20PausableUpgradeSafe {
+contract ERC20PausableMockUpgradeSafe is Initializable, ERC20PausableUpgradeSafe {
     function __ERC20PausableMock_init(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __Pausable_init_unchained();
@@ -25,7 +25,7 @@ contract ERC20PausableMockUpgradeSafe is __Initializable, ERC20PausableUpgradeSa
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         _mint(initialAccount, initialBalance);
     }
 

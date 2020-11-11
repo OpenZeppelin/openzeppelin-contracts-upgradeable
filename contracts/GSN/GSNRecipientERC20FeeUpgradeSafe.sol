@@ -7,7 +7,7 @@ import "../math/SafeMathUpgradeSafe.sol";
 import "../access/OwnableUpgradeSafe.sol";
 import "../token/ERC20/SafeERC20UpgradeSafe.sol";
 import "../token/ERC20/ERC20UpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that charges transaction fees in a special purpose ERC20
@@ -18,7 +18,7 @@ import "../Initializable.sol";
  * whose only minter is the recipient, so the strategy must be implemented in a derived contract, making use of the
  * internal {_mint} function.
  */
-contract GSNRecipientERC20FeeUpgradeSafe is __Initializable, GSNRecipientUpgradeSafe {
+contract GSNRecipientERC20FeeUpgradeSafe is Initializable, GSNRecipientUpgradeSafe {
     using SafeERC20UpgradeSafe for __unstable__ERC20OwnedUpgradeSafe;
     using SafeMathUpgradeSafe for uint256;
 
@@ -31,13 +31,13 @@ contract GSNRecipientERC20FeeUpgradeSafe is __Initializable, GSNRecipientUpgrade
     /**
      * @dev The arguments to the constructor are the details that the gas payment token will have: `name` and `symbol`. `decimals` is hard-coded to 18.
      */
-    function __GSNRecipientERC20Fee_init(string memory name, string memory symbol) internal __initializer {
+    function __GSNRecipientERC20Fee_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __GSNRecipient_init_unchained();
         __GSNRecipientERC20Fee_init_unchained(name, symbol);
     }
 
-    function __GSNRecipientERC20Fee_init_unchained(string memory name, string memory symbol) internal __initializer {
+    function __GSNRecipientERC20Fee_init_unchained(string memory name, string memory symbol) internal initializer {
         _token = new __unstable__ERC20OwnedUpgradeSafe();
         _token.initialize(name, symbol);
     }
@@ -122,20 +122,20 @@ contract GSNRecipientERC20FeeUpgradeSafe is __Initializable, GSNRecipientUpgrade
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20OwnedUpgradeSafe is __Initializable, ERC20UpgradeSafe, OwnableUpgradeSafe {
-    function initialize(string memory name, string memory symbol) external __initializer {
+contract __unstable__ERC20OwnedUpgradeSafe is Initializable, ERC20UpgradeSafe, OwnableUpgradeSafe {
+    function initialize(string memory name, string memory symbol) external initializer {
         ____unstable__ERC20Owned_init(name, symbol);
     }
     uint256 private constant _UINT256_MAX = 2**256 - 1;
 
-    function ____unstable__ERC20Owned_init(string memory name, string memory symbol) internal __initializer {
+    function ____unstable__ERC20Owned_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __Ownable_init_unchained();
         ____unstable__ERC20Owned_init_unchained(name, symbol);
     }
 
-    function ____unstable__ERC20Owned_init_unchained(string memory name, string memory symbol) internal __initializer { }
+    function ____unstable__ERC20Owned_init_unchained(string memory name, string memory symbol) internal initializer { }
 
     // The owner (GSNRecipientERC20Fee) can mint tokens
     function mint(address account, uint256 amount) public onlyOwner {

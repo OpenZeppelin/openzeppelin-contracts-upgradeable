@@ -3,11 +3,11 @@
 pragma solidity ^0.6.0;
 
 import "../payment/escrow/ConditionalEscrowUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 // mock class using ConditionalEscrow
-contract ConditionalEscrowMockUpgradeSafe is __Initializable, ConditionalEscrowUpgradeSafe {
-    function __ConditionalEscrowMock_init() internal __initializer {
+contract ConditionalEscrowMockUpgradeSafe is Initializable, ConditionalEscrowUpgradeSafe {
+    function __ConditionalEscrowMock_init() internal initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
@@ -15,7 +15,7 @@ contract ConditionalEscrowMockUpgradeSafe is __Initializable, ConditionalEscrowU
         __ConditionalEscrowMock_init_unchained();
     }
 
-    function __ConditionalEscrowMock_init_unchained() internal __initializer {
+    function __ConditionalEscrowMock_init_unchained() internal initializer {
     }
     mapping(address => bool) private _allowed;
 

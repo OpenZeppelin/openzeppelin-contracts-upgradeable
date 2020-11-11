@@ -7,7 +7,7 @@ import "../GSN/ContextUpgradeSafe.sol";
 import "../token/ERC1155/ERC1155UpgradeSafe.sol";
 import "../token/ERC1155/ERC1155BurnableUpgradeSafe.sol";
 import "../token/ERC1155/ERC1155PausableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev {ERC1155} token, including:
@@ -23,7 +23,7 @@ import "../Initializable.sol";
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to other accounts.
  */
-contract ERC1155PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC1155BurnableUpgradeSafe, ERC1155PausableUpgradeSafe {
+contract ERC1155PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC1155BurnableUpgradeSafe, ERC1155PausableUpgradeSafe {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
@@ -31,7 +31,7 @@ contract ERC1155PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgrade
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
      * deploys the contract.
      */
-    function __ERC1155PresetMinterPauser_init(string memory uri) internal __initializer {
+    function __ERC1155PresetMinterPauser_init(string memory uri) internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
         __ERC165_init_unchained();
@@ -42,7 +42,7 @@ contract ERC1155PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgrade
         __ERC1155PresetMinterPauser_init_unchained(uri);
     }
 
-    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal __initializer {
+    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());

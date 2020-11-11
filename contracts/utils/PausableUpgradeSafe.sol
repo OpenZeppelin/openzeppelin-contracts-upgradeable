@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/ContextUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Contract module which allows children to implement an emergency stop
@@ -14,7 +14,7 @@ import "../Initializable.sol";
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
  */
-contract PausableUpgradeSafe is __Initializable, ContextUpgradeSafe {
+contract PausableUpgradeSafe is Initializable, ContextUpgradeSafe {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */
@@ -30,12 +30,12 @@ contract PausableUpgradeSafe is __Initializable, ContextUpgradeSafe {
     /**
      * @dev Initializes the contract in unpaused state.
      */
-    function __Pausable_init() internal __initializer {
+    function __Pausable_init() internal initializer {
         __Context_init_unchained();
         __Pausable_init_unchained();
     }
 
-    function __Pausable_init_unchained() internal __initializer {
+    function __Pausable_init_unchained() internal initializer {
         _paused = false;
     }
 

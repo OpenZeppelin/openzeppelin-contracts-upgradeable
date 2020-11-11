@@ -3,7 +3,7 @@
 pragma solidity ^0.6.2;
 
 import "./escrow/EscrowUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Simple implementation of a
@@ -23,14 +23,14 @@ import "../Initializable.sol";
  * instead of Solidity's `transfer` function. Payees can query their due
  * payments with {payments}, and retrieve them with {withdrawPayments}.
  */
-contract PullPaymentUpgradeSafe is __Initializable {
+contract PullPaymentUpgradeSafe is Initializable {
     EscrowUpgradeSafe private _escrow;
 
-    function __PullPayment_init() internal __initializer {
+    function __PullPayment_init() internal initializer {
         __PullPayment_init_unchained();
     }
 
-    function __PullPayment_init_unchained() internal __initializer {
+    function __PullPayment_init_unchained() internal initializer {
         _escrow = new EscrowUpgradeSafe();
         _escrow.initialize();
     }

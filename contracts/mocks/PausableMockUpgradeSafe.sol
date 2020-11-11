@@ -3,19 +3,19 @@
 pragma solidity ^0.6.0;
 
 import "../utils/PausableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract PausableMockUpgradeSafe is __Initializable, PausableUpgradeSafe {
+contract PausableMockUpgradeSafe is Initializable, PausableUpgradeSafe {
     bool public drasticMeasureTaken;
     uint256 public count;
 
-    function __PausableMock_init() internal __initializer {
+    function __PausableMock_init() internal initializer {
         __Context_init_unchained();
         __Pausable_init_unchained();
         __PausableMock_init_unchained();
     }
 
-    function __PausableMock_init_unchained() internal __initializer {
+    function __PausableMock_init_unchained() internal initializer {
         drasticMeasureTaken = false;
         count = 0;
     }

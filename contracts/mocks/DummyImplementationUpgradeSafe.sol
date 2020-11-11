@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-abstract contract ImplUpgradeSafe is __Initializable {
-    function __Impl_init() internal __initializer {
+abstract contract ImplUpgradeSafe is Initializable {
+    function __Impl_init() internal initializer {
         __Impl_init_unchained();
     }
 
-    function __Impl_init_unchained() internal __initializer {
+    function __Impl_init_unchained() internal initializer {
     }
   function version() public pure virtual returns (string memory); 
     uint256[50] private __gap;
 }
 
-contract DummyImplementationUpgradeSafe is __Initializable {
-    function __DummyImplementation_init() internal __initializer {
+contract DummyImplementationUpgradeSafe is Initializable {
+    function __DummyImplementation_init() internal initializer {
         __DummyImplementation_init_unchained();
     }
 
-    function __DummyImplementation_init_unchained() internal __initializer {
+    function __DummyImplementation_init_unchained() internal initializer {
     }
   uint256 public value;
   string public text;
@@ -61,13 +61,13 @@ contract DummyImplementationUpgradeSafe is __Initializable {
     uint256[47] private __gap;
 }
 
-contract DummyImplementationV2UpgradeSafe is __Initializable, DummyImplementationUpgradeSafe {
-    function __DummyImplementationV2_init() internal __initializer {
+contract DummyImplementationV2UpgradeSafe is Initializable, DummyImplementationUpgradeSafe {
+    function __DummyImplementationV2_init() internal initializer {
         __DummyImplementation_init_unchained();
         __DummyImplementationV2_init_unchained();
     }
 
-    function __DummyImplementationV2_init_unchained() internal __initializer {
+    function __DummyImplementationV2_init_unchained() internal initializer {
     }
   function migrate(uint256 newVal) payable public {
     value = newVal;

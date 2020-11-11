@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 
 import "../GSN/ContextUpgradeSafe.sol";
 import "../math/SafeMathUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @title PaymentSplitter
@@ -19,7 +19,7 @@ import "../Initializable.sol";
  * accounts but kept in this contract, and the actual transfer is triggered as a separate step by calling the {release}
  * function.
  */
-contract PaymentSplitterUpgradeSafe is __Initializable, ContextUpgradeSafe {
+contract PaymentSplitterUpgradeSafe is Initializable, ContextUpgradeSafe {
     using SafeMathUpgradeSafe for uint256;
 
     event PayeeAdded(address account, uint256 shares);
@@ -40,12 +40,12 @@ contract PaymentSplitterUpgradeSafe is __Initializable, ContextUpgradeSafe {
      * All addresses in `payees` must be non-zero. Both arrays must have the same non-zero length, and there must be no
      * duplicates in `payees`.
      */
-    function __PaymentSplitter_init(address[] memory payees, uint256[] memory shares) internal __initializer {
+    function __PaymentSplitter_init(address[] memory payees, uint256[] memory shares) internal initializer {
         __Context_init_unchained();
         __PaymentSplitter_init_unchained(payees, shares);
     }
 
-    function __PaymentSplitter_init_unchained(address[] memory payees, uint256[] memory shares) internal __initializer {
+    function __PaymentSplitter_init_unchained(address[] memory payees, uint256[] memory shares) internal initializer {
         // solhint-disable-next-line max-line-length
         require(payees.length == shares.length, "PaymentSplitter: payees and shares length mismatch");
         require(payees.length > 0, "PaymentSplitter: no payees");

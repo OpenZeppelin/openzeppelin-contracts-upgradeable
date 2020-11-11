@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../math/MathUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract MathMockUpgradeSafe is __Initializable {
-    function __MathMock_init() internal __initializer {
+contract MathMockUpgradeSafe is Initializable {
+    function __MathMock_init() internal initializer {
         __MathMock_init_unchained();
     }
 
-    function __MathMock_init_unchained() internal __initializer {
+    function __MathMock_init_unchained() internal initializer {
     }
     function max(uint256 a, uint256 b) public pure returns (uint256) {
         return MathUpgradeSafe.max(a, b);

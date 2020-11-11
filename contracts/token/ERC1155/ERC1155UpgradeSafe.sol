@@ -9,7 +9,7 @@ import "../../GSN/ContextUpgradeSafe.sol";
 import "../../introspection/ERC165UpgradeSafe.sol";
 import "../../math/SafeMathUpgradeSafe.sol";
 import "../../utils/AddressUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  *
@@ -19,7 +19,7 @@ import "../../Initializable.sol";
  *
  * _Available since v3.1._
  */
-contract ERC1155UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165UpgradeSafe, IERC1155UpgradeSafe, IERC1155MetadataURIUpgradeSafe {
+contract ERC1155UpgradeSafe is Initializable, ContextUpgradeSafe, ERC165UpgradeSafe, IERC1155UpgradeSafe, IERC1155MetadataURIUpgradeSafe {
     using SafeMathUpgradeSafe for uint256;
     using AddressUpgradeSafe for address;
 
@@ -53,13 +53,13 @@ contract ERC1155UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165Upgrad
     /**
      * @dev See {_setURI}.
      */
-    function __ERC1155_init(string memory uri) internal __initializer {
+    function __ERC1155_init(string memory uri) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155_init_unchained(uri);
     }
 
-    function __ERC1155_init_unchained(string memory uri) internal __initializer {
+    function __ERC1155_init_unchained(string memory uri) internal initializer {
         _setURI(uri);
 
         // register the supported interfaces to conform to ERC1155 via ERC165

@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../cryptography/ECDSAUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ECDSAMockUpgradeSafe is __Initializable {
-    function __ECDSAMock_init() internal __initializer {
+contract ECDSAMockUpgradeSafe is Initializable {
+    function __ECDSAMock_init() internal initializer {
         __ECDSAMock_init_unchained();
     }
 
-    function __ECDSAMock_init_unchained() internal __initializer {
+    function __ECDSAMock_init_unchained() internal initializer {
     }
     using ECDSAUpgradeSafe for bytes32;
 

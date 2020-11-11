@@ -3,10 +3,10 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC721/ERC721BurnableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC721BurnableMockUpgradeSafe is __Initializable, ERC721BurnableUpgradeSafe {
-    function __ERC721BurnableMock_init(string memory name, string memory symbol) internal __initializer {
+contract ERC721BurnableMockUpgradeSafe is Initializable, ERC721BurnableUpgradeSafe {
+    function __ERC721BurnableMock_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
@@ -14,7 +14,7 @@ contract ERC721BurnableMockUpgradeSafe is __Initializable, ERC721BurnableUpgrade
         __ERC721BurnableMock_init_unchained(name, symbol);
     }
 
-    function __ERC721BurnableMock_init_unchained(string memory name, string memory symbol) internal __initializer { }
+    function __ERC721BurnableMock_init_unchained(string memory name, string memory symbol) internal initializer { }
 
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);

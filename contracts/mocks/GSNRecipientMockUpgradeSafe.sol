@@ -4,18 +4,18 @@ pragma solidity ^0.6.0;
 
 import "./ContextMockUpgradeSafe.sol";
 import "../GSN/GSNRecipientUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 // By inheriting from GSNRecipient, Context's internal functions are overridden automatically
-contract GSNRecipientMockUpgradeSafe is __Initializable, ContextMockUpgradeSafe, GSNRecipientUpgradeSafe {
-    function __GSNRecipientMock_init() internal __initializer {
+contract GSNRecipientMockUpgradeSafe is Initializable, ContextMockUpgradeSafe, GSNRecipientUpgradeSafe {
+    function __GSNRecipientMock_init() internal initializer {
         __Context_init_unchained();
         __ContextMock_init_unchained();
         __GSNRecipient_init_unchained();
         __GSNRecipientMock_init_unchained();
     }
 
-    function __GSNRecipientMock_init_unchained() internal __initializer {
+    function __GSNRecipientMock_init_unchained() internal initializer {
     }
     function withdrawDeposits(uint256 amount, address payable payee) public {
         _withdrawDeposits(amount, payee);

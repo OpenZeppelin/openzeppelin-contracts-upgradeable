@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract EtherReceiverMockUpgradeSafe is __Initializable {
-    function __EtherReceiverMock_init() internal __initializer {
+contract EtherReceiverMockUpgradeSafe is Initializable {
+    function __EtherReceiverMock_init() internal initializer {
         __EtherReceiverMock_init_unchained();
     }
 
-    function __EtherReceiverMock_init_unchained() internal __initializer {
+    function __EtherReceiverMock_init_unchained() internal initializer {
     }
     bool private _acceptEther;
 

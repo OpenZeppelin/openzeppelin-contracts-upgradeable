@@ -4,17 +4,17 @@ pragma solidity ^0.6.0;
 
 import "../utils/ReentrancyGuardUpgradeSafe.sol";
 import "./ReentrancyAttackUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ReentrancyMockUpgradeSafe is __Initializable, ReentrancyGuardUpgradeSafe {
+contract ReentrancyMockUpgradeSafe is Initializable, ReentrancyGuardUpgradeSafe {
     uint256 public counter;
 
-    function __ReentrancyMock_init() internal __initializer {
+    function __ReentrancyMock_init() internal initializer {
         __ReentrancyGuard_init_unchained();
         __ReentrancyMock_init_unchained();
     }
 
-    function __ReentrancyMock_init_unchained() internal __initializer {
+    function __ReentrancyMock_init_unchained() internal initializer {
         counter = 0;
     }
 

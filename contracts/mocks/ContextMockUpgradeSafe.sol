@@ -3,15 +3,15 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/ContextUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ContextMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __ContextMock_init() internal __initializer {
+contract ContextMockUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __ContextMock_init() internal initializer {
         __Context_init_unchained();
         __ContextMock_init_unchained();
     }
 
-    function __ContextMock_init_unchained() internal __initializer {
+    function __ContextMock_init_unchained() internal initializer {
     }
     event Sender(address sender);
 
@@ -27,12 +27,12 @@ contract ContextMockUpgradeSafe is __Initializable, ContextUpgradeSafe {
     uint256[50] private __gap;
 }
 
-contract ContextMockCallerUpgradeSafe is __Initializable {
-    function __ContextMockCaller_init() internal __initializer {
+contract ContextMockCallerUpgradeSafe is Initializable {
+    function __ContextMockCaller_init() internal initializer {
         __ContextMockCaller_init_unchained();
     }
 
-    function __ContextMockCaller_init_unchained() internal __initializer {
+    function __ContextMockCaller_init_unchained() internal initializer {
     }
     function callSender(ContextMockUpgradeSafe context) public {
         context.msgSender();

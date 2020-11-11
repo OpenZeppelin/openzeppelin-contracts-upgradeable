@@ -3,15 +3,15 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC20/ERC20BurnableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC20BurnableMockUpgradeSafe is __Initializable, ERC20BurnableUpgradeSafe {
+contract ERC20BurnableMockUpgradeSafe is Initializable, ERC20BurnableUpgradeSafe {
     function __ERC20BurnableMock_init(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Burnable_init_unchained();
@@ -23,7 +23,7 @@ contract ERC20BurnableMockUpgradeSafe is __Initializable, ERC20BurnableUpgradeSa
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal __initializer {
+    ) internal initializer {
         _mint(initialAccount, initialBalance);
     }
     uint256[50] private __gap;

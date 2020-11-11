@@ -4,9 +4,9 @@ pragma solidity ^0.6.0;
 
 import "../token/ERC1155/IERC1155ReceiverUpgradeSafe.sol";
 import "./ERC165MockUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC1155ReceiverMockUpgradeSafe is __Initializable, IERC1155ReceiverUpgradeSafe, ERC165MockUpgradeSafe {
+contract ERC1155ReceiverMockUpgradeSafe is Initializable, IERC1155ReceiverUpgradeSafe, ERC165MockUpgradeSafe {
     bytes4 private _recRetval;
     bool private _recReverts;
     bytes4 private _batRetval;
@@ -20,7 +20,7 @@ contract ERC1155ReceiverMockUpgradeSafe is __Initializable, IERC1155ReceiverUpgr
         bool recReverts,
         bytes4 batRetval,
         bool batReverts
-    ) internal __initializer {
+    ) internal initializer {
         __ERC165_init_unchained();
         __ERC165Mock_init_unchained();
         __ERC1155ReceiverMock_init_unchained(recRetval, recReverts, batRetval, batReverts);
@@ -31,7 +31,7 @@ contract ERC1155ReceiverMockUpgradeSafe is __Initializable, IERC1155ReceiverUpgr
         bool recReverts,
         bytes4 batRetval,
         bool batReverts
-    ) internal __initializer {
+    ) internal initializer {
         _recRetval = recRetval;
         _recReverts = recReverts;
         _batRetval = batRetval;

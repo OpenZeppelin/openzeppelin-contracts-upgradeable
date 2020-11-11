@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../math/SafeMathUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract SafeMathMockUpgradeSafe is __Initializable {
-    function __SafeMathMock_init() internal __initializer {
+contract SafeMathMockUpgradeSafe is Initializable {
+    function __SafeMathMock_init() internal initializer {
         __SafeMathMock_init_unchained();
     }
 
-    function __SafeMathMock_init_unchained() internal __initializer {
+    function __SafeMathMock_init_unchained() internal initializer {
     }
     function mul(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeSafe.mul(a, b);

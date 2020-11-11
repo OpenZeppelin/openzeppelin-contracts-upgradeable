@@ -13,13 +13,13 @@ import "../../utils/AddressUpgradeSafe.sol";
 import "../../utils/EnumerableSetUpgradeSafe.sol";
 import "../../utils/EnumerableMapUpgradeSafe.sol";
 import "../../utils/StringsUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
  */
-contract ERC721UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165UpgradeSafe, IERC721UpgradeSafe, IERC721MetadataUpgradeSafe, IERC721EnumerableUpgradeSafe {
+contract ERC721UpgradeSafe is Initializable, ContextUpgradeSafe, ERC165UpgradeSafe, IERC721UpgradeSafe, IERC721MetadataUpgradeSafe, IERC721EnumerableUpgradeSafe {
     using SafeMathUpgradeSafe for uint256;
     using AddressUpgradeSafe for address;
     using EnumerableSetUpgradeSafe for EnumerableSetUpgradeSafe.UintSet;
@@ -91,13 +91,13 @@ contract ERC721UpgradeSafe is __Initializable, ContextUpgradeSafe, ERC165Upgrade
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
-    function __ERC721_init(string memory name, string memory symbol) internal __initializer {
+    function __ERC721_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
     }
 
-    function __ERC721_init_unchained(string memory name, string memory symbol) internal __initializer {
+    function __ERC721_init_unchained(string memory name, string memory symbol) internal initializer {
         _name = name;
         _symbol = symbol;
 

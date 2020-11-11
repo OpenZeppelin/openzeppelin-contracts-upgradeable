@@ -4,14 +4,14 @@ pragma solidity ^0.6.0;
 
 import "../utils/Create2UpgradeSafe.sol";
 import "../introspection/ERC1820ImplementerUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract Create2ImplUpgradeSafe is __Initializable {
-    function __Create2Impl_init() internal __initializer {
+contract Create2ImplUpgradeSafe is Initializable {
+    function __Create2Impl_init() internal initializer {
         __Create2Impl_init_unchained();
     }
 
-    function __Create2Impl_init_unchained() internal __initializer {
+    function __Create2Impl_init_unchained() internal initializer {
     }
     function deploy(uint256 value, bytes32 salt, bytes memory code) public {
         Create2UpgradeSafe.deploy(value, salt, code);

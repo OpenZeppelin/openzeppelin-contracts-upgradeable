@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 
 import "./GSNRecipientUpgradeSafe.sol";
 import "../cryptography/ECDSAUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that allows relayed transactions through when they are
@@ -12,7 +12,7 @@ import "../Initializable.sol";
  * performs validations off-chain. Note that nothing is charged to the user in this scheme. Thus, the server should make
  * sure to account for this in their economic and threat model.
  */
-contract GSNRecipientSignatureUpgradeSafe is __Initializable, GSNRecipientUpgradeSafe {
+contract GSNRecipientSignatureUpgradeSafe is Initializable, GSNRecipientUpgradeSafe {
     using ECDSAUpgradeSafe for bytes32;
 
     address private _trustedSigner;
@@ -24,13 +24,13 @@ contract GSNRecipientSignatureUpgradeSafe is __Initializable, GSNRecipientUpgrad
     /**
      * @dev Sets the trusted signer that is going to be producing signatures to approve relayed calls.
      */
-    function __GSNRecipientSignature_init(address trustedSigner) internal __initializer {
+    function __GSNRecipientSignature_init(address trustedSigner) internal initializer {
         __Context_init_unchained();
         __GSNRecipient_init_unchained();
         __GSNRecipientSignature_init_unchained(trustedSigner);
     }
 
-    function __GSNRecipientSignature_init_unchained(address trustedSigner) internal __initializer {
+    function __GSNRecipientSignature_init_unchained(address trustedSigner) internal initializer {
         require(trustedSigner != address(0), "GSNRecipientSignature: trusted signer is the zero address");
         _trustedSigner = trustedSigner;
     }

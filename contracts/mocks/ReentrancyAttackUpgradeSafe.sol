@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/ContextUpgradeSafe.sol";
-import "../Initializable.sol";
-contract ReentrancyAttackUpgradeSafe is __Initializable, ContextUpgradeSafe {
-    function __ReentrancyAttack_init() internal __initializer {
+import "../proxy/Initializable.sol";
+contract ReentrancyAttackUpgradeSafe is Initializable, ContextUpgradeSafe {
+    function __ReentrancyAttack_init() internal initializer {
         __Context_init_unchained();
         __ReentrancyAttack_init_unchained();
     }
 
-    function __ReentrancyAttack_init_unchained() internal __initializer {
+    function __ReentrancyAttack_init_unchained() internal initializer {
     }
     function callSender(bytes4 data) public {
         // solhint-disable-next-line avoid-low-level-calls

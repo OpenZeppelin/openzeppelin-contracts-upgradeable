@@ -7,7 +7,7 @@ import "../GSN/ContextUpgradeSafe.sol";
 import "../token/ERC20/ERC20UpgradeSafe.sol";
 import "../token/ERC20/ERC20BurnableUpgradeSafe.sol";
 import "../token/ERC20/ERC20PausableUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev {ERC20} token, including:
@@ -23,7 +23,7 @@ import "../Initializable.sol";
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to other accounts.
  */
-contract ERC20PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC20BurnableUpgradeSafe, ERC20PausableUpgradeSafe {
+contract ERC20PresetMinterPauserUpgradeSafe is Initializable, ContextUpgradeSafe, AccessControlUpgradeSafe, ERC20BurnableUpgradeSafe, ERC20PausableUpgradeSafe {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
@@ -33,7 +33,7 @@ contract ERC20PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgradeSa
      *
      * See {ERC20-constructor}.
      */
-    function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal __initializer {
+    function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __AccessControl_init_unchained();
         __ERC20_init_unchained(name, symbol);
@@ -43,7 +43,7 @@ contract ERC20PresetMinterPauserUpgradeSafe is __Initializable, ContextUpgradeSa
         __ERC20PresetMinterPauser_init_unchained(name, symbol);
     }
 
-    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal __initializer {
+    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());

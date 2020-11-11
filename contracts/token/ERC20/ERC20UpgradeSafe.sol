@@ -5,7 +5,7 @@ pragma solidity ^0.6.0;
 import "../../GSN/ContextUpgradeSafe.sol";
 import "./IERC20UpgradeSafe.sol";
 import "../../math/SafeMathUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -31,7 +31,7 @@ import "../../Initializable.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-contract ERC20UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC20UpgradeSafe {
+contract ERC20UpgradeSafe is Initializable, ContextUpgradeSafe, IERC20UpgradeSafe {
     using SafeMathUpgradeSafe for uint256;
 
     mapping (address => uint256) private _balances;
@@ -53,12 +53,12 @@ contract ERC20UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC20UpgradeS
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    function __ERC20_init(string memory name, string memory symbol) internal __initializer {
+    function __ERC20_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
     }
 
-    function __ERC20_init_unchained(string memory name, string memory symbol) internal __initializer {
+    function __ERC20_init_unchained(string memory name, string memory symbol) internal initializer {
         _name = name;
         _symbol = symbol;
         _decimals = 18;

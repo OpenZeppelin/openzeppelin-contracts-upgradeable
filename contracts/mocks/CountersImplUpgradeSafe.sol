@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../utils/CountersUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract CountersImplUpgradeSafe is __Initializable {
-    function __CountersImpl_init() internal __initializer {
+contract CountersImplUpgradeSafe is Initializable {
+    function __CountersImpl_init() internal initializer {
         __CountersImpl_init_unchained();
     }
 
-    function __CountersImpl_init_unchained() internal __initializer {
+    function __CountersImpl_init_unchained() internal initializer {
     }
     using CountersUpgradeSafe for CountersUpgradeSafe.Counter;
 

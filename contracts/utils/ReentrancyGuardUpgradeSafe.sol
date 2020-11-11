@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Contract module that helps prevent reentrant calls to a function.
@@ -19,7 +19,7 @@ import "../Initializable.sol";
  * to protect against it, check out our blog post
  * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
  */
-contract ReentrancyGuardUpgradeSafe is __Initializable {
+contract ReentrancyGuardUpgradeSafe is Initializable {
     // Booleans are more expensive than uint256 or any type that takes up a full
     // word because each write operation emits an extra SLOAD to first read the
     // slot's contents, replace the bits taken up by the boolean, and then write
@@ -36,11 +36,11 @@ contract ReentrancyGuardUpgradeSafe is __Initializable {
 
     uint256 private _status;
 
-    function __ReentrancyGuard_init() internal __initializer {
+    function __ReentrancyGuard_init() internal initializer {
         __ReentrancyGuard_init_unchained();
     }
 
-    function __ReentrancyGuard_init_unchained() internal __initializer {
+    function __ReentrancyGuard_init_unchained() internal initializer {
         _status = _NOT_ENTERED;
     }
 

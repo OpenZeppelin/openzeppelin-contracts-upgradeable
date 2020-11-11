@@ -3,24 +3,24 @@
 pragma solidity ^0.6.0;
 
 import "./ERC20UpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
  */
-abstract contract ERC20CappedUpgradeSafe is __Initializable, ERC20UpgradeSafe {
+abstract contract ERC20CappedUpgradeSafe is Initializable, ERC20UpgradeSafe {
     uint256 private _cap;
 
     /**
      * @dev Sets the value of the `cap`. This value is immutable, it can only be
      * set once during construction.
      */
-    function __ERC20Capped_init(uint256 cap) internal __initializer {
+    function __ERC20Capped_init(uint256 cap) internal initializer {
         __Context_init_unchained();
         __ERC20Capped_init_unchained(cap);
     }
 
-    function __ERC20Capped_init_unchained(uint256 cap) internal __initializer {
+    function __ERC20Capped_init_unchained(uint256 cap) internal initializer {
         require(cap > 0, "ERC20Capped: cap is 0");
         _cap = cap;
     }

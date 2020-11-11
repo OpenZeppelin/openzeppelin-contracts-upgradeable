@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../utils/EnumerableMapUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract EnumerableMapMockUpgradeSafe is __Initializable {
-    function __EnumerableMapMock_init() internal __initializer {
+contract EnumerableMapMockUpgradeSafe is Initializable {
+    function __EnumerableMapMock_init() internal initializer {
         __EnumerableMapMock_init_unchained();
     }
 
-    function __EnumerableMapMock_init_unchained() internal __initializer {
+    function __EnumerableMapMock_init_unchained() internal initializer {
     }
     using EnumerableMapUpgradeSafe for EnumerableMapUpgradeSafe.UintToAddressMap;
 

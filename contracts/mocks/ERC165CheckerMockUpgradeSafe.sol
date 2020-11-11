@@ -3,14 +3,14 @@
 pragma solidity ^0.6.0;
 
 import "../introspection/ERC165CheckerUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC165CheckerMockUpgradeSafe is __Initializable {
-    function __ERC165CheckerMock_init() internal __initializer {
+contract ERC165CheckerMockUpgradeSafe is Initializable {
+    function __ERC165CheckerMock_init() internal initializer {
         __ERC165CheckerMock_init_unchained();
     }
 
-    function __ERC165CheckerMock_init_unchained() internal __initializer {
+    function __ERC165CheckerMock_init_unchained() internal initializer {
     }
     using ERC165CheckerUpgradeSafe for address;
 

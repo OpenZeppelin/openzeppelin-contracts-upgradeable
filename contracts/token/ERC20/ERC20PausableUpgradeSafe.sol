@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 
 import "./ERC20UpgradeSafe.sol";
 import "../../utils/PausableUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev ERC20 token with pausable token transfers, minting and burning.
@@ -13,14 +13,14 @@ import "../../Initializable.sol";
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
  */
-abstract contract ERC20PausableUpgradeSafe is __Initializable, ERC20UpgradeSafe, PausableUpgradeSafe {
-    function __ERC20Pausable_init() internal __initializer {
+abstract contract ERC20PausableUpgradeSafe is Initializable, ERC20UpgradeSafe, PausableUpgradeSafe {
+    function __ERC20Pausable_init() internal initializer {
         __Context_init_unchained();
         __Pausable_init_unchained();
         __ERC20Pausable_init_unchained();
     }
 
-    function __ERC20Pausable_init_unchained() internal __initializer {
+    function __ERC20Pausable_init_unchained() internal initializer {
     }
     /**
      * @dev See {ERC20-_beforeTokenTransfer}.

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 
 /**
@@ -9,12 +9,12 @@ import "../Initializable.sol";
  * @dev TransparentUpgradeableProxy's to test correct functioning of the
  * @dev Transparent Proxy feature.
  */
-contract ClashingImplementationUpgradeSafe is __Initializable {
-    function __ClashingImplementation_init() internal __initializer {
+contract ClashingImplementationUpgradeSafe is Initializable {
+    function __ClashingImplementation_init() internal initializer {
         __ClashingImplementation_init_unchained();
     }
 
-    function __ClashingImplementation_init_unchained() internal __initializer {
+    function __ClashingImplementation_init_unchained() internal initializer {
     }
 
   function admin() external pure returns (address) {

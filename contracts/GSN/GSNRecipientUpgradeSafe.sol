@@ -5,7 +5,7 @@ pragma solidity ^0.6.0;
 import "./IRelayRecipientUpgradeSafe.sol";
 import "./IRelayHubUpgradeSafe.sol";
 import "./ContextUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Base GSN recipient contract: includes the {IRelayRecipient} interface
@@ -18,13 +18,13 @@ import "../Initializable.sol";
  * information on how to use the pre-built {GSNRecipientSignature} and
  * {GSNRecipientERC20Fee}, or how to write your own.
  */
-abstract contract GSNRecipientUpgradeSafe is __Initializable, IRelayRecipientUpgradeSafe, ContextUpgradeSafe {
-    function __GSNRecipient_init() internal __initializer {
+abstract contract GSNRecipientUpgradeSafe is Initializable, IRelayRecipientUpgradeSafe, ContextUpgradeSafe {
+    function __GSNRecipient_init() internal initializer {
         __Context_init_unchained();
         __GSNRecipient_init_unchained();
     }
 
-    function __GSNRecipient_init_unchained() internal __initializer {
+    function __GSNRecipient_init_unchained() internal initializer {
         _relayHub = 0xD216153c06E857cD7f72665E0aF1d7D82172F494;
     }
     // Default RelayHub address, deployed on mainnet and all testnets at the same address

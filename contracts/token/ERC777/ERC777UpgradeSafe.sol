@@ -10,7 +10,7 @@ import "../../token/ERC20/IERC20UpgradeSafe.sol";
 import "../../math/SafeMathUpgradeSafe.sol";
 import "../../utils/AddressUpgradeSafe.sol";
 import "../../introspection/IERC1820RegistryUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -27,7 +27,7 @@ import "../../Initializable.sol";
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC777UpgradeSafe, IERC20UpgradeSafe {
+contract ERC777UpgradeSafe is Initializable, ContextUpgradeSafe, IERC777UpgradeSafe, IERC20UpgradeSafe {
     using SafeMathUpgradeSafe for uint256;
     using AddressUpgradeSafe for address;
 
@@ -71,7 +71,7 @@ contract ERC777UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC777Upgrad
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal __initializer {
+    ) internal initializer {
         __Context_init_unchained();
         __ERC777_init_unchained(name, symbol, defaultOperators);
     }
@@ -80,7 +80,7 @@ contract ERC777UpgradeSafe is __Initializable, ContextUpgradeSafe, IERC777Upgrad
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal __initializer {
+    ) internal initializer {
         _name = name;
         _symbol = symbol;
 

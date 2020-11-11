@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./ConditionalEscrowUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @title RefundEscrow
@@ -15,7 +15,7 @@ import "../../Initializable.sol";
  * withdrawal by the beneficiary, or refunds to the depositors. All interactions
  * with `RefundEscrow` will be made through the owner contract.
  */
-contract RefundEscrowUpgradeSafe is __Initializable, ConditionalEscrowUpgradeSafe {
+contract RefundEscrowUpgradeSafe is Initializable, ConditionalEscrowUpgradeSafe {
     enum State { Active, Refunding, Closed }
 
     event RefundsClosed();
@@ -28,7 +28,7 @@ contract RefundEscrowUpgradeSafe is __Initializable, ConditionalEscrowUpgradeSaf
      * @dev Constructor.
      * @param beneficiary The beneficiary of the deposits.
      */
-    function __RefundEscrow_init(address payable beneficiary) internal __initializer {
+    function __RefundEscrow_init(address payable beneficiary) internal initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
@@ -36,7 +36,7 @@ contract RefundEscrowUpgradeSafe is __Initializable, ConditionalEscrowUpgradeSaf
         __RefundEscrow_init_unchained(beneficiary);
     }
 
-    function __RefundEscrow_init_unchained(address payable beneficiary) internal __initializer {
+    function __RefundEscrow_init_unchained(address payable beneficiary) internal initializer {
         require(beneficiary != address(0), "RefundEscrow: beneficiary is the zero address");
         _beneficiary = beneficiary;
         _state = State.Active;

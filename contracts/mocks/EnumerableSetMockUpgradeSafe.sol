@@ -3,15 +3,15 @@
 pragma solidity ^0.6.0;
 
 import "../utils/EnumerableSetUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 // Bytes32Set
-contract EnumerableBytes32SetMockUpgradeSafe is __Initializable {
-    function __EnumerableBytes32SetMock_init() internal __initializer {
+contract EnumerableBytes32SetMockUpgradeSafe is Initializable {
+    function __EnumerableBytes32SetMock_init() internal initializer {
         __EnumerableBytes32SetMock_init_unchained();
     }
 
-    function __EnumerableBytes32SetMock_init_unchained() internal __initializer {
+    function __EnumerableBytes32SetMock_init_unchained() internal initializer {
     }
     using EnumerableSetUpgradeSafe for EnumerableSetUpgradeSafe.Bytes32Set;
 
@@ -44,12 +44,12 @@ contract EnumerableBytes32SetMockUpgradeSafe is __Initializable {
 }
 
 // AddressSet
-contract EnumerableAddressSetMockUpgradeSafe is __Initializable {
-    function __EnumerableAddressSetMock_init() internal __initializer {
+contract EnumerableAddressSetMockUpgradeSafe is Initializable {
+    function __EnumerableAddressSetMock_init() internal initializer {
         __EnumerableAddressSetMock_init_unchained();
     }
 
-    function __EnumerableAddressSetMock_init_unchained() internal __initializer {
+    function __EnumerableAddressSetMock_init_unchained() internal initializer {
     }
     using EnumerableSetUpgradeSafe for EnumerableSetUpgradeSafe.AddressSet;
 
@@ -82,12 +82,12 @@ contract EnumerableAddressSetMockUpgradeSafe is __Initializable {
 }
 
 // UintSet
-contract EnumerableUintSetMockUpgradeSafe is __Initializable {
-    function __EnumerableUintSetMock_init() internal __initializer {
+contract EnumerableUintSetMockUpgradeSafe is Initializable {
+    function __EnumerableUintSetMock_init() internal initializer {
         __EnumerableUintSetMock_init_unchained();
     }
 
-    function __EnumerableUintSetMock_init_unchained() internal __initializer {
+    function __EnumerableUintSetMock_init_unchained() internal initializer {
     }
     using EnumerableSetUpgradeSafe for EnumerableSetUpgradeSafe.UintSet;
 

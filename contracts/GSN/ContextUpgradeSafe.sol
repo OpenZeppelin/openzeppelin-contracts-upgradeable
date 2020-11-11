@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -13,12 +13,12 @@ import "../Initializable.sol";
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-abstract contract ContextUpgradeSafe is __Initializable {
-    function __Context_init() internal __initializer {
+abstract contract ContextUpgradeSafe is Initializable {
+    function __Context_init() internal initializer {
         __Context_init_unchained();
     }
 
-    function __Context_init_unchained() internal __initializer {
+    function __Context_init_unchained() internal initializer {
     }
     function _msgSender() internal view virtual returns (address payable) {
         return msg.sender;

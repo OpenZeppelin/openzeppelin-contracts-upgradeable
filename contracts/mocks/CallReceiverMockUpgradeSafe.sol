@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.0;
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract CallReceiverMockUpgradeSafe is __Initializable {
-    function __CallReceiverMock_init() internal __initializer {
+contract CallReceiverMockUpgradeSafe is Initializable {
+    function __CallReceiverMock_init() internal initializer {
         __CallReceiverMock_init_unchained();
     }
 
-    function __CallReceiverMock_init_unchained() internal __initializer {
+    function __CallReceiverMock_init_unchained() internal initializer {
     }
     string public sharedAnswer;
 

@@ -3,22 +3,22 @@
 pragma solidity ^0.6.0;
 
 import "./EscrowUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @title ConditionalEscrow
  * @dev Base abstract escrow to only allow withdrawal if a condition is met.
  * @dev Intended usage: See {Escrow}. Same usage guidelines apply here.
  */
-abstract contract ConditionalEscrowUpgradeSafe is __Initializable, EscrowUpgradeSafe {
-    function __ConditionalEscrow_init() internal __initializer {
+abstract contract ConditionalEscrowUpgradeSafe is Initializable, EscrowUpgradeSafe {
+    function __ConditionalEscrow_init() internal initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
         __ConditionalEscrow_init_unchained();
     }
 
-    function __ConditionalEscrow_init_unchained() internal __initializer {
+    function __ConditionalEscrow_init_unchained() internal initializer {
     }
     /**
      * @dev Returns whether an address is allowed to withdraw their funds. To be

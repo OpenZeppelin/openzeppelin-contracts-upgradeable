@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "../../introspection/IERC165UpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * https://eips.ethereum.org/EIPS/eip-214#specification
@@ -15,7 +15,7 @@ import "../../Initializable.sol";
  * therefore, because this contract is staticcall'd we need to not emit events (which is how solidity-coverage works)
  * solidity-coverage ignores the /mocks folder, so we duplicate its implementation here to avoid instrumenting it
  */
-contract SupportsInterfaceWithLookupMockUpgradeSafe is __Initializable, IERC165UpgradeSafe {
+contract SupportsInterfaceWithLookupMockUpgradeSafe is Initializable, IERC165UpgradeSafe {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
@@ -30,11 +30,11 @@ contract SupportsInterfaceWithLookupMockUpgradeSafe is __Initializable, IERC165U
      * @dev A contract implementing SupportsInterfaceWithLookup
      * implement ERC165 itself.
      */
-    function __SupportsInterfaceWithLookupMock_init() internal __initializer {
+    function __SupportsInterfaceWithLookupMock_init() internal initializer {
         __SupportsInterfaceWithLookupMock_init_unchained();
     }
 
-    function __SupportsInterfaceWithLookupMock_init_unchained() internal __initializer {
+    function __SupportsInterfaceWithLookupMock_init_unchained() internal initializer {
         _registerInterface(INTERFACE_ID_ERC165);
     }
 
@@ -55,13 +55,13 @@ contract SupportsInterfaceWithLookupMockUpgradeSafe is __Initializable, IERC165U
     uint256[49] private __gap;
 }
 
-contract ERC165InterfacesSupportedUpgradeSafe is __Initializable, SupportsInterfaceWithLookupMockUpgradeSafe {
-    function __ERC165InterfacesSupported_init(bytes4[] memory interfaceIds) internal __initializer {
+contract ERC165InterfacesSupportedUpgradeSafe is Initializable, SupportsInterfaceWithLookupMockUpgradeSafe {
+    function __ERC165InterfacesSupported_init(bytes4[] memory interfaceIds) internal initializer {
         __SupportsInterfaceWithLookupMock_init_unchained();
         __ERC165InterfacesSupported_init_unchained(interfaceIds);
     }
 
-    function __ERC165InterfacesSupported_init_unchained(bytes4[] memory interfaceIds) internal __initializer {
+    function __ERC165InterfacesSupported_init_unchained(bytes4[] memory interfaceIds) internal initializer {
         for (uint256 i = 0; i < interfaceIds.length; i++) {
             _registerInterface(interfaceIds[i]);
         }

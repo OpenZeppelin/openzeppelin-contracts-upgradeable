@@ -4,20 +4,20 @@ pragma solidity ^0.6.0;
 
 import "../../GSN/ContextUpgradeSafe.sol";
 import "./ERC20UpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20BurnableUpgradeSafe is __Initializable, ContextUpgradeSafe, ERC20UpgradeSafe {
-    function __ERC20Burnable_init() internal __initializer {
+abstract contract ERC20BurnableUpgradeSafe is Initializable, ContextUpgradeSafe, ERC20UpgradeSafe {
+    function __ERC20Burnable_init() internal initializer {
         __Context_init_unchained();
         __ERC20Burnable_init_unchained();
     }
 
-    function __ERC20Burnable_init_unchained() internal __initializer {
+    function __ERC20Burnable_init_unchained() internal initializer {
     }
     /**
      * @dev Destroys `amount` tokens from the caller.

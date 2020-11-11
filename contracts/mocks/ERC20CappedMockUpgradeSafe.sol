@@ -3,17 +3,17 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC20/ERC20CappedUpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
-contract ERC20CappedMockUpgradeSafe is __Initializable, ERC20CappedUpgradeSafe {
-    function __ERC20CappedMock_init(string memory name, string memory symbol, uint256 cap) internal __initializer {
+contract ERC20CappedMockUpgradeSafe is Initializable, ERC20CappedUpgradeSafe {
+    function __ERC20CappedMock_init(string memory name, string memory symbol, uint256 cap) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Capped_init_unchained(cap);
         __ERC20CappedMock_init_unchained(name, symbol, cap);
     }
 
-    function __ERC20CappedMock_init_unchained(string memory name, string memory symbol, uint256 cap) internal __initializer { }
+    function __ERC20CappedMock_init_unchained(string memory name, string memory symbol, uint256 cap) internal initializer { }
 
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);

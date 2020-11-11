@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 
 import "./ERC1155UpgradeSafe.sol";
 import "../../utils/PausableUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
 /**
  * @dev ERC1155 token with pausable token transfers, minting and burning.
@@ -15,15 +15,15 @@ import "../../Initializable.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155PausableUpgradeSafe is __Initializable, ERC1155UpgradeSafe, PausableUpgradeSafe {
-    function __ERC1155Pausable_init() internal __initializer {
+abstract contract ERC1155PausableUpgradeSafe is Initializable, ERC1155UpgradeSafe, PausableUpgradeSafe {
+    function __ERC1155Pausable_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __Pausable_init_unchained();
         __ERC1155Pausable_init_unchained();
     }
 
-    function __ERC1155Pausable_init_unchained() internal __initializer {
+    function __ERC1155Pausable_init_unchained() internal initializer {
     }
     /**
      * @dev See {ERC1155-_beforeTokenTransfer}.

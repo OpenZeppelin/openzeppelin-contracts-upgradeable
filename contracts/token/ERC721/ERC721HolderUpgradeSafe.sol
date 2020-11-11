@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./IERC721ReceiverUpgradeSafe.sol";
-import "../../Initializable.sol";
+import "../../proxy/Initializable.sol";
 
   /**
    * @dev Implementation of the {IERC721Receiver} interface.
@@ -11,12 +11,12 @@ import "../../Initializable.sol";
    * Accepts all token transfers. 
    * Make sure the contract is able to use its token with {IERC721-safeTransferFrom}, {IERC721-approve} or {IERC721-setApprovalForAll}.
    */
-contract ERC721HolderUpgradeSafe is __Initializable, IERC721ReceiverUpgradeSafe {
-    function __ERC721Holder_init() internal __initializer {
+contract ERC721HolderUpgradeSafe is Initializable, IERC721ReceiverUpgradeSafe {
+    function __ERC721Holder_init() internal initializer {
         __ERC721Holder_init_unchained();
     }
 
-    function __ERC721Holder_init_unchained() internal __initializer {
+    function __ERC721Holder_init_unchained() internal initializer {
     }
 
     /**

@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 
 import "./IERC165UpgradeSafe.sol";
-import "../Initializable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -11,7 +11,7 @@ import "../Initializable.sol";
  * Contracts may inherit from this and call {_registerInterface} to declare
  * their support of an interface.
  */
-contract ERC165UpgradeSafe is __Initializable, IERC165UpgradeSafe {
+contract ERC165UpgradeSafe is Initializable, IERC165UpgradeSafe {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
@@ -22,11 +22,11 @@ contract ERC165UpgradeSafe is __Initializable, IERC165UpgradeSafe {
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
-    function __ERC165_init() internal __initializer {
+    function __ERC165_init() internal initializer {
         __ERC165_init_unchained();
     }
 
-    function __ERC165_init_unchained() internal __initializer {
+    function __ERC165_init_unchained() internal initializer {
         // Derived contracts need only register support for their own interfaces,
         // we register support for ERC165 itself here
         _registerInterface(_INTERFACE_ID_ERC165);
