@@ -28,4 +28,5 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
-      - run: bash scripts/upgrade-safe/transpile-push.sh
+      - run: bash scripts/upgrade-safe/transpile-branch.sh master origin/master
+      - run: git push origin master
