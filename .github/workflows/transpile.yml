@@ -29,5 +29,5 @@ jobs:
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: bash scripts/upgrade-safe/git-user-config.sh
-      - run: bash scripts/upgrade-safe/traspile-onto.sh master origin/master
+      - run: bash scripts/upgrade-safe/transpile-onto.sh master origin/master
       - run: git push origin master
