@@ -2,7 +2,7 @@
 
 set -euo pipefail -x
 
-bash scripts/transpile.sh
+bash scripts/upgrade-safe/transpile.sh
 
 git config user.name 'github-actions'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
