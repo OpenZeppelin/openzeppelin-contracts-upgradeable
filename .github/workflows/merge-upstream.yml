@@ -17,4 +17,6 @@ jobs:
           ref: upstream-patched
           fetch-depth: 0
           ssh-key: ${{secrets.DEPLOY_KEY}}
-      - run: bash -x scripts/upgrade-safe/merge-upstream.sh
+      - run: bash scripts/upgrade-safe/git-user-config.sh
+      - run: bash scripts/upgrade-safe/merge-upstream.sh
+      - run: git push

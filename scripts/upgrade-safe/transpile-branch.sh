@@ -13,7 +13,6 @@ branch="$1"
 base="${2:-}"
 
 bash scripts/upgrade-safe/transpile.sh
-bash scripts/upgrade-safe/git-user-config.sh
 
 commit="$(git rev-parse --short HEAD)"
 
