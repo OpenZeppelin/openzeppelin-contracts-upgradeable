@@ -1,0 +1,33 @@
+name: Transpile
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [upstream-patched]
+
+jobs:
+  transpile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+      - uses: actions/checkout@v2
+        with:
+          ref: upstream-patched
+          fetch-depth: 0
+          ssh-key: ${{secrets.DEPLOY_KEY}}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v2-
+      - run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+      - run: bash scripts/upgrade-safe/git-user-config.sh
+      - run: bash scripts/upgrade-safe/traspile-onto.sh master origin/master
+      - run: git push origin master

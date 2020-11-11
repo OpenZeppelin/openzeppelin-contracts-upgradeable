@@ -1,0 +1,22 @@
+name: Merge upstream
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 10 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+      - uses: actions/checkout@v2
+        with:
+          ref: upstream-patched
+          fetch-depth: 0
+          ssh-key: ${{secrets.DEPLOY_KEY}}
+      - run: bash scripts/upgrade-safe/git-user-config.sh
+      - run: bash scripts/upgrade-safe/merge-upstream.sh
+      - run: git push
