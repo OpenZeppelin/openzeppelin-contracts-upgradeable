@@ -3,9 +3,7 @@
 set -euo pipefail -x
 
 bash scripts/upgrade-safe/transpile.sh
-
-git config user.name 'github-actions'
-git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+bash scripts/upgrade-safe/git-user-config.sh
 
 COMMIT="$(git rev-parse --short HEAD)"
 
