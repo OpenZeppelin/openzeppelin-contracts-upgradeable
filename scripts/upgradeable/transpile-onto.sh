@@ -12,7 +12,7 @@ set -x
 target="$1"
 base="${2-}"
 
-bash scripts/upgrade-safe/transpile.sh
+bash scripts/upgradeable/transpile.sh
 
 commit="$(git rev-parse --short HEAD)"
 branch="$(git rev-parse --abbrev-ref HEAD)"
