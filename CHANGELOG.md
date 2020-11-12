@@ -6,9 +6,14 @@
 
 ### Upgrading from OpenZeppelin Contracts Ethereum Package
 
- * Previously only contracts were renamed with the `UpgradeSafe` suffix. In order to improve compatibility between
-   Upgrade Safe variant and the vanila OpenZeppelin Contracts package, now all contracts, interfaces, and libraries have
-   the `UpgradeSafe` suffix. The only exception is the `Initializable` contract which retains its original name.
+ * The dependency on `@openzeppelin/contracts-ethereum-package` should be replaced by `@openzeppelin/contracts-upgrade-safe`.
+ * Previously only contracts were renamed with an `UpgradeSafe` suffix. Now all contracts, interfaces, and libraries have an `UpgradeSafe` suffix. The only exception is the `Initializable` contract which retains its original name.
+   * `Address` → `AddressUpgradeSafe`
+   * This change improves compatibility with the main OpenZeppelin Contracts package, allowing both to be used side by side.
+ * Solidity files are now also suffixed, to keep the Solidity convention of equal file and contract name.
+   * `access/Ownable.sol` → `access/OwnableUpgradeSafe.sol`
+ * Import paths no longer include `/contracts/`.
+   * `@openzeppelin/contracts-ethereum-package/contracts/access/Ownable.sol` → `@openzeppelin/contracts-upgrade-safe/access/Ownable.sol`
 
 # Changelog
 
