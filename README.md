@@ -7,7 +7,7 @@ This repository hosts the Upgradeable variant of [OpenZeppelin Contracts], meant
 
 [OpenZeppelin Contracts]: https://github.com/OpenZeppelin/openzeppelin-contracts
 
-It follows all of the rules for xref:upgrades-plugins::writing-upgradeable.adoc[Writing Upgradeable Contracts]: constructors are replaced by initializer functions, state variables are initialized in initializer functions, and we additionally check for storage incompatibilities across minor versions.
+It follows all of the rules for [Writing Upgradeable Contracts]: constructors are replaced by initializer functions, state variables are initialized in initializer functions, and we additionally check for storage incompatibilities across minor versions.
 
 [Writing Upgradeable Contracts]: https://docs.openzeppelin.com/upgrades-plugins/writing-upgradeable
 
