@@ -1,9 +1,9 @@
-# <img src="icon.svg" alt="OpenZeppelin" height="40px" align="left"> OpenZeppelin Contracts Upgrade Safe
+# <img src="icon.svg" alt="OpenZeppelin" height="40px" align="left"> OpenZeppelin Contracts Upgradeable
 
-[![Docs](https://img.shields.io/badge/docs-%F0%9F%93%84-blue)](https://docs.openzeppelin.com/contracts/upgrade-safe)
-[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts-upgrade-safe.svg)](https://www.npmjs.org/package/@openzeppelin/contracts-upgrade-safe)
+[![Docs](https://img.shields.io/badge/docs-%F0%9F%93%84-blue)](https://docs.openzeppelin.com/contracts/upgradeable)
+[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts-upgradeable.svg)](https://www.npmjs.org/package/@openzeppelin/contracts-upgradeable)
 
-This repository hosts the Upgrade Safe variant of [OpenZeppelin Contracts], meant for use in upgradeable contracts. This variant is available as separate package called `@openzeppelin/contracts-upgrade-safe`.
+This repository hosts the Upgradeable variant of [OpenZeppelin Contracts], meant for use in upgradeable contracts. This variant is available as separate package called `@openzeppelin/contracts-upgradeable`.
 
 [OpenZeppelin Contracts]: https://github.com/OpenZeppelin/openzeppelin-contracts
 
@@ -16,19 +16,19 @@ It follows all of the rules for xref:upgrades-plugins::writing-upgradeable.adoc[
 ### Installation
 
 ```console
-$ npm install @openzeppelin/contracts-upgrade-safe
+$ npm install @openzeppelin/contracts-upgradeable
 ```
 
 ### Usage
 
-The package replicates the structure of the main OpenZeppelin Contracts package, but every file and contract has the suffix `UpgradeSafe`.
+The package replicates the structure of the main OpenZeppelin Contracts package, but every file and contract has the suffix `Upgradeable`.
 
 ```diff
 -import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-+import "@openzeppelin/contracts-upgrade-safe/token/ERC721/ERC721UpgradeSafe.sol";
++import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
  
 -contract MyCollectible is ERC721 {
-+contract MyCollectible is ERC721UpgradeSafe {
++contract MyCollectible is ERC721Upgradeable {
 ```
 
 Constructors are replaced by internal initializer functions following the naming convention `__{ContractName}_init`. Since these are internal, you must always define your own public initializer function and call the parent initializer of the contract you extend.
