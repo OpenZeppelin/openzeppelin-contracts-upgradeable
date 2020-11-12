@@ -23,6 +23,6 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
-      - run: bash scripts/upgrade-safe/transpile.sh
+      - run: bash scripts/upgradeable/transpile.sh
         if: github.event_name == 'pull_request'
       - run: npm run test

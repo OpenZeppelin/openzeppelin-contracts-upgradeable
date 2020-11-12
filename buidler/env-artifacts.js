@@ -6,7 +6,7 @@ extendEnvironment(env => {
   env.artifacts = {
     ...artifacts,
     require (name) {
-      for (const suffix of ['UpgradeSafeWithInit', 'UpgradeSafe', '']) {
+      for (const suffix of ['UpgradeableWithInit', 'Upgradeable', '']) {
         try {
           return artifacts.require(name + suffix);
         } catch (e) {
