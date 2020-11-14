@@ -30,6 +30,6 @@ contract Create2ImplUpgradeable is Initializable {
         return Create2Upgradeable.computeAddress(salt, codeHash, deployer);
     }
 
-    receive() payable external {}
+    receive() external payable {}
     uint256[50] private __gap;
 }

@@ -29,7 +29,7 @@ contract DummyImplementationUpgradeable is Initializable {
     value = 10;
   }
 
-  function initializePayable() payable public {
+  function initializePayable() public payable {
     value = 100;
   }
 
@@ -37,7 +37,7 @@ contract DummyImplementationUpgradeable is Initializable {
     value = _value;
   }
 
-  function initializePayable(uint256 _value) payable public {
+  function initializePayable(uint256 _value) public payable {
     value = _value;
   }
 
@@ -69,7 +69,7 @@ contract DummyImplementationV2Upgradeable is Initializable, DummyImplementationU
 
     function __DummyImplementationV2_init_unchained() internal initializer {
     }
-  function migrate(uint256 newVal) payable public {
+  function migrate(uint256 newVal) public payable {
     value = newVal;
   }
 
