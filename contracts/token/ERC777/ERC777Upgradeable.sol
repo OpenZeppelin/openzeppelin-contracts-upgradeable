@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../../GSN/ContextUpgradeable.sol";
 import "./IERC777Upgradeable.sol";
@@ -68,23 +68,23 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      * @dev `defaultOperators` may be an empty array.
      */
     function __ERC777_init(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators
+        string memory name_,
+        string memory symbol_,
+        address[] memory defaultOperators_
     ) internal initializer {
         __Context_init_unchained();
-        __ERC777_init_unchained(name, symbol, defaultOperators);
+        __ERC777_init_unchained(name_, symbol_, defaultOperators_);
     }
 
     function __ERC777_init_unchained(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators
+        string memory name_,
+        string memory symbol_,
+        address[] memory defaultOperators_
     ) internal initializer {
-        _name = name;
-        _symbol = symbol;
+        _name = name_;
+        _symbol = symbol_;
 
-        _defaultOperatorsArray = defaultOperators;
+        _defaultOperatorsArray = defaultOperators_;
         for (uint256 i = 0; i < _defaultOperatorsArray.length; i++) {
             _defaultOperators[_defaultOperatorsArray[i]] = true;
         }

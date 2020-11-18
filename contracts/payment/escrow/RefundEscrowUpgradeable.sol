@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./ConditionalEscrowUpgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -26,19 +26,19 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
 
     /**
      * @dev Constructor.
-     * @param beneficiary The beneficiary of the deposits.
+     * @param beneficiary_ The beneficiary of the deposits.
      */
-    function __RefundEscrow_init(address payable beneficiary) internal initializer {
+    function __RefundEscrow_init(address payable beneficiary_) internal initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
         __ConditionalEscrow_init_unchained();
-        __RefundEscrow_init_unchained(beneficiary);
+        __RefundEscrow_init_unchained(beneficiary_);
     }
 
-    function __RefundEscrow_init_unchained(address payable beneficiary) internal initializer {
-        require(beneficiary != address(0), "RefundEscrow: beneficiary is the zero address");
-        _beneficiary = beneficiary;
+    function __RefundEscrow_init_unchained(address payable beneficiary_) internal initializer {
+        require(beneficiary_ != address(0), "RefundEscrow: beneficiary is the zero address");
+        _beneficiary = beneficiary_;
         _state = State.Active;
     }
 

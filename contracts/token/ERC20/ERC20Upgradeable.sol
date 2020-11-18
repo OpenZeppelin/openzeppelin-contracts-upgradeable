@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../../GSN/ContextUpgradeable.sol";
 import "./IERC20Upgradeable.sol";
@@ -53,14 +53,14 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    function __ERC20_init(string memory name, string memory symbol) internal initializer {
+    function __ERC20_init(string memory name_, string memory symbol_) internal initializer {
         __Context_init_unchained();
-        __ERC20_init_unchained(name, symbol);
+        __ERC20_init_unchained(name_, symbol_);
     }
 
-    function __ERC20_init_unchained(string memory name, string memory symbol) internal initializer {
-        _name = name;
-        _symbol = symbol;
+    function __ERC20_init_unchained(string memory name_, string memory symbol_) internal initializer {
+        _name = name_;
+        _symbol = symbol_;
         _decimals = 18;
     }
 

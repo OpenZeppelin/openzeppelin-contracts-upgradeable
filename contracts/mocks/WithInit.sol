@@ -1,13 +1,6 @@
 pragma solidity >=0.6 <0.8;
 pragma experimental ABIEncoderV2;
 
-import "../access/OwnableUpgradeable.sol";
-
-contract OwnableUpgradeableWithInit is OwnableUpgradeable {
-    constructor() public payable {
-        __Ownable_init();
-    }
-}
 import "../access/TimelockControllerUpgradeable.sol";
 
 contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable {
@@ -32,8 +25,8 @@ contract __unstable__ERC20OwnedUpgradeableWithInit is __unstable__ERC20OwnedUpgr
 import "../token/ERC20/ERC20Upgradeable.sol";
 
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
-    constructor(string memory name, string memory symbol) public payable {
-        __ERC20_init(name, symbol);
+    constructor(string memory name_, string memory symbol_) public payable {
+        __ERC20_init(name_, symbol_);
     }
 }
 import "../GSN/GSNRecipientSignatureUpgradeable.sol";
@@ -41,13 +34,6 @@ import "../GSN/GSNRecipientSignatureUpgradeable.sol";
 contract GSNRecipientSignatureUpgradeableWithInit is GSNRecipientSignatureUpgradeable {
     constructor(address trustedSigner) public payable {
         __GSNRecipientSignature_init(trustedSigner);
-    }
-}
-import "../introspection/ERC165Upgradeable.sol";
-
-contract ERC165UpgradeableWithInit is ERC165Upgradeable {
-    constructor() public payable {
-        __ERC165_init();
     }
 }
 import "../introspection/ERC1820ImplementerUpgradeable.sol";
@@ -193,8 +179,8 @@ contract ERC1155BurnableMockUpgradeableWithInit is ERC1155BurnableMockUpgradeabl
 import "../token/ERC1155/ERC1155Upgradeable.sol";
 
 contract ERC1155UpgradeableWithInit is ERC1155Upgradeable {
-    constructor(string memory uri) public payable {
-        __ERC1155_init(uri);
+    constructor(string memory uri_) public payable {
+        __ERC1155_init(uri_);
     }
 }
 import "./ERC1155MockUpgradeable.sol";
@@ -209,13 +195,6 @@ import "./ERC1155PausableMockUpgradeable.sol";
 contract ERC1155PausableMockUpgradeableWithInit is ERC1155PausableMockUpgradeable {
     constructor(string memory uri) public payable {
         __ERC1155PausableMock_init(uri);
-    }
-}
-import "../utils/PausableUpgradeable.sol";
-
-contract PausableUpgradeableWithInit is PausableUpgradeable {
-    constructor() public payable {
-        __Pausable_init();
     }
 }
 import "./ERC1155ReceiverMockUpgradeable.sol";
@@ -344,8 +323,8 @@ contract ERC721BurnableMockUpgradeableWithInit is ERC721BurnableMockUpgradeable 
 import "../token/ERC721/ERC721Upgradeable.sol";
 
 contract ERC721UpgradeableWithInit is ERC721Upgradeable {
-    constructor(string memory name, string memory symbol) public payable {
-        __ERC721_init(name, symbol);
+    constructor(string memory name_, string memory symbol_) public payable {
+        __ERC721_init(name_, symbol_);
     }
 }
 import "./ERC721GSNRecipientMockUpgradeable.sol";
@@ -393,11 +372,11 @@ import "../token/ERC777/ERC777Upgradeable.sol";
 
 contract ERC777UpgradeableWithInit is ERC777Upgradeable {
     constructor(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators
+        string memory name_,
+        string memory symbol_,
+        address[] memory defaultOperators_
     ) public payable {
-        __ERC777_init(name, symbol, defaultOperators);
+        __ERC777_init(name_, symbol_, defaultOperators_);
     }
 }
 import "./ERC777SenderRecipientMockUpgradeable.sol";
@@ -470,13 +449,6 @@ contract PullPaymentMockUpgradeableWithInit is PullPaymentMockUpgradeable {
         __PullPaymentMock_init();
     }
 }
-import "../payment/PullPaymentUpgradeable.sol";
-
-contract PullPaymentUpgradeableWithInit is PullPaymentUpgradeable {
-    constructor() public payable {
-        __PullPayment_init();
-    }
-}
 import "./ReentrancyAttackUpgradeable.sol";
 
 contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
@@ -489,13 +461,6 @@ import "./ReentrancyMockUpgradeable.sol";
 contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
     constructor() public payable {
         __ReentrancyMock_init();
-    }
-}
-import "../utils/ReentrancyGuardUpgradeable.sol";
-
-contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
-    constructor() public payable {
-        __ReentrancyGuard_init();
     }
 }
 import "./SafeCastMockUpgradeable.sol";
@@ -557,15 +522,15 @@ contract StringsMockUpgradeableWithInit is StringsMockUpgradeable {
 import "../payment/escrow/RefundEscrowUpgradeable.sol";
 
 contract RefundEscrowUpgradeableWithInit is RefundEscrowUpgradeable {
-    constructor(address payable beneficiary) public payable {
-        __RefundEscrow_init(beneficiary);
+    constructor(address payable beneficiary_) public payable {
+        __RefundEscrow_init(beneficiary_);
     }
 }
 import "../payment/PaymentSplitterUpgradeable.sol";
 
 contract PaymentSplitterUpgradeableWithInit is PaymentSplitterUpgradeable {
-    constructor(address[] memory payees, uint256[] memory shares) public payable {
-        __PaymentSplitter_init(payees, shares);
+    constructor(address[] memory payees, uint256[] memory shares_) public payable {
+        __PaymentSplitter_init(payees, shares_);
     }
 }
 import "../presets/ERC1155PresetMinterPauserUpgradeable.sol";
@@ -599,8 +564,8 @@ contract ERC1155HolderUpgradeableWithInit is ERC1155HolderUpgradeable {
 import "../token/ERC20/TokenTimelockUpgradeable.sol";
 
 contract TokenTimelockUpgradeableWithInit is TokenTimelockUpgradeable {
-    constructor(IERC20Upgradeable token, address beneficiary, uint256 releaseTime) public payable {
-        __TokenTimelock_init(token, beneficiary, releaseTime);
+    constructor(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) public payable {
+        __TokenTimelock_init(token_, beneficiary_, releaseTime_);
     }
 }
 import "../token/ERC721/ERC721HolderUpgradeable.sol";

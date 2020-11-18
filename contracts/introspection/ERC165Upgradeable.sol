@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./IERC165Upgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -11,7 +11,7 @@ import "../proxy/Initializable.sol";
  * Contracts may inherit from this and call {_registerInterface} to declare
  * their support of an interface.
  */
-contract ERC165Upgradeable is Initializable, IERC165Upgradeable {
+abstract contract ERC165Upgradeable is Initializable, IERC165Upgradeable {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */

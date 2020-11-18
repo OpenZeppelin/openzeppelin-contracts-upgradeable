@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../GSN/ContextUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -14,7 +14,7 @@ import "../proxy/Initializable.sol";
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
  */
-contract PausableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     /**
      * @dev Emitted when the pause is triggered by `account`.
      */

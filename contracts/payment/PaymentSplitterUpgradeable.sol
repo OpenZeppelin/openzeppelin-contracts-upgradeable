@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../GSN/ContextUpgradeable.sol";
 import "../math/SafeMathUpgradeable.sol";
@@ -40,18 +40,18 @@ contract PaymentSplitterUpgradeable is Initializable, ContextUpgradeable {
      * All addresses in `payees` must be non-zero. Both arrays must have the same non-zero length, and there must be no
      * duplicates in `payees`.
      */
-    function __PaymentSplitter_init(address[] memory payees, uint256[] memory shares) internal initializer {
+    function __PaymentSplitter_init(address[] memory payees, uint256[] memory shares_) internal initializer {
         __Context_init_unchained();
-        __PaymentSplitter_init_unchained(payees, shares);
+        __PaymentSplitter_init_unchained(payees, shares_);
     }
 
-    function __PaymentSplitter_init_unchained(address[] memory payees, uint256[] memory shares) internal initializer {
+    function __PaymentSplitter_init_unchained(address[] memory payees, uint256[] memory shares_) internal initializer {
         // solhint-disable-next-line max-line-length
-        require(payees.length == shares.length, "PaymentSplitter: payees and shares length mismatch");
+        require(payees.length == shares_.length, "PaymentSplitter: payees and shares length mismatch");
         require(payees.length > 0, "PaymentSplitter: no payees");
 
         for (uint256 i = 0; i < payees.length; i++) {
-            _addPayee(payees[i], shares[i]);
+            _addPayee(payees[i], shares_[i]);
         }
     }
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./SafeERC20Upgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -24,16 +24,16 @@ contract TokenTimelockUpgradeable is Initializable {
     // timestamp when token release is enabled
     uint256 private _releaseTime;
 
-    function __TokenTimelock_init(IERC20Upgradeable token, address beneficiary, uint256 releaseTime) internal initializer {
-        __TokenTimelock_init_unchained(token, beneficiary, releaseTime);
+    function __TokenTimelock_init(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal initializer {
+        __TokenTimelock_init_unchained(token_, beneficiary_, releaseTime_);
     }
 
-    function __TokenTimelock_init_unchained(IERC20Upgradeable token, address beneficiary, uint256 releaseTime) internal initializer {
+    function __TokenTimelock_init_unchained(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal initializer {
         // solhint-disable-next-line not-rely-on-time
-        require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
-        _token = token;
-        _beneficiary = beneficiary;
-        _releaseTime = releaseTime;
+        require(releaseTime_ > block.timestamp, "TokenTimelock: release time is before current time");
+        _token = token_;
+        _beneficiary = beneficiary_;
+        _releaseTime = releaseTime_;
     }
 
     /**

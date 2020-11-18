@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.2;
+pragma solidity >=0.6.2 <0.8.0;
 
 import "./escrow/EscrowUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -23,7 +23,7 @@ import "../proxy/Initializable.sol";
  * instead of Solidity's `transfer` function. Payees can query their due
  * payments with {payments}, and retrieve them with {withdrawPayments}.
  */
-contract PullPaymentUpgradeable is Initializable {
+abstract contract PullPaymentUpgradeable is Initializable {
     EscrowUpgradeable private _escrow;
 
     function __PullPayment_init() internal initializer {

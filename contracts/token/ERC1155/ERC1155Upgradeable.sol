@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./IERC1155Upgradeable.sol";
 import "./IERC1155MetadataURIUpgradeable.sol";
@@ -53,14 +53,14 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     /**
      * @dev See {_setURI}.
      */
-    function __ERC1155_init(string memory uri) internal initializer {
+    function __ERC1155_init(string memory uri_) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __ERC1155_init_unchained(uri);
+        __ERC1155_init_unchained(uri_);
     }
 
-    function __ERC1155_init_unchained(string memory uri) internal initializer {
-        _setURI(uri);
+    function __ERC1155_init_unchained(string memory uri_) internal initializer {
+        _setURI(uri_);
 
         // register the supported interfaces to conform to ERC1155 via ERC165
         _registerInterface(_INTERFACE_ID_ERC1155);

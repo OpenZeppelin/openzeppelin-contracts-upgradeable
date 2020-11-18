@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./ERC20Upgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -9,20 +9,22 @@ import "../../proxy/Initializable.sol";
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
  */
 abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
+    using SafeMathUpgradeable for uint256;
+
     uint256 private _cap;
 
     /**
      * @dev Sets the value of the `cap`. This value is immutable, it can only be
      * set once during construction.
      */
-    function __ERC20Capped_init(uint256 cap) internal initializer {
+    function __ERC20Capped_init(uint256 cap_) internal initializer {
         __Context_init_unchained();
-        __ERC20Capped_init_unchained(cap);
+        __ERC20Capped_init_unchained(cap_);
     }
 
-    function __ERC20Capped_init_unchained(uint256 cap) internal initializer {
-        require(cap > 0, "ERC20Capped: cap is 0");
-        _cap = cap;
+    function __ERC20Capped_init_unchained(uint256 cap_) internal initializer {
+        require(cap_ > 0, "ERC20Capped: cap is 0");
+        _cap = cap_;
     }
 
     /**

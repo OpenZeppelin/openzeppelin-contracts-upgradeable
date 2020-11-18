@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./GSNRecipientUpgradeable.sol";
 import "../math/SafeMathUpgradeable.sol";
@@ -94,6 +94,8 @@ contract GSNRecipientERC20FeeUpgradeable is Initializable, GSNRecipientUpgradeab
 
         // The maximum token charge is pre-charged from the user
         _token.safeTransferFrom(from, address(this), maxPossibleCharge);
+
+        return 0;
     }
 
     /**

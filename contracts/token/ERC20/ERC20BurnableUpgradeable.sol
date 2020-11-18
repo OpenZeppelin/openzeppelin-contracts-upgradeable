@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../../GSN/ContextUpgradeable.sol";
 import "./ERC20Upgradeable.sol";
@@ -19,6 +19,8 @@ abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable,
 
     function __ERC20Burnable_init_unchained() internal initializer {
     }
+    using SafeMathUpgradeable for uint256;
+
     /**
      * @dev Destroys `amount` tokens from the caller.
      *

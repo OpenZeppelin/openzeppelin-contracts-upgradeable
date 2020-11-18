@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../../GSN/ContextUpgradeable.sol";
 import "./IERC721Upgradeable.sol";
@@ -91,15 +91,15 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
-    function __ERC721_init(string memory name, string memory symbol) internal initializer {
+    function __ERC721_init(string memory name_, string memory symbol_) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __ERC721_init_unchained(name, symbol);
+        __ERC721_init_unchained(name_, symbol_);
     }
 
-    function __ERC721_init_unchained(string memory name, string memory symbol) internal initializer {
-        _name = name;
-        _symbol = symbol;
+    function __ERC721_init_unchained(string memory name_, string memory symbol_) internal initializer {
+        _name = name_;
+        _symbol = symbol_;
 
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);

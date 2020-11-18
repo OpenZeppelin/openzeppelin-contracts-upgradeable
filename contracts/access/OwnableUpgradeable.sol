@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity >=0.6.0 <0.8.0;
 
 import "../GSN/ContextUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -16,7 +16,7 @@ import "../proxy/Initializable.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-contract OwnableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     address private _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
