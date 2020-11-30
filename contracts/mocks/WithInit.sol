@@ -64,6 +64,20 @@ contract ArraysImplUpgradeableWithInit is ArraysImplUpgradeable {
         __ArraysImpl_init(array);
     }
 }
+import "./BadBeaconUpgradeable.sol";
+
+contract BadBeaconNoImplUpgradeableWithInit is BadBeaconNoImplUpgradeable {
+    constructor() public payable {
+        __BadBeaconNoImpl_init();
+    }
+}
+import "./BadBeaconUpgradeable.sol";
+
+contract BadBeaconNotContractUpgradeableWithInit is BadBeaconNotContractUpgradeable {
+    constructor() public payable {
+        __BadBeaconNotContract_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {

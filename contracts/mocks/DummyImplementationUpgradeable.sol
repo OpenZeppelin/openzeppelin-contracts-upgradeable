@@ -33,11 +33,11 @@ contract DummyImplementationUpgradeable is Initializable {
     value = 100;
   }
 
-  function initializeNonPayable(uint256 _value) public {
+  function initializeNonPayableWithValue(uint256 _value) public {
     value = _value;
   }
 
-  function initializePayable(uint256 _value) public payable {
+  function initializePayableWithValue(uint256 _value) public payable {
     value = _value;
   }
 
@@ -56,7 +56,7 @@ contract DummyImplementationUpgradeable is Initializable {
   }
 
   function reverts() public pure {
-    require(false);
+    require(false, "DummyImplementation reverted");
   }
     uint256[47] private __gap;
 }

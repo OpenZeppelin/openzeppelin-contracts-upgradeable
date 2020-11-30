@@ -93,7 +93,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         _;
     }
 
-    /*
+    /**
      * @dev Contract might receive/hold ETH as part of the maintenance process.
      */
     receive() external payable {}
