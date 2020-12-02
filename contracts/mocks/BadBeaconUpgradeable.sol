@@ -20,7 +20,7 @@ contract BadBeaconNotContractUpgradeable is Initializable {
 
     function __BadBeaconNotContract_init_unchained() internal initializer {
     }
-    function implementation() external view returns (address) {
+    function implementation() external pure returns (address) {
         return address(0x1);
     }
     uint256[50] private __gap;
