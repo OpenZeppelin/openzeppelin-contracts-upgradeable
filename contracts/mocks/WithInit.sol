@@ -155,6 +155,13 @@ contract ECDSAMockUpgradeableWithInit is ECDSAMockUpgradeable {
         __ECDSAMock_init();
     }
 }
+import "./EIP712ExternalUpgradeable.sol";
+
+contract EIP712ExternalUpgradeableWithInit is EIP712ExternalUpgradeable {
+    constructor(string memory name, string memory version) public payable {
+        __EIP712External_init(name, version);
+    }
+}
 import "./EnumerableMapMockUpgradeable.sol";
 
 contract EnumerableMapMockUpgradeableWithInit is EnumerableMapMockUpgradeable {
@@ -554,6 +561,18 @@ contract ERC1155PresetMinterPauserUpgradeableWithInit is ERC1155PresetMinterPaus
         __ERC1155PresetMinterPauser_init(uri);
     }
 }
+import "../presets/ERC20PresetFixedSupplyUpgradeable.sol";
+
+contract ERC20PresetFixedSupplyUpgradeableWithInit is ERC20PresetFixedSupplyUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        uint256 initialSupply,
+        address owner
+    ) public payable {
+        __ERC20PresetFixedSupply_init(name, symbol, initialSupply, owner);
+    }
+}
 import "../presets/ERC20PresetMinterPauserUpgradeable.sol";
 
 contract ERC20PresetMinterPauserUpgradeableWithInit is ERC20PresetMinterPauserUpgradeable {
@@ -566,6 +585,19 @@ import "../presets/ERC721PresetMinterPauserAutoIdUpgradeable.sol";
 contract ERC721PresetMinterPauserAutoIdUpgradeableWithInit is ERC721PresetMinterPauserAutoIdUpgradeable {
     constructor(string memory name, string memory symbol, string memory baseURI) public payable {
         __ERC721PresetMinterPauserAutoId_init(name, symbol, baseURI);
+    }
+}
+import "../presets/ERC777PresetFixedSupplyUpgradeable.sol";
+
+contract ERC777PresetFixedSupplyUpgradeableWithInit is ERC777PresetFixedSupplyUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators,
+        uint256 initialSupply,
+        address owner
+    ) public payable {
+        __ERC777PresetFixedSupply_init(name, symbol, defaultOperators, initialSupply, owner);
     }
 }
 import "../token/ERC1155/ERC1155HolderUpgradeable.sol";
