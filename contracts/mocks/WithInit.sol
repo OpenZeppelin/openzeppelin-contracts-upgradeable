@@ -8,6 +8,13 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
         __TimelockController_init(minDelay, proposers, executors);
     }
 }
+import "../token/ERC20/ERC20Upgradeable.sol";
+
+contract ERC20UpgradeableWithInit is ERC20Upgradeable {
+    constructor(string memory name_, string memory symbol_) public payable {
+        __ERC20_init(name_, symbol_);
+    }
+}
 import "../GSN/GSNRecipientERC20FeeUpgradeable.sol";
 
 contract GSNRecipientERC20FeeUpgradeableWithInit is GSNRecipientERC20FeeUpgradeable {
@@ -20,13 +27,6 @@ import "../GSN/GSNRecipientERC20FeeUpgradeable.sol";
 contract __unstable__ERC20OwnedUpgradeableWithInit is __unstable__ERC20OwnedUpgradeable {
     constructor(string memory name, string memory symbol) public payable {
         ____unstable__ERC20Owned_init(name, symbol);
-    }
-}
-import "../token/ERC20/ERC20Upgradeable.sol";
-
-contract ERC20UpgradeableWithInit is ERC20Upgradeable {
-    constructor(string memory name_, string memory symbol_) public payable {
-        __ERC20_init(name_, symbol_);
     }
 }
 import "../GSN/GSNRecipientSignatureUpgradeable.sol";
@@ -320,6 +320,18 @@ contract ERC20PausableMockUpgradeableWithInit is ERC20PausableMockUpgradeable {
         uint256 initialBalance
     ) public payable {
         __ERC20PausableMock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
+import "./ERC20PermitMockUpgradeable.sol";
+
+contract ERC20PermitMockUpgradeableWithInit is ERC20PermitMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20PermitMock_init(name, symbol, initialAccount, initialBalance);
     }
 }
 import "./ERC20SnapshotMockUpgradeable.sol";
