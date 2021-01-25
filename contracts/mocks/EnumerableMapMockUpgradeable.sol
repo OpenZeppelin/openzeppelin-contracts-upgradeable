@@ -41,8 +41,16 @@ contract EnumerableMapMockUpgradeable is Initializable {
     }
 
 
+    function tryGet(uint256 key) public view returns (bool, address) {
+        return _map.tryGet(key);
+    }
+
     function get(uint256 key) public view returns (address) {
         return _map.get(key);
+    }
+
+    function getWithMessage(uint256 key, string calldata errorMessage) public view returns (address) {
+        return _map.get(key, errorMessage);
     }
     uint256[48] private __gap;
 }

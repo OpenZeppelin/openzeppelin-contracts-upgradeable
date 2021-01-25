@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../../GSN/ContextUpgradeable.sol";
+import "../../utils/ContextUpgradeable.sol";
 import "./IERC20Upgradeable.sol";
 import "../../math/SafeMathUpgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -290,7 +290,7 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
      * applications that interact with token contracts will not expect
      * {decimals} to ever change, and may work incorrectly if it does.
      */
-    function _setupDecimals(uint8 decimals_) internal {
+    function _setupDecimals(uint8 decimals_) internal virtual {
         _decimals = decimals_;
     }
 

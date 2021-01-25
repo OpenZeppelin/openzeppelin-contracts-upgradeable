@@ -25,5 +25,9 @@ contract ERC165CheckerMockUpgradeable is Initializable {
     function supportsAllInterfaces(address account, bytes4[] memory interfaceIds) public view returns (bool) {
         return account.supportsAllInterfaces(interfaceIds);
     }
+
+    function getSupportedInterfaces(address account, bytes4[] memory interfaceIds) public view returns (bool[] memory) {
+        return account.getSupportedInterfaces(interfaceIds);
+    }
     uint256[50] private __gap;
 }

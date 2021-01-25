@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../../GSN/ContextUpgradeable.sol";
+import "../../utils/ContextUpgradeable.sol";
 import "./IERC721Upgradeable.sol";
 import "./IERC721MetadataUpgradeable.sol";
 import "./IERC721EnumerableUpgradeable.sol";

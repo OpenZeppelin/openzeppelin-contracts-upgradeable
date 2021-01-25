@@ -3,7 +3,7 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 import "../access/AccessControlUpgradeable.sol";
-import "../GSN/ContextUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
 import "../token/ERC1155/ERC1155Upgradeable.sol";
 import "../token/ERC1155/ERC1155BurnableUpgradeable.sol";
 import "../token/ERC1155/ERC1155PausableUpgradeable.sol";

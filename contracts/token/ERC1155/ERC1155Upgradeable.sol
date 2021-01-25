@@ -5,7 +5,7 @@ pragma solidity >=0.6.0 <0.8.0;
 import "./IERC1155Upgradeable.sol";
 import "./IERC1155MetadataURIUpgradeable.sol";
 import "./IERC1155ReceiverUpgradeable.sol";
-import "../../GSN/ContextUpgradeable.sol";
+import "../../utils/ContextUpgradeable.sol";
 import "../../introspection/ERC165Upgradeable.sol";
 import "../../math/SafeMathUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
@@ -362,7 +362,8 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
         uint256[] memory amounts,
         bytes memory data
     )
-        internal virtual
+        internal
+        virtual
     { }
 
     function _doSafeTransferAcceptanceCheck(

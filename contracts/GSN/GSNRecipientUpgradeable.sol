@@ -2,9 +2,9 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
+import "../utils/ContextUpgradeable.sol";
 import "./IRelayRecipientUpgradeable.sol";
 import "./IRelayHubUpgradeable.sol";
-import "./ContextUpgradeable.sol";
 import "../proxy/Initializable.sol";
 
 /**

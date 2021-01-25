@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../GSN/ContextUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
 import "../token/ERC20/IERC20Upgradeable.sol";
 import "../token/ERC20/SafeERC20Upgradeable.sol";
 import "../proxy/Initializable.sol";

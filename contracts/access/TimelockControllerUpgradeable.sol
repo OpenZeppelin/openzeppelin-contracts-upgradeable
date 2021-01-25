@@ -19,6 +19,8 @@ import "../proxy/Initializable.sol";
  * is in charge of proposing (resp executing) operations. A common use case is
  * to position this {TimelockController} as the owner of a smart contract, with
  * a multisig or a DAO as the sole proposer.
+ *
+ * _Available since v3.3._
  */
 contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable {
 

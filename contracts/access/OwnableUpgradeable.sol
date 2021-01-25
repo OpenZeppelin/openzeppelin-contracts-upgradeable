@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../GSN/ContextUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
 import "../proxy/Initializable.sol";
 /**
  * @dev Contract module which provides a basic access control mechanism, where

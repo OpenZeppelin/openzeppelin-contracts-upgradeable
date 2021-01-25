@@ -4,7 +4,7 @@ pragma solidity >=0.6.0 <0.8.0;
 
 import "../utils/EnumerableSetUpgradeable.sol";
 import "../utils/AddressUpgradeable.sol";
-import "../GSN/ContextUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
 import "../proxy/Initializable.sol";
 
 /**

@@ -2,8 +2,9 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../GSN/ContextUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
 import "../math/SafeMathUpgradeable.sol";
+import "../utils/AddressUpgradeable.sol";
 import "../proxy/Initializable.sol";
 
 /**
@@ -118,7 +119,7 @@ contract PaymentSplitterUpgradeable is Initializable, ContextUpgradeable {
         _released[account] = _released[account].add(payment);
         _totalReleased = _totalReleased.add(payment);
 
-        account.transfer(payment);
+        AddressUpgradeable.sendValue(account, payment);
         emit PaymentReleased(account, payment);
     }
 

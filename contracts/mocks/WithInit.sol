@@ -92,6 +92,13 @@ contract ClashingImplementationUpgradeableWithInit is ClashingImplementationUpgr
         __ClashingImplementation_init();
     }
 }
+import "./ClonesMockUpgradeable.sol";
+
+contract ClonesMockUpgradeableWithInit is ClonesMockUpgradeable {
+    constructor() public payable {
+        __ClonesMock_init();
+    }
+}
 import "./ConditionalEscrowMockUpgradeable.sol";
 
 contract ConditionalEscrowMockUpgradeableWithInit is ConditionalEscrowMockUpgradeable {
