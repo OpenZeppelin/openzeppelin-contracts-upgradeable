@@ -50,6 +50,6 @@ abstract contract Initializable {
 
     /// @dev Returns true if and only if the function is running in the constructor
     function _isConstructor() private view returns (bool) {
-        return !Address.isContract(address(this));
+        return !AddressUpgradeable.isContract(address(this));
     }
 }
