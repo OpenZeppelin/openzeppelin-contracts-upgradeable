@@ -13,3 +13,7 @@ npx @openzeppelin/upgrade-safe-transpiler -D \
   -x 'contracts/proxy/**/*' \
   -x '!contracts/proxy/Clones.sol' \
   -p 'contracts/presets/**/*'
+
+for p in scripts/upgradeable/patch/*.patch; do
+  git apply "$p"
+done
