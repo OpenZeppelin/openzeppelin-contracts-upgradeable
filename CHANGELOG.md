@@ -31,6 +31,14 @@
  * `SafeMath`: fix a memory allocation issue by adding new `SafeMath.tryOp(uint,uint)→(bool,uint)` functions. `SafeMath.op(uint,uint,string)→uint` are now deprecated. ([#2462](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2462))
  * `EnumerableMap`: fix a memory allocation issue by adding new `EnumerableMap.tryGet(uint)→(bool,address)` functions. `EnumerableMap.get(uint)→string` is now deprecated. ([#2462](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2462))
  * `ERC165Checker`: added batch `getSupportedInterfaces`. ([#2469](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2469))
+ * `RefundEscrow`: `beneficiaryWithdraw` will forward all available gas to the beneficiary. ([#2480](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2480))
+ * Many view and pure functions have been made virtual to customize them via overrides. In many cases this will not imply that other functions in the contract will automatically adapt to the overridden definitions. People who wish to override should consult the source code to understand the impact and if they need to override any additional functions to achieve the desired behavior.
+
+### Security Fixes
+
+ * `ERC777`: fix potential reentrancy issues for custom extensions to `ERC777`. ([#2483](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2483))
+
+If you're using our implementation of ERC777 from version 3.3.0 or earlier, and you define a custom `_beforeTokenTransfer` function that writes to a storage variable, you may be vulnerable to a reentrancy attack. If you're affected and would like assistance please write to security@openzeppelin.com. [Read more in the pull request.](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2483)
 
 ## 3.3.0 (2020-11-26)
 
