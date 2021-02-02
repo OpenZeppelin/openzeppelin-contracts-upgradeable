@@ -9,6 +9,8 @@ import "../proxy/Initializable.sol";
  *
  *  - Preminted initial supply
  *  - No access control mechanism (for minting/pausing) and hence no governance
+ *
+ * _Available since v3.4._
  */
 contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable {
     function initialize(
