@@ -32,23 +32,25 @@ contract SafeMathMockUpgradeable is Initializable {
         return SafeMathUpgradeable.tryMod(a, b);
     }
 
-    function add(uint256 a, uint256 b) public pure returns (uint256) {
+    // using the do* naming convention to avoid warnings due to clashing opcode names
+
+    function doAdd(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeable.add(a, b);
     }
 
-    function sub(uint256 a, uint256 b) public pure returns (uint256) {
+    function doSub(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeable.sub(a, b);
     }
 
-    function mul(uint256 a, uint256 b) public pure returns (uint256) {
+    function doMul(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeable.mul(a, b);
     }
 
-    function div(uint256 a, uint256 b) public pure returns (uint256) {
+    function doDiv(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeable.div(a, b);
     }
 
-    function mod(uint256 a, uint256 b) public pure returns (uint256) {
+    function doMod(uint256 a, uint256 b) public pure returns (uint256) {
         return SafeMathUpgradeable.mod(a, b);
     }
 

@@ -13,6 +13,8 @@ import "../proxy/Initializable.sol";
  *
  * This contract uses {ERC20Burnable} to include burn capabilities - head to
  * its documentation for details.
+ *
+ * _Available since v3.4._
  */
 contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgradeable {
     function initialize(
