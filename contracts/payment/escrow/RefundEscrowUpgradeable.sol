@@ -45,14 +45,14 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
     /**
      * @return The current state of the escrow.
      */
-    function state() public view returns (State) {
+    function state() public view virtual returns (State) {
         return _state;
     }
 
     /**
      * @return The beneficiary of the escrow.
      */
-    function beneficiary() public view returns (address) {
+    function beneficiary() public view virtual returns (address payable) {
         return _beneficiary;
     }
 
@@ -61,7 +61,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * @param refundee The address funds will be sent to if a refund occurs.
      */
     function deposit(address refundee) public payable virtual override {
-        require(_state == State.Active, "RefundEscrow: can only deposit while active");
+        require(state() == State.Active, "RefundEscrow: can only deposit while active");
         super.deposit(refundee);
     }
 
@@ -69,8 +69,8 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * @dev Allows for the beneficiary to withdraw their funds, rejecting
      * further deposits.
      */
-    function close() public onlyOwner virtual {
-        require(_state == State.Active, "RefundEscrow: can only close while active");
+    function close() public virtual onlyOwner {
+        require(state() == State.Active, "RefundEscrow: can only close while active");
         _state = State.Closed;
         emit RefundsClosed();
     }
@@ -79,7 +79,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * @dev Allows for refunds to take place, rejecting further deposits.
      */
     function enableRefunds() public onlyOwner virtual {
-        require(_state == State.Active, "RefundEscrow: can only enable refunds while active");
+        require(state() == State.Active, "RefundEscrow: can only enable refunds while active");
         _state = State.Refunding;
         emit RefundsEnabled();
     }
@@ -88,8 +88,8 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * @dev Withdraws the beneficiary's funds.
      */
     function beneficiaryWithdraw() public virtual {
-        require(_state == State.Closed, "RefundEscrow: beneficiary can only withdraw while closed");
-        _beneficiary.transfer(address(this).balance);
+        require(state() == State.Closed, "RefundEscrow: beneficiary can only withdraw while closed");
+        beneficiary().sendValue(address(this).balance);
     }
 
     /**
@@ -97,7 +97,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * 'payee' argument, but we ignore it here since the condition is global, not per-payee.
      */
     function withdrawalAllowed(address) public view override returns (bool) {
-        return _state == State.Refunding;
+        return state() == State.Refunding;
     }
     uint256[49] private __gap;
 }

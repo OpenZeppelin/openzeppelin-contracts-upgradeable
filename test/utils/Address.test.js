@@ -335,7 +335,7 @@ contract('Address', function (accounts) {
     });
   });
 
-  describe('functionDelegateCall', function () {
+  describe.skip('functionDelegateCall', function () {
     beforeEach(async function () {
       this.contractRecipient = await CallReceiverMock.new();
     });

@@ -44,6 +44,9 @@ contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeab
         uint256 toBalance
     );
 
+    // Emitted in ERC777Mock. Here for easier decoding
+    event BeforeTokenTransfer();
+
     bool private _shouldRevertSend;
     bool private _shouldRevertReceive;
 

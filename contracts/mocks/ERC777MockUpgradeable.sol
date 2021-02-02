@@ -7,6 +7,8 @@ import "../token/ERC777/ERC777Upgradeable.sol";
 import "../proxy/Initializable.sol";
 
 contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgradeable {
+    event BeforeTokenTransfer();
+
     function __ERC777Mock_init(
         address initialHolder,
         uint256 initialBalance,
@@ -40,6 +42,10 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
 
     function approveInternal(address holder, address spender, uint256 value) public {
         _approve(holder, spender, value);
+    }
+
+    function _beforeTokenTransfer(address, address, address, uint256) internal override {
+        emit BeforeTokenTransfer();
     }
     uint256[50] private __gap;
 }

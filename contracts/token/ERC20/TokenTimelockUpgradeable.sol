@@ -39,21 +39,21 @@ contract TokenTimelockUpgradeable is Initializable {
     /**
      * @return the token being held.
      */
-    function token() public view returns (IERC20Upgradeable) {
+    function token() public view virtual returns (IERC20Upgradeable) {
         return _token;
     }
 
     /**
      * @return the beneficiary of the tokens.
      */
-    function beneficiary() public view returns (address) {
+    function beneficiary() public view virtual returns (address) {
         return _beneficiary;
     }
 
     /**
      * @return the time when the tokens are released.
      */
-    function releaseTime() public view returns (uint256) {
+    function releaseTime() public view virtual returns (uint256) {
         return _releaseTime;
     }
 
@@ -62,12 +62,12 @@ contract TokenTimelockUpgradeable is Initializable {
      */
     function release() public virtual {
         // solhint-disable-next-line not-rely-on-time
-        require(block.timestamp >= _releaseTime, "TokenTimelock: current time is before release time");
+        require(block.timestamp >= releaseTime(), "TokenTimelock: current time is before release time");
 
-        uint256 amount = _token.balanceOf(address(this));
+        uint256 amount = token().balanceOf(address(this));
         require(amount > 0, "TokenTimelock: no tokens to release");
 
-        _token.safeTransfer(_beneficiary, amount);
+        token().safeTransfer(beneficiary(), amount);
     }
     uint256[47] private __gap;
 }
