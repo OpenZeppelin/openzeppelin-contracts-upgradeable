@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../token/ERC20/ERC20Upgradeable.sol";
 import "../proxy/Initializable.sol";
 
 contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
-    function __ERC20DecimalsMock_init(string memory name, string memory symbol, uint8 decimals) internal initializer {
+    uint8 private _decimals;
+
+    function __ERC20DecimalsMock_init(string memory name_, string memory symbol_, uint8 decimals_) internal initializer {
         __Context_init_unchained();
-        __ERC20_init_unchained(name, symbol);
-        __ERC20DecimalsMock_init_unchained(name, symbol, decimals);
+        __ERC20_init_unchained(name_, symbol_);
+        __ERC20DecimalsMock_init_unchained(name_, symbol_, decimals_);
     }
 
-    function __ERC20DecimalsMock_init_unchained(string memory name, string memory symbol, uint8 decimals) internal initializer {
-        _setupDecimals(decimals);
+    function __ERC20DecimalsMock_init_unchained(string memory name_, string memory symbol_, uint8 decimals_) internal initializer {
+        _decimals = decimals_;
+    }
+
+    function decimals() public view virtual override returns (uint8) {
+        return _decimals;
     }
     uint256[50] private __gap;
 }

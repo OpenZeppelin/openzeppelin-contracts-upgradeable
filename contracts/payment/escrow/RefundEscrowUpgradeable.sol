@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./ConditionalEscrowUpgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -16,6 +16,8 @@ import "../../proxy/Initializable.sol";
  * with `RefundEscrow` will be made through the owner contract.
  */
 contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable {
+    using AddressUpgradeable for address payable;
+
     enum State { Active, Refunding, Closed }
 
     event RefundsClosed();

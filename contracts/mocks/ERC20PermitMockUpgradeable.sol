@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../drafts/ERC20PermitUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -28,12 +28,8 @@ contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
         _mint(initialAccount, initialBalance);
     }
 
-    function getChainId() external view returns (uint256 chainId) {
-        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
-        // solhint-disable-next-line no-inline-assembly
-        assembly {
-            chainId := chainid()
-        }
+    function getChainId() external view returns (uint256) {
+        return block.chainid;
     }
     uint256[50] private __gap;
 }

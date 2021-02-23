@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.9 <0.8.0;
-pragma experimental ABIEncoderV2;
+pragma solidity ^0.8.0;
 
-import "./../math/SafeMathUpgradeable.sol";
 import "./AccessControlUpgradeable.sol";
 import "../proxy/Initializable.sol";
 
@@ -23,7 +21,6 @@ import "../proxy/Initializable.sol";
  * _Available since v3.3._
  */
 contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable {
-
     bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
@@ -206,7 +203,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         require(!isOperation(id), "TimelockController: operation already scheduled");
         require(delay >= getMinDelay(), "TimelockController: insufficient delay");
         // solhint-disable-next-line not-rely-on-time
-        _timestamps[id] = SafeMathUpgradeable.add(block.timestamp, delay);
+        _timestamps[id] = block.timestamp + delay;
     }
 
     /**

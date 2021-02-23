@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
+import "../introspection/ERC165Upgradeable.sol";
 import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import "./ERC165MockUpgradeable.sol";
 import "../proxy/Initializable.sol";
 
-contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgradeable, ERC165MockUpgradeable {
+contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgradeable, ERC165Upgradeable {
     bytes4 private _recRetval;
     bool private _recReverts;
     bytes4 private _batRetval;
@@ -22,7 +22,6 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgrad
         bool batReverts
     ) internal initializer {
         __ERC165_init_unchained();
-        __ERC165Mock_init_unchained();
         __ERC1155ReceiverMock_init_unchained(recRetval, recReverts, batRetval, batReverts);
     }
 

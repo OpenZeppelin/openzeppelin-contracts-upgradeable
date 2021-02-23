@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity ^0.8.0;
 
 import "../token/ERC777/ERC777Upgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -23,7 +23,7 @@ contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable 
         __ERC777PresetFixedSupply_init(name, symbol, defaultOperators, initialSupply, owner);
     }
     /**
-     * @dev Mints `initialSupply` amount of token and transfers them to `owner`.  
+     * @dev Mints `initialSupply` amount of token and transfers them to `owner`.
      *
      * See {ERC777-constructor}.
      */

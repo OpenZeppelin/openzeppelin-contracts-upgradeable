@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.2 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./escrow/EscrowUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -72,5 +72,5 @@ abstract contract PullPaymentUpgradeable is Initializable {
     function _asyncTransfer(address dest, uint256 amount) internal virtual {
         _escrow.deposit{ value: amount }(dest);
     }
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }

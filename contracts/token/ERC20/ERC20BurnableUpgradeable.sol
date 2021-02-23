@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../../utils/ContextUpgradeable.sol";
 import "./ERC20Upgradeable.sol";
@@ -19,8 +19,6 @@ abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable,
 
     function __ERC20Burnable_init_unchained() internal initializer {
     }
-    using SafeMathUpgradeable for uint256;
-
     /**
      * @dev Destroys `amount` tokens from the caller.
      *
@@ -42,9 +40,9 @@ abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable,
      * `amount`.
      */
     function burnFrom(address account, uint256 amount) public virtual {
-        uint256 decreasedAllowance = allowance(account, _msgSender()).sub(amount, "ERC20: burn amount exceeds allowance");
-
-        _approve(account, _msgSender(), decreasedAllowance);
+        uint256 currentAllowance = allowance(account, _msgSender());
+        require(currentAllowance >= amount, "ERC20: burn amount exceeds allowance");
+        _approve(account, _msgSender(), currentAllowance - amount);
         _burn(account, amount);
     }
     uint256[50] private __gap;

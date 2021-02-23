@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./IERC1820ImplementerUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -20,7 +20,7 @@ contract ERC1820ImplementerUpgradeable is Initializable, IERC1820ImplementerUpgr
 
     function __ERC1820Implementer_init_unchained() internal initializer {
     }
-    bytes32 constant private _ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
+    bytes32 private constant _ERC1820_ACCEPT_MAGIC = keccak256("ERC1820_ACCEPT_MAGIC");
 
     mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
 

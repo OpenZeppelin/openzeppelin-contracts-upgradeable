@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../utils/EnumerableMapUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -52,5 +52,5 @@ contract EnumerableMapMockUpgradeable is Initializable {
     function getWithMessage(uint256 key, string calldata errorMessage) public view returns (address) {
         return _map.get(key, errorMessage);
     }
-    uint256[48] private __gap;
+    uint256[47] private __gap;
 }

@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./IERC1155Upgradeable.sol";
 import "./IERC1155MetadataURIUpgradeable.sol";
 import "./IERC1155ReceiverUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../introspection/ERC165Upgradeable.sol";
-import "../../math/SafeMathUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../proxy/Initializable.sol";
 
@@ -20,7 +19,6 @@ import "../../proxy/Initializable.sol";
  * _Available since v3.1._
  */
 contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC1155Upgradeable, IERC1155MetadataURIUpgradeable {
-    using SafeMathUpgradeable for uint256;
     using AddressUpgradeable for address;
 
     // Mapping from token ID to account balances
@@ -31,24 +29,6 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
     // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
     string private _uri;
-
-    /*
-     *     bytes4(keccak256('balanceOf(address,uint256)')) == 0x00fdd58e
-     *     bytes4(keccak256('balanceOfBatch(address[],uint256[])')) == 0x4e1273f4
-     *     bytes4(keccak256('setApprovalForAll(address,bool)')) == 0xa22cb465
-     *     bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c5
-     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,uint256,bytes)')) == 0xf242432a
-     *     bytes4(keccak256('safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)')) == 0x2eb2c2d6
-     *
-     *     => 0x00fdd58e ^ 0x4e1273f4 ^ 0xa22cb465 ^
-     *        0xe985e9c5 ^ 0xf242432a ^ 0x2eb2c2d6 == 0xd9b67a26
-     */
-    bytes4 private constant _INTERFACE_ID_ERC1155 = 0xd9b67a26;
-
-    /*
-     *     bytes4(keccak256('uri(uint256)')) == 0x0e89341c
-     */
-    bytes4 private constant _INTERFACE_ID_ERC1155_METADATA_URI = 0x0e89341c;
 
     /**
      * @dev See {_setURI}.
@@ -61,12 +41,15 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
     function __ERC1155_init_unchained(string memory uri_) internal initializer {
         _setURI(uri_);
+    }
 
-        // register the supported interfaces to conform to ERC1155 via ERC165
-        _registerInterface(_INTERFACE_ID_ERC1155);
-
-        // register the supported interfaces to conform to ERC1155MetadataURI via ERC165
-        _registerInterface(_INTERFACE_ID_ERC1155_METADATA_URI);
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+        return interfaceId == type(IERC1155Upgradeable).interfaceId
+            || interfaceId == type(IERC1155MetadataURIUpgradeable).interfaceId
+            || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -164,8 +147,10 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
         _beforeTokenTransfer(operator, from, to, _asSingletonArray(id), _asSingletonArray(amount), data);
 
-        _balances[id][from] = _balances[id][from].sub(amount, "ERC1155: insufficient balance for transfer");
-        _balances[id][to] = _balances[id][to].add(amount);
+        uint256 fromBalance = _balances[id][from];
+        require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
+        _balances[id][from] = fromBalance - amount;
+        _balances[id][to] += amount;
 
         emit TransferSingle(operator, from, to, id, amount);
 
@@ -201,11 +186,10 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
             uint256 id = ids[i];
             uint256 amount = amounts[i];
 
-            _balances[id][from] = _balances[id][from].sub(
-                amount,
-                "ERC1155: insufficient balance for transfer"
-            );
-            _balances[id][to] = _balances[id][to].add(amount);
+            uint256 fromBalance = _balances[id][from];
+            require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
+            _balances[id][from] = fromBalance - amount;
+            _balances[id][to] += amount;
         }
 
         emit TransferBatch(operator, from, to, ids, amounts);
@@ -254,7 +238,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
         _beforeTokenTransfer(operator, address(0), account, _asSingletonArray(id), _asSingletonArray(amount), data);
 
-        _balances[id][account] = _balances[id][account].add(amount);
+        _balances[id][account] += amount;
         emit TransferSingle(operator, address(0), account, id, amount);
 
         _doSafeTransferAcceptanceCheck(operator, address(0), account, id, amount, data);
@@ -278,7 +262,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
         _beforeTokenTransfer(operator, address(0), to, ids, amounts, data);
 
         for (uint i = 0; i < ids.length; i++) {
-            _balances[ids[i]][to] = amounts[i].add(_balances[ids[i]][to]);
+            _balances[ids[i]][to] += amounts[i];
         }
 
         emit TransferBatch(operator, address(0), to, ids, amounts);
@@ -301,10 +285,9 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
         _beforeTokenTransfer(operator, account, address(0), _asSingletonArray(id), _asSingletonArray(amount), "");
 
-        _balances[id][account] = _balances[id][account].sub(
-            amount,
-            "ERC1155: burn amount exceeds balance"
-        );
+        uint256 accountBalance = _balances[id][account];
+        require(accountBalance >= amount, "ERC1155: burn amount exceeds balance");
+        _balances[id][account] = accountBalance - amount;
 
         emit TransferSingle(operator, account, address(0), id, amount);
     }
@@ -325,10 +308,12 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
         _beforeTokenTransfer(operator, account, address(0), ids, amounts, "");
 
         for (uint i = 0; i < ids.length; i++) {
-            _balances[ids[i]][account] = _balances[ids[i]][account].sub(
-                amounts[i],
-                "ERC1155: burn amount exceeds balance"
-            );
+            uint256 id = ids[i];
+            uint256 amount = amounts[i];
+
+            uint256 accountBalance = _balances[id][account];
+            require(accountBalance >= amount, "ERC1155: burn amount exceeds balance");
+            _balances[id][account] = accountBalance - amount;
         }
 
         emit TransferBatch(operator, account, address(0), ids, amounts);

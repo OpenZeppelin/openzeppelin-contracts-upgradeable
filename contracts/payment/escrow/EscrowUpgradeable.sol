@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../../math/SafeMathUpgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -32,7 +31,6 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
 
     function __Escrow_init_unchained() internal initializer {
     }
-    using SafeMathUpgradeable for uint256;
     using AddressUpgradeable for address payable;
 
     event Deposited(address indexed payee, uint256 weiAmount);
@@ -50,7 +48,7 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
      */
     function deposit(address payee) public payable virtual onlyOwner {
         uint256 amount = msg.value;
-        _deposits[payee] = _deposits[payee].add(amount);
+        _deposits[payee] = _deposits[payee] + amount;
 
         emit Deposited(payee, amount);
     }

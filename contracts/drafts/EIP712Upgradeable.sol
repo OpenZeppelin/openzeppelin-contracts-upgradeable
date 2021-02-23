@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 import "../proxy/Initializable.sol";
 
 /**
@@ -65,7 +65,7 @@ abstract contract EIP712Upgradeable is Initializable {
                 typeHash,
                 name,
                 version,
-                _getChainId(),
+                block.chainid,
                 address(this)
             )
         );
@@ -88,14 +88,6 @@ abstract contract EIP712Upgradeable is Initializable {
      */
     function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {
         return keccak256(abi.encodePacked("\x19\x01", _domainSeparatorV4(), structHash));
-    }
-
-    function _getChainId() private view returns (uint256 chainId) {
-        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
-        // solhint-disable-next-line no-inline-assembly
-        assembly {
-            chainId := chainid()
-        }
     }
 
     /**

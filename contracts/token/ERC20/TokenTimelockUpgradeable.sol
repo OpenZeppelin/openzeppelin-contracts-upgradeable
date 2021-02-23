@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./SafeERC20Upgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -69,5 +69,5 @@ contract TokenTimelockUpgradeable is Initializable {
 
         token().safeTransfer(beneficiary(), amount);
     }
-    uint256[47] private __gap;
+    uint256[50] private __gap;
 }

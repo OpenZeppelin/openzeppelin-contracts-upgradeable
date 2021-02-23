@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity ^0.8.0;
 
 import "../token/ERC20/ERC20BurnableUpgradeable.sol";
 import "../proxy/Initializable.sol";
@@ -26,7 +26,7 @@ contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgrad
         __ERC20PresetFixedSupply_init(name, symbol, initialSupply, owner);
     }
     /**
-     * @dev Mints `initialSupply` amount of token and transfers them to `owner`.  
+     * @dev Mints `initialSupply` amount of token and transfers them to `owner`.
      *
      * See {ERC20-constructor}.
      */

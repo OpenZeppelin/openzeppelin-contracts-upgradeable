@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../../utils/ContextUpgradeable.sol";
 import "./IERC777Upgradeable.sol";
 import "./IERC777RecipientUpgradeable.sol";
 import "./IERC777SenderUpgradeable.sol";
 import "../../token/ERC20/IERC20Upgradeable.sol";
-import "../../math/SafeMathUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../introspection/IERC1820RegistryUpgradeable.sol";
 import "../../proxy/Initializable.sol";
@@ -28,7 +27,6 @@ import "../../proxy/Initializable.sol";
  * destroyed. This makes integration with ERC20 applications seamless.
  */
 contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradeable, IERC20Upgradeable {
-    using SafeMathUpgradeable for uint256;
     using AddressUpgradeable for address;
 
     IERC1820RegistryUpgradeable constant internal _ERC1820_REGISTRY = IERC1820RegistryUpgradeable(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
@@ -40,16 +38,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     string private _name;
     string private _symbol;
 
-    // We inline the result of the following hashes because Solidity doesn't resolve them at compile time.
-    // See https://github.com/ethereum/solidity/issues/4024.
-
-    // keccak256("ERC777TokensSender")
-    bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH =
-        0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895;
-
-    // keccak256("ERC777TokensRecipient")
-    bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH =
-        0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b;
+    bytes32 private constant _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
+    bytes32 private constant _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
 
     // This isn't ever read from - it's only used to respond to the defaultOperators query.
     address[] private _defaultOperatorsArray;
@@ -297,7 +287,10 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _callTokensToSend(spender, holder, recipient, amount, "", "");
 
         _move(spender, holder, recipient, amount, "", "");
-        _approve(holder, spender, _allowances[holder][spender].sub(amount, "ERC777: transfer amount exceeds allowance"));
+
+        uint256 currentAllowance = _allowances[holder][spender];
+        require(currentAllowance >= amount, "ERC777: transfer amount exceeds allowance");
+        _approve(holder, spender, currentAllowance - amount);
 
         _callTokensReceived(spender, holder, recipient, amount, "", "", false);
 
@@ -337,8 +330,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _beforeTokenTransfer(operator, address(0), account, amount);
 
         // Update state variables
-        _totalSupply = _totalSupply.add(amount);
-        _balances[account] = _balances[account].add(amount);
+        _totalSupply += amount;
+        _balances[account] += amount;
 
         _callTokensReceived(operator, address(0), account, amount, userData, operatorData, true);
 
@@ -403,8 +396,10 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _beforeTokenTransfer(operator, from, address(0), amount);
 
         // Update state variables
-        _balances[from] = _balances[from].sub(amount, "ERC777: burn amount exceeds balance");
-        _totalSupply = _totalSupply.sub(amount);
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC777: burn amount exceeds balance");
+        _balances[from] = fromBalance - amount;
+        _totalSupply -= amount;
 
         emit Burned(operator, from, amount, data, operatorData);
         emit Transfer(from, address(0), amount);
@@ -422,8 +417,10 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     {
         _beforeTokenTransfer(operator, from, to, amount);
 
-        _balances[from] = _balances[from].sub(amount, "ERC777: transfer amount exceeds balance");
-        _balances[to] = _balances[to].add(amount);
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC777: transfer amount exceeds balance");
+        _balances[from] = fromBalance - amount;
+        _balances[to] += amount;
 
         emit Sent(operator, from, to, amount, userData, operatorData);
         emit Transfer(from, to, amount);

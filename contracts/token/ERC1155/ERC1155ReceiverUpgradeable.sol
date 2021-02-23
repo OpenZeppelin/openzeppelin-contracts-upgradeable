@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "./IERC1155ReceiverUpgradeable.sol";
 import "../../introspection/ERC165Upgradeable.sol";
@@ -16,10 +16,13 @@ abstract contract ERC1155ReceiverUpgradeable is Initializable, ERC165Upgradeable
     }
 
     function __ERC1155Receiver_init_unchained() internal initializer {
-        _registerInterface(
-            ERC1155ReceiverUpgradeable(address(0)).onERC1155Received.selector ^
-            ERC1155ReceiverUpgradeable(address(0)).onERC1155BatchReceived.selector
-        );
+    }
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+        return interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId
+            || super.supportsInterface(interfaceId);
     }
     uint256[50] private __gap;
 }
