@@ -34,7 +34,7 @@ The package replicates the structure of the main OpenZeppelin Contracts package,
 Constructors are replaced by internal initializer functions following the naming convention `__{ContractName}_init`. Since these are internal, you must always define your own public initializer function and call the parent initializer of the contract you extend.
 
 ```diff
--    constructor() ERC721("MyCollectible", "MCO") public {
+-    constructor() ERC721("MyCollectible", "MCO") {
 +    function initialize() initializer public {
 +        __ERC721_init("MyCollectible", "MCO");
      }

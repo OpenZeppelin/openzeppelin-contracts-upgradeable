@@ -1,8 +1,8 @@
 // ignores the proxy tests
 
-const { internalTask } = require('@nomiclabs/buidler/config');
+const { internalTask } = require('hardhat/config');
 
-const { TASK_TEST_GET_TEST_FILES } = require('@nomiclabs/buidler/builtin-tasks/task-names');
+const { TASK_TEST_GET_TEST_FILES } = require('hardhat/builtin-tasks/task-names');
 const glob = require('glob');
 const path = require('path');
 const { promisify } = require('util');

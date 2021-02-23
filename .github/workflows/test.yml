@@ -27,3 +27,8 @@ jobs:
       - run: bash scripts/upgradeable/transpile.sh
         if: github.event_name == 'pull_request'
       - run: npm run test
+        env:
+          FORCE_COLOR: 1
+          ENABLE_GAS_REPORT: 1
+      - name: Print gas report
+        run: cat gas-report.txt
