@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "../access/AccessControlEnumerableUpgradeable.sol";
+import "../utils/Initializable.sol";
+
+contract AccessControlEnumerableMockUpgradeable is Initializable, AccessControlEnumerableUpgradeable {
+    function __AccessControlEnumerableMock_init() internal initializer {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+        __AccessControlEnumerable_init_unchained();
+        __AccessControlEnumerableMock_init_unchained();
+    }
+
+    function __AccessControlEnumerableMock_init_unchained() internal initializer {
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+    }
+
+    function setRoleAdmin(bytes32 roleId, bytes32 adminRoleId) public {
+        _setRoleAdmin(roleId, adminRoleId);
+    }
+    uint256[50] private __gap;
+}
