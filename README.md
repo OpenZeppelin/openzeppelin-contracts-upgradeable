@@ -11,6 +11,14 @@ It follows all of the rules for [Writing Upgradeable Contracts]: constructors ar
 
 [Writing Upgradeable Contracts]: https://docs.openzeppelin.com/upgrades-plugins/writing-upgradeable
 
+> :warning: **Warning**
+>
+> There will be storage incompatibilities across major versions of this package, which makes it unsafe to upgrade a deployed contract from one major version to another, for example from 3.4.0 to 4.0.0.
+> 
+> Similarly, it is not safe to upgrade from `@openzeppelin/contracts-ethereum-package` (a similar previous package) to `@openzeppelin/contracts-upgradeable`.
+>
+> **It is strongly encouraged to use these contracts together with a tool that can automatically guarantee the safety of an upgradeable contract, such as the [OpenZeppelin Upgrades Plugins](https://github.com/OpenZeppelin/openzeppelin-upgrades).**
+
 ## Overview
 
 ### Installation
