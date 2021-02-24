@@ -13,6 +13,15 @@ import "../../../utils/Initializable.sol";
  * _Available since v3.4._
  */
 contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable {
+    function initialize(
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators,
+        uint256 initialSupply,
+        address owner
+    ) public virtual initializer {
+        __ERC777PresetFixedSupply_init(name, symbol, defaultOperators, initialSupply, owner);
+    }
     /**
      * @dev Mints `initialSupply` amount of token and transfers them to `owner`.
      *

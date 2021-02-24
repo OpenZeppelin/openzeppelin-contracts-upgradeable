@@ -27,6 +27,9 @@ import "../../../utils/Initializable.sol";
  * and pauser roles to other accounts.
  */
 contract ERC721PresetMinterPauserAutoIdUpgradeable is Initializable, ContextUpgradeable, AccessControlEnumerableUpgradeable, ERC721EnumerableUpgradeable, ERC721BurnableUpgradeable, ERC721PausableUpgradeable {
+    function initialize(string memory name, string memory symbol, string memory baseTokenURI) public virtual initializer {
+        __ERC721PresetMinterPauserAutoId_init(name, symbol, baseTokenURI);
+    }
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");

@@ -17,6 +17,14 @@ import "../../../utils/Initializable.sol";
  * _Available since v3.4._
  */
 contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgradeable {
+    function initialize(
+        string memory name,
+        string memory symbol,
+        uint256 initialSupply,
+        address owner
+    ) public virtual initializer {
+        __ERC20PresetFixedSupply_init(name, symbol, initialSupply, owner);
+    }
     /**
      * @dev Mints `initialSupply` amount of token and transfers them to `owner`.
      *
