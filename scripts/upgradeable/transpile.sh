@@ -9,7 +9,7 @@ npm run compile
 # -x: exclude all proxy contracts except Clones library
 # -p: emit public initializer
 npx @openzeppelin/upgrade-safe-transpiler -D \
-  -i contracts/proxy/Initializable.sol \
+  -i contracts/utils/Initializable.sol \
   -x 'contracts/proxy/**/*' \
   -x '!contracts/proxy/Clones.sol' \
   -p 'contracts/presets/**/*'
