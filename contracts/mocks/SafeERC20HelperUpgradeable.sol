@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 
 import "../utils/ContextUpgradeable.sol";
 import "../token/ERC20/IERC20Upgradeable.sol";
-import "../token/ERC20/SafeERC20Upgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../token/ERC20/utils/SafeERC20Upgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
     function __ERC20ReturnFalseMock_init() internal initializer {

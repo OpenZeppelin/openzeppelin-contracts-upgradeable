@@ -3,12 +3,12 @@
 pragma solidity ^0.8.0;
 
 import "./IERC1155Upgradeable.sol";
-import "./IERC1155MetadataURIUpgradeable.sol";
 import "./IERC1155ReceiverUpgradeable.sol";
-import "../../utils/ContextUpgradeable.sol";
-import "../../introspection/ERC165Upgradeable.sol";
+import "./extensions/IERC1155MetadataURIUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
-import "../../proxy/Initializable.sol";
+import "../../utils/ContextUpgradeable.sol";
+import "../../utils/introspection/ERC165Upgradeable.sol";
+import "../../utils/Initializable.sol";
 
 /**
  *

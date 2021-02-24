@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC20/ERC20BurnableUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../token/ERC20/extensions/ERC20BurnableUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC20BurnableMockUpgradeable is Initializable, ERC20BurnableUpgradeable {
     function __ERC20BurnableMock_init(

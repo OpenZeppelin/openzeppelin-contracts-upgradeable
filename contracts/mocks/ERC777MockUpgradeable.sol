@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../utils/ContextUpgradeable.sol";
 import "../token/ERC777/ERC777Upgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgradeable {
     event BeforeTokenTransfer();

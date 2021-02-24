@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/ReentrancyGuardUpgradeable.sol";
+import "../security/ReentrancyGuardUpgradeable.sol";
 import "./ReentrancyAttackUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable {
     uint256 public counter;

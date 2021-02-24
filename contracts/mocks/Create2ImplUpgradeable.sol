@@ -3,8 +3,8 @@
 pragma solidity ^0.8.0;
 
 import "../utils/Create2Upgradeable.sol";
-import "../introspection/ERC1820ImplementerUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract Create2ImplUpgradeable is Initializable {
     function __Create2Impl_init() internal initializer {

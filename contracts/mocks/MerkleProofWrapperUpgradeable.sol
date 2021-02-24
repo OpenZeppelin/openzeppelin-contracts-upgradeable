@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import { MerkleProofUpgradeable } from "../cryptography/MerkleProofUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/cryptography/MerkleProofUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract MerkleProofWrapperUpgradeable is Initializable {
     function __MerkleProofWrapper_init() internal initializer {

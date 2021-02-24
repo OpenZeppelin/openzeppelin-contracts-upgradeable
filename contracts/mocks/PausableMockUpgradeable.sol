@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/PausableUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../security/PausableUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract PausableMockUpgradeable is Initializable, PausableUpgradeable {
     bool public drasticMeasureTaken;

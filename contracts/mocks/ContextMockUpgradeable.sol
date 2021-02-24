@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/ContextUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
     function __ContextMock_init() internal initializer {

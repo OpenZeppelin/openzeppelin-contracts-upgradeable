@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../cryptography/ECDSAUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/cryptography/ECDSAUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ECDSAMockUpgradeable is Initializable {
     function __ECDSAMock_init() internal initializer {

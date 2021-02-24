@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../math/SignedSafeMathUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/math/SignedSafeMathUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract SignedSafeMathMockUpgradeable is Initializable {
     function __SignedSafeMathMock_init() internal initializer {

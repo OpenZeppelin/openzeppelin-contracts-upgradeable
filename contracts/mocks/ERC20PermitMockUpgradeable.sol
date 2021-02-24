@@ -2,8 +2,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../drafts/ERC20PermitUpgradeable.sol";
-import "../proxy/Initializable.sol";
+
+import "../token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
     function __ERC20PermitMock_init(

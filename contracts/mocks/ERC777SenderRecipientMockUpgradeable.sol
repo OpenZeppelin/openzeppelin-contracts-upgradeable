@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/ContextUpgradeable.sol";
 import "../token/ERC777/IERC777Upgradeable.sol";
 import "../token/ERC777/IERC777SenderUpgradeable.sol";
 import "../token/ERC777/IERC777RecipientUpgradeable.sol";
-import "../introspection/IERC1820RegistryUpgradeable.sol";
-import "../introspection/ERC1820ImplementerUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/ContextUpgradeable.sol";
+import "../utils/introspection/IERC1820RegistryUpgradeable.sol";
+import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeable, IERC777SenderUpgradeable, IERC777RecipientUpgradeable, ERC1820ImplementerUpgradeable {
     function __ERC777SenderRecipientMock_init() internal initializer {
@@ -161,4 +161,3 @@ contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeab
     }
     uint256[49] private __gap;
 }
-

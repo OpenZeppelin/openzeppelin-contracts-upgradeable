@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC721/ERC721BurnableUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC721BurnableMockUpgradeable is Initializable, ERC721BurnableUpgradeable {
     function __ERC721BurnableMock_init(string memory name, string memory symbol) internal initializer {

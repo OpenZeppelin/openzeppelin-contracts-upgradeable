@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/CountersUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract CountersImplUpgradeable is Initializable {
     function __CountersImpl_init() internal initializer {

@@ -2,14 +2,15 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/EnumerableSetUpgradeable.sol";
-import "../utils/AddressUpgradeable.sol";
 import "../utils/ContextUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access
- * control mechanisms.
+ * control mechanisms. This is a lightweight version that doesn't allow enumerating role
+ * members except through off-chain means by accessing the contract event logs. Some
+ * applications may benefit from on-chain enumerability, for those cases see
+ * {AccessControlEnumerable}.
  *
  * Roles are referred to by their `bytes32` identifier. These should be exposed
  * in the external API and be unique. The best way to achieve this is by
@@ -50,11 +51,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable 
 
     function __AccessControl_init_unchained() internal initializer {
     }
-    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
-    using AddressUpgradeable for address;
-
     struct RoleData {
-        EnumerableSetUpgradeable.AddressSet members;
+        mapping (address => bool) members;
         bytes32 adminRole;
     }
 
@@ -93,31 +91,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable 
      * @dev Returns `true` if `account` has been granted `role`.
      */
     function hasRole(bytes32 role, address account) public view returns (bool) {
-        return _roles[role].members.contains(account);
-    }
-
-    /**
-     * @dev Returns the number of accounts that have `role`. Can be used
-     * together with {getRoleMember} to enumerate all bearers of a role.
-     */
-    function getRoleMemberCount(bytes32 role) public view returns (uint256) {
-        return _roles[role].members.length();
-    }
-
-    /**
-     * @dev Returns one of the accounts that have `role`. `index` must be a
-     * value between 0 and {getRoleMemberCount}, non-inclusive.
-     *
-     * Role bearers are not sorted in any particular way, and their ordering may
-     * change at any point.
-     *
-     * WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure
-     * you perform all queries on the same block. See the following
-     * https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post]
-     * for more information.
-     */
-    function getRoleMember(bytes32 role, uint256 index) public view returns (address) {
-        return _roles[role].members.at(index);
+        return _roles[role].members[account];
     }
 
     /**
@@ -141,7 +115,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable 
      * - the caller must have ``role``'s admin role.
      */
     function grantRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to grant");
+        require(hasRole(getRoleAdmin(role), _msgSender()), "AccessControl: sender must be an admin to grant");
 
         _grantRole(role, account);
     }
@@ -156,7 +130,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable 
      * - the caller must have ``role``'s admin role.
      */
     function revokeRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to revoke");
+        require(hasRole(getRoleAdmin(role), _msgSender()), "AccessControl: sender must be an admin to revoke");
 
         _revokeRole(role, account);
     }
@@ -207,18 +181,20 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable 
      * Emits a {RoleAdminChanged} event.
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
-        emit RoleAdminChanged(role, _roles[role].adminRole, adminRole);
+        emit RoleAdminChanged(role, getRoleAdmin(role), adminRole);
         _roles[role].adminRole = adminRole;
     }
 
     function _grantRole(bytes32 role, address account) private {
-        if (_roles[role].members.add(account)) {
+        if (!hasRole(role, account)) {
+            _roles[role].members[account] = true;
             emit RoleGranted(role, account, _msgSender());
         }
     }
 
     function _revokeRole(bytes32 role, address account) private {
-        if (_roles[role].members.remove(account)) {
+        if (hasRole(role, account)) {
+            _roles[role].members[account] = false;
             emit RoleRevoked(role, account, _msgSender());
         }
     }

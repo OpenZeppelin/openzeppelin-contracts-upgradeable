@@ -28,6 +28,20 @@
  * `GSN`: Deprecate GSNv1 support in favor of upcomming support for GSNv2. ([#2521](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2521))
  * `ERC165`: Remove uses of storage in the base ERC165 implementation. ERC165 based contracts now use storage-less virtual functions. Old behaviour remains available in the `ERC165Storage` extension. ([#2505](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2505))
  * `Initializable`: Make initializer check stricter during construction. ([#2531](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2531))
+ * `ERC721`: remove enumerability of tokens from the base implementation. This feature is now provided separately through the `ERC721Enumerable` extension. ([#2511](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2511))
+ * `AccessControl`: removed enumerability by default for a more lightweight contract. It is now opt-in through `AccessControlEnumerable`. ([#2512](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2512))
+ * Meta Transactions: add `ERC2771Context` and a `MinimalForwarder` for meta-transactions. ([#2508](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2508))
+ * Overall reorganisation of the contract folder to improve clarity and discoverability. ([#2503](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2503))
+
+### How to upgrade from 3.x
+
+Since this version has moved a few contracts to different directories, users upgrading from a previous version will need to adjust their import statements. To make this easier, the package includes a script that will migrate import statements automatically. After upgrading to the latest version of the package, run:
+
+```
+npx openzeppelin-contracts-migrate-imports
+```
+
+Make sure you're using git or another version control system to be able to recover from any potential error in our script.
 
 ## 3.4.0 (2021-02-02)
 

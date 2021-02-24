@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.0;
 
-import "../../utils/ContextUpgradeable.sol";
 import "./IERC777Upgradeable.sol";
 import "./IERC777RecipientUpgradeable.sol";
 import "./IERC777SenderUpgradeable.sol";
-import "../../token/ERC20/IERC20Upgradeable.sol";
+import "../ERC20/IERC20Upgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
-import "../../introspection/IERC1820RegistryUpgradeable.sol";
-import "../../proxy/Initializable.sol";
+import "../../utils/ContextUpgradeable.sol";
+import "../../utils/introspection/IERC1820RegistryUpgradeable.sol";
+import "../../utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.

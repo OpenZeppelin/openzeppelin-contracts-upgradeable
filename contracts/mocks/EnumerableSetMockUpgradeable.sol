@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/EnumerableSetUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/structs/EnumerableSetUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 // Bytes32Set
 contract EnumerableBytes32SetMockUpgradeable is Initializable {

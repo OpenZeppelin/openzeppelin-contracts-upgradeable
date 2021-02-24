@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../introspection/ERC165Upgradeable.sol";
 import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/introspection/ERC165Upgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgradeable, ERC165Upgradeable {
     bytes4 private _recRetval;

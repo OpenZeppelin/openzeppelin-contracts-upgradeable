@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC20/ERC20CappedUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../token/ERC20/extensions/ERC20CappedUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC20CappedMockUpgradeable is Initializable, ERC20CappedUpgradeable {
     function __ERC20CappedMock_init(string memory name, string memory symbol, uint256 cap) internal initializer {

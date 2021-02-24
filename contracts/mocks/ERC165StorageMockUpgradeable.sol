@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../introspection/ERC165StorageUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/introspection/ERC165StorageUpgradeable.sol";
+import "../utils/Initializable.sol";
 
 contract ERC165StorageMockUpgradeable is Initializable, ERC165StorageUpgradeable {
     function __ERC165StorageMock_init() internal initializer {

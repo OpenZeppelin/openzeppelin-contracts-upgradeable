@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../access/OwnableUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract OwnableMockUpgradeable is Initializable, OwnableUpgradeable {    function __OwnableMock_init() internal initializer {
         __Context_init_unchained();

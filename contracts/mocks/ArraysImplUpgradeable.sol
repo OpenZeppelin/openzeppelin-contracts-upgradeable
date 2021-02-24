@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/ArraysUpgradeable.sol";
-import "../proxy/Initializable.sol";
+import "../utils/Initializable.sol";
 
 contract ArraysImplUpgradeable is Initializable {
     using ArraysUpgradeable for uint256[];

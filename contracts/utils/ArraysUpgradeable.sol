@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../math/MathUpgradeable.sol";
+import "./math/MathUpgradeable.sol";
 
 /**
  * @dev Collection of functions related to array types.
