@@ -6,9 +6,7 @@
   "files": [
     "/contracts/**/*.sol",
     "/build/contracts/*.json",
-    "!/contracts/mocks",
-    "!/contracts/proxy",
-    "/test/behaviors"
+    "!/contracts/mocks/**/*"
   ],
   "bin": {
     "openzeppelin-contracts-migrate-imports": "scripts/migrate-imports.js"
