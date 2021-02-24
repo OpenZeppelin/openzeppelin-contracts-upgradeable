@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "openzeppelin-solidity",
   "description": "Secure Smart Contract library for Solidity",
   "version": "4.0.0-beta.0",
@@ -6,6 +7,7 @@
     "/contracts/**/*.sol",
     "/build/contracts/*.json",
     "!/contracts/mocks",
+    "!/contracts/proxy",
     "/test/behaviors"
   ],
   "bin": {

@@ -1,3 +1,21 @@
+# Changelog for Upgradeable variant
+
+## 3.2.0 (2020-11-11)
+
+ * First release of Upgradeable variant, replacing Ethereum Package variant which is now deprecated.
+
+### Upgrading from OpenZeppelin Contracts Ethereum Package
+
+ * The dependency on `@openzeppelin/contracts-ethereum-package` should be replaced by `@openzeppelin/contracts-upgradeable`.
+ * All contracts, interfaces, and libraries now have an `Upgradeable` suffix, instead of the `UpgradeSafe` suffix that only contracts used to have. The only exception is the `Initializable` contract which retains its original name.
+   * `Address` → `AddressUpgradeable`
+   * `ERC20UpgradeSafe` → `ERC20Upgradeable`
+   * This change improves compatibility with the main OpenZeppelin Contracts package, allowing both to be used side by side.
+ * Solidity files are now also suffixed, to keep the Solidity convention of equal file and contract name.
+   * `access/Ownable.sol` → `access/OwnableUpgradeable.sol`
+ * Import paths no longer include `/contracts/`.
+   * `@openzeppelin/contracts-ethereum-package/contracts/access/Ownable.sol` → `@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol`
+
 # Changelog
 
 ## 4.0.0
@@ -31,7 +49,6 @@ Make sure you're using git or another version control system to be able to recov
  * `EIP712`: added helpers to verify EIP712 typed data signatures on chain. ([#2418](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2418))
  * `ERC20Permit`: added an implementation of the ERC20 permit extension for gasless token approvals. ([#2237](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237))
  * Presets: added token presets with preminted fixed supply `ERC20PresetFixedSupply` and `ERC777PresetFixedSupply`. ([#2399](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2399))
- * `Address`: added `functionDelegateCall`, similar to the existing `functionCall`. ([#2333](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2333))
  * `Clones`: added a library for deploying EIP 1167 minimal proxies. ([#2449](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2449))
  * `Context`: moved from `contracts/GSN` to `contracts/utils`. ([#2453](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2453))
  * `PaymentSplitter`: replace usage of `.transfer()` with `Address.sendValue` for improved compatibility with smart wallets. ([#2455](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2455))
