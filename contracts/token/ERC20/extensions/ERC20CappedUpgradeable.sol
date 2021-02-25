@@ -33,18 +33,11 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     /**
-     * @dev See {ERC20-_beforeTokenTransfer}.
-     *
-     * Requirements:
-     *
-     * - minted tokens must not cause the total supply to go over the cap.
+     * @dev See {ERC20-_mint}.
      */
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
-        super._beforeTokenTransfer(from, to, amount);
-
-        if (from == address(0)) { // When minting tokens
-            require(totalSupply() + amount <= cap(), "ERC20Capped: cap exceeded");
-        }
+    function _mint(address account, uint256 amount) internal virtual override {
+        require(ERC20Upgradeable.totalSupply() + amount <= cap(), "ERC20Capped: cap exceeded");
+        super._mint(account, amount);
     }
     uint256[50] private __gap;
 }
