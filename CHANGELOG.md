@@ -18,6 +18,10 @@
 
 # Changelog
 
+## 3.4.1 (2021-03-03)
+
+ * `ERC721`: made `_approve` an internal function (was private).
+
 ## 3.4.0 (2021-02-02)
 
  * `BeaconProxy`: added new kind of proxy that allows simultaneous atomic upgrades. ([#2411](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2411))
