@@ -206,6 +206,13 @@ contract ERC777MockUpgradeableWithInit is ERC777MockUpgradeable {
         __ERC777Mock_init(initialHolder, initialBalance, name, symbol, defaultOperators);
     }
 }
+import "./ERC721URIStorageMockUpgradeable.sol";
+
+contract ERC721URIStorageMockUpgradeableWithInit is ERC721URIStorageMockUpgradeable {
+    constructor(string memory name, string memory symbol) public payable {
+        __ERC721URIStorageMock_init(name, symbol);
+    }
+}
 import "./PausableMockUpgradeable.sol";
 
 contract PausableMockUpgradeableWithInit is PausableMockUpgradeable {
