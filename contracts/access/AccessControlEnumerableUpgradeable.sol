@@ -7,11 +7,20 @@ import "../utils/structs/EnumerableSetUpgradeable.sol";
 import "../utils/Initializable.sol";
 
 /**
+ * @dev External interface of AccessControlEnumerable declared to support ERC165 detection.
+ */
+interface IAccessControlEnumerableUpgradeable {
+    function getRoleMember(bytes32 role, uint256 index) external view returns (address);
+    function getRoleMemberCount(bytes32 role) external view returns (uint256);
+}
+
+/**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
  */
-abstract contract AccessControlEnumerableUpgradeable is Initializable, AccessControlUpgradeable {
+abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerableUpgradeable, AccessControlUpgradeable {
     function __AccessControlEnumerable_init() internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
     }
@@ -21,6 +30,14 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, AccessCon
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 
     mapping (bytes32 => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IAccessControlEnumerableUpgradeable).interfaceId
+            || super.supportsInterface(interfaceId);
+    }
 
     /**
      * @dev Returns one of the accounts that have `role`. `index` must be a
@@ -34,7 +51,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, AccessCon
      * https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post]
      * for more information.
      */
-    function getRoleMember(bytes32 role, uint256 index) public view returns (address) {
+    function getRoleMember(bytes32 role, uint256 index) public view override returns (address) {
         return _roleMembers[role].at(index);
     }
 
@@ -42,7 +59,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, AccessCon
      * @dev Returns the number of accounts that have `role`. Can be used
      * together with {getRoleMember} to enumerate all bearers of a role.
      */
-    function getRoleMemberCount(bytes32 role) public view returns (uint256) {
+    function getRoleMemberCount(bytes32 role) public view override returns (uint256) {
         return _roleMembers[role].length();
     }
 

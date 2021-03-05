@@ -36,9 +36,9 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
      */
     function __ERC1155PresetMinterPauser_init(string memory uri) internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
-        __ERC165_init_unchained();
         __ERC1155_init_unchained(uri);
         __ERC1155Burnable_init_unchained();
         __Pausable_init_unchained();
@@ -103,6 +103,13 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
     function unpause() public virtual {
         require(hasRole(PAUSER_ROLE, _msgSender()), "ERC1155PresetMinterPauser: must have pauser role to unpause");
         _unpause();
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlEnumerableUpgradeable, ERC1155Upgradeable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 
     function _beforeTokenTransfer(

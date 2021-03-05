@@ -8,6 +8,7 @@ import "../utils/Initializable.sol";
 contract AccessControlEnumerableMockUpgradeable is Initializable, AccessControlEnumerableUpgradeable {
     function __AccessControlEnumerableMock_init() internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
         __AccessControlEnumerableMock_init_unchained();
