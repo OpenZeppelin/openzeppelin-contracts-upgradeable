@@ -47,4 +47,7 @@ abstract contract Initializable {
             _initializing = false;
         }
     }
+
+    // Reserved storage space to allow for layout changes in the future.
+    uint256[50] private ______gap;
 }
