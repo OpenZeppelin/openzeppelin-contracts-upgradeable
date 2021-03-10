@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./IERC1820ImplementerUpgradeable.sol";
-import "../Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC1820Implementer} interface.

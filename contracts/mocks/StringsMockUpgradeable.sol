@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/StringsUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract StringsMockUpgradeable is Initializable {
     function __StringsMock_init() internal initializer {

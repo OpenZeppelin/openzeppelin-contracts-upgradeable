@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.0;
 
-import "./AddressUpgradeable.sol";
-import "./ContextUpgradeable.sol";
-import "./math/SafeMathUpgradeable.sol";
-import "./Initializable.sol";
+import "../utils/AddressUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
+import "../utils/math/SafeMathUpgradeable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @title PaymentSplitter

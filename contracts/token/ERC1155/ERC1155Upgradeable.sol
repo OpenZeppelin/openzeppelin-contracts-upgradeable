@@ -8,7 +8,7 @@ import "./extensions/IERC1155MetadataURIUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../utils/Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  *
@@ -62,7 +62,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
      * Clients calling this function must replace the `\{id\}` substring with the
      * actual token type ID.
      */
-    function uri(uint256) external view virtual override returns (string memory) {
+    function uri(uint256) public view virtual override returns (string memory) {
         return _uri;
     }
 

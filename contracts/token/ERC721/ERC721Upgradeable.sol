@@ -10,7 +10,7 @@ import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/StringsUpgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../utils/Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
@@ -230,7 +230,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev Safely mints `tokenId` and transfers it to `to`.
      *
      * Requirements:
-     d*
+     *
      * - `tokenId` must not exist.
      * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
      *

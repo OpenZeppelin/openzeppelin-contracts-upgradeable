@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./ConditionalEscrowUpgradeable.sol";
-import "../Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @title RefundEscrow

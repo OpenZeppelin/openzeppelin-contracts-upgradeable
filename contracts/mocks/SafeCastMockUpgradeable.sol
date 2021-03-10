@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/math/SafeCastUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract SafeCastMockUpgradeable is Initializable {
     function __SafeCastMock_init() internal initializer {

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../access/AccessControlUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the

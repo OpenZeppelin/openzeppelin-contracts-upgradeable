@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "./AccessControlUpgradeable.sol";
 import "../utils/structs/EnumerableSetUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev External interface of AccessControlEnumerable declared to support ERC165 detection.
@@ -76,6 +76,14 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
      */
     function revokeRole(bytes32 role, address account) public virtual override {
         super.revokeRole(role, account);
+        _roleMembers[role].remove(account);
+    }
+
+    /**
+     * @dev Overload {renounceRole} to track enumerable memberships
+     */
+    function renounceRole(bytes32 role, address account) public virtual override {
+        super.renounceRole(role, account);
         _roleMembers[role].remove(account);
     }
 

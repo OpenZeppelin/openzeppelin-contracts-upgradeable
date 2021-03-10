@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../ERC1155Upgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {ERC1155} that allows token holders to destroy both their

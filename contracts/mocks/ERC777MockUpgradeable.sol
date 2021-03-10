@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../utils/ContextUpgradeable.sol";
 import "../token/ERC777/ERC777Upgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgradeable {
     event BeforeTokenTransfer();
@@ -38,6 +38,16 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         bytes memory operatorData
     ) public {
         _mint(to, amount, userData, operatorData);
+    }
+
+    function mintInternalExtended (
+        address to,
+        uint256 amount,
+        bytes memory userData,
+        bytes memory operatorData,
+        bool requireReceptionAck
+    ) public {
+        _mint(to, amount, userData, operatorData, requireReceptionAck);
     }
 
     function approveInternal(address holder, address spender, uint256 value) public {

@@ -9,7 +9,7 @@ import "../extensions/ERC721PausableUpgradeable.sol";
 import "../../../access/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC721} token, including:

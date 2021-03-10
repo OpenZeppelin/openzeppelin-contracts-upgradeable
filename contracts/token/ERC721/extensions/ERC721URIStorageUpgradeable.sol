@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../ERC721Upgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC721 token with storage based token uri management.

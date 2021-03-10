@@ -7,7 +7,7 @@ import "../ERC20Upgradeable.sol";
 import "../../../utils/cryptography/draft-EIP712Upgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
@@ -55,7 +55,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
                 owner,
                 spender,
                 value,
-                _nonces[owner].current(),
+                _useNonce(owner),
                 deadline
             )
         );
@@ -65,14 +65,13 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
         address signer = ECDSAUpgradeable.recover(hash, v, r, s);
         require(signer == owner, "ERC20Permit: invalid signature");
 
-        _nonces[owner].increment();
         _approve(owner, spender, value);
     }
 
     /**
      * @dev See {IERC20Permit-nonces}.
      */
-    function nonces(address owner) public view override returns (uint256) {
+    function nonces(address owner) public view virtual override returns (uint256) {
         return _nonces[owner].current();
     }
 
@@ -82,6 +81,15 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
     // solhint-disable-next-line func-name-mixedcase
     function DOMAIN_SEPARATOR() external view override returns (bytes32) {
         return _domainSeparatorV4();
+    }
+
+    /**
+     * @dev "Consume a nonce": return the current value and increment.
+     */
+    function _useNonce(address owner) internal virtual returns (uint256 current) {
+        CountersUpgradeable.Counter storage nonce = _nonces[owner];
+        current = nonce.current();
+        nonce.increment();
     }
     uint256[49] private __gap;
 }

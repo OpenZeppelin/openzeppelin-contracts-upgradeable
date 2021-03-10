@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "./ERC1155MockUpgradeable.sol";
 import "../token/ERC1155/extensions/ERC1155PausableUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract ERC1155PausableMockUpgradeable is Initializable, ERC1155MockUpgradeable, ERC1155PausableUpgradeable {
     function __ERC1155PausableMock_init(string memory uri) internal initializer {

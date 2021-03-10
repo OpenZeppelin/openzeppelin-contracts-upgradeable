@@ -7,7 +7,7 @@ import "../extensions/ERC1155BurnableUpgradeable.sol";
 import "../extensions/ERC1155PausableUpgradeable.sol";
 import "../../../access/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC1155} token, including:

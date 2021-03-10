@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../utils/cryptography/draft-EIP712Upgradeable.sol";
 import "../utils/cryptography/ECDSAUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract EIP712ExternalUpgradeable is Initializable, EIP712Upgradeable {
     function __EIP712External_init(string memory name, string memory version) internal initializer {

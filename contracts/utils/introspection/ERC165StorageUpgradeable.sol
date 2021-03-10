@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC165Upgradeable.sol";
-import "../Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Storage based implementation of the {IERC165} interface.

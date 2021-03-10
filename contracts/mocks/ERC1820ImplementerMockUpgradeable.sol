@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract ERC1820ImplementerMockUpgradeable is Initializable, ERC1820ImplementerUpgradeable {
     function __ERC1820ImplementerMock_init() internal initializer {

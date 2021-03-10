@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../token/ERC721/extensions/ERC721PausableUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC721PausableMock

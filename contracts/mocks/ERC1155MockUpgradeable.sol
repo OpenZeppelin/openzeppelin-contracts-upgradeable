@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../token/ERC1155/ERC1155Upgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC1155Mock
