@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC1155ReceiverUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev _Available since v3.1._

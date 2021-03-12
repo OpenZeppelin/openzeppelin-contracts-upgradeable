@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../token/ERC721/extensions/ERC721PausableUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC721PausableMock
@@ -21,24 +21,32 @@ contract ERC721PausableMockUpgradeable is Initializable, ERC721PausableUpgradeab
 
     function __ERC721PausableMock_init_unchained(string memory name, string memory symbol) internal initializer { }
 
-    function mint(address to, uint256 tokenId) public {
-        super._mint(to, tokenId);
-    }
-
-    function burn(uint256 tokenId) public {
-        super._burn(tokenId);
-    }
-
-    function exists(uint256 tokenId) public view returns (bool) {
-        return super._exists(tokenId);
-    }
-
     function pause() external {
         _pause();
     }
 
     function unpause() external {
         _unpause();
+    }
+
+    function exists(uint256 tokenId) public view returns (bool) {
+        return _exists(tokenId);
+    }
+
+    function mint(address to, uint256 tokenId) public {
+        _mint(to, tokenId);
+    }
+
+    function safeMint(address to, uint256 tokenId) public {
+        _safeMint(to, tokenId);
+    }
+
+    function safeMint(address to, uint256 tokenId, bytes memory _data) public {
+        _safeMint(to, tokenId, _data);
+    }
+
+    function burn(uint256 tokenId) public {
+        _burn(tokenId);
     }
     uint256[50] private __gap;
 }

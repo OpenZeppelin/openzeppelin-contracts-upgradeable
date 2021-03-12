@@ -9,7 +9,7 @@ import "../ERC20/IERC20Upgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/introspection/IERC1820RegistryUpgradeable.sol";
-import "../../utils/Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -75,8 +75,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _symbol = symbol_;
 
         _defaultOperatorsArray = defaultOperators_;
-        for (uint256 i = 0; i < _defaultOperatorsArray.length; i++) {
-            _defaultOperators[_defaultOperatorsArray[i]] = true;
+        for (uint256 i = 0; i < defaultOperators_.length; i++) {
+            _defaultOperators[defaultOperators_[i]] = true;
         }
 
         // register interfaces

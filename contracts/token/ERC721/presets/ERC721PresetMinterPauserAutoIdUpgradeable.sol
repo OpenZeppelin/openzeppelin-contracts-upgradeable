@@ -9,7 +9,7 @@ import "../extensions/ERC721PausableUpgradeable.sol";
 import "../../../access/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC721} token, including:
@@ -48,9 +48,9 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is Initializable, ContextUpgr
      */
     function __ERC721PresetMinterPauserAutoId_init(string memory name, string memory symbol, string memory baseTokenURI) internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
-        __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
         __ERC721Enumerable_init_unchained();
         __ERC721Burnable_init_unchained();
@@ -127,7 +127,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is Initializable, ContextUpgr
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControlEnumerableUpgradeable, ERC721Upgradeable, ERC721EnumerableUpgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
     uint256[48] private __gap;

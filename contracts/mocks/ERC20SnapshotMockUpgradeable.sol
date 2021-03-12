@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../token/ERC20/extensions/ERC20SnapshotUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 
 contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable {

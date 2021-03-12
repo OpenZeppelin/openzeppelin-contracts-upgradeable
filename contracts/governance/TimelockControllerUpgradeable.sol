@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../access/AccessControlUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the
@@ -54,6 +54,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function __TimelockController_init(uint256 minDelay, address[] memory proposers, address[] memory executors) internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __TimelockController_init_unchained(minDelay, proposers, executors);
     }

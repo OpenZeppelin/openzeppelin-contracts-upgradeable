@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../utils/introspection/IERC165Upgradeable.sol";
-import "../../utils/Initializable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * https://eips.ethereum.org/EIPS/eip-214#specification

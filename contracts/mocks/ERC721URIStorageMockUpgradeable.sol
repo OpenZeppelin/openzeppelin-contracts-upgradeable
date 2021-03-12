@@ -2,25 +2,25 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
+import "../token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC721Mock
  * This mock just provides a public safeMint, mint, and burn functions for testing purposes
  */
-contract ERC721EnumerableMockUpgradeable is Initializable, ERC721EnumerableUpgradeable {
+contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgradeable {
     string private _baseTokenURI;
 
-    function __ERC721EnumerableMock_init(string memory name, string memory symbol) internal initializer {
+    function __ERC721URIStorageMock_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
-        __ERC721Enumerable_init_unchained();
-        __ERC721EnumerableMock_init_unchained(name, symbol);
+        __ERC721URIStorage_init_unchained();
+        __ERC721URIStorageMock_init_unchained(name, symbol);
     }
 
-    function __ERC721EnumerableMock_init_unchained(string memory name, string memory symbol) internal initializer { }
+    function __ERC721URIStorageMock_init_unchained(string memory name, string memory symbol) internal initializer { }
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
@@ -32,6 +32,10 @@ contract ERC721EnumerableMockUpgradeable is Initializable, ERC721EnumerableUpgra
 
     function baseURI() public view returns (string memory) {
         return _baseURI();
+    }
+
+    function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
+        _setTokenURI(tokenId, _tokenURI);
     }
 
     function exists(uint256 tokenId) public view returns (bool) {

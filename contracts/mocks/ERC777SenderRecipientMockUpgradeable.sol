@@ -8,7 +8,7 @@ import "../token/ERC777/IERC777RecipientUpgradeable.sol";
 import "../utils/ContextUpgradeable.sol";
 import "../utils/introspection/IERC1820RegistryUpgradeable.sol";
 import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeable, IERC777SenderUpgradeable, IERC777RecipientUpgradeable, ERC1820ImplementerUpgradeable {
     function __ERC777SenderRecipientMock_init() internal initializer {

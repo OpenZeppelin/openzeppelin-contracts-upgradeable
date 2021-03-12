@@ -7,7 +7,7 @@ import "../extensions/ERC20BurnableUpgradeable.sol";
 import "../extensions/ERC20PausableUpgradeable.sol";
 import "../../../access/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
-import "../../../utils/Initializable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC20} token, including:
@@ -38,6 +38,7 @@ contract ERC20PresetMinterPauserUpgradeable is Initializable, ContextUpgradeable
      */
     function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
         __ERC20_init_unchained(name, symbol);

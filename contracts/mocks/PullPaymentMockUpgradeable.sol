@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../security/PullPaymentUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 // mock class using PullPayment
 contract PullPaymentMockUpgradeable is Initializable, PullPaymentUpgradeable {

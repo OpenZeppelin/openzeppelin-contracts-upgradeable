@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/AddressUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract AddressImplUpgradeable is Initializable {
     function __AddressImpl_init() internal initializer {

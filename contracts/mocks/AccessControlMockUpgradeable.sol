@@ -3,11 +3,12 @@
 pragma solidity ^0.8.0;
 
 import "../access/AccessControlUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract AccessControlMockUpgradeable is Initializable, AccessControlUpgradeable {
     function __AccessControlMock_init() internal initializer {
         __Context_init_unchained();
+        __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlMock_init_unchained();
     }

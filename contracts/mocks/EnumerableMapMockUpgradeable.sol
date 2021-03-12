@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/structs/EnumerableMapUpgradeable.sol";
-import "../utils/Initializable.sol";
+import "../proxy/utils/Initializable.sol";
 
 contract EnumerableMapMockUpgradeable is Initializable {
     function __EnumerableMapMock_init() internal initializer {
