@@ -4,18 +4,6 @@
 
  * First release of Upgradeable variant, replacing Ethereum Package variant which is now deprecated.
 
-### Upgrading from OpenZeppelin Contracts Ethereum Package
-
- * The dependency on `@openzeppelin/contracts-ethereum-package` should be replaced by `@openzeppelin/contracts-upgradeable`.
- * All contracts, interfaces, and libraries now have an `Upgradeable` suffix, instead of the `UpgradeSafe` suffix that only contracts used to have. The only exception is the `Initializable` contract which retains its original name.
-   * `Address` → `AddressUpgradeable`
-   * `ERC20UpgradeSafe` → `ERC20Upgradeable`
-   * This change improves compatibility with the main OpenZeppelin Contracts package, allowing both to be used side by side.
- * Solidity files are now also suffixed, to keep the Solidity convention of equal file and contract name.
-   * `access/Ownable.sol` → `access/OwnableUpgradeable.sol`
- * Import paths no longer include `/contracts/`.
-   * `@openzeppelin/contracts-ethereum-package/contracts/access/Ownable.sol` → `@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol`
-
 # Changelog
 
 ## Unreleased
