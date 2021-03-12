@@ -47,7 +47,7 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
      * The defaut value of {decimals} is 18. To select a different value for
      * {decimals} you should overload it.
      *
-     * All three of these values are immutable: they can only be set once during
+     * All two of these values are immutable: they can only be set once during
      * construction.
      */
     function __ERC20_init(string memory name_, string memory symbol_) internal initializer {
