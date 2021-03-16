@@ -10,8 +10,6 @@ import "../proxy/utils/Initializable.sol";
  * This mock just provides a public safeMint, mint, and burn functions for testing purposes
  */
 contract ERC721MockUpgradeable is Initializable, ERC721Upgradeable {
-    string private _baseTokenURI;
-
     function __ERC721Mock_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
@@ -20,14 +18,6 @@ contract ERC721MockUpgradeable is Initializable, ERC721Upgradeable {
     }
 
     function __ERC721Mock_init_unchained(string memory name, string memory symbol) internal initializer { }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return _baseTokenURI;
-    }
-
-    function setBaseURI(string calldata newBaseTokenURI) public {
-        _baseTokenURI = newBaseTokenURI;
-    }
 
     function baseURI() public view returns (string memory) {
         return _baseURI();
@@ -52,5 +42,5 @@ contract ERC721MockUpgradeable is Initializable, ERC721Upgradeable {
     function burn(uint256 tokenId) public {
         _burn(tokenId);
     }
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }
