@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 import "./IERC721Upgradeable.sol";
 import "./IERC721ReceiverUpgradeable.sol";
 import "./extensions/IERC721MetadataUpgradeable.sol";
-import "./extensions/IERC721EnumerableUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/StringsUpgradeable.sol";
