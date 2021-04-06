@@ -288,6 +288,25 @@ contract ERC777MockUpgradeableWithInit is ERC777MockUpgradeable {
         __ERC777Mock_init(initialHolder, initialBalance, name, symbol, defaultOperators);
     }
 }
+import "./ERC3156FlashBorrowerMockUpgradeable.sol";
+
+contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
+    constructor(bool enableReturn, bool enableApprove) public payable {
+        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
+    }
+}
+import "./ERC3156MockUpgradeable.sol";
+
+contract ERC20FlashMintMockUpgradeableWithInit is ERC20FlashMintMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20FlashMintMock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
 import "./ClonesMockUpgradeable.sol";
 
 contract ClonesMockUpgradeableWithInit is ClonesMockUpgradeable {
