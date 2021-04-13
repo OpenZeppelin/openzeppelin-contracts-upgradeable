@@ -1,5 +1,5 @@
 diff --git a/contracts/mocks/AddressImplUpgradeable.sol b/contracts/mocks/AddressImplUpgradeable.sol
-index e9a0f96f..2b87e58e 100644
+index 4e92f588..4cbcabb8 100644
 --- a/contracts/mocks/AddressImplUpgradeable.sol
 +++ b/contracts/mocks/AddressImplUpgradeable.sol
 @@ -39,11 +39,6 @@ contract AddressImplUpgradeable is Initializable {
@@ -15,7 +15,7 @@ index e9a0f96f..2b87e58e 100644
      receive () external payable { }
      uint256[49] private __gap;
 diff --git a/contracts/utils/AddressUpgradeable.sol b/contracts/utils/AddressUpgradeable.sol
-index 75acb96f..08a59041 100644
+index 89241895..99c1ce78 100644
 --- a/contracts/utils/AddressUpgradeable.sol
 +++ b/contracts/utils/AddressUpgradeable.sol
 @@ -144,30 +144,6 @@ library AddressUpgradeable {
@@ -49,3 +49,46 @@ index 75acb96f..08a59041 100644
      function _verifyCallResult(bool success, bytes memory returndata, string memory errorMessage) private pure returns(bytes memory) {
          if (success) {
              return returndata;
+diff --git a/contracts/utils/MulticallUpgradeable.sol b/contracts/utils/MulticallUpgradeable.sol
+index 62d5047c..a535dfc5 100644
+--- a/contracts/utils/MulticallUpgradeable.sol
++++ b/contracts/utils/MulticallUpgradeable.sol
+@@ -21,9 +21,37 @@ abstract contract MulticallUpgradeable is Initializable {
+     function multicall(bytes[] calldata data) external returns (bytes[] memory results) {
+         results = new bytes[](data.length);
+         for (uint i = 0; i < data.length; i++) {
+-            results[i] = AddressUpgradeable.functionDelegateCall(address(this), data[i]);
++            results[i] = _functionDelegateCall(address(this), data[i]);
+         }
+         return results;
+     }
++
++    function _functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
++        require(AddressUpgradeable.isContract(target), "Address: delegate call to non-contract");
++
++        // solhint-disable-next-line avoid-low-level-calls
++        (bool success, bytes memory returndata) = target.delegatecall(data);
++        return _verifyCallResult(success, returndata, "Address: low-level delegate call failed");
++    }
++
++    function _verifyCallResult(bool success, bytes memory returndata, string memory errorMessage) private pure returns(bytes memory) {
++        if (success) {
++            return returndata;
++        } else {
++            // Look for revert reason and bubble it up if present
++            if (returndata.length > 0) {
++                // The easiest way to bubble the revert reason is using memory via assembly
++
++                // solhint-disable-next-line no-inline-assembly
++                assembly {
++                    let returndata_size := mload(returndata)
++                    revert(add(32, returndata), returndata_size)
++                }
++            } else {
++                revert(errorMessage);
++            }
++        }
++    }
++
+     uint256[50] private __gap;
+ }
