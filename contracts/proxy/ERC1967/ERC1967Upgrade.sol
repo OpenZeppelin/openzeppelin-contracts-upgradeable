@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.3;
+pragma solidity ^0.8.2;
 
 import "./ERC1967Storage.sol";
 
 /**
  * @dev This abstract contract provides event emitting update functions for
  * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
+ *
+ * _Available since v4.1._
  *
  * @custom:oz-upgrades-unsafe-allow delegatecall
  */
@@ -59,16 +61,17 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
      */
     function _upgradeToAndCallSecure(address newImplementation, bytes memory data, bool forceCall) internal {
         address oldImplementation = _getImplementation();
-        // do inital upgrade
+
+        // Initial upgrade and setup call
         _setImplementation(newImplementation);
-        // do setup call
         if (data.length > 0 || forceCall) {
             Address.functionDelegateCall(newImplementation, data);
         }
-        // check if nested in an upgrade check
+
+        // Perform rollback test if not already in progress
         StorageSlot.BooleanSlot storage rollbackTesting = StorageSlot.getBooleanSlot(_ROLLBACK_SLOT);
         if (!rollbackTesting.value) {
-            // trigger upgrade check with flag set to true
+            // Trigger rollback using upgradeTo from the new implementation
             rollbackTesting.value = true;
             Address.functionDelegateCall(
                 newImplementation,
@@ -78,11 +81,10 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
                 )
             );
             rollbackTesting.value = false;
-            // check upgrade was effective
+            // Check rollback was effective
             require(oldImplementation == _getImplementation(), "ERC1967Upgrade: upgrade breaks further upgrades");
-            // reset upgrade
+            // Finally reset to the new implementation and log the upgrade
             _setImplementation(newImplementation);
-            // emit event
             emit Upgraded(newImplementation);
         }
     }
