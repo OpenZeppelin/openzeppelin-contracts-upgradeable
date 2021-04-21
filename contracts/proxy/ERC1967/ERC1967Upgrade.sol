@@ -50,7 +50,7 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
         _setImplementation(newImplementation);
         emit Upgraded(newImplementation);
         if (data.length > 0 || forceCall) {
-            Address.functionDelegateCall(newImplementation, data);
+            _functionDelegateCall(newImplementation, data);
         }
     }
 
@@ -65,7 +65,7 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
         // Initial upgrade and setup call
         _setImplementation(newImplementation);
         if (data.length > 0 || forceCall) {
-            Address.functionDelegateCall(newImplementation, data);
+            _functionDelegateCall(newImplementation, data);
         }
 
         // Perform rollback test if not already in progress
@@ -73,7 +73,7 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
         if (!rollbackTesting.value) {
             // Trigger rollback using upgradeTo from the new implementation
             rollbackTesting.value = true;
-            Address.functionDelegateCall(
+            _functionDelegateCall(
                 newImplementation,
                 abi.encodeWithSignature(
                     "upgradeTo(address)",
@@ -99,7 +99,7 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
         _setBeacon(newBeacon);
         emit BeaconUpgraded(newBeacon);
         if (data.length > 0 || forceCall) {
-            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);
+            _functionDelegateCall(IBeacon(newBeacon).implementation(), data);
         }
     }
 
@@ -111,5 +111,38 @@ abstract contract ERC1967Upgrade is ERC1967Storage {
     function _changeAdmin(address newAdmin) internal {
         emit AdminChanged(_getAdmin(), newAdmin);
         _setAdmin(newAdmin);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function _functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
+        require(Address.isContract(target), "Address: delegate call to non-contract");
+
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return _verifyCallResult(success, returndata, "Address: low-level delegate call failed");
+    }
+
+    function _verifyCallResult(bool success, bytes memory returndata, string memory errorMessage) private pure returns(bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            // Look for revert reason and bubble it up if present
+            if (returndata.length > 0) {
+                // The easiest way to bubble the revert reason is using memory via assembly
+
+                // solhint-disable-next-line no-inline-assembly
+                assembly {
+                    let returndata_size := mload(returndata)
+                    revert(add(32, returndata), returndata_size)
+                }
+            } else {
+                revert(errorMessage);
+            }
+        }
     }
 }
