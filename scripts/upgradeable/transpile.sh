@@ -12,6 +12,9 @@ npx @openzeppelin/upgrade-safe-transpiler -D \
   -i contracts/proxy/utils/Initializable.sol \
   -x 'contracts/proxy/**/*' \
   -x '!contracts/proxy/Clones.sol' \
+  -x '!contracts/proxy/ERC1967/ERC1967{Storage,Upgrade}.sol' \
+  -x '!contracts/proxy/utils/UUPSUpgradeable.sol' \
+  -x '!contracts/proxy/beacon/IBeacon.sol' \
   -p 'contracts/**/presets/**/*'
 
 for p in scripts/upgradeable/patch/*.patch; do
