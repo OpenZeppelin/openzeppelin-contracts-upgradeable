@@ -20,5 +20,7 @@ contract AccessControlMockUpgradeable is Initializable, AccessControlUpgradeable
     function setRoleAdmin(bytes32 roleId, bytes32 adminRoleId) public {
         _setRoleAdmin(roleId, adminRoleId);
     }
+
+    function senderProtected(bytes32 roleId) public onlyRole(roleId) {}
     uint256[50] private __gap;
 }

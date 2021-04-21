@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/ContextUpgradeable.sol";
+import "../utils/StringsUpgradeable.sol";
 import "../utils/introspection/ERC165Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
@@ -101,6 +102,21 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
     event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
 
     /**
+     * @dev Modifier that checks that an account has a specific role. Reverts
+     * with a standardized message including the required role.
+     *
+     * The format of the revert reason is given by the following regular expression:
+     *
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
+     *
+     * _Available since v4.1._
+     */
+    modifier onlyRole(bytes32 role) {
+        _checkRole(role, _msgSender());
+        _;
+    }
+
+    /**
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
@@ -113,6 +129,24 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function hasRole(bytes32 role, address account) public view override returns (bool) {
         return _roles[role].members[account];
+    }
+
+    /**
+     * @dev Revert with a standard message if `account` is missing `role`.
+     *
+     * The format of the revert reason is given by the following regular expression:
+     *
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
+     */
+    function _checkRole(bytes32 role, address account) internal view {
+        if(!hasRole(role, account)) {
+            revert(string(abi.encodePacked(
+                "AccessControl: account ",
+                StringsUpgradeable.toHexString(uint160(account), 20),
+                " is missing role ",
+                StringsUpgradeable.toHexString(uint256(role), 32)
+            )));
+        }
     }
 
     /**
@@ -135,9 +169,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * - the caller must have ``role``'s admin role.
      */
-    function grantRole(bytes32 role, address account) public virtual override {
-        require(hasRole(getRoleAdmin(role), _msgSender()), "AccessControl: sender must be an admin to grant");
-
+    function grantRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _grantRole(role, account);
     }
 
@@ -150,9 +182,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * - the caller must have ``role``'s admin role.
      */
-    function revokeRole(bytes32 role, address account) public virtual override {
-        require(hasRole(getRoleAdmin(role), _msgSender()), "AccessControl: sender must be an admin to revoke");
-
+    function revokeRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _revokeRole(role, account);
     }
 

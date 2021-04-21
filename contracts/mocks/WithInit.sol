@@ -153,6 +153,41 @@ contract ERC1155PausableMockUpgradeableWithInit is ERC1155PausableMockUpgradeabl
         __ERC1155PausableMock_init(uri);
     }
 }
+import "./StorageSlotMockUpgradeable.sol";
+
+contract StorageSlotMockUpgradeableWithInit is StorageSlotMockUpgradeable {
+    constructor() public payable {
+        __StorageSlotMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableMockUpgradeableWithInit is UUPSUpgradeableMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableUnsafeMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableBrokenMockUpgradeableWithInit is UUPSUpgradeableBrokenMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableBrokenMock_init();
+    }
+}
+import "./CountersImplUpgradeable.sol";
+
+contract CountersImplUpgradeableWithInit is CountersImplUpgradeable {
+    constructor() public payable {
+        __CountersImpl_init();
+    }
+}
 import "./OwnableMockUpgradeable.sol";
 
 contract OwnableMockUpgradeableWithInit is OwnableMockUpgradeable {
@@ -559,13 +594,6 @@ contract ERC20SnapshotMockUpgradeableWithInit is ERC20SnapshotMockUpgradeable {
         uint256 initialBalance
     ) public payable {
         __ERC20SnapshotMock_init(name, symbol, initialAccount, initialBalance);
-    }
-}
-import "./CountersImplUpgradeable.sol";
-
-contract CountersImplUpgradeableWithInit is CountersImplUpgradeable {
-    constructor() public payable {
-        __CountersImpl_init();
     }
 }
 import "./AccessControlEnumerableMockUpgradeable.sol";

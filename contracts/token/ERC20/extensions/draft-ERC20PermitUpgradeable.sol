@@ -85,6 +85,8 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
 
     /**
      * @dev "Consume a nonce": return the current value and increment.
+     *
+     * _Available since v4.1._
      */
     function _useNonce(address owner) internal virtual returns (uint256 current) {
         CountersUpgradeable.Counter storage nonce = _nonces[owner];

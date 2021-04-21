@@ -7,6 +7,8 @@ import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Provides a function to batch together multiple calls in a single external call.
+ *
+ * _Available since v4.1._
  */
 abstract contract MulticallUpgradeable is Initializable {
     function __Multicall_init() internal initializer {
@@ -26,6 +28,12 @@ abstract contract MulticallUpgradeable is Initializable {
         return results;
     }
 
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
     function _functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
         require(AddressUpgradeable.isContract(target), "Address: delegate call to non-contract");
 
@@ -52,6 +60,5 @@ abstract contract MulticallUpgradeable is Initializable {
             }
         }
     }
-
     uint256[50] private __gap;
 }

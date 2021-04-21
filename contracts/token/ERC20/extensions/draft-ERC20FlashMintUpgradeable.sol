@@ -12,6 +12,8 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * Adds the {flashLoan} method, which provides flash loan support at the token
  * level. By default there is no fee, but this can be changed by overriding {flashFee}.
+ *
+ * _Available since v4.1._
  */
 abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLenderUpgradeable {
     function __ERC20FlashMint_init() internal initializer {
