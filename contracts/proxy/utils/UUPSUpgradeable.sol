@@ -16,7 +16,6 @@ import "./Initializable.sol";
  */
 abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
     function __UUPSUpgradeable_init() internal initializer {
-        __ERC1967Storage_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
     }

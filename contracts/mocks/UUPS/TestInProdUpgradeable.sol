@@ -9,7 +9,6 @@ import "../../proxy/utils/Initializable.sol";
 contract UUPSUpgradeableMockUpgradeable is Initializable, CountersImplUpgradeable, UUPSUpgradeable {
     function __UUPSUpgradeableMock_init() internal initializer {
         __CountersImpl_init_unchained();
-        __ERC1967Storage_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
         __UUPSUpgradeableMock_init_unchained();
@@ -25,7 +24,6 @@ contract UUPSUpgradeableMockUpgradeable is Initializable, CountersImplUpgradeabl
 contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
     function __UUPSUpgradeableUnsafeMock_init() internal initializer {
         __CountersImpl_init_unchained();
-        __ERC1967Storage_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
         __UUPSUpgradeableMock_init_unchained();
@@ -47,7 +45,6 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
 contract UUPSUpgradeableBrokenMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
     function __UUPSUpgradeableBrokenMock_init() internal initializer {
         __CountersImpl_init_unchained();
-        __ERC1967Storage_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
         __UUPSUpgradeableMock_init_unchained();

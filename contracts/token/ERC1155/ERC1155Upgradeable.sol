@@ -11,7 +11,6 @@ import "../../utils/introspection/ERC165Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
- *
  * @dev Implementation of the basic standard multi-token.
  * See https://eips.ethereum.org/EIPS/eip-1155
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
