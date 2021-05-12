@@ -43,11 +43,46 @@ contract MathMockUpgradeableWithInit is MathMockUpgradeable {
         __MathMock_init();
     }
 }
-import "./ArraysImplUpgradeable.sol";
+import "./ERC1271WalletMockUpgradeable.sol";
 
-contract ArraysImplUpgradeableWithInit is ArraysImplUpgradeable {
-    constructor(uint256[] memory array) public payable {
-        __ArraysImpl_init(array);
+contract ERC1271WalletMockUpgradeableWithInit is ERC1271WalletMockUpgradeable {
+    constructor(address originalOwner) public payable {
+        __ERC1271WalletMock_init(originalOwner);
+    }
+}
+import "../token/ERC20/utils/TokenTimelockUpgradeable.sol";
+
+contract TokenTimelockUpgradeableWithInit is TokenTimelockUpgradeable {
+    constructor(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) public payable {
+        __TokenTimelock_init(token_, beneficiary_, releaseTime_);
+    }
+}
+import "./SafeERC20HelperUpgradeable.sol";
+
+contract ERC20ReturnFalseMockUpgradeableWithInit is ERC20ReturnFalseMockUpgradeable {
+    constructor() public payable {
+        __ERC20ReturnFalseMock_init();
+    }
+}
+import "./SafeERC20HelperUpgradeable.sol";
+
+contract ERC20ReturnTrueMockUpgradeableWithInit is ERC20ReturnTrueMockUpgradeable {
+    constructor() public payable {
+        __ERC20ReturnTrueMock_init();
+    }
+}
+import "./SafeERC20HelperUpgradeable.sol";
+
+contract ERC20NoReturnMockUpgradeableWithInit is ERC20NoReturnMockUpgradeable {
+    constructor() public payable {
+        __ERC20NoReturnMock_init();
+    }
+}
+import "./SafeERC20HelperUpgradeable.sol";
+
+contract SafeERC20WrapperUpgradeableWithInit is SafeERC20WrapperUpgradeable {
+    constructor(IERC20Upgradeable token) public payable {
+        __SafeERC20Wrapper_init(token);
     }
 }
 import "../token/ERC20/presets/ERC20PresetMinterPauserUpgradeable.sol";
@@ -55,20 +90,6 @@ import "../token/ERC20/presets/ERC20PresetMinterPauserUpgradeable.sol";
 contract ERC20PresetMinterPauserUpgradeableWithInit is ERC20PresetMinterPauserUpgradeable {
     constructor(string memory name, string memory symbol) public payable {
         __ERC20PresetMinterPauser_init(name, symbol);
-    }
-}
-import "../token/ERC1155/presets/ERC1155PresetMinterPauserUpgradeable.sol";
-
-contract ERC1155PresetMinterPauserUpgradeableWithInit is ERC1155PresetMinterPauserUpgradeable {
-    constructor(string memory uri) public payable {
-        __ERC1155PresetMinterPauser_init(uri);
-    }
-}
-import "../token/ERC1155/ERC1155Upgradeable.sol";
-
-contract ERC1155UpgradeableWithInit is ERC1155Upgradeable {
-    constructor(string memory uri_) public payable {
-        __ERC1155_init(uri_);
     }
 }
 import "./PausableMockUpgradeable.sol";
@@ -139,11 +160,18 @@ contract ERC1155ReceiverMockUpgradeableWithInit is ERC1155ReceiverMockUpgradeabl
         __ERC1155ReceiverMock_init(recRetval, recReverts, batRetval, batReverts);
     }
 }
-import "./ERC1155MockUpgradeable.sol";
+import "../token/ERC1155/ERC1155Upgradeable.sol";
 
-contract ERC1155MockUpgradeableWithInit is ERC1155MockUpgradeable {
+contract ERC1155UpgradeableWithInit is ERC1155Upgradeable {
+    constructor(string memory uri_) public payable {
+        __ERC1155_init(uri_);
+    }
+}
+import "../token/ERC1155/presets/ERC1155PresetMinterPauserUpgradeable.sol";
+
+contract ERC1155PresetMinterPauserUpgradeableWithInit is ERC1155PresetMinterPauserUpgradeable {
     constructor(string memory uri) public payable {
-        __ERC1155Mock_init(uri);
+        __ERC1155PresetMinterPauser_init(uri);
     }
 }
 import "./ERC1155PausableMockUpgradeable.sol";
@@ -153,294 +181,11 @@ contract ERC1155PausableMockUpgradeableWithInit is ERC1155PausableMockUpgradeabl
         __ERC1155PausableMock_init(uri);
     }
 }
-import "./StorageSlotMockUpgradeable.sol";
+import "./ERC1155MockUpgradeable.sol";
 
-contract StorageSlotMockUpgradeableWithInit is StorageSlotMockUpgradeable {
-    constructor() public payable {
-        __StorageSlotMock_init();
-    }
-}
-import "./UUPS/TestInProdUpgradeable.sol";
-
-contract UUPSUpgradeableMockUpgradeableWithInit is UUPSUpgradeableMockUpgradeable {
-    constructor() public payable {
-        __UUPSUpgradeableMock_init();
-    }
-}
-import "./UUPS/TestInProdUpgradeable.sol";
-
-contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMockUpgradeable {
-    constructor() public payable {
-        __UUPSUpgradeableUnsafeMock_init();
-    }
-}
-import "./UUPS/TestInProdUpgradeable.sol";
-
-contract UUPSUpgradeableBrokenMockUpgradeableWithInit is UUPSUpgradeableBrokenMockUpgradeable {
-    constructor() public payable {
-        __UUPSUpgradeableBrokenMock_init();
-    }
-}
-import "./CountersImplUpgradeable.sol";
-
-contract CountersImplUpgradeableWithInit is CountersImplUpgradeable {
-    constructor() public payable {
-        __CountersImpl_init();
-    }
-}
-import "./OwnableMockUpgradeable.sol";
-
-contract OwnableMockUpgradeableWithInit is OwnableMockUpgradeable {
-    constructor() public payable {
-        __OwnableMock_init();
-    }
-}
-import "./ERC1271WalletMockUpgradeable.sol";
-
-contract ERC1271WalletMockUpgradeableWithInit is ERC1271WalletMockUpgradeable {
-    constructor(address originalOwner) public payable {
-        __ERC1271WalletMock_init(originalOwner);
-    }
-}
-import "./SignatureCheckerMockUpgradeable.sol";
-
-contract SignatureCheckerMockUpgradeableWithInit is SignatureCheckerMockUpgradeable {
-    constructor() public payable {
-        __SignatureCheckerMock_init();
-    }
-}
-import "./EIP712ExternalUpgradeable.sol";
-
-contract EIP712ExternalUpgradeableWithInit is EIP712ExternalUpgradeable {
-    constructor(string memory name, string memory version) public payable {
-        __EIP712External_init(name, version);
-    }
-}
-import "../metatx/MinimalForwarderUpgradeable.sol";
-
-contract MinimalForwarderUpgradeableWithInit is MinimalForwarderUpgradeable {
-    constructor() public payable {
-        __MinimalForwarder_init();
-    }
-}
-import "./ERC20PermitMockUpgradeable.sol";
-
-contract ERC20PermitMockUpgradeableWithInit is ERC20PermitMockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address initialAccount,
-        uint256 initialBalance
-    ) public payable {
-        __ERC20PermitMock_init(name, symbol, initialAccount, initialBalance);
-    }
-}
-import "./ECDSAMockUpgradeable.sol";
-
-contract ECDSAMockUpgradeableWithInit is ECDSAMockUpgradeable {
-    constructor() public payable {
-        __ECDSAMock_init();
-    }
-}
-import "../utils/escrow/EscrowUpgradeable.sol";
-
-contract EscrowUpgradeableWithInit is EscrowUpgradeable {
-    constructor() public payable {
-        __Escrow_init();
-    }
-}
-import "./PullPaymentMockUpgradeable.sol";
-
-contract PullPaymentMockUpgradeableWithInit is PullPaymentMockUpgradeable {
-    constructor() public payable {
-        __PullPaymentMock_init();
-    }
-}
-import "../utils/escrow/RefundEscrowUpgradeable.sol";
-
-contract RefundEscrowUpgradeableWithInit is RefundEscrowUpgradeable {
-    constructor(address payable beneficiary_) public payable {
-        __RefundEscrow_init(beneficiary_);
-    }
-}
-import "./ConditionalEscrowMockUpgradeable.sol";
-
-contract ConditionalEscrowMockUpgradeableWithInit is ConditionalEscrowMockUpgradeable {
-    constructor() public payable {
-        __ConditionalEscrowMock_init();
-    }
-}
-import "../token/ERC20/utils/TokenTimelockUpgradeable.sol";
-
-contract TokenTimelockUpgradeableWithInit is TokenTimelockUpgradeable {
-    constructor(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) public payable {
-        __TokenTimelock_init(token_, beneficiary_, releaseTime_);
-    }
-}
-import "./SafeERC20HelperUpgradeable.sol";
-
-contract ERC20ReturnFalseMockUpgradeableWithInit is ERC20ReturnFalseMockUpgradeable {
-    constructor() public payable {
-        __ERC20ReturnFalseMock_init();
-    }
-}
-import "./SafeERC20HelperUpgradeable.sol";
-
-contract ERC20ReturnTrueMockUpgradeableWithInit is ERC20ReturnTrueMockUpgradeable {
-    constructor() public payable {
-        __ERC20ReturnTrueMock_init();
-    }
-}
-import "./SafeERC20HelperUpgradeable.sol";
-
-contract ERC20NoReturnMockUpgradeableWithInit is ERC20NoReturnMockUpgradeable {
-    constructor() public payable {
-        __ERC20NoReturnMock_init();
-    }
-}
-import "./SafeERC20HelperUpgradeable.sol";
-
-contract SafeERC20WrapperUpgradeableWithInit is SafeERC20WrapperUpgradeable {
-    constructor(IERC20Upgradeable token) public payable {
-        __SafeERC20Wrapper_init(token);
-    }
-}
-import "../token/ERC777/ERC777Upgradeable.sol";
-
-contract ERC777UpgradeableWithInit is ERC777Upgradeable {
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        address[] memory defaultOperators_
-    ) public payable {
-        __ERC777_init(name_, symbol_, defaultOperators_);
-    }
-}
-import "../token/ERC777/presets/ERC777PresetFixedSupplyUpgradeable.sol";
-
-contract ERC777PresetFixedSupplyUpgradeableWithInit is ERC777PresetFixedSupplyUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators,
-        uint256 initialSupply,
-        address owner
-    ) public payable {
-        __ERC777PresetFixedSupply_init(name, symbol, defaultOperators, initialSupply, owner);
-    }
-}
-import "./ERC777SenderRecipientMockUpgradeable.sol";
-
-contract ERC777SenderRecipientMockUpgradeableWithInit is ERC777SenderRecipientMockUpgradeable {
-    constructor() public payable {
-        __ERC777SenderRecipientMock_init();
-    }
-}
-import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
-
-contract ERC1820ImplementerUpgradeableWithInit is ERC1820ImplementerUpgradeable {
-    constructor() public payable {
-        __ERC1820Implementer_init();
-    }
-}
-import "./ERC1820ImplementerMockUpgradeable.sol";
-
-contract ERC1820ImplementerMockUpgradeableWithInit is ERC1820ImplementerMockUpgradeable {
-    constructor() public payable {
-        __ERC1820ImplementerMock_init();
-    }
-}
-import "./Create2ImplUpgradeable.sol";
-
-contract Create2ImplUpgradeableWithInit is Create2ImplUpgradeable {
-    constructor() public payable {
-        __Create2Impl_init();
-    }
-}
-import "./ERC777MockUpgradeable.sol";
-
-contract ERC777MockUpgradeableWithInit is ERC777MockUpgradeable {
-    constructor(
-        address initialHolder,
-        uint256 initialBalance,
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators
-    ) public payable {
-        __ERC777Mock_init(initialHolder, initialBalance, name, symbol, defaultOperators);
-    }
-}
-import "./ERC3156FlashBorrowerMockUpgradeable.sol";
-
-contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
-    constructor(bool enableReturn, bool enableApprove) public payable {
-        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
-    }
-}
-import "./ERC3156MockUpgradeable.sol";
-
-contract ERC20FlashMintMockUpgradeableWithInit is ERC20FlashMintMockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address initialAccount,
-        uint256 initialBalance
-    ) public payable {
-        __ERC20FlashMintMock_init(name, symbol, initialAccount, initialBalance);
-    }
-}
-import "./MulticallTokenMockUpgradeable.sol";
-
-contract MulticallTokenMockUpgradeableWithInit is MulticallTokenMockUpgradeable {
-    constructor(uint256 initialBalance) public payable {
-        __MulticallTokenMock_init(initialBalance);
-    }
-}
-import "./ERC20MockUpgradeable.sol";
-
-contract ERC20MockUpgradeableWithInit is ERC20MockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address initialAccount,
-        uint256 initialBalance
-    ) public payable {
-        __ERC20Mock_init(name, symbol, initialAccount, initialBalance);
-    }
-}
-import "./MulticallTestUpgradeable.sol";
-
-contract MulticallTestUpgradeableWithInit is MulticallTestUpgradeable {
-    constructor() public payable {
-        __MulticallTest_init();
-    }
-}
-import "./ClonesMockUpgradeable.sol";
-
-contract ClonesMockUpgradeableWithInit is ClonesMockUpgradeable {
-    constructor() public payable {
-        __ClonesMock_init();
-    }
-}
-import "./AddressImplUpgradeable.sol";
-
-contract AddressImplUpgradeableWithInit is AddressImplUpgradeable {
-    constructor() public payable {
-        __AddressImpl_init();
-    }
-}
-import "../finance/PaymentSplitterUpgradeable.sol";
-
-contract PaymentSplitterUpgradeableWithInit is PaymentSplitterUpgradeable {
-    constructor(address[] memory payees, uint256[] memory shares_) public payable {
-        __PaymentSplitter_init(payees, shares_);
-    }
-}
-import "./SafeMathMockUpgradeable.sol";
-
-contract SafeMathMockUpgradeableWithInit is SafeMathMockUpgradeable {
-    constructor() public payable {
-        __SafeMathMock_init();
+contract ERC1155MockUpgradeableWithInit is ERC1155MockUpgradeable {
+    constructor(string memory uri) public payable {
+        __ERC1155Mock_init(uri);
     }
 }
 import "./ERC1155BurnableMockUpgradeable.sol";
@@ -499,30 +244,89 @@ contract ERC721PausableMockUpgradeableWithInit is ERC721PausableMockUpgradeable 
         __ERC721PausableMock_init(name, symbol);
     }
 }
-import "./ERC20PausableMockUpgradeable.sol";
+import "./ERC3156FlashBorrowerMockUpgradeable.sol";
 
-contract ERC20PausableMockUpgradeableWithInit is ERC20PausableMockUpgradeable {
+contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
+    constructor(bool enableReturn, bool enableApprove) public payable {
+        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
+    }
+}
+import "./ERC3156MockUpgradeable.sol";
+
+contract ERC20FlashMintMockUpgradeableWithInit is ERC20FlashMintMockUpgradeable {
     constructor(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
     ) public payable {
-        __ERC20PausableMock_init(name, symbol, initialAccount, initialBalance);
+        __ERC20FlashMintMock_init(name, symbol, initialAccount, initialBalance);
     }
 }
-import "./ReentrancyAttackUpgradeable.sol";
+import "./EIP712ExternalUpgradeable.sol";
 
-contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
-    constructor() public payable {
-        __ReentrancyAttack_init();
+contract EIP712ExternalUpgradeableWithInit is EIP712ExternalUpgradeable {
+    constructor(string memory name, string memory version) public payable {
+        __EIP712External_init(name, version);
     }
 }
-import "./ReentrancyMockUpgradeable.sol";
+import "../metatx/MinimalForwarderUpgradeable.sol";
 
-contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
+contract MinimalForwarderUpgradeableWithInit is MinimalForwarderUpgradeable {
     constructor() public payable {
-        __ReentrancyMock_init();
+        __MinimalForwarder_init();
+    }
+}
+import "./ERC20PermitMockUpgradeable.sol";
+
+contract ERC20PermitMockUpgradeableWithInit is ERC20PermitMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20PermitMock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
+import "./ERC20MockUpgradeable.sol";
+
+contract ERC20MockUpgradeableWithInit is ERC20MockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20Mock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
+import "./MulticallTokenMockUpgradeable.sol";
+
+contract MulticallTokenMockUpgradeableWithInit is MulticallTokenMockUpgradeable {
+    constructor(uint256 initialBalance) public payable {
+        __MulticallTokenMock_init(initialBalance);
+    }
+}
+import "./MulticallTestUpgradeable.sol";
+
+contract MulticallTestUpgradeableWithInit is MulticallTestUpgradeable {
+    constructor() public payable {
+        __MulticallTest_init();
+    }
+}
+import "./ERC20DecimalsMockUpgradeable.sol";
+
+contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
+    constructor(string memory name_, string memory symbol_, uint8 decimals_) public payable {
+        __ERC20DecimalsMock_init(name_, symbol_, decimals_);
+    }
+}
+import "./ERC20CappedMockUpgradeable.sol";
+
+contract ERC20CappedMockUpgradeableWithInit is ERC20CappedMockUpgradeable {
+    constructor(string memory name, string memory symbol, uint256 cap) public payable {
+        __ERC20CappedMock_init(name, symbol, cap);
     }
 }
 import "../token/ERC20/presets/ERC20PresetFixedSupplyUpgradeable.sol";
@@ -549,6 +353,97 @@ contract ERC20BurnableMockUpgradeableWithInit is ERC20BurnableMockUpgradeable {
         __ERC20BurnableMock_init(name, symbol, initialAccount, initialBalance);
     }
 }
+import "./ERC20PausableMockUpgradeable.sol";
+
+contract ERC20PausableMockUpgradeableWithInit is ERC20PausableMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20PausableMock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
+import "./ReentrancyAttackUpgradeable.sol";
+
+contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
+    constructor() public payable {
+        __ReentrancyAttack_init();
+    }
+}
+import "./ReentrancyMockUpgradeable.sol";
+
+contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
+    constructor() public payable {
+        __ReentrancyMock_init();
+    }
+}
+import "./ERC777SenderRecipientMockUpgradeable.sol";
+
+contract ERC777SenderRecipientMockUpgradeableWithInit is ERC777SenderRecipientMockUpgradeable {
+    constructor() public payable {
+        __ERC777SenderRecipientMock_init();
+    }
+}
+import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
+
+contract ERC1820ImplementerUpgradeableWithInit is ERC1820ImplementerUpgradeable {
+    constructor() public payable {
+        __ERC1820Implementer_init();
+    }
+}
+import "./ERC1820ImplementerMockUpgradeable.sol";
+
+contract ERC1820ImplementerMockUpgradeableWithInit is ERC1820ImplementerMockUpgradeable {
+    constructor() public payable {
+        __ERC1820ImplementerMock_init();
+    }
+}
+import "./Create2ImplUpgradeable.sol";
+
+contract Create2ImplUpgradeableWithInit is Create2ImplUpgradeable {
+    constructor() public payable {
+        __Create2Impl_init();
+    }
+}
+import "../token/ERC777/ERC777Upgradeable.sol";
+
+contract ERC777UpgradeableWithInit is ERC777Upgradeable {
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        address[] memory defaultOperators_
+    ) public payable {
+        __ERC777_init(name_, symbol_, defaultOperators_);
+    }
+}
+import "../token/ERC777/presets/ERC777PresetFixedSupplyUpgradeable.sol";
+
+contract ERC777PresetFixedSupplyUpgradeableWithInit is ERC777PresetFixedSupplyUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators,
+        uint256 initialSupply,
+        address owner
+    ) public payable {
+        __ERC777PresetFixedSupply_init(name, symbol, defaultOperators, initialSupply, owner);
+    }
+}
+import "./ERC777MockUpgradeable.sol";
+
+contract ERC777MockUpgradeableWithInit is ERC777MockUpgradeable {
+    constructor(
+        address initialHolder,
+        uint256 initialBalance,
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators
+    ) public payable {
+        __ERC777Mock_init(initialHolder, initialBalance, name, symbol, defaultOperators);
+    }
+}
 import "./ContextMockUpgradeable.sol";
 
 contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
@@ -570,18 +465,142 @@ contract ERC2771ContextMockUpgradeableWithInit is ERC2771ContextMockUpgradeable 
         __ERC2771ContextMock_init(trustedForwarder);
     }
 }
-import "./ERC20DecimalsMockUpgradeable.sol";
+import "../finance/PaymentSplitterUpgradeable.sol";
 
-contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
-    constructor(string memory name_, string memory symbol_, uint8 decimals_) public payable {
-        __ERC20DecimalsMock_init(name_, symbol_, decimals_);
+contract PaymentSplitterUpgradeableWithInit is PaymentSplitterUpgradeable {
+    constructor(address[] memory payees, uint256[] memory shares_) public payable {
+        __PaymentSplitter_init(payees, shares_);
     }
 }
-import "./ERC20CappedMockUpgradeable.sol";
+import "./SafeMathMockUpgradeable.sol";
 
-contract ERC20CappedMockUpgradeableWithInit is ERC20CappedMockUpgradeable {
-    constructor(string memory name, string memory symbol, uint256 cap) public payable {
-        __ERC20CappedMock_init(name, symbol, cap);
+contract SafeMathMockUpgradeableWithInit is SafeMathMockUpgradeable {
+    constructor() public payable {
+        __SafeMathMock_init();
+    }
+}
+import "../utils/escrow/EscrowUpgradeable.sol";
+
+contract EscrowUpgradeableWithInit is EscrowUpgradeable {
+    constructor() public payable {
+        __Escrow_init();
+    }
+}
+import "./PullPaymentMockUpgradeable.sol";
+
+contract PullPaymentMockUpgradeableWithInit is PullPaymentMockUpgradeable {
+    constructor() public payable {
+        __PullPaymentMock_init();
+    }
+}
+import "../utils/escrow/RefundEscrowUpgradeable.sol";
+
+contract RefundEscrowUpgradeableWithInit is RefundEscrowUpgradeable {
+    constructor(address payable beneficiary_) public payable {
+        __RefundEscrow_init(beneficiary_);
+    }
+}
+import "./ConditionalEscrowMockUpgradeable.sol";
+
+contract ConditionalEscrowMockUpgradeableWithInit is ConditionalEscrowMockUpgradeable {
+    constructor() public payable {
+        __ConditionalEscrowMock_init();
+    }
+}
+import "./ClonesMockUpgradeable.sol";
+
+contract ClonesMockUpgradeableWithInit is ClonesMockUpgradeable {
+    constructor() public payable {
+        __ClonesMock_init();
+    }
+}
+import "./AddressImplUpgradeable.sol";
+
+contract AddressImplUpgradeableWithInit is AddressImplUpgradeable {
+    constructor() public payable {
+        __AddressImpl_init();
+    }
+}
+import "./StorageSlotMockUpgradeable.sol";
+
+contract StorageSlotMockUpgradeableWithInit is StorageSlotMockUpgradeable {
+    constructor() public payable {
+        __StorageSlotMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableMockUpgradeableWithInit is UUPSUpgradeableMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableUnsafeMock_init();
+    }
+}
+import "./UUPS/TestInProdUpgradeable.sol";
+
+contract UUPSUpgradeableBrokenMockUpgradeableWithInit is UUPSUpgradeableBrokenMockUpgradeable {
+    constructor() public payable {
+        __UUPSUpgradeableBrokenMock_init();
+    }
+}
+import "./CountersImplUpgradeable.sol";
+
+contract CountersImplUpgradeableWithInit is CountersImplUpgradeable {
+    constructor() public payable {
+        __CountersImpl_init();
+    }
+}
+import "./OwnableMockUpgradeable.sol";
+
+contract OwnableMockUpgradeableWithInit is OwnableMockUpgradeable {
+    constructor() public payable {
+        __OwnableMock_init();
+    }
+}
+import "./SignatureCheckerMockUpgradeable.sol";
+
+contract SignatureCheckerMockUpgradeableWithInit is SignatureCheckerMockUpgradeable {
+    constructor() public payable {
+        __SignatureCheckerMock_init();
+    }
+}
+import "./ECDSAMockUpgradeable.sol";
+
+contract ECDSAMockUpgradeableWithInit is ECDSAMockUpgradeable {
+    constructor() public payable {
+        __ECDSAMock_init();
+    }
+}
+import "./SafeCastMockUpgradeable.sol";
+
+contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
+    constructor() public payable {
+        __SafeCastMock_init();
+    }
+}
+import "./ERC20VotesMockUpgradeable.sol";
+
+contract ERC20VotesMockUpgradeableWithInit is ERC20VotesMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20VotesMock_init(name, symbol, initialAccount, initialBalance);
+    }
+}
+import "./ArraysImplUpgradeable.sol";
+
+contract ArraysImplUpgradeableWithInit is ArraysImplUpgradeable {
+    constructor(uint256[] memory array) public payable {
+        __ArraysImpl_init(array);
     }
 }
 import "./ERC20SnapshotMockUpgradeable.sol";
@@ -699,13 +718,6 @@ import "./MerkleProofWrapperUpgradeable.sol";
 contract MerkleProofWrapperUpgradeableWithInit is MerkleProofWrapperUpgradeable {
     constructor() public payable {
         __MerkleProofWrapper_init();
-    }
-}
-import "./SafeCastMockUpgradeable.sol";
-
-contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
-    constructor() public payable {
-        __SafeCastMock_init();
     }
 }
 import "./SignedSafeMathMockUpgradeable.sol";
