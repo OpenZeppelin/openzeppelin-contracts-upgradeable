@@ -24,12 +24,6 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v4.2._
  */
 abstract contract ERC20VotesUpgradeable is Initializable, IERC20VotesUpgradeable, ERC20PermitUpgradeable {
-    function __ERC20Votes_init() internal initializer {
-        __Context_init_unchained();
-        __EIP712_init_unchained(name, "1");
-        __ERC20Votes_init_unchained();
-    }
-
     function __ERC20Votes_init_unchained() internal initializer {
     }
     bytes32 private constant _DELEGATION_TYPEHASH = keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
