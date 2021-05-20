@@ -194,7 +194,9 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
         uint256 fromBalance = _balances[id][from];
         require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
-        _balances[id][from] = fromBalance - amount;
+        unchecked {
+            _balances[id][from] = fromBalance - amount;
+        }
         _balances[id][to] += amount;
 
         emit TransferSingle(operator, from, to, id, amount);
@@ -235,7 +237,9 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
             uint256 fromBalance = _balances[id][from];
             require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
-            _balances[id][from] = fromBalance - amount;
+            unchecked {
+                _balances[id][from] = fromBalance - amount;
+            }
             _balances[id][to] += amount;
         }
 
@@ -334,7 +338,9 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
         uint256 accountBalance = _balances[id][account];
         require(accountBalance >= amount, "ERC1155: burn amount exceeds balance");
-        _balances[id][account] = accountBalance - amount;
+        unchecked {
+            _balances[id][account] = accountBalance - amount;
+        }
 
         emit TransferSingle(operator, account, address(0), id, amount);
     }
@@ -360,7 +366,9 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
             uint256 accountBalance = _balances[id][account];
             require(accountBalance >= amount, "ERC1155: burn amount exceeds balance");
-            _balances[id][account] = accountBalance - amount;
+            unchecked {
+                _balances[id][account] = accountBalance - amount;
+            }
         }
 
         emit TransferBatch(operator, account, address(0), ids, amounts);

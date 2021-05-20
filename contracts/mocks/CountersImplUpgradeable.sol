@@ -27,5 +27,9 @@ contract CountersImplUpgradeable is Initializable {
     function decrement() public {
         _counter.decrement();
     }
+
+    function reset() public {
+        _counter.reset();
+    }
     uint256[49] private __gap;
 }

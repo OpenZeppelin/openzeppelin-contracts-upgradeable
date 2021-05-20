@@ -244,25 +244,6 @@ contract ERC721PausableMockUpgradeableWithInit is ERC721PausableMockUpgradeable 
         __ERC721PausableMock_init(name, symbol);
     }
 }
-import "./ERC3156FlashBorrowerMockUpgradeable.sol";
-
-contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
-    constructor(bool enableReturn, bool enableApprove) public payable {
-        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
-    }
-}
-import "./ERC3156MockUpgradeable.sol";
-
-contract ERC20FlashMintMockUpgradeableWithInit is ERC20FlashMintMockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address initialAccount,
-        uint256 initialBalance
-    ) public payable {
-        __ERC20FlashMintMock_init(name, symbol, initialAccount, initialBalance);
-    }
-}
 import "./EIP712ExternalUpgradeable.sol";
 
 contract EIP712ExternalUpgradeableWithInit is EIP712ExternalUpgradeable {
@@ -313,6 +294,25 @@ import "./MulticallTestUpgradeable.sol";
 contract MulticallTestUpgradeableWithInit is MulticallTestUpgradeable {
     constructor() public payable {
         __MulticallTest_init();
+    }
+}
+import "./ERC3156FlashBorrowerMockUpgradeable.sol";
+
+contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
+    constructor(bool enableReturn, bool enableApprove) public payable {
+        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
+    }
+}
+import "./ERC20FlashMintMockUpgradeable.sol";
+
+contract ERC20FlashMintMockUpgradeableWithInit is ERC20FlashMintMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) public payable {
+        __ERC20FlashMintMock_init(name, symbol, initialAccount, initialBalance);
     }
 }
 import "./ERC20DecimalsMockUpgradeable.sol";

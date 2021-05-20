@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./draft-ERC20PermitUpgradeable.sol";
-import "./draft-IERC20VotesUpgradeable.sol";
+import "./IERC20VotesUpgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
 import "../../../utils/math/SafeCastUpgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";

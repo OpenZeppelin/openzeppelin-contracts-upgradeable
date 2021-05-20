@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 
-import "../token/ERC20/extensions/draft-ERC20VotesUpgradeable.sol";
+import "../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC20VotesMockUpgradeable is Initializable, ERC20VotesUpgradeable {

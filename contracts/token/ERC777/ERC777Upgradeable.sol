@@ -52,7 +52,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     mapping(address => mapping(address => bool)) private _revokedDefaultOperators;
 
     // ERC20-allowances
-    mapping (address => mapping (address => uint256)) private _allowances;
+    mapping(address => mapping(address => uint256)) private _allowances;
 
     /**
      * @dev `defaultOperators` may be an empty array.
@@ -429,8 +429,10 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         // Update state variables
         uint256 fromBalance = _balances[from];
         require(fromBalance >= amount, "ERC777: burn amount exceeds balance");
-        _balances[from] = fromBalance - amount;
-        _totalSupply -= amount;
+        unchecked {
+            _balances[from] = fromBalance - amount;
+            _totalSupply -= amount;
+        }
 
         emit Burned(operator, from, amount, data, operatorData);
         emit Transfer(from, address(0), amount);
@@ -450,7 +452,9 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
 
         uint256 fromBalance = _balances[from];
         require(fromBalance >= amount, "ERC777: transfer amount exceeds balance");
-        _balances[from] = fromBalance - amount;
+        unchecked {
+            _balances[from] = fromBalance - amount;
+        }
         _balances[to] += amount;
 
         emit Sent(operator, from, to, amount, userData, operatorData);
