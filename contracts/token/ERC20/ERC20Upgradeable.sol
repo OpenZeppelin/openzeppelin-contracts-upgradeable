@@ -273,8 +273,8 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
         require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
         unchecked {
             _balances[account] = accountBalance - amount;
-            _totalSupply -= amount;
         }
+        _totalSupply -= amount;
 
         emit Transfer(account, address(0), amount);
     }

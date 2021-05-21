@@ -431,8 +431,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         require(fromBalance >= amount, "ERC777: burn amount exceeds balance");
         unchecked {
             _balances[from] = fromBalance - amount;
-            _totalSupply -= amount;
         }
+        _totalSupply -= amount;
 
         emit Burned(operator, from, amount, data, operatorData);
         emit Transfer(from, address(0), amount);

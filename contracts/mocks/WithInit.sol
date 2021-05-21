@@ -188,6 +188,13 @@ contract ERC1155MockUpgradeableWithInit is ERC1155MockUpgradeable {
         __ERC1155Mock_init(uri);
     }
 }
+import "./ERC1155SupplyMockUpgradeable.sol";
+
+contract ERC1155SupplyMockUpgradeableWithInit is ERC1155SupplyMockUpgradeable {
+    constructor(string memory uri) public payable {
+        __ERC1155SupplyMock_init(uri);
+    }
+}
 import "./ERC1155BurnableMockUpgradeable.sol";
 
 contract ERC1155BurnableMockUpgradeableWithInit is ERC1155BurnableMockUpgradeable {
