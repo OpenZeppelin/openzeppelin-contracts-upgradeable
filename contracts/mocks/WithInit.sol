@@ -594,13 +594,8 @@ contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
 import "./ERC20VotesMockUpgradeable.sol";
 
 contract ERC20VotesMockUpgradeableWithInit is ERC20VotesMockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address initialAccount,
-        uint256 initialBalance
-    ) public payable {
-        __ERC20VotesMock_init(name, symbol, initialAccount, initialBalance);
+    constructor(string memory name, string memory symbol) public payable {
+        __ERC20VotesMock_init(name, symbol);
     }
 }
 import "./ArraysImplUpgradeable.sol";
