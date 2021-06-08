@@ -17,7 +17,11 @@ import "../../interfaces/IERC1271Upgradeable.sol";
  * _Available since v4.1._
  */
 library SignatureCheckerUpgradeable {
-    function isValidSignatureNow(address signer, bytes32 hash, bytes memory signature) internal view returns (bool) {
+    function isValidSignatureNow(
+        address signer,
+        bytes32 hash,
+        bytes memory signature
+    ) internal view returns (bool) {
         if (AddressUpgradeable.isContract(signer)) {
             try IERC1271Upgradeable(signer).isValidSignature(hash, signature) returns (bytes4 magicValue) {
                 return magicValue == IERC1271Upgradeable(signer).isValidSignature.selector;

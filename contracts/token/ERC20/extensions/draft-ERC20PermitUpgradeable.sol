@@ -22,7 +22,7 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IERC20PermitUpgradeable, EIP712Upgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
-    mapping (address => CountersUpgradeable.Counter) private _nonces;
+    mapping(address => CountersUpgradeable.Counter) private _nonces;
 
     // solhint-disable-next-line var-name-mixedcase
     bytes32 private _PERMIT_TYPEHASH;
@@ -39,26 +39,23 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
     }
 
     function __ERC20Permit_init_unchained(string memory name) internal initializer {
-        _PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
-    }
+        _PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");}
 
     /**
      * @dev See {IERC20Permit-permit}.
      */
-    function permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) public virtual override {
-        // solhint-disable-next-line not-rely-on-time
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public virtual override {
         require(block.timestamp <= deadline, "ERC20Permit: expired deadline");
 
-        bytes32 structHash = keccak256(
-            abi.encode(
-                _PERMIT_TYPEHASH,
-                owner,
-                spender,
-                value,
-                _useNonce(owner),
-                deadline
-            )
-        );
+        bytes32 structHash = keccak256(abi.encode(_PERMIT_TYPEHASH, owner, spender, value, _useNonce(owner), deadline));
 
         bytes32 hash = _hashTypedDataV4(structHash);
 

@@ -3,8 +3,7 @@
 pragma solidity ^0.8.0;
 import "../proxy/utils/Initializable.sol";
 
-contract BadBeaconNoImplUpgradeable is Initializable {
-    function __BadBeaconNoImpl_init() internal initializer {
+contract BadBeaconNoImplUpgradeable is Initializable {    function __BadBeaconNoImpl_init() internal initializer {
         __BadBeaconNoImpl_init_unchained();
     }
 

@@ -20,7 +20,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, ERC721Upgradeabl
     using StringsUpgradeable for uint256;
 
     // Optional mapping for token URIs
-    mapping (uint256 => string) private _tokenURIs;
+    mapping(uint256 => string) private _tokenURIs;
 
     /**
      * @dev See {IERC721Metadata-tokenURI}.

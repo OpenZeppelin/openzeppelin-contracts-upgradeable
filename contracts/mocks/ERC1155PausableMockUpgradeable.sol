@@ -17,7 +17,7 @@ contract ERC1155PausableMockUpgradeable is Initializable, ERC1155MockUpgradeable
         __ERC1155PausableMock_init_unchained(uri);
     }
 
-    function __ERC1155PausableMock_init_unchained(string memory uri) internal initializer { }
+    function __ERC1155PausableMock_init_unchained(string memory uri) internal initializer {}
 
     function pause() external {
         _pause();
@@ -34,9 +34,7 @@ contract ERC1155PausableMockUpgradeable is Initializable, ERC1155MockUpgradeable
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    )
-        internal virtual override(ERC1155Upgradeable, ERC1155PausableUpgradeable)
-    {
+    ) internal virtual override(ERC1155Upgradeable, ERC1155PausableUpgradeable) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
     uint256[50] private __gap;

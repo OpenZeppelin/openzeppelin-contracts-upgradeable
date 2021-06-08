@@ -70,7 +70,7 @@ abstract contract PullPaymentUpgradeable is Initializable {
      * @param amount The amount to transfer.
      */
     function _asyncTransfer(address dest, uint256 amount) internal virtual {
-        _escrow.deposit{ value: amount }(dest);
+        _escrow.deposit{value: amount}(dest);
     }
     uint256[50] private __gap;
 }

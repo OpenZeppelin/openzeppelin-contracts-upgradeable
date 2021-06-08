@@ -15,9 +15,11 @@ contract StringsMockUpgradeable is Initializable {
     function fromUint256(uint256 value) public pure returns (string memory) {
         return StringsUpgradeable.toString(value);
     }
+
     function fromUint256Hex(uint256 value) public pure returns (string memory) {
         return StringsUpgradeable.toHexString(value);
     }
+
     function fromUint256HexFixed(uint256 value, uint256 length) public pure returns (string memory) {
         return StringsUpgradeable.toHexString(value, length);
     }

@@ -21,8 +21,7 @@ abstract contract ERC1155ReceiverUpgradeable is Initializable, ERC165Upgradeable
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId
-            || super.supportsInterface(interfaceId);
+        return interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId || super.supportsInterface(interfaceId);
     }
     uint256[50] private __gap;
 }

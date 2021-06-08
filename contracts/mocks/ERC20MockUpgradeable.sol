@@ -35,11 +35,19 @@ contract ERC20MockUpgradeable is Initializable, ERC20Upgradeable {
         _burn(account, amount);
     }
 
-    function transferInternal(address from, address to, uint256 value) public {
+    function transferInternal(
+        address from,
+        address to,
+        uint256 value
+    ) public {
         _transfer(from, to, value);
     }
 
-    function approveInternal(address owner, address spender, uint256 value) public {
+    function approveInternal(
+        address owner,
+        address spender,
+        uint256 value
+    ) public {
         _approve(owner, spender, value);
     }
     uint256[50] private __gap;

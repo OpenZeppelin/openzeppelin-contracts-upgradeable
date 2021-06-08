@@ -29,6 +29,7 @@ abstract contract EIP712Upgradeable is Initializable {
     bytes32 private _HASHED_NAME;
     bytes32 private _HASHED_VERSION;
     bytes32 private constant _TYPE_HASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
+
     /* solhint-enable var-name-mixedcase */
 
     /**
@@ -61,16 +62,12 @@ abstract contract EIP712Upgradeable is Initializable {
         return _buildDomainSeparator(_TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash());
     }
 
-    function _buildDomainSeparator(bytes32 typeHash, bytes32 name, bytes32 version) private view returns (bytes32) {
-        return keccak256(
-            abi.encode(
-                typeHash,
-                name,
-                version,
-                block.chainid,
-                address(this)
-            )
-        );
+    function _buildDomainSeparator(
+        bytes32 typeHash,
+        bytes32 name,
+        bytes32 version
+    ) private view returns (bytes32) {
+        return keccak256(abi.encode(typeHash, name, version, block.chainid, address(this)));
     }
 
     /**

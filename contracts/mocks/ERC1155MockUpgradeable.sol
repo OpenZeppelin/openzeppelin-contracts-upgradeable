@@ -17,27 +17,43 @@ contract ERC1155MockUpgradeable is Initializable, ERC1155Upgradeable {
         __ERC1155Mock_init_unchained(uri);
     }
 
-    function __ERC1155Mock_init_unchained(string memory uri) internal initializer {
-        // solhint-disable-previous-line no-empty-blocks
-    }
+    function __ERC1155Mock_init_unchained(string memory uri) internal initializer {}
 
     function setURI(string memory newuri) public {
         _setURI(newuri);
     }
 
-    function mint(address to, uint256 id, uint256 value, bytes memory data) public {
+    function mint(
+        address to,
+        uint256 id,
+        uint256 value,
+        bytes memory data
+    ) public {
         _mint(to, id, value, data);
     }
 
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory values, bytes memory data) public {
+    function mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory values,
+        bytes memory data
+    ) public {
         _mintBatch(to, ids, values, data);
     }
 
-    function burn(address owner, uint256 id, uint256 value) public {
+    function burn(
+        address owner,
+        uint256 id,
+        uint256 value
+    ) public {
         _burn(owner, id, value);
     }
 
-    function burnBatch(address owner, uint256[] memory ids, uint256[] memory values) public {
+    function burnBatch(
+        address owner,
+        uint256[] memory ids,
+        uint256[] memory values
+    ) public {
         _burnBatch(owner, ids, values);
     }
     uint256[50] private __gap;

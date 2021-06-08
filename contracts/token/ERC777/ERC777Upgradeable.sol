@@ -29,7 +29,7 @@ import "../../proxy/utils/Initializable.sol";
 contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradeable, IERC20Upgradeable {
     using AddressUpgradeable for address;
 
-    IERC1820RegistryUpgradeable constant internal _ERC1820_REGISTRY = IERC1820RegistryUpgradeable(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    IERC1820RegistryUpgradeable internal constant _ERC1820_REGISTRY = IERC1820RegistryUpgradeable(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
     mapping(address => uint256) private _balances;
 
@@ -136,7 +136,11 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
      */
-    function send(address recipient, uint256 amount, bytes memory data) public virtual override  {
+    function send(
+        address recipient,
+        uint256 amount,
+        bytes memory data
+    ) public virtual override {
         _send(_msgSender(), recipient, amount, data, "", true);
     }
 
@@ -167,7 +171,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
      */
-    function burn(uint256 amount, bytes memory data) public virtual override  {
+    function burn(uint256 amount, bytes memory data) public virtual override {
         _burn(_msgSender(), amount, data, "");
     }
 
@@ -175,7 +179,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      * @dev See {IERC777-isOperatorFor}.
      */
     function isOperatorFor(address operator, address tokenHolder) public view virtual override returns (bool) {
-        return operator == tokenHolder ||
+        return
+            operator == tokenHolder ||
             (_defaultOperators[operator] && !_revokedDefaultOperators[tokenHolder][operator]) ||
             _operators[tokenHolder][operator];
     }
@@ -183,7 +188,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     /**
      * @dev See {IERC777-authorizeOperator}.
      */
-    function authorizeOperator(address operator) public virtual override  {
+    function authorizeOperator(address operator) public virtual override {
         require(_msgSender() != operator, "ERC777: authorizing self as operator");
 
         if (_defaultOperators[operator]) {
@@ -198,7 +203,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     /**
      * @dev See {IERC777-revokeOperator}.
      */
-    function revokeOperator(address operator) public virtual override  {
+    function revokeOperator(address operator) public virtual override {
         require(operator != _msgSender(), "ERC777: revoking self as operator");
 
         if (_defaultOperators[operator]) {
@@ -228,11 +233,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         uint256 amount,
         bytes memory data,
         bytes memory operatorData
-    )
-        public
-        virtual
-        override
-    {
+    ) public virtual override {
         require(isOperatorFor(_msgSender(), sender), "ERC777: caller is not an operator for holder");
         _send(sender, recipient, amount, data, operatorData, true);
     }
@@ -242,7 +243,12 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Emits {Burned} and {IERC20-Transfer} events.
      */
-    function operatorBurn(address account, uint256 amount, bytes memory data, bytes memory operatorData) public virtual override {
+    function operatorBurn(
+        address account,
+        uint256 amount,
+        bytes memory data,
+        bytes memory operatorData
+    ) public virtual override {
         require(isOperatorFor(_msgSender(), account), "ERC777: caller is not an operator for holder");
         _burn(account, amount, data, operatorData);
     }
@@ -269,16 +275,20 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         return true;
     }
 
-   /**
-    * @dev See {IERC20-transferFrom}.
-    *
-    * Note that operator and allowance concepts are orthogonal: operators cannot
-    * call `transferFrom` (unless they have allowance), and accounts with
-    * allowance cannot call `operatorSend` (unless they are operators).
-    *
-    * Emits {Sent}, {IERC20-Transfer} and {IERC20-Approval} events.
-    */
-    function transferFrom(address holder, address recipient, uint256 amount) public virtual override returns (bool) {
+    /**
+     * @dev See {IERC20-transferFrom}.
+     *
+     * Note that operator and allowance concepts are orthogonal: operators cannot
+     * call `transferFrom` (unless they have allowance), and accounts with
+     * allowance cannot call `operatorSend` (unless they are operators).
+     *
+     * Emits {Sent}, {IERC20-Transfer} and {IERC20-Approval} events.
+     */
+    function transferFrom(
+        address holder,
+        address recipient,
+        uint256 amount
+    ) public virtual override returns (bool) {
         require(recipient != address(0), "ERC777: transfer to the zero address");
         require(holder != address(0), "ERC777: transfer from the zero address");
 
@@ -319,10 +329,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         _mint(account, amount, userData, operatorData, true);
     }
 
@@ -350,10 +357,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         bytes memory userData,
         bytes memory operatorData,
         bool requireReceptionAck
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         require(account != address(0), "ERC777: mint to the zero address");
 
         address operator = _msgSender();
@@ -386,10 +390,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         bytes memory userData,
         bytes memory operatorData,
         bool requireReceptionAck
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         require(from != address(0), "ERC777: send from the zero address");
         require(to != address(0), "ERC777: send to the zero address");
 
@@ -414,10 +415,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         uint256 amount,
         bytes memory data,
         bytes memory operatorData
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         require(from != address(0), "ERC777: burn from the zero address");
 
         address operator = _msgSender();
@@ -445,9 +443,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
-    )
-        private
-    {
+    ) private {
         _beforeTokenTransfer(operator, from, to, amount);
 
         uint256 fromBalance = _balances[from];
@@ -466,7 +462,11 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Note that accounts cannot have allowance issued by their operators.
      */
-    function _approve(address holder, address spender, uint256 value) internal {
+    function _approve(
+        address holder,
+        address spender,
+        uint256 value
+    ) internal {
         require(holder != address(0), "ERC777: approve from the zero address");
         require(spender != address(0), "ERC777: approve to the zero address");
 
@@ -490,9 +490,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         uint256 amount,
         bytes memory userData,
         bytes memory operatorData
-    )
-        private
-    {
+    ) private {
         address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(from, _TOKENS_SENDER_INTERFACE_HASH);
         if (implementer != address(0)) {
             IERC777SenderUpgradeable(implementer).tokensToSend(operator, from, to, amount, userData, operatorData);
@@ -518,9 +516,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         bytes memory userData,
         bytes memory operatorData,
         bool requireReceptionAck
-    )
-        private
-    {
+    ) private {
         address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(to, _TOKENS_RECIPIENT_INTERFACE_HASH);
         if (implementer != address(0)) {
             IERC777RecipientUpgradeable(implementer).tokensReceived(operator, from, to, amount, userData, operatorData);
@@ -543,6 +539,11 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
-    function _beforeTokenTransfer(address operator, address from, address to, uint256 amount) internal virtual { }
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
     uint256[41] private __gap;
 }

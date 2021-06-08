@@ -36,8 +36,7 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, ERC721Upgradeable) returns (bool) {
-        return interfaceId == type(IERC721EnumerableUpgradeable).interfaceId
-            || super.supportsInterface(interfaceId);
+        return interfaceId == type(IERC721EnumerableUpgradeable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -78,7 +77,11 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      *
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
         super._beforeTokenTransfer(from, to, tokenId);
 
         if (from == address(0)) {

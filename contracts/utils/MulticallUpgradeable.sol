@@ -18,11 +18,11 @@ abstract contract MulticallUpgradeable is Initializable {
     function __Multicall_init_unchained() internal initializer {
     }
     /**
-    * @dev Receives and executes a batch of function calls on this contract.
-    */
+     * @dev Receives and executes a batch of function calls on this contract.
+     */
     function multicall(bytes[] calldata data) external returns (bytes[] memory results) {
         results = new bytes[](data.length);
-        for (uint i = 0; i < data.length; i++) {
+        for (uint256 i = 0; i < data.length; i++) {
             results[i] = _functionDelegateCall(address(this), data[i]);
         }
         return results;

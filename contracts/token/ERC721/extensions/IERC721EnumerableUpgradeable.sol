@@ -9,7 +9,6 @@ import "../IERC721Upgradeable.sol";
  * @dev See https://eips.ethereum.org/EIPS/eip-721
  */
 interface IERC721EnumerableUpgradeable is IERC721Upgradeable {
-
     /**
      * @dev Returns the total amount of tokens stored by the contract.
      */

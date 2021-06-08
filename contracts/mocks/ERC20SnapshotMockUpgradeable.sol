@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 import "../token/ERC20/extensions/ERC20SnapshotUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-
 contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable {
     function __ERC20SnapshotMock_init(
         string memory name,

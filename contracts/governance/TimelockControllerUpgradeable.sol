@@ -32,7 +32,15 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Emitted when a call is scheduled as part of operation `id`.
      */
-    event CallScheduled(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data, bytes32 predecessor, uint256 delay);
+    event CallScheduled(
+        bytes32 indexed id,
+        uint256 indexed index,
+        address target,
+        uint256 value,
+        bytes data,
+        bytes32 predecessor,
+        uint256 delay
+    );
 
     /**
      * @dev Emitted when a call is performed as part of operation `id`.
@@ -52,14 +60,22 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Initializes the contract with a given `minDelay`.
      */
-    function __TimelockController_init(uint256 minDelay, address[] memory proposers, address[] memory executors) internal initializer {
+    function __TimelockController_init(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __TimelockController_init_unchained(minDelay, proposers, executors);
     }
 
-    function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors) internal initializer {
+    function __TimelockController_init_unchained(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) internal initializer {
         _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);
@@ -120,7 +136,6 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function isOperationReady(bytes32 id) public view virtual returns (bool ready) {
         uint256 timestamp = getTimestamp(id);
-        // solhint-disable-next-line not-rely-on-time
         return timestamp > _DONE_TIMESTAMP && timestamp <= block.timestamp;
     }
 
@@ -152,7 +167,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Returns the identifier of an operation containing a single
      * transaction.
      */
-    function hashOperation(address target, uint256 value, bytes calldata data, bytes32 predecessor, bytes32 salt) public pure virtual returns (bytes32 hash) {
+    function hashOperation(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
         return keccak256(abi.encode(target, value, data, predecessor, salt));
     }
 
@@ -160,7 +181,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Returns the identifier of an operation containing a batch of
      * transactions.
      */
-    function hashOperationBatch(address[] calldata targets, uint256[] calldata values, bytes[] calldata datas, bytes32 predecessor, bytes32 salt) public pure virtual returns (bytes32 hash) {
+    function hashOperationBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public pure virtual returns (bytes32 hash) {
         return keccak256(abi.encode(targets, values, datas, predecessor, salt));
     }
 
@@ -173,7 +200,14 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'proposer' role.
      */
-    function schedule(address target, uint256 value, bytes calldata data, bytes32 predecessor, bytes32 salt, uint256 delay) public virtual onlyRole(PROPOSER_ROLE) {
+    function schedule(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
         bytes32 id = hashOperation(target, value, data, predecessor, salt);
         _schedule(id, delay);
         emit CallScheduled(id, 0, target, value, data, predecessor, delay);
@@ -188,7 +222,14 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'proposer' role.
      */
-    function scheduleBatch(address[] calldata targets, uint256[] calldata values, bytes[] calldata datas, bytes32 predecessor, bytes32 salt, uint256 delay) public virtual onlyRole(PROPOSER_ROLE) {
+    function scheduleBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt,
+        uint256 delay
+    ) public virtual onlyRole(PROPOSER_ROLE) {
         require(targets.length == values.length, "TimelockController: length mismatch");
         require(targets.length == datas.length, "TimelockController: length mismatch");
 
@@ -205,7 +246,6 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     function _schedule(bytes32 id, uint256 delay) private {
         require(!isOperation(id), "TimelockController: operation already scheduled");
         require(delay >= getMinDelay(), "TimelockController: insufficient delay");
-        // solhint-disable-next-line not-rely-on-time
         _timestamps[id] = block.timestamp + delay;
     }
 
@@ -232,7 +272,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'executor' role.
      */
-    function execute(address target, uint256 value, bytes calldata data, bytes32 predecessor, bytes32 salt) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+    function execute(
+        address target,
+        uint256 value,
+        bytes calldata data,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
         bytes32 id = hashOperation(target, value, data, predecessor, salt);
         _beforeCall(predecessor);
         _call(id, 0, target, value, data);
@@ -248,7 +294,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'executor' role.
      */
-    function executeBatch(address[] calldata targets, uint256[] calldata values, bytes[] calldata datas, bytes32 predecessor, bytes32 salt) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+    function executeBatch(
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata datas,
+        bytes32 predecessor,
+        bytes32 salt
+    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
         require(targets.length == values.length, "TimelockController: length mismatch");
         require(targets.length == datas.length, "TimelockController: length mismatch");
 
@@ -280,9 +332,14 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * Emits a {CallExecuted} event.
      */
-    function _call(bytes32 id, uint256 index, address target, uint256 value, bytes calldata data) private {
-        // solhint-disable-next-line avoid-low-level-calls
-        (bool success,) = target.call{value: value}(data);
+    function _call(
+        bytes32 id,
+        uint256 index,
+        address target,
+        uint256 value,
+        bytes calldata data
+    ) private {
+        (bool success, ) = target.call{value: value}(data);
         require(success, "TimelockController: underlying transaction reverted");
 
         emit CallExecuted(id, index, target, value, data);

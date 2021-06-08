@@ -12,7 +12,7 @@ contract PullPaymentMockUpgradeable is Initializable, PullPaymentUpgradeable {
         __PullPaymentMock_init_unchained();
     }
 
-    function __PullPaymentMock_init_unchained() internal initializer { }
+    function __PullPaymentMock_init_unchained() internal initializer {}
 
     // test helper function to call asyncTransfer
     function callTransfer(address dest, uint256 amount) public {

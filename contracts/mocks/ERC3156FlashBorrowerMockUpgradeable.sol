@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-
 import "../token/ERC20/IERC20Upgradeable.sol";
 import "../interfaces/IERC3156Upgradeable.sol";
 import "../utils/AddressUpgradeable.sol";
@@ -16,7 +15,7 @@ import "../proxy/utils/Initializable.sol";
  * live networks.
  */
 contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorrowerUpgradeable {
-    bytes32 constant internal RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 internal constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     bool _enableApprove;
     bool _enableReturn;
@@ -34,7 +33,7 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
     }
 
     function onFlashLoan(
-        address /*initiator*/,
+        address, /*initiator*/
         address token,
         uint256 amount,
         uint256 fee,
@@ -54,7 +53,7 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
             IERC20Upgradeable(token).approve(token, amount + fee);
         }
 
-        return _enableReturn ? RETURN_VALUE : bytes32(0);
+        return _enableReturn ? _RETURN_VALUE : bytes32(0);
     }
     uint256[50] private __gap;
 }

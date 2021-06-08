@@ -43,11 +43,7 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgrad
         uint256 id,
         uint256 value,
         bytes calldata data
-    )
-        external
-        override
-        returns(bytes4)
-    {
+    ) external override returns (bytes4) {
         require(!_recReverts, "ERC1155ReceiverMock: reverting on receive");
         emit Received(operator, from, id, value, data, gasleft());
         return _recRetval;
@@ -59,11 +55,7 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgrad
         uint256[] calldata ids,
         uint256[] calldata values,
         bytes calldata data
-    )
-        external
-        override
-        returns(bytes4)
-    {
+    ) external override returns (bytes4) {
         require(!_batReverts, "ERC1155ReceiverMock: reverting on batch receive");
         emit BatchReceived(operator, from, ids, values, data, gasleft());
         return _batRetval;

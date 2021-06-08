@@ -31,7 +31,7 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         _mint(initialHolder, initialBalance, "", "");
     }
 
-    function mintInternal (
+    function mintInternal(
         address to,
         uint256 amount,
         bytes memory userData,
@@ -40,7 +40,7 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         _mint(to, amount, userData, operatorData);
     }
 
-    function mintInternalExtended (
+    function mintInternalExtended(
         address to,
         uint256 amount,
         bytes memory userData,
@@ -50,11 +50,20 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         _mint(to, amount, userData, operatorData, requireReceptionAck);
     }
 
-    function approveInternal(address holder, address spender, uint256 value) public {
+    function approveInternal(
+        address holder,
+        address spender,
+        uint256 value
+    ) public {
         _approve(holder, spender, value);
     }
 
-    function _beforeTokenTransfer(address, address, address, uint256) internal override {
+    function _beforeTokenTransfer(
+        address,
+        address,
+        address,
+        uint256
+    ) internal override {
         emit BeforeTokenTransfer();
     }
     uint256[50] private __gap;

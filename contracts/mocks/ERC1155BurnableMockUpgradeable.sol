@@ -14,9 +14,14 @@ contract ERC1155BurnableMockUpgradeable is Initializable, ERC1155BurnableUpgrade
         __ERC1155BurnableMock_init_unchained(uri);
     }
 
-    function __ERC1155BurnableMock_init_unchained(string memory uri) internal initializer { }
+    function __ERC1155BurnableMock_init_unchained(string memory uri) internal initializer {}
 
-    function mint(address to, uint256 id, uint256 value, bytes memory data) public {
+    function mint(
+        address to,
+        uint256 id,
+        uint256 value,
+        bytes memory data
+    ) public {
         _mint(to, id, value, data);
     }
     uint256[50] private __gap;

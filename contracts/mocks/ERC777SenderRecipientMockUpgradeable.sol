@@ -52,8 +52,8 @@ contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeab
 
     IERC1820RegistryUpgradeable private _erc1820;
 
-    bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
-    bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
+    bytes32 private constant _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
+    bytes32 private constant _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
 
     function tokensToSend(
         address operator,
@@ -151,12 +151,21 @@ contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeab
         _shouldRevertReceive = shouldRevert;
     }
 
-    function send(IERC777Upgradeable token, address to, uint256 amount, bytes memory data) public {
+    function send(
+        IERC777Upgradeable token,
+        address to,
+        uint256 amount,
+        bytes memory data
+    ) public {
         // This is 777's send function, not the Solidity send function
         token.send(to, amount, data); // solhint-disable-line check-send-result
     }
 
-    function burn(IERC777Upgradeable token, uint256 amount, bytes memory data) public {
+    function burn(
+        IERC777Upgradeable token,
+        uint256 amount,
+        bytes memory data
+    ) public {
         token.burn(amount, data);
     }
     uint256[49] private __gap;

@@ -23,7 +23,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
 
     function __ERC20FlashMint_init_unchained() internal initializer {
     }
-    bytes32 constant private RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 private constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     /**
      * @dev Returns the maximum amount of tokens available for loan.
@@ -68,12 +68,13 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
         address token,
         uint256 amount,
         bytes calldata data
-    )
-        public virtual override returns (bool)
-    {
+    ) public virtual override returns (bool) {
         uint256 fee = flashFee(token, amount);
         _mint(address(receiver), amount);
-        require(receiver.onFlashLoan(msg.sender, token, amount, fee, data) == RETURN_VALUE, "ERC20FlashMint: invalid return value");
+        require(
+            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == _RETURN_VALUE,
+            "ERC20FlashMint: invalid return value"
+        );
         uint256 currentAllowance = allowance(address(receiver), address(this));
         require(currentAllowance >= amount + fee, "ERC20FlashMint: allowance does not allow refund");
         _approve(address(receiver), address(this), currentAllowance - amount - fee);

@@ -19,7 +19,7 @@ contract ERC721PausableMockUpgradeable is Initializable, ERC721PausableUpgradeab
         __ERC721PausableMock_init_unchained(name, symbol);
     }
 
-    function __ERC721PausableMock_init_unchained(string memory name, string memory symbol) internal initializer { }
+    function __ERC721PausableMock_init_unchained(string memory name, string memory symbol) internal initializer {}
 
     function pause() external {
         _pause();
@@ -41,7 +41,11 @@ contract ERC721PausableMockUpgradeable is Initializable, ERC721PausableUpgradeab
         _safeMint(to, tokenId);
     }
 
-    function safeMint(address to, uint256 tokenId, bytes memory _data) public {
+    function safeMint(
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public {
         _safeMint(to, tokenId, _data);
     }
 

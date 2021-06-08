@@ -17,11 +17,11 @@ contract ERC2771ContextMockUpgradeable is Initializable, ContextMockUpgradeable,
 
     function __ERC2771ContextMock_init_unchained(address trustedForwarder) internal initializer {}
 
-    function _msgSender() internal override(ContextUpgradeable, ERC2771ContextUpgradeable) view virtual returns (address) {
+    function _msgSender() internal view virtual override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (address) {
         return ERC2771ContextUpgradeable._msgSender();
     }
 
-    function _msgData() internal override(ContextUpgradeable, ERC2771ContextUpgradeable) view virtual returns (bytes calldata) {
+    function _msgData() internal view virtual override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (bytes calldata) {
         return ERC2771ContextUpgradeable._msgData();
     }
     uint256[50] private __gap;

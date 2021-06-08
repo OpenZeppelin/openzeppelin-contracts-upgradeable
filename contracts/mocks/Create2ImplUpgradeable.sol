@@ -13,12 +13,15 @@ contract Create2ImplUpgradeable is Initializable {
 
     function __Create2Impl_init_unchained() internal initializer {
     }
-    function deploy(uint256 value, bytes32 salt, bytes memory code) public {
+    function deploy(
+        uint256 value,
+        bytes32 salt,
+        bytes memory code
+    ) public {
         Create2Upgradeable.deploy(value, salt, code);
     }
 
     function deployERC1820Implementer(uint256 value, bytes32 salt) public {
-        // solhint-disable-next-line indent
         Create2Upgradeable.deploy(value, salt, type(ERC1820ImplementerUpgradeable).creationCode);
     }
 
@@ -26,7 +29,11 @@ contract Create2ImplUpgradeable is Initializable {
         return Create2Upgradeable.computeAddress(salt, codeHash);
     }
 
-    function computeAddressWithDeployer(bytes32 salt, bytes32 codeHash, address deployer) public pure returns (address) {
+    function computeAddressWithDeployer(
+        bytes32 salt,
+        bytes32 codeHash,
+        address deployer
+    ) public pure returns (address) {
         return Create2Upgradeable.computeAddress(salt, codeHash, deployer);
     }
 

@@ -18,7 +18,11 @@ import "../../proxy/utils/Initializable.sol";
 contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable {
     using AddressUpgradeable for address payable;
 
-    enum State { Active, Refunding, Closed }
+    enum State {
+        Active,
+        Refunding,
+        Closed
+    }
 
     event RefundsClosed();
     event RefundsEnabled();
@@ -80,7 +84,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
     /**
      * @dev Allows for refunds to take place, rejecting further deposits.
      */
-    function enableRefunds() public onlyOwner virtual {
+    function enableRefunds() public virtual onlyOwner {
         require(state() == State.Active, "RefundEscrow: can only enable refunds while active");
         _state = State.Refunding;
         emit RefundsEnabled();

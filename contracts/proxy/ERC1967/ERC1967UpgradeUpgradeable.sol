@@ -67,7 +67,11 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits an {Upgraded} event.
      */
-    function _upgradeToAndCall(address newImplementation, bytes memory data, bool forceCall) internal {
+    function _upgradeToAndCall(
+        address newImplementation,
+        bytes memory data,
+        bool forceCall
+    ) internal {
         _setImplementation(newImplementation);
         emit Upgraded(newImplementation);
         if (data.length > 0 || forceCall) {
@@ -80,7 +84,11 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits an {Upgraded} event.
      */
-    function _upgradeToAndCallSecure(address newImplementation, bytes memory data, bool forceCall) internal {
+    function _upgradeToAndCallSecure(
+        address newImplementation,
+        bytes memory data,
+        bool forceCall
+    ) internal {
         address oldImplementation = _getImplementation();
 
         // Initial upgrade and setup call
@@ -96,10 +104,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
             rollbackTesting.value = true;
             _functionDelegateCall(
                 newImplementation,
-                abi.encodeWithSignature(
-                    "upgradeTo(address)",
-                    oldImplementation
-                )
+                abi.encodeWithSignature("upgradeTo(address)", oldImplementation)
             );
             rollbackTesting.value = false;
             // Check rollback was effective
@@ -116,7 +121,11 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits a {BeaconUpgraded} event.
      */
-    function _upgradeBeaconToAndCall(address newBeacon, bytes memory data, bool forceCall) internal {
+    function _upgradeBeaconToAndCall(
+        address newBeacon,
+        bytes memory data,
+        bool forceCall
+    ) internal {
         _setBeacon(newBeacon);
         emit BeaconUpgraded(newBeacon);
         if (data.length > 0 || forceCall) {
@@ -183,10 +192,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      * @dev Stores a new beacon in the EIP1967 beacon slot.
      */
     function _setBeacon(address newBeacon) private {
-        require(
-            AddressUpgradeable.isContract(newBeacon),
-            "ERC1967: new beacon is not a contract"
-        );
+        require(AddressUpgradeable.isContract(newBeacon), "ERC1967: new beacon is not a contract");
         require(
             AddressUpgradeable.isContract(IBeaconUpgradeable(newBeacon).implementation()),
             "ERC1967: beacon implementation is not a contract"

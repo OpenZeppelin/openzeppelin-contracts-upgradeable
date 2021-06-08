@@ -60,6 +60,5 @@ contract UUPSUpgradeableBrokenMockUpgradeable is Initializable, UUPSUpgradeableM
     function upgradeToAndCall(address, bytes memory) external payable virtual override {
         // pass
     }
-
     uint256[50] private __gap;
 }

@@ -24,12 +24,19 @@ contract TokenTimelockUpgradeable is Initializable {
     // timestamp when token release is enabled
     uint256 private _releaseTime;
 
-    function __TokenTimelock_init(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal initializer {
+    function __TokenTimelock_init(
+        IERC20Upgradeable token_,
+        address beneficiary_,
+        uint256 releaseTime_
+    ) internal initializer {
         __TokenTimelock_init_unchained(token_, beneficiary_, releaseTime_);
     }
 
-    function __TokenTimelock_init_unchained(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal initializer {
-        // solhint-disable-next-line not-rely-on-time
+    function __TokenTimelock_init_unchained(
+        IERC20Upgradeable token_,
+        address beneficiary_,
+        uint256 releaseTime_
+    ) internal initializer {
         require(releaseTime_ > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token_;
         _beneficiary = beneficiary_;
@@ -61,7 +68,6 @@ contract TokenTimelockUpgradeable is Initializable {
      * @notice Transfers tokens held by timelock to beneficiary.
      */
     function release() public virtual {
-        // solhint-disable-next-line not-rely-on-time
         require(block.timestamp >= releaseTime(), "TokenTimelock: current time is before release time");
 
         uint256 amount = token().balanceOf(address(this));

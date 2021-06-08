@@ -29,7 +29,11 @@ contract AddressImplUpgradeable is Initializable {
         emit CallReturnValue(abi.decode(returnData, (string)));
     }
 
-    function functionCallWithValue(address target, bytes calldata data, uint256 value) external payable {
+    function functionCallWithValue(
+        address target,
+        bytes calldata data,
+        uint256 value
+    ) external payable {
         bytes memory returnData = AddressUpgradeable.functionCallWithValue(target, data, value);
         emit CallReturnValue(abi.decode(returnData, (string)));
     }
@@ -40,6 +44,6 @@ contract AddressImplUpgradeable is Initializable {
     }
 
     // sendValue's tests require the contract to hold Ether
-    receive () external payable { }
+    receive() external payable {}
     uint256[49] private __gap;
 }

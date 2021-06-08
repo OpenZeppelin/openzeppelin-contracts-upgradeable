@@ -16,7 +16,7 @@ contract EtherReceiverMockUpgradeable is Initializable {
         _acceptEther = acceptEther;
     }
 
-    receive () external payable {
+    receive() external payable {
         if (!_acceptEther) {
             revert();
         }

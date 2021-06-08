@@ -26,7 +26,11 @@ contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
         return false;
     }
 
-    function transferFrom(address, address, uint256) public returns (bool) {
+    function transferFrom(
+        address,
+        address,
+        uint256
+    ) public returns (bool) {
         _dummy = 0;
         return false;
     }
@@ -51,7 +55,7 @@ contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
 
     function __ERC20ReturnTrueMock_init_unchained() internal initializer {
     }
-    mapping (address => uint256) private _allowances;
+    mapping(address => uint256) private _allowances;
 
     // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
     // we write to a dummy state variable.
@@ -62,7 +66,11 @@ contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
         return true;
     }
 
-    function transferFrom(address, address, uint256) public returns (bool) {
+    function transferFrom(
+        address,
+        address,
+        uint256
+    ) public returns (bool) {
         _dummy = 0;
         return true;
     }
@@ -90,7 +98,7 @@ contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
 
     function __ERC20NoReturnMock_init_unchained() internal initializer {
     }
-    mapping (address => uint256) private _allowances;
+    mapping(address => uint256) private _allowances;
 
     // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
     // we write to a dummy state variable.
@@ -100,7 +108,11 @@ contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
         _dummy = 0;
     }
 
-    function transferFrom(address, address, uint256) public {
+    function transferFrom(
+        address,
+        address,
+        uint256
+    ) public {
         _dummy = 0;
     }
 

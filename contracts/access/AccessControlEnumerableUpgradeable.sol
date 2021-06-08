@@ -11,6 +11,7 @@ import "../proxy/utils/Initializable.sol";
  */
 interface IAccessControlEnumerableUpgradeable {
     function getRoleMember(bytes32 role, uint256 index) external view returns (address);
+
     function getRoleMemberCount(bytes32 role) external view returns (uint256);
 }
 
@@ -29,14 +30,13 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
     }
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 
-    mapping (bytes32 => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
+    mapping(bytes32 => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
 
     /**
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IAccessControlEnumerableUpgradeable).interfaceId
-            || super.supportsInterface(interfaceId);
+        return interfaceId == type(IAccessControlEnumerableUpgradeable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

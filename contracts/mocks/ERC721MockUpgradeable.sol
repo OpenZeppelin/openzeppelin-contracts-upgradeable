@@ -17,7 +17,7 @@ contract ERC721MockUpgradeable is Initializable, ERC721Upgradeable {
         __ERC721Mock_init_unchained(name, symbol);
     }
 
-    function __ERC721Mock_init_unchained(string memory name, string memory symbol) internal initializer { }
+    function __ERC721Mock_init_unchained(string memory name, string memory symbol) internal initializer {}
 
     function baseURI() public view returns (string memory) {
         return _baseURI();
@@ -35,7 +35,11 @@ contract ERC721MockUpgradeable is Initializable, ERC721Upgradeable {
         _safeMint(to, tokenId);
     }
 
-    function safeMint(address to, uint256 tokenId, bytes memory _data) public {
+    function safeMint(
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public {
         _safeMint(to, tokenId, _data);
     }
 
