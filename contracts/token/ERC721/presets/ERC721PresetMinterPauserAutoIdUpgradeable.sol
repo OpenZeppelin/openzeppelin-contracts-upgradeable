@@ -70,12 +70,10 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
         __ERC721Burnable_init_unchained();
         __Pausable_init_unchained();
         __ERC721Pausable_init_unchained();
-        __ERC721PresetMinterPauserAutoId_init_unchained(name, symbol, baseTokenURI);
+        __ERC721PresetMinterPauserAutoId_init_unchained(baseTokenURI);
     }
 
     function __ERC721PresetMinterPauserAutoId_init_unchained(
-        string memory name,
-        string memory symbol,
         string memory baseTokenURI
     ) internal initializer {
         _baseTokenURI = baseTokenURI;
