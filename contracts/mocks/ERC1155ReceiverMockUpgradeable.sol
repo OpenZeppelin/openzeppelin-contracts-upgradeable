@@ -6,7 +6,7 @@ import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
 import "../utils/introspection/ERC165Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-contract ERC1155ReceiverMockUpgradeable is Initializable, IERC1155ReceiverUpgradeable, ERC165Upgradeable {
+contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IERC1155ReceiverUpgradeable {
     bytes4 private _recRetval;
     bool private _recReverts;
     bytes4 private _batRetval;

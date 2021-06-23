@@ -31,9 +31,7 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function __Ownable_init_unchained() internal initializer {
-        address msgSender = _msgSender();
-        _owner = msgSender;
-        emit OwnershipTransferred(address(0), msgSender);
+        _setOwner(_msgSender());
     }
 
     /**
@@ -59,8 +57,7 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
      * thereby removing any functionality that is only available to the owner.
      */
     function renounceOwnership() public virtual onlyOwner {
-        emit OwnershipTransferred(_owner, address(0));
-        _owner = address(0);
+        _setOwner(address(0));
     }
 
     /**
@@ -69,8 +66,13 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
-        emit OwnershipTransferred(_owner, newOwner);
+        _setOwner(newOwner);
+    }
+
+    function _setOwner(address newOwner) private {
+        address oldOwner = _owner;
         _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
     }
     uint256[49] private __gap;
 }

@@ -72,8 +72,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
         bytes memory data,
         bool forceCall
     ) internal {
-        _setImplementation(newImplementation);
-        emit Upgraded(newImplementation);
+        _upgradeTo(newImplementation);
         if (data.length > 0 || forceCall) {
             _functionDelegateCall(newImplementation, data);
         }
@@ -110,26 +109,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
             // Check rollback was effective
             require(oldImplementation == _getImplementation(), "ERC1967Upgrade: upgrade breaks further upgrades");
             // Finally reset to the new implementation and log the upgrade
-            _setImplementation(newImplementation);
-            emit Upgraded(newImplementation);
-        }
-    }
-
-    /**
-     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does
-     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).
-     *
-     * Emits a {BeaconUpgraded} event.
-     */
-    function _upgradeBeaconToAndCall(
-        address newBeacon,
-        bytes memory data,
-        bool forceCall
-    ) internal {
-        _setBeacon(newBeacon);
-        emit BeaconUpgraded(newBeacon);
-        if (data.length > 0 || forceCall) {
-            _functionDelegateCall(IBeaconUpgradeable(newBeacon).implementation(), data);
+            _upgradeTo(newImplementation);
         }
     }
 
@@ -198,6 +178,24 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
             "ERC1967: beacon implementation is not a contract"
         );
         StorageSlotUpgradeable.getAddressSlot(_BEACON_SLOT).value = newBeacon;
+    }
+
+    /**
+     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does
+     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).
+     *
+     * Emits a {BeaconUpgraded} event.
+     */
+    function _upgradeBeaconToAndCall(
+        address newBeacon,
+        bytes memory data,
+        bool forceCall
+    ) internal {
+        _setBeacon(newBeacon);
+        emit BeaconUpgraded(newBeacon);
+        if (data.length > 0 || forceCall) {
+            _functionDelegateCall(IBeaconUpgradeable(newBeacon).implementation(), data);
+        }
     }
 
     /**
