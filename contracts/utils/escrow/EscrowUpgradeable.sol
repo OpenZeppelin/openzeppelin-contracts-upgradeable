@@ -20,7 +20,7 @@ import "../../proxy/utils/Initializable.sol";
  * to the escrow's deposit and withdraw.
  */
 contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
-    function initialize() public virtual initializer {
+    function initialize public virtual initializer {
         __Escrow_init();
     }
     function __Escrow_init() internal initializer {
