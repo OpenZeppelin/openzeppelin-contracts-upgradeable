@@ -92,7 +92,6 @@ Some further changes have been done between the different beta iterations. Trans
  * `EIP712`: added helpers to verify EIP712 typed data signatures on chain. ([#2418](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2418))
  * `ERC20Permit`: added an implementation of the ERC20 permit extension for gasless token approvals. ([#2237](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2237))
  * Presets: added token presets with preminted fixed supply `ERC20PresetFixedSupply` and `ERC777PresetFixedSupply`. ([#2399](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2399))
- * `Address`: added `functionDelegateCall`, similar to the existing `functionCall`. ([#2333](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2333))
  * `Clones`: added a library for deploying EIP 1167 minimal proxies. ([#2449](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2449))
  * `Context`: moved from `contracts/GSN` to `contracts/utils`. ([#2453](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2453))
  * `PaymentSplitter`: replace usage of `.transfer()` with `Address.sendValue` for improved compatibility with smart wallets. ([#2455](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2455))
@@ -115,6 +114,10 @@ If you're using our implementation of ERC777 from version 3.3.0 or earlier, and 
  * `Address`: added `functionStaticCall`, similar to the existing `functionCall`. ([#2333](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2333))
  * `TimelockController`: added a contract to augment access control schemes with a delay. ([#2354](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2354))
  * `EnumerableSet`: added `Bytes32Set`, for sets of `bytes32`. ([#2395](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2395))
+
+## Upgradeable 3.2.0 (2020-11-11)
+
+ * First release of Upgradeable variant, replacing Ethereum Package variant which is now deprecated.
 
 ## 3.2.2-solc-0.7 (2020-10-28)
  * Resolve warnings introduced by Solidity 0.7.4. ([#2396](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2396))
