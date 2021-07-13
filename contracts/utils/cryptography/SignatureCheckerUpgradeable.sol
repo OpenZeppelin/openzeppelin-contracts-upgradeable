@@ -24,7 +24,7 @@ library SignatureCheckerUpgradeable {
     ) internal view returns (bool) {
         if (AddressUpgradeable.isContract(signer)) {
             try IERC1271Upgradeable(signer).isValidSignature(hash, signature) returns (bytes4 magicValue) {
-                return magicValue == IERC1271Upgradeable(signer).isValidSignature.selector;
+                return magicValue == IERC1271Upgradeable.isValidSignature.selector;
             } catch {
                 return false;
             }
