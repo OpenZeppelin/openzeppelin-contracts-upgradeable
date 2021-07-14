@@ -6,7 +6,7 @@ import "../utils/cryptography/ECDSAUpgradeable.sol";
 import "../utils/cryptography/draft-EIP712Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-/*
+/**
  * @dev Simple minimal forwarder to be used together with an ERC2771 compatible contract. See {ERC2771Context}.
  */
 contract MinimalForwarderUpgradeable is Initializable, EIP712Upgradeable {

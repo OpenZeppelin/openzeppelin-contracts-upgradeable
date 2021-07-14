@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-/*
+/**
  * @dev Context variant with ERC2771 support.
  */
 abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable {
