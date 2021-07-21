@@ -15,7 +15,7 @@ contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __EIP712_init_unchained(name, "1");
-        __ERC20Permit_init_unchained(name);
+        __ERC20Permit_init_unchained();
         __ERC20PermitMock_init_unchained(name, symbol, initialAccount, initialBalance);
     }
 
