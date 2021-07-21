@@ -10,7 +10,7 @@ contract ERC20VotesMockUpgradeable is Initializable, ERC20VotesUpgradeable {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __EIP712_init_unchained(name, "1");
-        __ERC20Permit_init_unchained(name);
+        __ERC20Permit_init_unchained();
         __ERC20Votes_init_unchained();
         __ERC20VotesMock_init_unchained(name, symbol);
     }
