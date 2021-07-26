@@ -40,6 +40,10 @@ contract EnumerableBytes32SetMockUpgradeable is Initializable {
     function at(uint256 index) public view returns (bytes32) {
         return _set.at(index);
     }
+
+    function values() public view returns (bytes32[] memory) {
+        return _set.values();
+    }
     uint256[48] private __gap;
 }
 
@@ -78,6 +82,10 @@ contract EnumerableAddressSetMockUpgradeable is Initializable {
     function at(uint256 index) public view returns (address) {
         return _set.at(index);
     }
+
+    function values() public view returns (address[] memory) {
+        return _set.values();
+    }
     uint256[48] private __gap;
 }
 
@@ -115,6 +123,10 @@ contract EnumerableUintSetMockUpgradeable is Initializable {
 
     function at(uint256 index) public view returns (uint256) {
         return _set.at(index);
+    }
+
+    function values() public view returns (uint256[] memory) {
+        return _set.values();
     }
     uint256[48] private __gap;
 }

@@ -61,7 +61,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      * supported.
      * @param amount The amount of tokens to be loaned.
      * @param data An arbitrary datafield that is passed to the receiver.
-     * @return `true` is the flash loan was successfull.
+     * @return `true` is the flash loan was successful.
      */
     function flashLoan(
         IERC3156FlashBorrowerUpgradeable receiver,
