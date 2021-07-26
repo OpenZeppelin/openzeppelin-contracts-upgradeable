@@ -14,7 +14,6 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
     function __GovernorCountingSimple_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __GovernorCountingSimple_init_unchained();
     }
 

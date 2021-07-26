@@ -96,7 +96,6 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
     function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __GovernorTimelockCompound_init_unchained(timelockAddress);
     }
 

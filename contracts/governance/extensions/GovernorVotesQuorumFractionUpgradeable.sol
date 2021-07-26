@@ -19,7 +19,6 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
     function __GovernorVotesQuorumFraction_init(uint256 quorumNumeratorValue) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __GovernorVotesQuorumFraction_init_unchained(quorumNumeratorValue);
     }
 

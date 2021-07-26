@@ -33,7 +33,6 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
     function __GovernorTimelockControl_init(TimelockControllerUpgradeable timelockAddress) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __GovernorTimelockControl_init_unchained(timelockAddress);
     }
 
