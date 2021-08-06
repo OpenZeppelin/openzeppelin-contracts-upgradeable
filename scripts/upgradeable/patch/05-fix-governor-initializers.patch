@@ -7,9 +7,9 @@ index 1f6895a6..86518b84 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
-         __GovernorCompatibilityBravo_init_unchained();
-     }
- 
+         __IGovernor_init_unchained();
+         __IGovernorTimelock_init_unchained();
+         __IGovernorCompatibilityBravo_init_unchained();
 diff --git a/contracts/governance/extensions/GovernorCountingSimpleUpgradeable.sol b/contracts/governance/extensions/GovernorCountingSimpleUpgradeable.sol
 index 4873166b..6a88e6b4 100644
 --- a/contracts/governance/extensions/GovernorCountingSimpleUpgradeable.sol
@@ -19,9 +19,9 @@ index 4873166b..6a88e6b4 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
          __GovernorCountingSimple_init_unchained();
      }
- 
 diff --git a/contracts/governance/extensions/GovernorTimelockCompoundUpgradeable.sol b/contracts/governance/extensions/GovernorTimelockCompoundUpgradeable.sol
 index c6ed355a..9236c546 100644
 --- a/contracts/governance/extensions/GovernorTimelockCompoundUpgradeable.sol
@@ -31,9 +31,9 @@ index c6ed355a..9236c546 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
+         __IGovernorTimelock_init_unchained();
          __GovernorTimelockCompound_init_unchained(timelockAddress);
-     }
- 
 diff --git a/contracts/governance/extensions/GovernorTimelockControlUpgradeable.sol b/contracts/governance/extensions/GovernorTimelockControlUpgradeable.sol
 index 3d6a5de5..ad5f505e 100644
 --- a/contracts/governance/extensions/GovernorTimelockControlUpgradeable.sol
@@ -43,9 +43,9 @@ index 3d6a5de5..ad5f505e 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
+         __IGovernorTimelock_init_unchained();
          __GovernorTimelockControl_init_unchained(timelockAddress);
-     }
- 
 diff --git a/contracts/governance/extensions/GovernorVotesCompUpgradeable.sol b/contracts/governance/extensions/GovernorVotesCompUpgradeable.sol
 index cc83b3ed..5398f15b 100644
 --- a/contracts/governance/extensions/GovernorVotesCompUpgradeable.sol
@@ -55,9 +55,9 @@ index cc83b3ed..5398f15b 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
          __GovernorVotesComp_init_unchained(token_);
      }
- 
 diff --git a/contracts/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol b/contracts/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol
 index 5d7a88bc..39f97903 100644
 --- a/contracts/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol
@@ -67,9 +67,9 @@ index 5d7a88bc..39f97903 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
          __GovernorVotesQuorumFraction_init_unchained(quorumNumeratorValue);
      }
- 
 diff --git a/contracts/governance/extensions/GovernorVotesUpgradeable.sol b/contracts/governance/extensions/GovernorVotesUpgradeable.sol
 index cdfd0ae7..48408d9c 100644
 --- a/contracts/governance/extensions/GovernorVotesUpgradeable.sol
@@ -79,6 +79,6 @@ index cdfd0ae7..48408d9c 100644
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
          __GovernorVotes_init_unchained(tokenAddress);
      }
- 

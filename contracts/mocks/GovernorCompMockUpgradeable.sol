@@ -20,6 +20,7 @@ contract GovernorCompMockUpgradeable is Initializable, GovernorUpgradeable, Gove
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
+        __IGovernor_init_unchained();
         __Governor_init_unchained(name_);
         __GovernorVotesComp_init_unchained(token_);
         __GovernorCountingSimple_init_unchained();
@@ -63,7 +64,7 @@ contract GovernorCompMockUpgradeable is Initializable, GovernorUpgradeable, Gove
         public
         view
         virtual
-        override(GovernorUpgradeable, GovernorVotesCompUpgradeable)
+        override(IGovernorUpgradeable, GovernorVotesCompUpgradeable)
         returns (uint256)
     {
         return super.getVotes(account, blockNumber);

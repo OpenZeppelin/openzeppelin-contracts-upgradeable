@@ -14,6 +14,7 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
     function __GovernorCountingSimple_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
+        __IGovernor_init_unchained();
         __GovernorCountingSimple_init_unchained();
     }
 
@@ -75,9 +76,7 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
     function _quorumReached(uint256 proposalId) internal view virtual override returns (bool) {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-        return
-            quorum(proposalSnapshot(proposalId)) <=
-            proposalvote.againstVotes + proposalvote.forVotes + proposalvote.abstainVotes;
+        return quorum(proposalSnapshot(proposalId)) <= proposalvote.forVotes + proposalvote.abstainVotes;
     }
 
     /**

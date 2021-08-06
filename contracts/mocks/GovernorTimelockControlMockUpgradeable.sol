@@ -22,6 +22,8 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
+        __IGovernor_init_unchained();
+        __IGovernorTimelock_init_unchained();
         __Governor_init_unchained(name_);
         __GovernorTimelockControl_init_unchained(timelock_);
         __GovernorVotes_init_unchained(token_);
@@ -52,18 +54,18 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         return super.supportsInterface(interfaceId);
     }
 
-    function votingDelay() public view override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    function votingDelay() public view override returns (uint256) {
         return _votingDelay;
     }
 
-    function votingPeriod() public view override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    function votingPeriod() public view override returns (uint256) {
         return _votingPeriod;
     }
 
     function quorum(uint256 blockNumber)
         public
         view
-        override(IGovernorUpgradeable, GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)
+        override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)
         returns (uint256)
     {
         return super.quorum(blockNumber);
@@ -114,7 +116,7 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         public
         view
         virtual
-        override(IGovernorUpgradeable, GovernorUpgradeable, GovernorVotesUpgradeable)
+        override(IGovernorUpgradeable, GovernorVotesUpgradeable)
         returns (uint256)
     {
         return super.getVotes(account, blockNumber);

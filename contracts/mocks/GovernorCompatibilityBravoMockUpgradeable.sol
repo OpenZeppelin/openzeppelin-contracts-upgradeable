@@ -23,7 +23,11 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
+        __IGovernor_init_unchained();
+        __IGovernorTimelock_init_unchained();
+        __IGovernorCompatibilityBravo_init_unchained();
         __Governor_init_unchained(name_);
+        __GovernorProposalThreshold_init_unchained();
         __GovernorCompatibilityBravo_init_unchained();
         __GovernorTimelockCompound_init_unchained(timelock_);
         __GovernorVotesComp_init_unchained(token_);
@@ -53,11 +57,11 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         return super.supportsInterface(interfaceId);
     }
 
-    function votingDelay() public view override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    function votingDelay() public view override returns (uint256) {
         return _votingDelay;
     }
 
-    function votingPeriod() public view override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    function votingPeriod() public view override returns (uint256) {
         return _votingPeriod;
     }
 
@@ -65,7 +69,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         return _proposalThreshold;
     }
 
-    function quorum(uint256) public pure override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    function quorum(uint256) public pure override returns (uint256) {
         return 0;
     }
 
@@ -83,7 +87,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         public
         view
         virtual
-        override(GovernorCompatibilityBravoUpgradeable, GovernorTimelockCompoundUpgradeable)
+        override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (uint256)
     {
         return super.proposalEta(proposalId);
@@ -103,7 +107,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) public virtual override(GovernorCompatibilityBravoUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256) {
+    ) public virtual override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256) {
         return super.queue(targets, values, calldatas, salt);
     }
 

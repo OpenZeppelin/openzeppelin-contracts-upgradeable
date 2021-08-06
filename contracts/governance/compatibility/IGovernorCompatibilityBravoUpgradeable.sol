@@ -3,13 +3,21 @@
 pragma solidity ^0.8.0;
 
 import "../IGovernorUpgradeable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface extension that adds missing functions to the {Governor} core to provide `GovernorBravo` compatibility.
  *
  * _Available since v4.3._
  */
-interface IGovernorCompatibilityBravoUpgradeable is IGovernorUpgradeable {
+abstract contract IGovernorCompatibilityBravoUpgradeable is Initializable, IGovernorUpgradeable {
+    function __IGovernorCompatibilityBravo_init() internal initializer {
+        __IGovernor_init_unchained();
+        __IGovernorCompatibilityBravo_init_unchained();
+    }
+
+    function __IGovernorCompatibilityBravo_init_unchained() internal initializer {
+    }
     /**
      * @dev Proposal structure from Compound Governor Bravo. Not actually used by the compatibility layer, as
      * {{proposal}} returns a very different structure.
@@ -44,14 +52,15 @@ interface IGovernorCompatibilityBravoUpgradeable is IGovernorUpgradeable {
     /**
      * @dev Part of the Governor Bravo's interface.
      */
-    function quorumVotes() external view returns (uint256);
+    function quorumVotes() public view virtual returns (uint256);
 
     /**
      * @dev Part of the Governor Bravo's interface: _"The official record of all proposals ever proposed"_.
      */
     function proposals(uint256)
-        external
+        public
         view
+        virtual
         returns (
             uint256 id,
             address proposer,
@@ -74,24 +83,30 @@ interface IGovernorCompatibilityBravoUpgradeable is IGovernorUpgradeable {
         string[] memory signatures,
         bytes[] memory calldatas,
         string memory description
-    ) external returns (uint256);
+    ) public virtual returns (uint256);
 
     /**
      * @dev Part of the Governor Bravo's interface: _"Queues a proposal of state succeeded"_.
      */
-    function queue(uint256 proposalId) external;
+    function queue(uint256 proposalId) public virtual;
 
     /**
      * @dev Part of the Governor Bravo's interface: _"Executes a queued proposal if eta has passed"_.
      */
-    function execute(uint256 proposalId) external payable;
+    function execute(uint256 proposalId) public payable virtual;
+
+    /**
+     * @dev Cancels a proposal only if sender is the proposer, or proposer delegates dropped below proposal threshold.
+     */
+    function cancel(uint256 proposalId) public virtual;
 
     /**
      * @dev Part of the Governor Bravo's interface: _"Gets actions of a proposal"_.
      */
     function getActions(uint256 proposalId)
-        external
+        public
         view
+        virtual
         returns (
             address[] memory targets,
             uint256[] memory values,
@@ -102,10 +117,11 @@ interface IGovernorCompatibilityBravoUpgradeable is IGovernorUpgradeable {
     /**
      * @dev Part of the Governor Bravo's interface: _"Gets the receipt for a voter on a given proposal"_.
      */
-    function getReceipt(uint256 proposalId, address voter) external view returns (Receipt memory);
+    function getReceipt(uint256 proposalId, address voter) public view virtual returns (Receipt memory);
 
     /**
      * @dev Part of the Governor Bravo's interface: _"The number of votes required in order for a voter to become a proposer"_.
      */
-    function proposalThreshold() external view returns (uint256);
+    function proposalThreshold() public view virtual returns (uint256);
+    uint256[50] private __gap;
 }

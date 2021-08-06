@@ -3,13 +3,20 @@
 pragma solidity ^0.8.0;
 
 import "../utils/introspection/ERC165Upgradeable.sol";
+import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface of the {Governor} core.
  *
  * _Available since v4.3._
  */
-interface IGovernorUpgradeable is IERC165Upgradeable {
+abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
+    function __IGovernor_init() internal initializer {
+        __IGovernor_init_unchained();
+    }
+
+    function __IGovernor_init_unchained() internal initializer {
+    }
     enum ProposalState {
         Pending,
         Active,
@@ -57,13 +64,13 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
      * @notice module:core
      * @dev Name of the governor instance (used in building the ERC712 domain separator).
      */
-    function name() external view returns (string memory);
+    function name() public view virtual returns (string memory);
 
     /**
      * @notice module:core
      * @dev Version of the governor instance (used in building the ERC712 domain separator). Default: "1"
      */
-    function version() external view returns (string memory);
+    function version() public view virtual returns (string memory);
 
     /**
      * @notice module:voting
@@ -82,7 +89,7 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
      * JavaScript class.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function COUNTING_MODE() external pure returns (string memory);
+    function COUNTING_MODE() public pure virtual returns (string memory);
 
     /**
      * @notice module:core
@@ -93,32 +100,32 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
         uint256[] calldata values,
         bytes[] calldata calldatas,
         bytes32 descriptionHash
-    ) external pure returns (uint256);
+    ) public pure virtual returns (uint256);
 
     /**
      * @notice module:core
      * @dev Current state of a proposal, following Compound's convention
      */
-    function state(uint256 proposalId) external view returns (ProposalState);
+    function state(uint256 proposalId) public view virtual returns (ProposalState);
 
     /**
      * @notice module:core
      * @dev block number used to retrieve user's votes and quorum.
      */
-    function proposalSnapshot(uint256 proposalId) external view returns (uint256);
+    function proposalSnapshot(uint256 proposalId) public view virtual returns (uint256);
 
     /**
      * @notice module:core
      * @dev timestamp at which votes close.
      */
-    function proposalDeadline(uint256 proposalId) external view returns (uint256);
+    function proposalDeadline(uint256 proposalId) public view virtual returns (uint256);
 
     /**
      * @notice module:user-config
      * @dev delay, in number of block, between the proposal is created and the vote starts. This can be increassed to
      * leave time for users to buy voting power, of delegate it, before the voting of a proposal starts.
      */
-    function votingDelay() external view returns (uint256);
+    function votingDelay() public view virtual returns (uint256);
 
     /**
      * @notice module:user-config
@@ -127,7 +134,7 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
      * Note: the {votingDelay} can delay the start of the vote. This must be considered when setting the voting
      * duration compared to the voting delay.
      */
-    function votingPeriod() external view returns (uint256);
+    function votingPeriod() public view virtual returns (uint256);
 
     /**
      * @notice module:user-config
@@ -136,7 +143,7 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
      * Note: The `blockNumber` parameter corresponds to the snaphot used for counting vote. This allows to scale the
      * quroum depending on values such as the totalSupply of a token at this block (see {ERC20Votes}).
      */
-    function quorum(uint256 blockNumber) external view returns (uint256);
+    function quorum(uint256 blockNumber) public view virtual returns (uint256);
 
     /**
      * @notice module:reputation
@@ -145,13 +152,13 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
      * Note: this can be implemented in a number of ways, for example by reading the delegated balance from one (or
      * multiple), {ERC20Votes} tokens.
      */
-    function getVotes(address account, uint256 blockNumber) external view returns (uint256);
+    function getVotes(address account, uint256 blockNumber) public view virtual returns (uint256);
 
     /**
      * @notice module:voting
      * @dev Returns weither `account` has casted a vote on `proposalId`.
      */
-    function hasVoted(uint256 proposalId, address account) external view returns (bool);
+    function hasVoted(uint256 proposalId, address account) public view virtual returns (bool);
 
     /**
      * @dev Create a new proposal. Vote start {IGovernor-votingDelay} blocks after the proposal is created and ends
@@ -164,7 +171,7 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) external returns (uint256 proposalId);
+    ) public virtual returns (uint256 proposalId);
 
     /**
      * @dev Execute a successful proposal. This requiers the quorum to be reached, the vote to be successful, and the
@@ -179,14 +186,14 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) external payable returns (uint256 proposalId);
+    ) public payable virtual returns (uint256 proposalId);
 
     /**
      * @dev Cast a vote
      *
      * Emits a {VoteCast} event.
      */
-    function castVote(uint256 proposalId, uint8 support) external returns (uint256 balance);
+    function castVote(uint256 proposalId, uint8 support) public virtual returns (uint256 balance);
 
     /**
      * @dev Cast a with a reason
@@ -197,7 +204,7 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
         uint256 proposalId,
         uint8 support,
         string calldata reason
-    ) external returns (uint256 balance);
+    ) public virtual returns (uint256 balance);
 
     /**
      * @dev Cast a vote using the user cryptographic signature.
@@ -210,5 +217,6 @@ interface IGovernorUpgradeable is IERC165Upgradeable {
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external returns (uint256 balance);
+    ) public virtual returns (uint256 balance);
+    uint256[50] private __gap;
 }

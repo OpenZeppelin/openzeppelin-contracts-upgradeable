@@ -3,23 +3,32 @@
 pragma solidity ^0.8.0;
 
 import "../IGovernorUpgradeable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the {IGovernor} for timelock supporting modules.
  *
  * _Available since v4.3._
  */
-interface IGovernorTimelockUpgradeable is IGovernorUpgradeable {
+abstract contract IGovernorTimelockUpgradeable is Initializable, IGovernorUpgradeable {
+    function __IGovernorTimelock_init() internal initializer {
+        __IGovernor_init_unchained();
+        __IGovernorTimelock_init_unchained();
+    }
+
+    function __IGovernorTimelock_init_unchained() internal initializer {
+    }
     event ProposalQueued(uint256 proposalId, uint256 eta);
 
-    function timelock() external view returns (address);
+    function timelock() public view virtual returns (address);
 
-    function proposalEta(uint256 proposalId) external view returns (uint256);
+    function proposalEta(uint256 proposalId) public view virtual returns (uint256);
 
     function queue(
-        address[] calldata targets,
-        uint256[] calldata values,
-        bytes[] calldata calldatas,
+        address[] memory targets,
+        uint256[] memory values,
+        bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) external returns (uint256 proposalId);
+    ) public virtual returns (uint256 proposalId);
+    uint256[50] private __gap;
 }

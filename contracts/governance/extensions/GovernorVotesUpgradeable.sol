@@ -18,6 +18,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
     function __GovernorVotes_init(ERC20VotesUpgradeable tokenAddress) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
+        __IGovernor_init_unchained();
         __GovernorVotes_init_unchained(tokenAddress);
     }
 

@@ -56,6 +56,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
+        __IGovernor_init_unchained();
         __Governor_init_unchained(name_);
     }
 
@@ -143,26 +144,6 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
         return _proposals[proposalId].voteEnd.getDeadline();
     }
-
-    /**
-     * @dev See {IGovernor-votingDelay}
-     */
-    function votingDelay() public view virtual override returns (uint256);
-
-    /**
-     * @dev See {IGovernor-votingPeriod}
-     */
-    function votingPeriod() public view virtual override returns (uint256);
-
-    /**
-     * @dev See {IGovernor-quorum}
-     */
-    function quorum(uint256 blockNumber) public view virtual override returns (uint256);
-
-    /**
-     * @dev See {IGovernor-getVotes}
-     */
-    function getVotes(address account, uint256 blockNumber) public view virtual override returns (uint256);
 
     /**
      * @dev Amount of votes already casted passes the threshold limit.

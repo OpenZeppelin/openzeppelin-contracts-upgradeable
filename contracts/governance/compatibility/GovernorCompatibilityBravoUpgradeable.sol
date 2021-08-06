@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../../utils/CountersUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
 import "../extensions/IGovernorTimelockUpgradeable.sol";
+import "../extensions/GovernorProposalThresholdUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "./IGovernorCompatibilityBravoUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
@@ -17,10 +18,19 @@ import "../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.3._
  */
-abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGovernorTimelockUpgradeable, IGovernorCompatibilityBravoUpgradeable, GovernorUpgradeable {
+abstract contract GovernorCompatibilityBravoUpgradeable is
+    Initializable, IGovernorTimelockUpgradeable,
+    IGovernorCompatibilityBravoUpgradeable,
+    GovernorUpgradeable,
+    GovernorProposalThresholdUpgradeable
+{
     function __GovernorCompatibilityBravo_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
+        __IGovernor_init_unchained();
+        __IGovernorTimelock_init_unchained();
+        __IGovernorCompatibilityBravo_init_unchained();
+        __GovernorProposalThreshold_init_unchained();
         __GovernorCompatibilityBravo_init_unchained();
     }
 
@@ -50,20 +60,6 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
 
     mapping(uint256 => ProposalDetails) private _proposalDetails;
 
-    // public for hooking
-    function proposalThreshold() public view virtual override returns (uint256);
-
-    // public for hooking
-    function proposalEta(uint256 proposalId) public view virtual override returns (uint256);
-
-    // public for hooking
-    function queue(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 descriptionHash
-    ) public virtual override returns (uint256);
-
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo&quorum=bravo";
@@ -78,8 +74,9 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
-        return propose(targets, values, new string[](calldatas.length), calldatas, description);
+    ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable, GovernorProposalThresholdUpgradeable) returns (uint256) {
+        _storeProposal(_msgSender(), targets, values, new string[](calldatas.length), calldatas, description);
+        return super.propose(targets, values, calldatas, description);
     }
 
     /**
@@ -92,14 +89,8 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         bytes[] memory calldatas,
         string memory description
     ) public virtual override returns (uint256) {
-        require(
-            getVotes(msg.sender, block.number - 1) >= proposalThreshold(),
-            "GovernorCompatibilityBravo: proposer votes below proposal threshold"
-        );
-
-        uint256 proposalId = super.propose(targets, values, _encodeCalldata(signatures, calldatas), description);
-        _storeProposal(proposalId, _msgSender(), targets, values, signatures, calldatas, description);
-        return proposalId;
+        _storeProposal(_msgSender(), targets, values, signatures, calldatas, description);
+        return propose(targets, values, _encodeCalldata(signatures, calldatas), description);
     }
 
     /**
@@ -128,6 +119,22 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         );
     }
 
+    function cancel(uint256 proposalId) public virtual override {
+        ProposalDetails storage details = _proposalDetails[proposalId];
+
+        require(
+            _msgSender() == details.proposer || getVotes(details.proposer, block.number - 1) < proposalThreshold(),
+            "GovernorBravo: proposer above threshold"
+        );
+
+        _cancel(
+            details.targets,
+            details.values,
+            _encodeCalldata(details.signatures, details.calldatas),
+            details.descriptionHash
+        );
+    }
+
     /**
      * @dev Encodes calldatas with optional function signature.
      */
@@ -141,7 +148,7 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         for (uint256 i = 0; i < signatures.length; ++i) {
             fullcalldatas[i] = bytes(signatures[i]).length == 0
                 ? calldatas[i]
-                : abi.encodePacked(bytes4(keccak256(bytes(signatures[i]))), calldatas[i]);
+                : abi.encodeWithSignature(signatures[i], calldatas[i]);
         }
 
         return fullcalldatas;
@@ -151,7 +158,6 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
      * @dev Store proposal metadata for later lookup
      */
     function _storeProposal(
-        uint256 proposalId,
         address proposer,
         address[] memory targets,
         uint256[] memory values,
@@ -159,17 +165,31 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         bytes[] memory calldatas,
         string memory description
     ) private {
-        ProposalDetails storage details = _proposalDetails[proposalId];
+        bytes32 descriptionHash = keccak256(bytes(description));
+        uint256 proposalId = hashProposal(targets, values, _encodeCalldata(signatures, calldatas), descriptionHash);
 
-        details.proposer = proposer;
-        details.targets = targets;
-        details.values = values;
-        details.signatures = signatures;
-        details.calldatas = calldatas;
-        details.descriptionHash = keccak256(bytes(description));
+        ProposalDetails storage details = _proposalDetails[proposalId];
+        if (details.descriptionHash == bytes32(0)) {
+            details.proposer = proposer;
+            details.targets = targets;
+            details.values = values;
+            details.signatures = signatures;
+            details.calldatas = calldatas;
+            details.descriptionHash = descriptionHash;
+        }
     }
 
     // ==================================================== Views =====================================================
+    /**
+     * @dev Part of the Governor Bravo's interface: _"The number of votes required in order for a voter to become a proposer"_.
+     */
+    function proposalThreshold()
+        public
+        view
+        virtual
+        override(IGovernorCompatibilityBravoUpgradeable, GovernorProposalThresholdUpgradeable)
+        returns (uint256);
+
     /**
      * @dev See {IGovernorCompatibilityBravo-proposals}.
      */
