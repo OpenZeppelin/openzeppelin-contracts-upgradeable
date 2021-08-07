@@ -22,14 +22,14 @@ library SignatureCheckerUpgradeable {
         bytes32 hash,
         bytes memory signature
     ) internal view returns (bool) {
-        if (AddressUpgradeable.isContract(signer)) {
-            try IERC1271Upgradeable(signer).isValidSignature(hash, signature) returns (bytes4 magicValue) {
-                return magicValue == IERC1271Upgradeable.isValidSignature.selector;
-            } catch {
-                return false;
-            }
-        } else {
-            return ECDSAUpgradeable.recover(hash, signature) == signer;
+        (address recovered, ECDSAUpgradeable.RecoverError error) = ECDSAUpgradeable.tryRecover(hash, signature);
+        if (error == ECDSAUpgradeable.RecoverError.NoError && recovered == signer) {
+            return true;
         }
+
+        (bool success, bytes memory result) = signer.staticcall(
+            abi.encodeWithSelector(IERC1271Upgradeable.isValidSignature.selector, hash, signature)
+        );
+        return (success && result.length == 32 && abi.decode(result, (bytes4)) == IERC1271Upgradeable.isValidSignature.selector);
     }
 }

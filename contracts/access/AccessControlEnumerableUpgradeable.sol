@@ -2,18 +2,10 @@
 
 pragma solidity ^0.8.0;
 
+import "./IAccessControlEnumerableUpgradeable.sol";
 import "./AccessControlUpgradeable.sol";
 import "../utils/structs/EnumerableSetUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
-
-/**
- * @dev External interface of AccessControlEnumerable declared to support ERC165 detection.
- */
-interface IAccessControlEnumerableUpgradeable {
-    function getRoleMember(bytes32 role, uint256 index) external view returns (address);
-
-    function getRoleMemberCount(bytes32 role) external view returns (uint256);
-}
 
 /**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
@@ -66,7 +58,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
     /**
      * @dev Overload {grantRole} to track enumerable memberships
      */
-    function grantRole(bytes32 role, address account) public virtual override {
+    function grantRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
         super.grantRole(role, account);
         _roleMembers[role].add(account);
     }
@@ -74,7 +66,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
     /**
      * @dev Overload {revokeRole} to track enumerable memberships
      */
-    function revokeRole(bytes32 role, address account) public virtual override {
+    function revokeRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
         super.revokeRole(role, account);
         _roleMembers[role].remove(account);
     }
@@ -82,7 +74,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
     /**
      * @dev Overload {renounceRole} to track enumerable memberships
      */
-    function renounceRole(bytes32 role, address account) public virtual override {
+    function renounceRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
         super.renounceRole(role, account);
         _roleMembers[role].remove(account);
     }
