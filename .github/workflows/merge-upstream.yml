@@ -1,6 +1,8 @@
 name: Merge upstream
 
 on:
+  push:
+    branches: [patches]
   workflow_dispatch: {}
   repository_dispatch:
     types: [update]
