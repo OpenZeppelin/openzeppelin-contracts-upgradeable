@@ -5,7 +5,7 @@ on:
     branches: [patches]
   workflow_dispatch: {}
   repository_dispatch:
-    types: [update]
+    types: [Update]
     # client_payload: { ref: string }
 
 concurrency:
