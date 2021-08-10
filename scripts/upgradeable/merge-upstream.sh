@@ -17,6 +17,6 @@ input="${REF#refs/heads/}"
 upstream="${input#patched/}"
 branch="patched/$upstream"
 
-git checkout "$branch" 2>/dev/null || git checkout -b "$branch" origin/patches
+git switch "$branch" 2>/dev/null || git switch -c "$branch" -t "origin/$branch" origin/patches
 git fetch 'https://github.com/OpenZeppelin/openzeppelin-contracts.git' "$upstream"
 git merge origin/patches FETCH_HEAD -m "Merge upstream $upstream into $branch"
