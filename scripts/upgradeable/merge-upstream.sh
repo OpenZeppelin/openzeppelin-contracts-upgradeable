@@ -8,8 +8,7 @@ if [[ "$REF" != refs/heads/* ]]; then
   echo "$REF is not a branch" >&2
   exit 1
 elif [[ "$REF" == refs/heads/patches ]]; then
-  echo "Run on a different branch" >&2
-  exit 1
+  REF=refs/heads/master
 fi
 
 set -x
