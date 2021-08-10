@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/heads/patched/')
     steps:
-      - run: echo ::set-output name="${GITHUB_REF#refs/heads/patched/}"
+      - run: echo ::set-output name=name::"${GITHUB_REF#refs/heads/patched/}"
         id: branch
       - uses: actions/checkout@v2
         with:
