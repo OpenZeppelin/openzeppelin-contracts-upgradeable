@@ -24,4 +24,4 @@ jobs:
       - run: bash scripts/upgradeable/merge-upstream.sh
         env:
           REF: ${{ github.event.client_payload.ref || github.ref}}
-      - run: git push origin
+      - run: git push origin HEAD
