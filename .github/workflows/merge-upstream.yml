@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          ref: patches
           fetch-depth: 0
           ssh-key: ${{ secrets.DEPLOY_KEY }}
       - run: bash scripts/upgradeable/git-user-config.sh
