@@ -99,7 +99,7 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
     ) internal virtual override {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-        require(!proposalvote.hasVoted[account], "GovernorVotingSimple: vote already casted");
+        require(!proposalvote.hasVoted[account], "GovernorVotingSimple: vote already cast");
         proposalvote.hasVoted[account] = true;
 
         if (support == uint8(VoteType.Against)) {

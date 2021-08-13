@@ -296,7 +296,7 @@ abstract contract GovernorCompatibilityBravoUpgradeable is
         ProposalDetails storage details = _proposalDetails[proposalId];
         Receipt storage receipt = details.receipts[account];
 
-        require(!receipt.hasVoted, "GovernorCompatibilityBravo: vote already casted");
+        require(!receipt.hasVoted, "GovernorCompatibilityBravo: vote already cast");
         receipt.hasVoted = true;
         receipt.support = support;
         receipt.votes = SafeCastUpgradeable.toUint96(weight);
