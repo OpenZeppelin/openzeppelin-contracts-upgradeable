@@ -138,7 +138,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
 
     /**
      * @notice module:user-config
-     * @dev Minimum number of cast voted requiered for a proposal to be successful.
+     * @dev Minimum number of cast voted required for a proposal to be successful.
      *
      * Note: The `blockNumber` parameter corresponds to the snaphot used for counting vote. This allows to scale the
      * quroum depending on values such as the totalSupply of a token at this block (see {ERC20Votes}).
@@ -174,12 +174,12 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
     ) public virtual returns (uint256 proposalId);
 
     /**
-     * @dev Execute a successful proposal. This requiers the quorum to be reached, the vote to be successful, and the
+     * @dev Execute a successful proposal. This requires the quorum to be reached, the vote to be successful, and the
      * deadline to be reached.
      *
      * Emits a {ProposalExecuted} event.
      *
-     * Note: some module can modify the requierements for execution, for example by adding an additional timelock.
+     * Note: some module can modify the requirements for execution, for example by adding an additional timelock.
      */
     function execute(
         address[] memory targets,
