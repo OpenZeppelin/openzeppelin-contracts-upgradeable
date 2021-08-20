@@ -651,13 +651,6 @@ contract PaymentSplitterUpgradeableWithInit is PaymentSplitterUpgradeable {
         __PaymentSplitter_init(payees, shares_);
     }
 }
-import "./SafeMathMockUpgradeable.sol";
-
-contract SafeMathMockUpgradeableWithInit is SafeMathMockUpgradeable {
-    constructor() public payable {
-        __SafeMathMock_init();
-    }
-}
 import "./ERC20DecimalsMockUpgradeable.sol";
 
 contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
@@ -853,6 +846,13 @@ import "./MerkleProofWrapperUpgradeable.sol";
 contract MerkleProofWrapperUpgradeableWithInit is MerkleProofWrapperUpgradeable {
     constructor() public payable {
         __MerkleProofWrapper_init();
+    }
+}
+import "./SafeMathMockUpgradeable.sol";
+
+contract SafeMathMockUpgradeableWithInit is SafeMathMockUpgradeable {
+    constructor() public payable {
+        __SafeMathMock_init();
     }
 }
 import "./SignedSafeMathMockUpgradeable.sol";
