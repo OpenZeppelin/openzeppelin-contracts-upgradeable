@@ -21,12 +21,12 @@ git add contracts
 
 git checkout --quiet --detach
 
-if git rev-parse --quiet --verify "$target"; then
+if git rev-parse -q --verify "$target"; then
   git reset --soft "$target"
   git checkout "$target"
 else
   git checkout --orphan "$target"
-  if [ -n "$base" ]; then
+  if [ -n "$base" ] && git rev-parse -q --verify "$base"; then
     git reset --soft "$base"
   fi
 fi
