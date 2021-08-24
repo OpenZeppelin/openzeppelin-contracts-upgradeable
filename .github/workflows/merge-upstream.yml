@@ -1,22 +1,28 @@
 name: Merge upstream
 
 on:
+  push:
+    branches: [patches]
   workflow_dispatch: {}
-  schedule:
-    - cron: '0 10 * * *'
+  repository_dispatch:
+    types: [Update]
+    # client_payload: { ref: string }
+
+concurrency:
+  group: merge-${{ github.event.client_payload.ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  update:
+  merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
-        env:
-          GITHUB_TOKEN: ${{github.token}}
       - uses: actions/checkout@v2
         with:
-          ref: upstream-patched
+          ref: patches
           fetch-depth: 0
-          ssh-key: ${{secrets.DEPLOY_KEY}}
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
       - run: bash scripts/upgradeable/git-user-config.sh
       - run: bash scripts/upgradeable/merge-upstream.sh
-      - run: git push
+        env:
+          REF: ${{ github.event.client_payload.ref || github.ref}}
+      - run: git push origin HEAD
