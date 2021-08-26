@@ -234,7 +234,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function execute(address target, uint256 value, bytes calldata data, bytes32 predecessor, bytes32 salt) public payable virtual onlyRole(EXECUTOR_ROLE) {
         bytes32 id = hashOperation(target, value, data, predecessor, salt);
-        _beforeCall(predecessor);
+        _beforeCall(id, predecessor);
         _call(id, 0, target, value, data);
         _afterCall(id);
     }
@@ -253,7 +253,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         require(targets.length == datas.length, "TimelockController: length mismatch");
 
         bytes32 id = hashOperationBatch(targets, values, datas, predecessor, salt);
-        _beforeCall(predecessor);
+        _beforeCall(id, predecessor);
         for (uint256 i = 0; i < targets.length; ++i) {
             _call(id, i, targets[i], values[i], datas[i]);
         }
@@ -263,7 +263,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Checks before execution of an operation's calls.
      */
-    function _beforeCall(bytes32 predecessor) private view {
+    function _beforeCall(bytes32 id, bytes32 predecessor) private view {
+        require(isOperationReady(id), "TimelockController: operation is not ready");
         require(predecessor == bytes32(0) || isOperationDone(predecessor), "TimelockController: missing dependency");
     }
 

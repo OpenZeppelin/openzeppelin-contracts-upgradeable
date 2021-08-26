@@ -18,6 +18,10 @@
 
 # Changelog
 
+## 3.4.2 (2021-08-26)
+
+ * `TimelockController`: Add additional isOperationReady check.
+
 ## 3.4.1 (2021-03-03)
 
  * `ERC721`: made `_approve` an internal function (was private).
