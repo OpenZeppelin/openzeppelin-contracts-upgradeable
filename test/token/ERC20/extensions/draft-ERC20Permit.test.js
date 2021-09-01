@@ -8,7 +8,7 @@ const { fromRpcSig } = require('ethereumjs-util');
 const ethSigUtil = require('eth-sig-util');
 const Wallet = require('ethereumjs-wallet').default;
 
-const ERC20PermitMock = artifacts.require('ERC20PermitMock');
+const ERC20PermitMock = artifacts.require('ERC20PermitMockUpgradeable');
 
 const { EIP712Domain, domainSeparator } = require('../../../helpers/eip712');
 
