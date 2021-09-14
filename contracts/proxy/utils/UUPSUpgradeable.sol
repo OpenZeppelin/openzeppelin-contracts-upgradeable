@@ -24,10 +24,9 @@ abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
     }
 
     function __UUPSUpgradeable_init_unchained() internal initializer {
-        __self = address(this);
     }
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
-    address private __self;
+    address private immutable __self = address(this);
 
     /**
      * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
