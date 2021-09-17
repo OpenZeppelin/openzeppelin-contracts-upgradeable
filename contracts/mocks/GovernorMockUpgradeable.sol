@@ -40,8 +40,6 @@ contract GovernorMockUpgradeable is Initializable, GovernorUpgradeable, Governor
         _votingPeriod = votingPeriod_;
     }
 
-    receive() external payable {}
-
     function votingDelay() public view override returns (uint256) {
         return _votingDelay;
     }
