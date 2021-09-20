@@ -142,7 +142,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
     /**
      * @dev Revokes `role` from `account`.
      *
-     * If `account` had been granted `role`, emits a {RoleRevoked} event.
+     * If `account` had been revoked `role`, emits a {RoleRevoked} event.
      *
      * Requirements:
      *
