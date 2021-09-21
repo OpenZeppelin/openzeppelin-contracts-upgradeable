@@ -159,7 +159,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * purpose is to provide a mechanism for accounts to lose their privileges
      * if they are compromised (such as when a trusted device is misplaced).
      *
-     * If the calling account had been granted `role`, emits a {RoleRevoked}
+     * If the calling account had been revoked `role`, emits a {RoleRevoked}
      * event.
      *
      * Requirements:
