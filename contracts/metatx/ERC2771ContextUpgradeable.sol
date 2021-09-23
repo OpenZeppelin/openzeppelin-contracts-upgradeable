@@ -20,6 +20,10 @@ abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable
         _trustedForwarder = trustedForwarder;
     }
 
+    function updateForwarder(address trustedForwarder) internal virtual {
+        _trustedForwarder = trustedForwarder;
+    }
+
     function isTrustedForwarder(address forwarder) public view virtual returns (bool) {
         return forwarder == _trustedForwarder;
     }
