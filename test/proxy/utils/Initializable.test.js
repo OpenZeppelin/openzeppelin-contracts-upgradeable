@@ -1,4 +1,4 @@
-const { expectRevert } = require('@openzeppelin/test-helpers');
+const { expectRevert, BN } = require('@openzeppelin/test-helpers');
 
 const { assert } = require('chai');
 
@@ -38,6 +38,39 @@ contract('Initializable', function (accounts) {
 
       it('initializer has run', async function () {
         assert.isTrue(await this.contract.initializerRan());
+      });
+    });
+  });
+
+  describe('basic upgrade testing', function () {
+    beforeEach('deploying', async function () {
+      this.contract = await InitializableMock.new();
+    });
+
+    context('before initialize', function () {
+      it('initializer has not run', async function () {
+        assert.isFalse(await this.contract.initializerRan());
+        assert.isFalse(await this.contract.upgradeRan());
+      });
+    });
+
+    context('after initialize and upgrade', function () {
+      beforeEach('initializing', async function () {
+        await this.contract.initialize();
+        await this.contract.upgrade();
+      });
+
+      it('initializer and upgrade has run', async function () {
+        assert.isTrue(await this.contract.initializerRan());
+        assert.isTrue(await this.contract.upgradeRan());
+      });
+
+      it('initializer does not run again', async function () {
+        await expectRevert(this.contract.initialize(), 'Initializable: contract is already initialized');
+      });
+
+      it('upgrade does not run again', async function () {
+        await expectRevert(this.contract.upgrade(), 'Initializable: contract is already initialized');
       });
     });
   });

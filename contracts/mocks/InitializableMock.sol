@@ -11,9 +11,14 @@ import "../proxy/utils/Initializable.sol";
 contract InitializableMock is Initializable {
     bool public initializerRan;
     uint256 public x;
+    bool public upgradeRan;
 
     function initialize() public initializer {
         initializerRan = true;
+    }
+
+    function upgrade() public upgradeInit(1) {
+        upgradeRan = true;
     }
 
     function initializeNested() public initializer {

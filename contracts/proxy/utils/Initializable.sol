@@ -31,9 +31,9 @@ pragma solidity ^0.8.0;
  */
 abstract contract Initializable {
     /**
-     * @dev Indicates that the contract has been initialized.
+     * @dev Indicates that the contract has been initialized to this level.
      */
-    bool private _initialized;
+    uint256 private _upgradeLevel;
 
     /**
      * @dev Indicates that the contract is in the process of being initialized.
@@ -44,18 +44,35 @@ abstract contract Initializable {
      * @dev Modifier to protect an initializer function from being invoked twice.
      */
     modifier initializer() {
-        require(_initializing || !_initialized, "Initializable: contract is already initialized");
-
-        bool isTopLevelCall = !_initializing;
-        if (isTopLevelCall) {
-            _initializing = true;
-            _initialized = true;
-        }
-
+        bool isTopLevelCall = _preInitialize(0);
         _;
-
         if (isTopLevelCall) {
             _initializing = false;
         }
+    }
+
+    /**
+     * @dev Modifier to protect an initializer function from being invoked twice.
+     */
+    modifier upgradeInit(uint256 upgradeLevel) {
+        bool isTopLevelCall = _preInitialize(upgradeLevel);
+        _;
+        if (isTopLevelCall) {
+            _initializing = false;
+        }
+    }
+
+    function _preInitialize(uint256 upgradeLevel) private returns(bool) {
+        require(_initializing || _upgradeLevel <= upgradeLevel, "Initializable: contract is already initialized");
+        if (!_initializing) {
+            _initializing = true;
+            _upgradeLevel = _upgradeLevel + 1;
+            return true;
+        }
+        return false;
+    }
+
+    function getUpgradeLevel() public view returns(uint256) {
+        return _upgradeLevel;
     }
 }
