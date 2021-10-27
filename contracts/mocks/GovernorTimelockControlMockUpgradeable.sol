@@ -3,14 +3,17 @@
 pragma solidity ^0.8.0;
 
 import "../governance/extensions/GovernorTimelockControlUpgradeable.sol";
+import "../governance/extensions/GovernorSettingsUpgradeable.sol";
 import "../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelockControlUpgradeable, GovernorVotesQuorumFractionUpgradeable, GovernorCountingSimpleUpgradeable {
-    uint256 _votingDelay;
-    uint256 _votingPeriod;
-
+contract GovernorTimelockControlMockUpgradeable is
+    Initializable, GovernorSettingsUpgradeable,
+    GovernorTimelockControlUpgradeable,
+    GovernorVotesQuorumFractionUpgradeable,
+    GovernorCountingSimpleUpgradeable
+{
     function __GovernorTimelockControlMock_init(
         string memory name_,
         ERC20VotesUpgradeable token_,
@@ -25,6 +28,7 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         __IGovernor_init_unchained();
         __IGovernorTimelock_init_unchained();
         __Governor_init_unchained(name_);
+        __GovernorSettings_init_unchained(votingDelay_, votingPeriod_, 0);
         __GovernorTimelockControl_init_unchained(timelock_);
         __GovernorVotes_init_unchained(token_);
         __GovernorVotesQuorumFraction_init_unchained(quorumNumerator_);
@@ -39,10 +43,7 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         uint256 votingPeriod_,
         TimelockControllerUpgradeable timelock_,
         uint256 quorumNumerator_
-    ) internal initializer {
-        _votingDelay = votingDelay_;
-        _votingPeriod = votingPeriod_;
-    }
+    ) internal initializer {}
 
     function supportsInterface(bytes4 interfaceId)
         public
@@ -52,14 +53,6 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
-    }
-
-    function votingDelay() public view override returns (uint256) {
-        return _votingDelay;
-    }
-
-    function votingPeriod() public view override returns (uint256) {
-        return _votingPeriod;
     }
 
     function quorum(uint256 blockNumber)
@@ -91,6 +84,10 @@ contract GovernorTimelockControlMockUpgradeable is Initializable, GovernorTimelo
         returns (ProposalState)
     {
         return super.state(proposalId);
+    }
+
+    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+        return super.proposalThreshold();
     }
 
     function _execute(

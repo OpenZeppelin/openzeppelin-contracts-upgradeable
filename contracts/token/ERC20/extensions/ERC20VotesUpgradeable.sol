@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.3.2 (token/ERC20/extensions/ERC20Votes.sol)
 
 pragma solidity ^0.8.0;
 
@@ -137,7 +138,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
      * @dev Delegate votes from the sender to `delegatee`.
      */
     function delegate(address delegatee) public virtual {
-        return _delegate(_msgSender(), delegatee);
+        _delegate(_msgSender(), delegatee);
     }
 
     /**
@@ -159,7 +160,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
             s
         );
         require(nonce == _useNonce(signer), "ERC20Votes: invalid nonce");
-        return _delegate(signer, delegatee);
+        _delegate(signer, delegatee);
     }
 
     /**

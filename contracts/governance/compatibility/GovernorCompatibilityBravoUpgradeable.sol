@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.3.2 (governance/compatibility/GovernorCompatibilityBravo.sol)
 
 pragma solidity ^0.8.0;
 
 import "../../utils/CountersUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
 import "../extensions/IGovernorTimelockUpgradeable.sol";
-import "../extensions/GovernorProposalThresholdUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "./IGovernorCompatibilityBravoUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
@@ -20,19 +20,13 @@ import "../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.3._
  */
-abstract contract GovernorCompatibilityBravoUpgradeable is
-    Initializable, IGovernorTimelockUpgradeable,
-    IGovernorCompatibilityBravoUpgradeable,
-    GovernorUpgradeable,
-    GovernorProposalThresholdUpgradeable
-{
+abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGovernorTimelockUpgradeable, IGovernorCompatibilityBravoUpgradeable, GovernorUpgradeable {
     function __GovernorCompatibilityBravo_init() internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
         __IGovernorTimelock_init_unchained();
         __IGovernorCompatibilityBravo_init_unchained();
-        __GovernorProposalThreshold_init_unchained();
         __GovernorCompatibilityBravo_init_unchained();
     }
 
@@ -76,7 +70,7 @@ abstract contract GovernorCompatibilityBravoUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable, GovernorProposalThresholdUpgradeable) returns (uint256) {
+    ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
         _storeProposal(_msgSender(), targets, values, new string[](calldatas.length), calldatas, description);
         return super.propose(targets, values, calldatas, description);
     }
@@ -182,16 +176,6 @@ abstract contract GovernorCompatibilityBravoUpgradeable is
     }
 
     // ==================================================== Views =====================================================
-    /**
-     * @dev Part of the Governor Bravo's interface: _"The number of votes required in order for a voter to become a proposer"_.
-     */
-    function proposalThreshold()
-        public
-        view
-        virtual
-        override(IGovernorCompatibilityBravoUpgradeable, GovernorProposalThresholdUpgradeable)
-        returns (uint256);
-
     /**
      * @dev See {IGovernorCompatibilityBravo-proposals}.
      */

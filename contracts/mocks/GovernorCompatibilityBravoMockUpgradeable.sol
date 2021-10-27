@@ -3,15 +3,17 @@
 pragma solidity ^0.8.0;
 
 import "../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
-import "../governance/extensions/GovernorVotesCompUpgradeable.sol";
 import "../governance/extensions/GovernorTimelockCompoundUpgradeable.sol";
+import "../governance/extensions/GovernorSettingsUpgradeable.sol";
+import "../governance/extensions/GovernorVotesCompUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCompatibilityBravoUpgradeable, GovernorTimelockCompoundUpgradeable, GovernorVotesCompUpgradeable {
-    uint256 _votingDelay;
-    uint256 _votingPeriod;
-    uint256 _proposalThreshold;
-
+contract GovernorCompatibilityBravoMockUpgradeable is
+    Initializable, GovernorCompatibilityBravoUpgradeable,
+    GovernorSettingsUpgradeable,
+    GovernorTimelockCompoundUpgradeable,
+    GovernorVotesCompUpgradeable
+{
     function __GovernorCompatibilityBravoMock_init(
         string memory name_,
         ERC20VotesCompUpgradeable token_,
@@ -27,8 +29,8 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         __IGovernorTimelock_init_unchained();
         __IGovernorCompatibilityBravo_init_unchained();
         __Governor_init_unchained(name_);
-        __GovernorProposalThreshold_init_unchained();
         __GovernorCompatibilityBravo_init_unchained();
+        __GovernorSettings_init_unchained(votingDelay_, votingPeriod_, proposalThreshold_);
         __GovernorTimelockCompound_init_unchained(timelock_);
         __GovernorVotesComp_init_unchained(token_);
         __GovernorCompatibilityBravoMock_init_unchained(name_, token_, votingDelay_, votingPeriod_, proposalThreshold_, timelock_);
@@ -41,11 +43,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         uint256 votingPeriod_,
         uint256 proposalThreshold_,
         ICompoundTimelockUpgradeable timelock_
-    ) internal initializer {
-        _votingDelay = votingDelay_;
-        _votingPeriod = votingPeriod_;
-        _proposalThreshold = proposalThreshold_;
-    }
+    ) internal initializer {}
 
     function supportsInterface(bytes4 interfaceId)
         public
@@ -55,18 +53,6 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
-    }
-
-    function votingDelay() public view override returns (uint256) {
-        return _votingDelay;
-    }
-
-    function votingPeriod() public view override returns (uint256) {
-        return _votingPeriod;
-    }
-
-    function proposalThreshold() public view virtual override returns (uint256) {
-        return _proposalThreshold;
     }
 
     function quorum(uint256) public pure override returns (uint256) {
@@ -91,6 +77,10 @@ contract GovernorCompatibilityBravoMockUpgradeable is Initializable, GovernorCom
         returns (uint256)
     {
         return super.proposalEta(proposalId);
+    }
+
+    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+        return super.proposalThreshold();
     }
 
     function propose(

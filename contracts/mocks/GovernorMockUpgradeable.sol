@@ -2,15 +2,18 @@
 
 pragma solidity ^0.8.0;
 
-import "../governance/GovernorUpgradeable.sol";
+import "../governance/extensions/GovernorProposalThresholdUpgradeable.sol";
+import "../governance/extensions/GovernorSettingsUpgradeable.sol";
 import "../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-contract GovernorMockUpgradeable is Initializable, GovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable, GovernorCountingSimpleUpgradeable {
-    uint256 _votingDelay;
-    uint256 _votingPeriod;
-
+contract GovernorMockUpgradeable is
+    Initializable, GovernorProposalThresholdUpgradeable,
+    GovernorSettingsUpgradeable,
+    GovernorVotesQuorumFractionUpgradeable,
+    GovernorCountingSimpleUpgradeable
+{
     function __GovernorMock_init(
         string memory name_,
         ERC20VotesUpgradeable token_,
@@ -23,6 +26,8 @@ contract GovernorMockUpgradeable is Initializable, GovernorUpgradeable, Governor
         __EIP712_init_unchained(name_, version());
         __IGovernor_init_unchained();
         __Governor_init_unchained(name_);
+        __GovernorProposalThreshold_init_unchained();
+        __GovernorSettings_init_unchained(votingDelay_, votingPeriod_, 0);
         __GovernorVotes_init_unchained(token_);
         __GovernorVotesQuorumFraction_init_unchained(quorumNumerator_);
         __GovernorCountingSimple_init_unchained();
@@ -35,18 +40,7 @@ contract GovernorMockUpgradeable is Initializable, GovernorUpgradeable, Governor
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorumNumerator_
-    ) internal initializer {
-        _votingDelay = votingDelay_;
-        _votingPeriod = votingPeriod_;
-    }
-
-    function votingDelay() public view override returns (uint256) {
-        return _votingDelay;
-    }
-
-    function votingPeriod() public view override returns (uint256) {
-        return _votingPeriod;
-    }
+    ) internal initializer {}
 
     function cancel(
         address[] memory targets,
@@ -65,6 +59,19 @@ contract GovernorMockUpgradeable is Initializable, GovernorUpgradeable, Governor
         returns (uint256)
     {
         return super.getVotes(account, blockNumber);
+    }
+
+    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+        return super.proposalThreshold();
+    }
+
+    function propose(
+        address[] memory targets,
+        uint256[] memory values,
+        bytes[] memory calldatas,
+        string memory description
+    ) public virtual override(GovernorUpgradeable, GovernorProposalThresholdUpgradeable) returns (uint256) {
+        return super.propose(targets, values, calldatas, description);
     }
     uint256[50] private __gap;
 }

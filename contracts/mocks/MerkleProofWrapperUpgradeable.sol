@@ -19,5 +19,9 @@ contract MerkleProofWrapperUpgradeable is Initializable {
     ) public pure returns (bool) {
         return MerkleProofUpgradeable.verify(proof, root, leaf);
     }
+
+    function processProof(bytes32[] memory proof, bytes32 leaf) public pure returns (bytes32) {
+        return MerkleProofUpgradeable.processProof(proof, leaf);
+    }
     uint256[50] private __gap;
 }

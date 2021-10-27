@@ -13,6 +13,7 @@ contract ECDSAMockUpgradeable is Initializable {
     function __ECDSAMock_init_unchained() internal initializer {
     }
     using ECDSAUpgradeable for bytes32;
+    using ECDSAUpgradeable for bytes;
 
     function recover(bytes32 hash, bytes memory signature) public pure returns (address) {
         return hash.recover(signature);
@@ -39,6 +40,10 @@ contract ECDSAMockUpgradeable is Initializable {
 
     function toEthSignedMessageHash(bytes32 hash) public pure returns (bytes32) {
         return hash.toEthSignedMessageHash();
+    }
+
+    function toEthSignedMessageHash(bytes memory s) public pure returns (bytes32) {
+        return s.toEthSignedMessageHash();
     }
     uint256[50] private __gap;
 }

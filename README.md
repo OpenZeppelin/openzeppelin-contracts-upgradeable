@@ -43,7 +43,7 @@ Constructors are replaced by internal initializer functions following the naming
 
 ```diff
 -    constructor() ERC721("MyCollectible", "MCO") {
-+    function initialize() public initializer {
++    function initialize() initializer public {
 +        __ERC721_init("MyCollectible", "MCO");
      }
 ```
