@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.0-rc.0 (token/ERC1155/extensions/ERC1155Supply.sol)
 
 pragma solidity ^0.8.0;
 
@@ -23,7 +24,7 @@ abstract contract ERC1155Supply is ERC1155 {
     }
 
     /**
-     * @dev Indicates weither any token exist with a given id, or not.
+     * @dev Indicates whether any token exist with a given id, or not.
      */
     function exists(uint256 id) public view virtual returns (bool) {
         return ERC1155Supply.totalSupply(id) > 0;
