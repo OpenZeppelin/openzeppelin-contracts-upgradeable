@@ -16,12 +16,12 @@ As a contributor, you are expected to fork this repository, work on your own for
 1) Make sure your fork is up to date with the main repository:
 
 ```
-cd openzeppelin-contracts
-git remote add upstream https://github.com/OpenZeppelin/openzeppelin-contracts.git
+cd openzeppelin-contracts-upgradeable
+git remote add upstream https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable.git
 git fetch upstream
 git pull --rebase upstream master
 ```
-NOTE: The directory `openzeppelin-contracts` represents your fork's local copy.
+NOTE: The directory `openzeppelin-contracts-upgradeable` represents your fork's local copy.
 
 2) Branch out from `master` into `fix/some-bug-#123`:
 (Postfixing #123 will associate your PR with the issue #123 and make everyone's life easier =D)
@@ -44,7 +44,7 @@ npm test
 npm run lint
 ```
 
-5) Go to [github.com/OpenZeppelin/openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) in your web browser and issue a new pull request.
+5) Go to [github.com/OpenZeppelin/openzeppelin-contracts-upgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable) in your web browser and issue a new pull request.
 
 *IMPORTANT* Read the PR template very carefully and make sure to follow all the instructions. These instructions
 refer to some very important conditions that your PR must meet in order to be accepted, such as making sure that all tests pass, JS linting tests pass, Solidity linting tests pass, etc.
