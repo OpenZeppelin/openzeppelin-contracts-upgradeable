@@ -94,7 +94,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     }
 
     /**
-     * @dev Internal setter for the the voting delay.
+     * @dev Internal setter for the voting delay.
      *
      * Emits a {VotingDelaySet} event.
      */
@@ -104,7 +104,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     }
 
     /**
-     * @dev Internal setter for the the voting period.
+     * @dev Internal setter for the voting period.
      *
      * Emits a {VotingPeriodSet} event.
      */
@@ -116,7 +116,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     }
 
     /**
-     * @dev Internal setter for the the proposal threshold.
+     * @dev Internal setter for the proposal threshold.
      *
      * Emits a {ProposalThresholdSet} event.
      */
