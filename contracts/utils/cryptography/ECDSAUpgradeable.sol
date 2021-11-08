@@ -216,7 +216,7 @@ library ECDSAUpgradeable {
      * See {recover}.
      */
     function toEthSignedMessageHash(bytes memory s) internal pure returns (bytes32) {
-        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n", StrStringsUpgradeableString(s.length), s));
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n", StringsUpgradeable.toString(s.length), s));
     }
 
     /**
