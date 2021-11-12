@@ -94,3 +94,15 @@ index c66ebc16..3bba9501 100644
          __IGovernor_init_unchained();
          __GovernorProposalThreshold_init_unchained();
      }
+diff --git a/contracts/governance/extensions/GovernorSettingsUpgradeable.sol b/contracts/governance/extensions/GovernorSettingsUpgradeable.sol
+index fbbb5ec1..06e8b9dd 100644
+--- a/contracts/governance/extensions/GovernorSettingsUpgradeable.sol
++++ b/contracts/governance/extensions/GovernorSettingsUpgradeable.sol
+@@ -30,7 +30,6 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
+     ) internal initializer {
+         __Context_init_unchained();
+         __ERC165_init_unchained();
+-        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
+         __GovernorSettings_init_unchained(initialVotingDelay, initialVotingPeriod, initialProposalThreshold);
+     }
