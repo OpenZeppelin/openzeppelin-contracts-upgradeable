@@ -30,7 +30,6 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     ) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __IGovernor_init_unchained();
         __GovernorSettings_init_unchained(initialVotingDelay, initialVotingPeriod, initialProposalThreshold);
     }
