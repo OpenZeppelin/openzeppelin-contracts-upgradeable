@@ -61,7 +61,15 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
         bytes32 adminRole;
     }
 
-    mapping(bytes32 => RoleData) private _roles;
+    struct Vars {
+        mapping(bytes32 => RoleData) _roles;
+    }
+
+    function vars() internal pure returns(Vars storage ds) {
+        bytes32 storagePosition = keccak256("diamond.storage.AccessControlUpgradeable");
+        assembly {ds.slot := storagePosition}
+        return ds;
+    }
 
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
 
@@ -91,7 +99,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev Returns `true` if `account` has been granted `role`.
      */
     function hasRole(bytes32 role, address account) public view override returns (bool) {
-        return _roles[role].members[account];
+        return vars()._roles[role].members[account];
     }
 
     /**
@@ -123,7 +131,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * To change a role's admin, use {_setRoleAdmin}.
      */
     function getRoleAdmin(bytes32 role) public view override returns (bytes32) {
-        return _roles[role].adminRole;
+        return vars()._roles[role].adminRole;
     }
 
     /**
@@ -202,7 +210,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
         bytes32 previousAdminRole = getRoleAdmin(role);
-        _roles[role].adminRole = adminRole;
+        vars()._roles[role].adminRole = adminRole;
         emit RoleAdminChanged(role, previousAdminRole, adminRole);
     }
 
@@ -213,7 +221,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function _grantRole(bytes32 role, address account) internal virtual {
         if (!hasRole(role, account)) {
-            _roles[role].members[account] = true;
+            vars()._roles[role].members[account] = true;
             emit RoleGranted(role, account, _msgSender());
         }
     }
@@ -225,9 +233,9 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function _revokeRole(bytes32 role, address account) internal virtual {
         if (hasRole(role, account)) {
-            _roles[role].members[account] = false;
+            vars()._roles[role].members[account] = false;
             emit RoleRevoked(role, account, _msgSender());
         }
     }
-    uint256[49] private __gap;
+
 }
