@@ -6,7 +6,7 @@ on:
     branches: [patched/*]
 
 concurrency:
-  group: transpile
+  group: transpile-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
