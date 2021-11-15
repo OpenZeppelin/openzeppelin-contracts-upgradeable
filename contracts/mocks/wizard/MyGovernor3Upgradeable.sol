@@ -18,7 +18,7 @@ contract MyGovernorUpgradeable is
     function __MyGovernor_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
+        __EIP712_init_unchained("MyGovernor", version());
         __IGovernor_init_unchained();
         __IGovernorTimelock_init_unchained();
         __IGovernorCompatibilityBravo_init_unchained();
