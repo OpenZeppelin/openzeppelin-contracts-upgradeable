@@ -70,7 +70,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingDelaySet} event.
      */
-    function setVotingDelay(uint256 newVotingDelay) public onlyGovernance {
+    function setVotingDelay(uint256 newVotingDelay) public virtual onlyGovernance {
         _setVotingDelay(newVotingDelay);
     }
 
@@ -79,7 +79,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingPeriodSet} event.
      */
-    function setVotingPeriod(uint256 newVotingPeriod) public onlyGovernance {
+    function setVotingPeriod(uint256 newVotingPeriod) public virtual onlyGovernance {
         _setVotingPeriod(newVotingPeriod);
     }
 
@@ -88,7 +88,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {ProposalThresholdSet} event.
      */
-    function setProposalThreshold(uint256 newProposalThreshold) public onlyGovernance {
+    function setProposalThreshold(uint256 newProposalThreshold) public virtual onlyGovernance {
         _setProposalThreshold(newProposalThreshold);
     }
 
