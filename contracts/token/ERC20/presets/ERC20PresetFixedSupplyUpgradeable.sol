@@ -16,6 +16,8 @@ import "../../../proxy/utils/Initializable.sol";
  * its documentation for details.
  *
  * _Available since v3.4._
+ *
+ * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgradeable {
     function initialize(

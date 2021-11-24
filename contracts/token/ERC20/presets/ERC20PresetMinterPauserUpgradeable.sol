@@ -23,6 +23,8 @@ import "../../../proxy/utils/Initializable.sol";
  * The account that deploys the contract will be granted the minter and pauser
  * roles, as well as the default admin role, which will let it grant both minter
  * and pauser roles to other accounts.
+ *
+ * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC20PresetMinterPauserUpgradeable is Initializable, ContextUpgradeable, AccessControlEnumerableUpgradeable, ERC20BurnableUpgradeable, ERC20PausableUpgradeable {
     function initialize(string memory name, string memory symbol) public virtual initializer {
