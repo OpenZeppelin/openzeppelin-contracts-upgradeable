@@ -27,5 +27,9 @@ contract MathMockUpgradeable is Initializable {
     function ceilDiv(uint256 a, uint256 b) public pure returns (uint256) {
         return MathUpgradeable.ceilDiv(a, b);
     }
+
+    function abs(int256 n) public pure returns (uint256) {
+        return MathUpgradeable.abs(n);
+    }
     uint256[50] private __gap;
 }
