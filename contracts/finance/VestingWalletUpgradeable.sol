@@ -20,7 +20,7 @@ import "../proxy/utils/Initializable.sol";
  */
 contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     event EtherReleased(uint256 amount);
-    event ERC20Released(address token, uint256 amount);
+    event ERC20Released(address indexed token, uint256 amount);
 
     uint256 private _released;
     mapping(address => uint256) private _erc20Released;
