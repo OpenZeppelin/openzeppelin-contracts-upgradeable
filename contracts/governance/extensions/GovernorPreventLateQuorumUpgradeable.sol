@@ -38,7 +38,6 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
     function __GovernorPreventLateQuorum_init(uint64 initialVoteExtension) internal initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
-        __EIP712_init_unchained(name_, version());
         __IGovernor_init_unchained();
         __GovernorPreventLateQuorum_init_unchained(initialVoteExtension);
     }
