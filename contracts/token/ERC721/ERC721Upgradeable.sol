@@ -336,7 +336,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
         address to,
         uint256 tokenId
     ) internal virtual {
-        require(ERC721Upgradeable.ownerOf(tokenId) == from, "ERC721: transfer of token that is not own");
+        require(ERC721Upgradeable.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
         require(to != address(0), "ERC721: transfer to the zero address");
 
         _beforeTokenTransfer(from, to, tokenId);
