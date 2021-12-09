@@ -145,3 +145,15 @@ index 223ccb94..e05b6ce7 100644
          __IGovernor_init_unchained();
          __IGovernorTimelock_init_unchained();
          __IGovernorCompatibilityBravo_init_unchained();
+diff --git a/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol b/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol
+index 9b48de71..c28f3b50 100644
+--- a/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol
++++ b/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol
+@@ -38,7 +38,6 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
+     function __GovernorPreventLateQuorum_init(uint64 initialVoteExtension) internal initializer {
+         __Context_init_unchained();
+         __ERC165_init_unchained();
+-        __EIP712_init_unchained(name_, version());
+         __IGovernor_init_unchained();
+         __GovernorPreventLateQuorum_init_unchained(initialVoteExtension);
+     }
