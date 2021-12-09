@@ -58,14 +58,14 @@ function runGovernorWorkflow () {
         tryGet(this.settings, 'steps.propose.error') === undefined &&
         tryGet(this.settings, 'steps.propose.noadvance') !== true
       ) {
-        await time.advanceBlockTo(this.snapshot);
+        await time.advanceBlockTo(this.snapshot.addn(1));
       }
     }
 
     // vote
     if (tryGet(this.settings, 'voters')) {
       this.receipts.castVote = [];
-      for (const voter of this.settings.voters) {
+      for (const voter of this.settings.voters.filter(({ support }) => !!support)) {
         if (!voter.signature) {
           this.receipts.castVote.push(
             await getReceiptOrRevert(
@@ -92,7 +92,7 @@ function runGovernorWorkflow () {
 
     // fast forward
     if (tryGet(this.settings, 'steps.wait.enable') !== false) {
-      await time.advanceBlockTo(this.deadline);
+      await time.advanceBlockTo(this.deadline.addn(1));
     }
 
     // queue
