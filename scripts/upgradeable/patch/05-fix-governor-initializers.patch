@@ -3,7 +3,7 @@ index 1f6895a6..86518b84 100644
 --- a/contracts/governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol
 +++ b/contracts/governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol
 @@ -21,7 +21,6 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
-     function __GovernorCompatibilityBravo_init() internal initializer {
+     function __GovernorCompatibilityBravo_init() internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -15,7 +15,7 @@ index 4873166b..6a88e6b4 100644
 --- a/contracts/governance/extensions/GovernorCountingSimpleUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorCountingSimpleUpgradeable.sol
 @@ -14,7 +14,6 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
-     function __GovernorCountingSimple_init() internal initializer {
+     function __GovernorCountingSimple_init() internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -27,7 +27,7 @@ index c6ed355a..9236c546 100644
 --- a/contracts/governance/extensions/GovernorTimelockCompoundUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorTimelockCompoundUpgradeable.sol
 @@ -96,7 +96,6 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
-     function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal initializer {
+     function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -39,7 +39,7 @@ index 3d6a5de5..ad5f505e 100644
 --- a/contracts/governance/extensions/GovernorTimelockControlUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorTimelockControlUpgradeable.sol
 @@ -33,7 +33,6 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
-     function __GovernorTimelockControl_init(TimelockControllerUpgradeable timelockAddress) internal initializer {
+     function __GovernorTimelockControl_init(TimelockControllerUpgradeable timelockAddress) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -51,7 +51,7 @@ index cc83b3ed..5398f15b 100644
 --- a/contracts/governance/extensions/GovernorVotesCompUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorVotesCompUpgradeable.sol
 @@ -17,7 +17,6 @@ abstract contract GovernorVotesCompUpgradeable is Initializable, GovernorUpgrade
-     function __GovernorVotesComp_init(ERC20VotesCompUpgradeable token_) internal initializer {
+     function __GovernorVotesComp_init(ERC20VotesCompUpgradeable token_) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -63,7 +63,7 @@ index 5d7a88bc..39f97903 100644
 --- a/contracts/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol
 @@ -19,7 +19,6 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
-     function __GovernorVotesQuorumFraction_init(uint256 quorumNumeratorValue) internal initializer {
+     function __GovernorVotesQuorumFraction_init(uint256 quorumNumeratorValue) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -75,7 +75,7 @@ index cdfd0ae7..48408d9c 100644
 --- a/contracts/governance/extensions/GovernorVotesUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorVotesUpgradeable.sol
 @@ -18,7 +18,6 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
-     function __GovernorVotes_init(ERC20VotesUpgradeable tokenAddress) internal initializer {
+     function __GovernorVotes_init(ERC20VotesUpgradeable tokenAddress) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -87,7 +87,7 @@ index c66ebc16..3bba9501 100644
 --- a/contracts/governance/extensions/GovernorProposalThresholdUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorProposalThresholdUpgradeable.sol
 @@ -14,7 +14,6 @@ abstract contract GovernorProposalThresholdUpgradeable is Initializable, Governo
-     function __GovernorProposalThreshold_init() internal initializer {
+     function __GovernorProposalThreshold_init() internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -99,7 +99,7 @@ index fbbb5ec1..06e8b9dd 100644
 --- a/contracts/governance/extensions/GovernorSettingsUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorSettingsUpgradeable.sol
 @@ -30,7 +30,6 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
-     ) internal initializer {
+     ) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -111,7 +111,7 @@ index df6ccdaf..db9998ed 100644
 --- a/contracts/mocks/wizard/MyGovernor1Upgradeable.sol
 +++ b/contracts/mocks/wizard/MyGovernor1Upgradeable.sol
 @@ -18,7 +18,7 @@ contract MyGovernor1Upgradeable is
-     function __MyGovernor1_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {
+     function __MyGovernor1_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -124,7 +124,7 @@ index b07261a4..4ec9b6ce 100644
 --- a/contracts/mocks/wizard/MyGovernor2Upgradeable.sol
 +++ b/contracts/mocks/wizard/MyGovernor2Upgradeable.sol
 @@ -20,7 +20,7 @@ contract MyGovernor2Upgradeable is
-     function __MyGovernor2_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {
+     function __MyGovernor2_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -137,7 +137,7 @@ index 223ccb94..e05b6ce7 100644
 --- a/contracts/mocks/wizard/MyGovernor3Upgradeable.sol
 +++ b/contracts/mocks/wizard/MyGovernor3Upgradeable.sol
 @@ -18,7 +18,7 @@ contract MyGovernorUpgradeable is
-     function __MyGovernor_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {
+     function __MyGovernor_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());
@@ -150,7 +150,7 @@ index 9b48de71..c28f3b50 100644
 --- a/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol
 +++ b/contracts/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol
 @@ -38,7 +38,6 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
-     function __GovernorPreventLateQuorum_init(uint64 initialVoteExtension) internal initializer {
+     function __GovernorPreventLateQuorum_init(uint64 initialVoteExtension) internal onlyInitializing {
          __Context_init_unchained();
          __ERC165_init_unchained();
 -        __EIP712_init_unchained(name_, version());

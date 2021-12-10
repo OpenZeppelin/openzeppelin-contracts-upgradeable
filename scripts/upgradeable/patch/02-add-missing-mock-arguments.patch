@@ -4,7 +4,7 @@ index d06c8722..6211da1f 100644
 +++ b/contracts/mocks/MulticallTokenMockUpgradeable.sol
 @@ -9,7 +9,7 @@ import "../proxy/utils/Initializable.sol";
  contract MulticallTokenMockUpgradeable is Initializable, ERC20MockUpgradeable, MulticallUpgradeable {
-     function __MulticallTokenMock_init(uint256 initialBalance) internal initializer {
+     function __MulticallTokenMock_init(uint256 initialBalance) internal onlyInitializing {
          __Context_init_unchained();
 -        __ERC20_init_unchained(name, symbol);
 +        __ERC20_init_unchained("MulticallToken", "BCT");
