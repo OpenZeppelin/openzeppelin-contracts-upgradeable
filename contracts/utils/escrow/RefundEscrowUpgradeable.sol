@@ -35,7 +35,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
      * @dev Constructor.
      * @param beneficiary_ The beneficiary of the deposits.
      */
-    function __RefundEscrow_init(address payable beneficiary_) internal initializer {
+    function __RefundEscrow_init(address payable beneficiary_) internal onlyInitializing {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
@@ -43,7 +43,7 @@ contract RefundEscrowUpgradeable is Initializable, ConditionalEscrowUpgradeable 
         __RefundEscrow_init_unchained(beneficiary_);
     }
 
-    function __RefundEscrow_init_unchained(address payable beneficiary_) internal initializer {
+    function __RefundEscrow_init_unchained(address payable beneficiary_) internal onlyInitializing {
         require(beneficiary_ != address(0), "RefundEscrow: beneficiary is the zero address");
         _beneficiary = beneficiary_;
         _state = State.Active;

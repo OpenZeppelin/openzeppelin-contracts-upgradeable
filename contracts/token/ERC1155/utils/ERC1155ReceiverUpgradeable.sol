@@ -11,12 +11,12 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev _Available since v3.1._
  */
 abstract contract ERC1155ReceiverUpgradeable is Initializable, ERC165Upgradeable, IERC1155ReceiverUpgradeable {
-    function __ERC1155Receiver_init() internal initializer {
+    function __ERC1155Receiver_init() internal onlyInitializing {
         __ERC165_init_unchained();
         __ERC1155Receiver_init_unchained();
     }
 
-    function __ERC1155Receiver_init_unchained() internal initializer {
+    function __ERC1155Receiver_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev See {IERC165-supportsInterface}.

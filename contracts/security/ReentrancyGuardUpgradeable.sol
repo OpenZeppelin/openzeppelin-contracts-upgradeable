@@ -37,11 +37,11 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
 
     uint256 private _status;
 
-    function __ReentrancyGuard_init() internal initializer {
+    function __ReentrancyGuard_init() internal onlyInitializing {
         __ReentrancyGuard_init_unchained();
     }
 
-    function __ReentrancyGuard_init_unchained() internal initializer {
+    function __ReentrancyGuard_init_unchained() internal onlyInitializing {
         _status = _NOT_ENTERED;
     }
 

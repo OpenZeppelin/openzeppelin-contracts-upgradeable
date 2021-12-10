@@ -7,14 +7,14 @@ import "../../proxy/utils/UUPSUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract UUPSUpgradeableMockUpgradeable is Initializable, CountersImplUpgradeable, UUPSUpgradeable {
-    function __UUPSUpgradeableMock_init() internal initializer {
+    function __UUPSUpgradeableMock_init() internal onlyInitializing {
         __CountersImpl_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
         __UUPSUpgradeableMock_init_unchained();
     }
 
-    function __UUPSUpgradeableMock_init_unchained() internal initializer {
+    function __UUPSUpgradeableMock_init_unchained() internal onlyInitializing {
     }
     // Not having any checks in this function is dangerous! Do not do this outside tests!
     function _authorizeUpgrade(address) internal virtual override {}
@@ -22,7 +22,7 @@ contract UUPSUpgradeableMockUpgradeable is Initializable, CountersImplUpgradeabl
 }
 
 contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
-    function __UUPSUpgradeableUnsafeMock_init() internal initializer {
+    function __UUPSUpgradeableUnsafeMock_init() internal onlyInitializing {
         __CountersImpl_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
@@ -30,7 +30,7 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
         __UUPSUpgradeableUnsafeMock_init_unchained();
     }
 
-    function __UUPSUpgradeableUnsafeMock_init_unchained() internal initializer {
+    function __UUPSUpgradeableUnsafeMock_init_unchained() internal onlyInitializing {
     }
     function upgradeTo(address newImplementation) external virtual override {
         ERC1967UpgradeUpgradeable._upgradeToAndCall(newImplementation, bytes(""), false);
@@ -43,7 +43,7 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
 }
 
 contract UUPSUpgradeableBrokenMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
-    function __UUPSUpgradeableBrokenMock_init() internal initializer {
+    function __UUPSUpgradeableBrokenMock_init() internal onlyInitializing {
         __CountersImpl_init_unchained();
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
@@ -51,7 +51,7 @@ contract UUPSUpgradeableBrokenMockUpgradeable is Initializable, UUPSUpgradeableM
         __UUPSUpgradeableBrokenMock_init_unchained();
     }
 
-    function __UUPSUpgradeableBrokenMock_init_unchained() internal initializer {
+    function __UUPSUpgradeableBrokenMock_init_unchained() internal onlyInitializing {
     }
     function upgradeTo(address) external virtual override {
         // pass

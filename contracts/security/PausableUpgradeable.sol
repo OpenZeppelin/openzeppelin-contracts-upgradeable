@@ -31,12 +31,12 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     /**
      * @dev Initializes the contract in unpaused state.
      */
-    function __Pausable_init() internal initializer {
+    function __Pausable_init() internal onlyInitializing {
         __Context_init_unchained();
         __Pausable_init_unchained();
     }
 
-    function __Pausable_init_unchained() internal initializer {
+    function __Pausable_init_unchained() internal onlyInitializing {
         _paused = false;
     }
 

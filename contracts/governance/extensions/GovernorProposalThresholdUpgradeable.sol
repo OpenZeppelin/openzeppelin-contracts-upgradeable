@@ -13,14 +13,14 @@ import "../../proxy/utils/Initializable.sol";
  * _Deprecated since v4.4._
  */
 abstract contract GovernorProposalThresholdUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorProposalThreshold_init() internal initializer {
+    function __GovernorProposalThreshold_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
         __GovernorProposalThreshold_init_unchained();
     }
 
-    function __GovernorProposalThreshold_init_unchained() internal initializer {
+    function __GovernorProposalThreshold_init_unchained() internal onlyInitializing {
     }
     function propose(
         address[] memory targets,

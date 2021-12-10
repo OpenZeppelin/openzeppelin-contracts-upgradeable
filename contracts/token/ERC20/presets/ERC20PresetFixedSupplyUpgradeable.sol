@@ -38,7 +38,7 @@ contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgrad
         string memory symbol,
         uint256 initialSupply,
         address owner
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Burnable_init_unchained();
@@ -50,7 +50,7 @@ contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgrad
         string memory symbol,
         uint256 initialSupply,
         address owner
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(owner, initialSupply);
     }
     uint256[50] private __gap;

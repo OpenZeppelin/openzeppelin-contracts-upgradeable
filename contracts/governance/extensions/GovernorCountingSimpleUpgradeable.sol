@@ -12,14 +12,14 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorCountingSimple_init() internal initializer {
+    function __GovernorCountingSimple_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
         __GovernorCountingSimple_init_unchained();
     }
 
-    function __GovernorCountingSimple_init_unchained() internal initializer {
+    function __GovernorCountingSimple_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Supported vote types. Matches Governor Bravo ordering.

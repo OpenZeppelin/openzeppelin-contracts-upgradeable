@@ -35,7 +35,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
         address beneficiaryAddress,
         uint64 startTimestamp,
         uint64 durationSeconds
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __VestingWallet_init_unchained(beneficiaryAddress, startTimestamp, durationSeconds);
     }
@@ -44,7 +44,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
         address beneficiaryAddress,
         uint64 startTimestamp,
         uint64 durationSeconds
-    ) internal initializer {
+    ) internal onlyInitializing {
         require(beneficiaryAddress != address(0), "VestingWallet: beneficiary is zero address");
         _beneficiary = beneficiaryAddress;
         _start = startTimestamp;

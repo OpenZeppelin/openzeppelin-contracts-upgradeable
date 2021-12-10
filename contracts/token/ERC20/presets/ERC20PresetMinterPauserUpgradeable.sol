@@ -39,7 +39,7 @@ contract ERC20PresetMinterPauserUpgradeable is Initializable, ContextUpgradeable
      *
      * See {ERC20-constructor}.
      */
-    function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal initializer {
+    function __ERC20PresetMinterPauser_init(string memory name, string memory symbol) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -51,7 +51,7 @@ contract ERC20PresetMinterPauserUpgradeable is Initializable, ContextUpgradeable
         __ERC20PresetMinterPauser_init_unchained(name, symbol);
     }
 
-    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal initializer {
+    function __ERC20PresetMinterPauser_init_unchained(string memory name, string memory symbol) internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());

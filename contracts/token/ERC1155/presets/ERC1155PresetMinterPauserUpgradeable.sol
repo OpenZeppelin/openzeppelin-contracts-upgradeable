@@ -37,7 +37,7 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
      * deploys the contract.
      */
-    function __ERC1155PresetMinterPauser_init(string memory uri) internal initializer {
+    function __ERC1155PresetMinterPauser_init(string memory uri) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -49,7 +49,7 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
         __ERC1155PresetMinterPauser_init_unchained(uri);
     }
 
-    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal initializer {
+    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());

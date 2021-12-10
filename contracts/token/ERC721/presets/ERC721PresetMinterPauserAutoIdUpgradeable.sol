@@ -63,7 +63,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
         string memory name,
         string memory symbol,
         string memory baseTokenURI
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -80,7 +80,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
         string memory name,
         string memory symbol,
         string memory baseTokenURI
-    ) internal initializer {
+    ) internal onlyInitializing {
         _baseTokenURI = baseTokenURI;
 
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());

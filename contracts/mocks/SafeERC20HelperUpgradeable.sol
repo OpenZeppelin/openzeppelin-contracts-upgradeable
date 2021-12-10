@@ -8,12 +8,12 @@ import "../token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
-    function __ERC20ReturnFalseMock_init() internal initializer {
+    function __ERC20ReturnFalseMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20ReturnFalseMock_init_unchained();
     }
 
-    function __ERC20ReturnFalseMock_init_unchained() internal initializer {
+    function __ERC20ReturnFalseMock_init_unchained() internal onlyInitializing {
     }
     uint256 private _allowance;
 
@@ -48,12 +48,12 @@ contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
 }
 
 contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
-    function __ERC20ReturnTrueMock_init() internal initializer {
+    function __ERC20ReturnTrueMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20ReturnTrueMock_init_unchained();
     }
 
-    function __ERC20ReturnTrueMock_init_unchained() internal initializer {
+    function __ERC20ReturnTrueMock_init_unchained() internal onlyInitializing {
     }
     mapping(address => uint256) private _allowances;
 
@@ -91,12 +91,12 @@ contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
 }
 
 contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
-    function __ERC20NoReturnMock_init() internal initializer {
+    function __ERC20NoReturnMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20NoReturnMock_init_unchained();
     }
 
-    function __ERC20NoReturnMock_init_unchained() internal initializer {
+    function __ERC20NoReturnMock_init_unchained() internal onlyInitializing {
     }
     mapping(address => uint256) private _allowances;
 
@@ -135,12 +135,12 @@ contract SafeERC20WrapperUpgradeable is Initializable, ContextUpgradeable {
 
     IERC20Upgradeable private _token;
 
-    function __SafeERC20Wrapper_init(IERC20Upgradeable token) internal initializer {
+    function __SafeERC20Wrapper_init(IERC20Upgradeable token) internal onlyInitializing {
         __Context_init_unchained();
         __SafeERC20Wrapper_init_unchained(token);
     }
 
-    function __SafeERC20Wrapper_init_unchained(IERC20Upgradeable token) internal initializer {
+    function __SafeERC20Wrapper_init_unchained(IERC20Upgradeable token) internal onlyInitializing {
         _token = token;
     }
 

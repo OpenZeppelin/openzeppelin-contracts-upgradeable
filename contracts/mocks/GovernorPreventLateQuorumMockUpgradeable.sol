@@ -23,7 +23,7 @@ contract GovernorPreventLateQuorumMockUpgradeable is
         uint256 votingPeriod_,
         uint256 quorum_,
         uint64 voteExtension_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
@@ -43,7 +43,7 @@ contract GovernorPreventLateQuorumMockUpgradeable is
         uint256 votingPeriod_,
         uint256 quorum_,
         uint64 voteExtension_
-    ) internal initializer {
+    ) internal onlyInitializing {
         _quorum = quorum_;
     }
 

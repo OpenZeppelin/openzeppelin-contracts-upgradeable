@@ -23,11 +23,11 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
     event BalanceOf(address token, address account, uint256 value);
     event TotalSupply(address token, uint256 value);
 
-    function __ERC3156FlashBorrowerMock_init(bool enableReturn, bool enableApprove) internal initializer {
+    function __ERC3156FlashBorrowerMock_init(bool enableReturn, bool enableApprove) internal onlyInitializing {
         __ERC3156FlashBorrowerMock_init_unchained(enableReturn, enableApprove);
     }
 
-    function __ERC3156FlashBorrowerMock_init_unchained(bool enableReturn, bool enableApprove) internal initializer {
+    function __ERC3156FlashBorrowerMock_init_unchained(bool enableReturn, bool enableApprove) internal onlyInitializing {
         _enableApprove = enableApprove;
         _enableReturn = enableReturn;
     }

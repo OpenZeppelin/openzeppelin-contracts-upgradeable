@@ -20,7 +20,7 @@ contract GovernorMockUpgradeable is
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorumNumerator_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
@@ -40,7 +40,7 @@ contract GovernorMockUpgradeable is
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorumNumerator_
-    ) internal initializer {}
+    ) internal onlyInitializing {}
 
     function cancel(
         address[] memory targets,

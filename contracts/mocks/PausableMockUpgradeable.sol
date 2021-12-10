@@ -9,13 +9,13 @@ contract PausableMockUpgradeable is Initializable, PausableUpgradeable {
     bool public drasticMeasureTaken;
     uint256 public count;
 
-    function __PausableMock_init() internal initializer {
+    function __PausableMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __Pausable_init_unchained();
         __PausableMock_init_unchained();
     }
 
-    function __PausableMock_init_unchained() internal initializer {
+    function __PausableMock_init_unchained() internal onlyInitializing {
         drasticMeasureTaken = false;
         count = 0;
     }

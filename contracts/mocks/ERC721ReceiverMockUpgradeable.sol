@@ -18,11 +18,11 @@ contract ERC721ReceiverMockUpgradeable is Initializable, IERC721ReceiverUpgradea
 
     event Received(address operator, address from, uint256 tokenId, bytes data, uint256 gas);
 
-    function __ERC721ReceiverMock_init(bytes4 retval, Error error) internal initializer {
+    function __ERC721ReceiverMock_init(bytes4 retval, Error error) internal onlyInitializing {
         __ERC721ReceiverMock_init_unchained(retval, error);
     }
 
-    function __ERC721ReceiverMock_init_unchained(bytes4 retval, Error error) internal initializer {
+    function __ERC721ReceiverMock_init_unchained(bytes4 retval, Error error) internal onlyInitializing {
         _retval = retval;
         _error = error;
     }

@@ -65,7 +65,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         uint256 minDelay,
         address[] memory proposers,
         address[] memory executors
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -76,7 +76,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         uint256 minDelay,
         address[] memory proposers,
         address[] memory executors
-    ) internal initializer {
+    ) internal onlyInitializing {
         _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);

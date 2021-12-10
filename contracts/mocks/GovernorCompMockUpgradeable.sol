@@ -7,7 +7,7 @@ import "../governance/extensions/GovernorVotesCompUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract GovernorCompMockUpgradeable is Initializable, GovernorVotesCompUpgradeable, GovernorCountingSimpleUpgradeable {
-    function __GovernorCompMock_init(string memory name_, ERC20VotesCompUpgradeable token_) internal initializer {
+    function __GovernorCompMock_init(string memory name_, ERC20VotesCompUpgradeable token_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
@@ -18,7 +18,7 @@ contract GovernorCompMockUpgradeable is Initializable, GovernorVotesCompUpgradea
         __GovernorCompMock_init_unchained(name_, token_);
     }
 
-    function __GovernorCompMock_init_unchained(string memory name_, ERC20VotesCompUpgradeable token_) internal initializer {}
+    function __GovernorCompMock_init_unchained(string memory name_, ERC20VotesCompUpgradeable token_) internal onlyInitializing {}
 
     function quorum(uint256) public pure override returns (uint256) {
         return 0;

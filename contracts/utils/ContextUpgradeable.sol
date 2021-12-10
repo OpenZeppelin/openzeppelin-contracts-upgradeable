@@ -15,11 +15,11 @@ import "../proxy/utils/Initializable.sol";
  * This contract is only required for intermediate, library-like contracts.
  */
 abstract contract ContextUpgradeable is Initializable {
-    function __Context_init() internal initializer {
+    function __Context_init() internal onlyInitializing {
         __Context_init_unchained();
     }
 
-    function __Context_init_unchained() internal initializer {
+    function __Context_init_unchained() internal onlyInitializing {
     }
     function _msgSender() internal view virtual returns (address) {
         return msg.sender;

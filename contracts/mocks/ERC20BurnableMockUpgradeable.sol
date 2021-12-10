@@ -11,7 +11,7 @@ contract ERC20BurnableMockUpgradeable is Initializable, ERC20BurnableUpgradeable
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Burnable_init_unchained();
@@ -23,7 +23,7 @@ contract ERC20BurnableMockUpgradeable is Initializable, ERC20BurnableUpgradeable
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(initialAccount, initialBalance);
     }
     uint256[50] private __gap;

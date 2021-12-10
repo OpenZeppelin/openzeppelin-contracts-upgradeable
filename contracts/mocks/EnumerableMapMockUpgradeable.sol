@@ -6,11 +6,11 @@ import "../utils/structs/EnumerableMapUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract EnumerableMapMockUpgradeable is Initializable {
-    function __EnumerableMapMock_init() internal initializer {
+    function __EnumerableMapMock_init() internal onlyInitializing {
         __EnumerableMapMock_init_unchained();
     }
 
-    function __EnumerableMapMock_init_unchained() internal initializer {
+    function __EnumerableMapMock_init_unchained() internal onlyInitializing {
     }
     using EnumerableMapUpgradeable for EnumerableMapUpgradeable.UintToAddressMap;
 

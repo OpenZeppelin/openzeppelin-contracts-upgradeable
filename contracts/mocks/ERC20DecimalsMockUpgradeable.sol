@@ -12,7 +12,7 @@ contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
         string memory name_,
         string memory symbol_,
         uint8 decimals_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name_, symbol_);
         __ERC20DecimalsMock_init_unchained(name_, symbol_, decimals_);
@@ -22,7 +22,7 @@ contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
         string memory name_,
         string memory symbol_,
         uint8 decimals_
-    ) internal initializer {
+    ) internal onlyInitializing {
         _decimals = decimals_;
     }
 

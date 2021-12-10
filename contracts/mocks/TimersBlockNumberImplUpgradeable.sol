@@ -6,11 +6,11 @@ import "../utils/TimersUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract TimersBlockNumberImplUpgradeable is Initializable {
-    function __TimersBlockNumberImpl_init() internal initializer {
+    function __TimersBlockNumberImpl_init() internal onlyInitializing {
         __TimersBlockNumberImpl_init_unchained();
     }
 
-    function __TimersBlockNumberImpl_init_unchained() internal initializer {
+    function __TimersBlockNumberImpl_init_unchained() internal onlyInitializing {
     }
     using TimersUpgradeable for TimersUpgradeable.BlockNumber;
 

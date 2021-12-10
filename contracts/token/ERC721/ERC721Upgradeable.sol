@@ -42,13 +42,13 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
-    function __ERC721_init(string memory name_, string memory symbol_) internal initializer {
+    function __ERC721_init(string memory name_, string memory symbol_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name_, symbol_);
     }
 
-    function __ERC721_init_unchained(string memory name_, string memory symbol_) internal initializer {
+    function __ERC721_init_unchained(string memory name_, string memory symbol_) internal onlyInitializing {
         _name = name_;
         _symbol = symbol_;
     }

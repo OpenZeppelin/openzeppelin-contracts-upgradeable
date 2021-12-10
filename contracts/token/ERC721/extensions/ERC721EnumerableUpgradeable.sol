@@ -13,13 +13,13 @@ import "../../../proxy/utils/Initializable.sol";
  * account.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721EnumerableUpgradeable {
-    function __ERC721Enumerable_init() internal initializer {
+    function __ERC721Enumerable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721Enumerable_init_unchained();
     }
 
-    function __ERC721Enumerable_init_unchained() internal initializer {
+    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
     }
     // Mapping from owner to list of owned token IDs
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;

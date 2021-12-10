@@ -48,13 +48,13 @@ import "../proxy/utils/Initializable.sol";
  * accounts that have been granted it.
  */
 abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControlUpgradeable, ERC165Upgradeable {
-    function __AccessControl_init() internal initializer {
+    function __AccessControl_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
     }
 
-    function __AccessControl_init_unchained() internal initializer {
+    function __AccessControl_init_unchained() internal onlyInitializing {
     }
     struct RoleData {
         mapping(address => bool) members;

@@ -6,7 +6,7 @@ import "../access/AccessControlEnumerableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract AccessControlEnumerableMockUpgradeable is Initializable, AccessControlEnumerableUpgradeable {
-    function __AccessControlEnumerableMock_init() internal initializer {
+    function __AccessControlEnumerableMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -14,7 +14,7 @@ contract AccessControlEnumerableMockUpgradeable is Initializable, AccessControlE
         __AccessControlEnumerableMock_init_unchained();
     }
 
-    function __AccessControlEnumerableMock_init_unchained() internal initializer {
+    function __AccessControlEnumerableMock_init_unchained() internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 

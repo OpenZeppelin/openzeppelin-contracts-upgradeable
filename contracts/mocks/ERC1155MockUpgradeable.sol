@@ -10,14 +10,14 @@ import "../proxy/utils/Initializable.sol";
  * This mock just publicizes internal functions for testing purposes
  */
 contract ERC1155MockUpgradeable is Initializable, ERC1155Upgradeable {
-    function __ERC1155Mock_init(string memory uri) internal initializer {
+    function __ERC1155Mock_init(string memory uri) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155_init_unchained(uri);
         __ERC1155Mock_init_unchained(uri);
     }
 
-    function __ERC1155Mock_init_unchained(string memory uri) internal initializer {}
+    function __ERC1155Mock_init_unchained(string memory uri) internal onlyInitializing {}
 
     function setURI(string memory newuri) public {
         _setURI(newuri);

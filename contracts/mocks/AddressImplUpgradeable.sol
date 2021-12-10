@@ -6,11 +6,11 @@ import "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract AddressImplUpgradeable is Initializable {
-    function __AddressImpl_init() internal initializer {
+    function __AddressImpl_init() internal onlyInitializing {
         __AddressImpl_init_unchained();
     }
 
-    function __AddressImpl_init_unchained() internal initializer {
+    function __AddressImpl_init_unchained() internal onlyInitializing {
     }
     string public sharedAnswer;
 

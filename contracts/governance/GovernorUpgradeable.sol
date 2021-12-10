@@ -53,7 +53,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev Sets the value for {name} and {version}
      */
-    function __Governor_init(string memory name_) internal initializer {
+    function __Governor_init(string memory name_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
@@ -61,7 +61,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         __Governor_init_unchained(name_);
     }
 
-    function __Governor_init_unchained(string memory name_) internal initializer {
+    function __Governor_init_unchained(string memory name_) internal onlyInitializing {
         _name = name_;
     }
 

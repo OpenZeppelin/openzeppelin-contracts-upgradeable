@@ -15,13 +15,13 @@ import "../../../proxy/utils/Initializable.sol";
  * event of a large bug.
  */
 abstract contract ERC20PausableUpgradeable is Initializable, ERC20Upgradeable, PausableUpgradeable {
-    function __ERC20Pausable_init() internal initializer {
+    function __ERC20Pausable_init() internal onlyInitializing {
         __Context_init_unchained();
         __Pausable_init_unchained();
         __ERC20Pausable_init_unchained();
     }
 
-    function __ERC20Pausable_init_unchained() internal initializer {
+    function __ERC20Pausable_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev See {ERC20-_beforeTokenTransfer}.

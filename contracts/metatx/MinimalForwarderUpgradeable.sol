@@ -27,12 +27,12 @@ contract MinimalForwarderUpgradeable is Initializable, EIP712Upgradeable {
 
     mapping(address => uint256) private _nonces;
 
-    function __MinimalForwarder_init() internal initializer {
+    function __MinimalForwarder_init() internal onlyInitializing {
         __EIP712_init_unchained("MinimalForwarder", "0.0.1");
         __MinimalForwarder_init_unchained();
     }
 
-    function __MinimalForwarder_init_unchained() internal initializer {}
+    function __MinimalForwarder_init_unchained() internal onlyInitializing {}
 
     function getNonce(address from) public view returns (uint256) {
         return _nonces[from];

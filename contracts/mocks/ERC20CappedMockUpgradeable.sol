@@ -10,7 +10,7 @@ contract ERC20CappedMockUpgradeable is Initializable, ERC20CappedUpgradeable {
         string memory name,
         string memory symbol,
         uint256 cap
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Capped_init_unchained(cap);
@@ -21,7 +21,7 @@ contract ERC20CappedMockUpgradeable is Initializable, ERC20CappedUpgradeable {
         string memory name,
         string memory symbol,
         uint256 cap
-    ) internal initializer {}
+    ) internal onlyInitializing {}
 
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);

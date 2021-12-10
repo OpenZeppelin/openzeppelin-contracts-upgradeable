@@ -10,13 +10,13 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev ERC721 token with storage based token URI management.
  */
 abstract contract ERC721URIStorageUpgradeable is Initializable, ERC721Upgradeable {
-    function __ERC721URIStorage_init() internal initializer {
+    function __ERC721URIStorage_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721URIStorage_init_unchained();
     }
 
-    function __ERC721URIStorage_init_unchained() internal initializer {
+    function __ERC721URIStorage_init_unchained() internal onlyInitializing {
     }
     using StringsUpgradeable for uint256;
 

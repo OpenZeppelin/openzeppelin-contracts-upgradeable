@@ -33,13 +33,13 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      *
      * It's a good idea to use the same `name` that is defined as the ERC20 token name.
      */
-    function __ERC20Permit_init(string memory name) internal initializer {
+    function __ERC20Permit_init(string memory name) internal onlyInitializing {
         __Context_init_unchained();
         __EIP712_init_unchained(name, "1");
         __ERC20Permit_init_unchained(name);
     }
 
-    function __ERC20Permit_init_unchained(string memory name) internal initializer {
+    function __ERC20Permit_init_unchained(string memory name) internal onlyInitializing {
         _PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");}
 
     /**

@@ -17,14 +17,14 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
-    function __GovernorVotesQuorumFraction_init(uint256 quorumNumeratorValue) internal initializer {
+    function __GovernorVotesQuorumFraction_init(uint256 quorumNumeratorValue) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
         __GovernorVotesQuorumFraction_init_unchained(quorumNumeratorValue);
     }
 
-    function __GovernorVotesQuorumFraction_init_unchained(uint256 quorumNumeratorValue) internal initializer {
+    function __GovernorVotesQuorumFraction_init_unchained(uint256 quorumNumeratorValue) internal onlyInitializing {
         _updateQuorumNumerator(quorumNumeratorValue);
     }
 

@@ -27,11 +27,11 @@ import "../proxy/utils/Initializable.sol";
 abstract contract PullPaymentUpgradeable is Initializable {
     EscrowUpgradeable private _escrow;
 
-    function __PullPayment_init() internal initializer {
+    function __PullPayment_init() internal onlyInitializing {
         __PullPayment_init_unchained();
     }
 
-    function __PullPayment_init_unchained() internal initializer {
+    function __PullPayment_init_unchained() internal onlyInitializing {
         _escrow = new EscrowUpgradeable();
         _escrow.initialize();
     }

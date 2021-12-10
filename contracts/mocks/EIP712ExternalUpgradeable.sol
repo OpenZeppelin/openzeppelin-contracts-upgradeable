@@ -7,12 +7,12 @@ import "../utils/cryptography/ECDSAUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract EIP712ExternalUpgradeable is Initializable, EIP712Upgradeable {
-    function __EIP712External_init(string memory name, string memory version) internal initializer {
+    function __EIP712External_init(string memory name, string memory version) internal onlyInitializing {
         __EIP712_init_unchained(name, version);
         __EIP712External_init_unchained(name, version);
     }
 
-    function __EIP712External_init_unchained(string memory name, string memory version) internal initializer {}
+    function __EIP712External_init_unchained(string memory name, string memory version) internal onlyInitializing {}
 
     function domainSeparator() external view returns (bytes32) {
         return _domainSeparatorV4();
