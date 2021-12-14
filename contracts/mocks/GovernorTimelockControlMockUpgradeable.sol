@@ -21,7 +21,7 @@ contract GovernorTimelockControlMockUpgradeable is
         uint256 votingPeriod_,
         TimelockControllerUpgradeable timelock_,
         uint256 quorumNumerator_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained(name_, version());
@@ -43,7 +43,7 @@ contract GovernorTimelockControlMockUpgradeable is
         uint256 votingPeriod_,
         TimelockControllerUpgradeable timelock_,
         uint256 quorumNumerator_
-    ) internal initializer {}
+    ) internal onlyInitializing {}
 
     function supportsInterface(bytes4 interfaceId)
         public

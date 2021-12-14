@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/ERC1155.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/ERC1155.sol)
 
 pragma solidity ^0.8.0;
 
@@ -33,13 +33,13 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     /**
      * @dev See {_setURI}.
      */
-    function __ERC1155_init(string memory uri_) internal initializer {
+    function __ERC1155_init(string memory uri_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155_init_unchained(uri_);
     }
 
-    function __ERC1155_init_unchained(string memory uri_) internal initializer {
+    function __ERC1155_init_unchained(string memory uri_) internal onlyInitializing {
         _setURI(uri_);
     }
 

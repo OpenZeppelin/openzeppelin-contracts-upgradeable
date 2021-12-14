@@ -6,12 +6,12 @@ import "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ReentrancyAttackUpgradeable is Initializable, ContextUpgradeable {
-    function __ReentrancyAttack_init() internal initializer {
+    function __ReentrancyAttack_init() internal onlyInitializing {
         __Context_init_unchained();
         __ReentrancyAttack_init_unchained();
     }
 
-    function __ReentrancyAttack_init_unchained() internal initializer {
+    function __ReentrancyAttack_init_unchained() internal onlyInitializing {
     }
     function callSender(bytes4 data) public {
         (bool success, ) = _msgSender().call(abi.encodeWithSelector(data));

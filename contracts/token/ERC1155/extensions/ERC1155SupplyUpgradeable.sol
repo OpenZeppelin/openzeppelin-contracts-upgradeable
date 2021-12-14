@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/extensions/ERC1155Supply.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/extensions/ERC1155Supply.sol)
 
 pragma solidity ^0.8.0;
 
@@ -15,13 +15,13 @@ import "../../../proxy/utils/Initializable.sol";
  * same id are not going to be minted.
  */
 abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable {
-    function __ERC1155Supply_init() internal initializer {
+    function __ERC1155Supply_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155Supply_init_unchained();
     }
 
-    function __ERC1155Supply_init_unchained() internal initializer {
+    function __ERC1155Supply_init_unchained() internal onlyInitializing {
     }
     mapping(uint256 => uint256) private _totalSupply;
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/utils/ERC1155Holder.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/utils/ERC1155Holder.sol)
 
 pragma solidity ^0.8.0;
 
@@ -10,13 +10,13 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev _Available since v3.1._
  */
 contract ERC1155HolderUpgradeable is Initializable, ERC1155ReceiverUpgradeable {
-    function __ERC1155Holder_init() internal initializer {
+    function __ERC1155Holder_init() internal onlyInitializing {
         __ERC165_init_unchained();
         __ERC1155Receiver_init_unchained();
         __ERC1155Holder_init_unchained();
     }
 
-    function __ERC1155Holder_init_unchained() internal initializer {
+    function __ERC1155Holder_init_unchained() internal onlyInitializing {
     }
     function onERC1155Received(
         address,

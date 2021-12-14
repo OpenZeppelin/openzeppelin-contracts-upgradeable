@@ -6,14 +6,14 @@ import "../access/AccessControlUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract AccessControlMockUpgradeable is Initializable, AccessControlUpgradeable {
-    function __AccessControlMock_init() internal initializer {
+    function __AccessControlMock_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlMock_init_unchained();
     }
 
-    function __AccessControlMock_init_unchained() internal initializer {
+    function __AccessControlMock_init_unchained() internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 

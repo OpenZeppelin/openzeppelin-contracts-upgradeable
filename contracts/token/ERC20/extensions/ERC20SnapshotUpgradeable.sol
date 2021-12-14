@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20Snapshot.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Snapshot.sol)
 
 pragma solidity ^0.8.0;
 
@@ -41,12 +41,12 @@ import "../../../proxy/utils/Initializable.sol";
  */
 
 abstract contract ERC20SnapshotUpgradeable is Initializable, ERC20Upgradeable {
-    function __ERC20Snapshot_init() internal initializer {
+    function __ERC20Snapshot_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20Snapshot_init_unchained();
     }
 
-    function __ERC20Snapshot_init_unchained() internal initializer {
+    function __ERC20Snapshot_init_unchained() internal onlyInitializing {
     }
     // Inspired by Jordi Baylina's MiniMeToken to record historical balances:
     // https://github.com/Giveth/minimd/blob/ea04d950eea153a04c51fa510b068b9dded390cb/contracts/MiniMeToken.sol

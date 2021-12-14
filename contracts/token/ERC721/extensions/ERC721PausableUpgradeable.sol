@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC721/extensions/ERC721Pausable.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC721/extensions/ERC721Pausable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -15,14 +15,14 @@ import "../../../proxy/utils/Initializable.sol";
  * event of a large bug.
  */
 abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable, PausableUpgradeable {
-    function __ERC721Pausable_init() internal initializer {
+    function __ERC721Pausable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __Pausable_init_unchained();
         __ERC721Pausable_init_unchained();
     }
 
-    function __ERC721Pausable_init_unchained() internal initializer {
+    function __ERC721Pausable_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev See {ERC721-_beforeTokenTransfer}.

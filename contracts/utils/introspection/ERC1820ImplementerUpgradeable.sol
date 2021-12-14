@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/introspection/ERC1820Implementer.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC1820Implementer.sol)
 
 pragma solidity ^0.8.0;
 
@@ -15,11 +15,11 @@ import "../../proxy/utils/Initializable.sol";
  * registration to be complete.
  */
 contract ERC1820ImplementerUpgradeable is Initializable, IERC1820ImplementerUpgradeable {
-    function __ERC1820Implementer_init() internal initializer {
+    function __ERC1820Implementer_init() internal onlyInitializing {
         __ERC1820Implementer_init_unchained();
     }
 
-    function __ERC1820Implementer_init_unchained() internal initializer {
+    function __ERC1820Implementer_init_unchained() internal onlyInitializing {
     }
     bytes32 private constant _ERC1820_ACCEPT_MAGIC = keccak256("ERC1820_ACCEPT_MAGIC");
 

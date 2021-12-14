@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/extensions/GovernorVotesComp.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/extensions/GovernorVotesComp.sol)
 
 pragma solidity ^0.8.0;
 
@@ -15,14 +15,14 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract GovernorVotesCompUpgradeable is Initializable, GovernorUpgradeable {
     ERC20VotesCompUpgradeable public token;
 
-    function __GovernorVotesComp_init(ERC20VotesCompUpgradeable token_) internal initializer {
+    function __GovernorVotesComp_init(ERC20VotesCompUpgradeable token_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
         __GovernorVotesComp_init_unchained(token_);
     }
 
-    function __GovernorVotesComp_init_unchained(ERC20VotesCompUpgradeable token_) internal initializer {
+    function __GovernorVotesComp_init_unchained(ERC20VotesCompUpgradeable token_) internal onlyInitializing {
         token = token_;
     }
 

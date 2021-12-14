@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/cryptography/draft-EIP712.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/cryptography/draft-EIP712.sol)
 
 pragma solidity ^0.8.0;
 
@@ -45,11 +45,11 @@ abstract contract EIP712Upgradeable is Initializable {
      * NOTE: These parameters cannot be changed except through a xref:learn::upgrading-smart-contracts.adoc[smart
      * contract upgrade].
      */
-    function __EIP712_init(string memory name, string memory version) internal initializer {
+    function __EIP712_init(string memory name, string memory version) internal onlyInitializing {
         __EIP712_init_unchained(name, version);
     }
 
-    function __EIP712_init_unchained(string memory name, string memory version) internal initializer {
+    function __EIP712_init_unchained(string memory name, string memory version) internal onlyInitializing {
         bytes32 hashedName = keccak256(bytes(name));
         bytes32 hashedVersion = keccak256(bytes(version));
         _HASHED_NAME = hashedName;

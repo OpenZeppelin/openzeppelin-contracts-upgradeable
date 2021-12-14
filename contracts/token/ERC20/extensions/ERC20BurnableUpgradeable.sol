@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20Burnable.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Burnable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -13,12 +13,12 @@ import "../../../proxy/utils/Initializable.sol";
  * recognized off-chain (via event analysis).
  */
 abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable, ERC20Upgradeable {
-    function __ERC20Burnable_init() internal initializer {
+    function __ERC20Burnable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20Burnable_init_unchained();
     }
 
-    function __ERC20Burnable_init_unchained() internal initializer {
+    function __ERC20Burnable_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Destroys `amount` tokens from the caller.

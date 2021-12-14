@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/escrow/Escrow.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/escrow/Escrow.sol)
 
 pragma solidity ^0.8.0;
 
@@ -24,13 +24,13 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
     function initialize() public virtual initializer {
         __Escrow_init();
     }
-    function __Escrow_init() internal initializer {
+    function __Escrow_init() internal onlyInitializing {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
     }
 
-    function __Escrow_init_unchained() internal initializer {
+    function __Escrow_init_unchained() internal onlyInitializing {
     }
     using AddressUpgradeable for address payable;
 

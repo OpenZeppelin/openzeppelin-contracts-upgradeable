@@ -8,13 +8,13 @@ import "../utils/cryptography/ECDSAUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, IERC1271Upgradeable {
-    function __ERC1271WalletMock_init(address originalOwner) internal initializer {
+    function __ERC1271WalletMock_init(address originalOwner) internal onlyInitializing {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __ERC1271WalletMock_init_unchained(originalOwner);
     }
 
-    function __ERC1271WalletMock_init_unchained(address originalOwner) internal initializer {
+    function __ERC1271WalletMock_init_unchained(address originalOwner) internal onlyInitializing {
         transferOwnership(originalOwner);
     }
 

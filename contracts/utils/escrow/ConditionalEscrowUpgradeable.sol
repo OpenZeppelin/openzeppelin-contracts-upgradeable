@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/escrow/ConditionalEscrow.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/escrow/ConditionalEscrow.sol)
 
 pragma solidity ^0.8.0;
 
@@ -12,14 +12,14 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Intended usage: See {Escrow}. Same usage guidelines apply here.
  */
 abstract contract ConditionalEscrowUpgradeable is Initializable, EscrowUpgradeable {
-    function __ConditionalEscrow_init() internal initializer {
+    function __ConditionalEscrow_init() internal onlyInitializing {
         __Context_init_unchained();
         __Ownable_init_unchained();
         __Escrow_init_unchained();
         __ConditionalEscrow_init_unchained();
     }
 
-    function __ConditionalEscrow_init_unchained() internal initializer {
+    function __ConditionalEscrow_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Returns whether an address is allowed to withdraw their funds. To be

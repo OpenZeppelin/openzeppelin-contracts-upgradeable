@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/Multicall.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/Multicall.sol)
 
 pragma solidity ^0.8.0;
 
@@ -12,11 +12,11 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v4.1._
  */
 abstract contract MulticallUpgradeable is Initializable {
-    function __Multicall_init() internal initializer {
+    function __Multicall_init() internal onlyInitializing {
         __Multicall_init_unchained();
     }
 
-    function __Multicall_init_unchained() internal initializer {
+    function __Multicall_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Receives and executes a batch of function calls on this contract.

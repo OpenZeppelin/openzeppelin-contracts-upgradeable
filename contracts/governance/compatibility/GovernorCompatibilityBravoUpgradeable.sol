@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/compatibility/GovernorCompatibilityBravo.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/compatibility/GovernorCompatibilityBravo.sol)
 
 pragma solidity ^0.8.0;
 
@@ -21,7 +21,7 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGovernorTimelockUpgradeable, IGovernorCompatibilityBravoUpgradeable, GovernorUpgradeable {
-    function __GovernorCompatibilityBravo_init() internal initializer {
+    function __GovernorCompatibilityBravo_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
@@ -30,7 +30,7 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         __GovernorCompatibilityBravo_init_unchained();
     }
 
-    function __GovernorCompatibilityBravo_init_unchained() internal initializer {
+    function __GovernorCompatibilityBravo_init_unchained() internal onlyInitializing {
     }
     using CountersUpgradeable for CountersUpgradeable.Counter;
     using TimersUpgradeable for TimersUpgradeable.BlockNumber;

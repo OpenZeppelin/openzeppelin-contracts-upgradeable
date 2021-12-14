@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (security/PullPayment.sol)
+// OpenZeppelin Contracts v4.4.1 (security/PullPayment.sol)
 
 pragma solidity ^0.8.0;
 
@@ -27,11 +27,11 @@ import "../proxy/utils/Initializable.sol";
 abstract contract PullPaymentUpgradeable is Initializable {
     EscrowUpgradeable private _escrow;
 
-    function __PullPayment_init() internal initializer {
+    function __PullPayment_init() internal onlyInitializing {
         __PullPayment_init_unchained();
     }
 
-    function __PullPayment_init_unchained() internal initializer {
+    function __PullPayment_init_unchained() internal onlyInitializing {
         _escrow = new EscrowUpgradeable();
         _escrow.initialize();
     }

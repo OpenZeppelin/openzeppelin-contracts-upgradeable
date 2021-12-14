@@ -30,11 +30,11 @@ contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165Upg
      * @dev A contract implementing SupportsInterfaceWithLookup
      * implement ERC165 itself.
      */
-    function __SupportsInterfaceWithLookupMock_init() internal initializer {
+    function __SupportsInterfaceWithLookupMock_init() internal onlyInitializing {
         __SupportsInterfaceWithLookupMock_init_unchained();
     }
 
-    function __SupportsInterfaceWithLookupMock_init_unchained() internal initializer {
+    function __SupportsInterfaceWithLookupMock_init_unchained() internal onlyInitializing {
         _registerInterface(INTERFACE_ID_ERC165);
     }
 
@@ -56,12 +56,12 @@ contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165Upg
 }
 
 contract ERC165InterfacesSupportedUpgradeable is Initializable, SupportsInterfaceWithLookupMockUpgradeable {
-    function __ERC165InterfacesSupported_init(bytes4[] memory interfaceIds) internal initializer {
+    function __ERC165InterfacesSupported_init(bytes4[] memory interfaceIds) internal onlyInitializing {
         __SupportsInterfaceWithLookupMock_init_unchained();
         __ERC165InterfacesSupported_init_unchained(interfaceIds);
     }
 
-    function __ERC165InterfacesSupported_init_unchained(bytes4[] memory interfaceIds) internal initializer {
+    function __ERC165InterfacesSupported_init_unchained(bytes4[] memory interfaceIds) internal onlyInitializing {
         for (uint256 i = 0; i < interfaceIds.length; i++) {
             _registerInterface(interfaceIds[i]);
         }

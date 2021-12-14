@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/utils/TokenTimelock.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/utils/TokenTimelock.sol)
 
 pragma solidity ^0.8.0;
 
@@ -29,7 +29,7 @@ contract TokenTimelockUpgradeable is Initializable {
         IERC20Upgradeable token_,
         address beneficiary_,
         uint256 releaseTime_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __TokenTimelock_init_unchained(token_, beneficiary_, releaseTime_);
     }
 
@@ -37,7 +37,7 @@ contract TokenTimelockUpgradeable is Initializable {
         IERC20Upgradeable token_,
         address beneficiary_,
         uint256 releaseTime_
-    ) internal initializer {
+    ) internal onlyInitializing {
         require(releaseTime_ > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token_;
         _beneficiary = beneficiary_;

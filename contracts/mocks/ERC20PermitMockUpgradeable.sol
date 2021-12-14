@@ -11,7 +11,7 @@ contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __EIP712_init_unchained(name, "1");
@@ -24,7 +24,7 @@ contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(initialAccount, initialBalance);
     }
 

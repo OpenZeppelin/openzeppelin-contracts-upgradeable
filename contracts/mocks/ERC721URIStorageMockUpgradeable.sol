@@ -12,7 +12,7 @@ import "../proxy/utils/Initializable.sol";
 contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgradeable {
     string private _baseTokenURI;
 
-    function __ERC721URIStorageMock_init(string memory name, string memory symbol) internal initializer {
+    function __ERC721URIStorageMock_init(string memory name, string memory symbol) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
@@ -20,7 +20,7 @@ contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgra
         __ERC721URIStorageMock_init_unchained(name, symbol);
     }
 
-    function __ERC721URIStorageMock_init_unchained(string memory name, string memory symbol) internal initializer {}
+    function __ERC721URIStorageMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;

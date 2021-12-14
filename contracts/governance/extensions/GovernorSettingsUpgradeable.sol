@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/extensions/GovernorSettings.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/extensions/GovernorSettings.sol)
 
 pragma solidity ^0.8.0;
 
@@ -27,7 +27,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
         uint256 initialVotingDelay,
         uint256 initialVotingPeriod,
         uint256 initialProposalThreshold
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
@@ -38,7 +38,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
         uint256 initialVotingDelay,
         uint256 initialVotingPeriod,
         uint256 initialProposalThreshold
-    ) internal initializer {
+    ) internal onlyInitializing {
         _setVotingDelay(initialVotingDelay);
         _setVotingPeriod(initialVotingPeriod);
         _setProposalThreshold(initialProposalThreshold);

@@ -6,7 +6,7 @@ import "../token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC1155BurnableMockUpgradeable is Initializable, ERC1155BurnableUpgradeable {
-    function __ERC1155BurnableMock_init(string memory uri) internal initializer {
+    function __ERC1155BurnableMock_init(string memory uri) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155_init_unchained(uri);
@@ -14,7 +14,7 @@ contract ERC1155BurnableMockUpgradeable is Initializable, ERC1155BurnableUpgrade
         __ERC1155BurnableMock_init_unchained(uri);
     }
 
-    function __ERC1155BurnableMock_init_unchained(string memory uri) internal initializer {}
+    function __ERC1155BurnableMock_init_unchained(string memory uri) internal onlyInitializing {}
 
     function mint(
         address to,

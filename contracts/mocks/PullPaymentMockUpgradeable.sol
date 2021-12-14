@@ -7,12 +7,12 @@ import "../proxy/utils/Initializable.sol";
 
 // mock class using PullPayment
 contract PullPaymentMockUpgradeable is Initializable, PullPaymentUpgradeable {
-    function __PullPaymentMock_init() internal initializer {
+    function __PullPaymentMock_init() internal onlyInitializing {
         __PullPayment_init_unchained();
         __PullPaymentMock_init_unchained();
     }
 
-    function __PullPaymentMock_init_unchained() internal initializer {}
+    function __PullPaymentMock_init_unchained() internal onlyInitializing {}
 
     // test helper function to call asyncTransfer
     function callTransfer(address dest, uint256 amount) public {

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20VotesComp.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20VotesComp.sol)
 
 pragma solidity ^0.8.0;
 
@@ -26,7 +26,7 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v4.2._
  */
 abstract contract ERC20VotesCompUpgradeable is Initializable, ERC20VotesUpgradeable {
-    function __ERC20VotesComp_init_unchained() internal initializer {
+    function __ERC20VotesComp_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Comp version of the {getVotes} accessor, with `uint96` return type.

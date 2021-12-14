@@ -6,11 +6,11 @@ import "../utils/math/SafeMathUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract SafeMathMockUpgradeable is Initializable {
-    function __SafeMathMock_init() internal initializer {
+    function __SafeMathMock_init() internal onlyInitializing {
         __SafeMathMock_init_unchained();
     }
 
-    function __SafeMathMock_init_unchained() internal initializer {
+    function __SafeMathMock_init_unchained() internal onlyInitializing {
     }
     function tryAdd(uint256 a, uint256 b) public pure returns (bool flag, uint256 value) {
         return SafeMathUpgradeable.tryAdd(a, b);

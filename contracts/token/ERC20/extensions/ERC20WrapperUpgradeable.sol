@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20Wrapper.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Wrapper.sol)
 
 pragma solidity ^0.8.0;
 
@@ -19,12 +19,12 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     IERC20Upgradeable public underlying;
 
-    function __ERC20Wrapper_init(IERC20Upgradeable underlyingToken) internal initializer {
+    function __ERC20Wrapper_init(IERC20Upgradeable underlyingToken) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20Wrapper_init_unchained(underlyingToken);
     }
 
-    function __ERC20Wrapper_init_unchained(IERC20Upgradeable underlyingToken) internal initializer {
+    function __ERC20Wrapper_init_unchained(IERC20Upgradeable underlyingToken) internal onlyInitializing {
         underlying = underlyingToken;
     }
 

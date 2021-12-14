@@ -7,11 +7,11 @@ import "../utils/introspection/ERC1820ImplementerUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract Create2ImplUpgradeable is Initializable {
-    function __Create2Impl_init() internal initializer {
+    function __Create2Impl_init() internal onlyInitializing {
         __Create2Impl_init_unchained();
     }
 
-    function __Create2Impl_init_unchained() internal initializer {
+    function __Create2Impl_init_unchained() internal onlyInitializing {
     }
     function deploy(
         uint256 value,

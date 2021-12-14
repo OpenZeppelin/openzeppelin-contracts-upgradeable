@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/IGovernor.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/IGovernor.sol)
 
 pragma solidity ^0.8.0;
 
@@ -12,11 +12,11 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
-    function __IGovernor_init() internal initializer {
+    function __IGovernor_init() internal onlyInitializing {
         __IGovernor_init_unchained();
     }
 
-    function __IGovernor_init_unchained() internal initializer {
+    function __IGovernor_init_unchained() internal onlyInitializing {
     }
     enum ProposalState {
         Pending,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/extensions/ERC1155Burnable.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/extensions/ERC1155Burnable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -13,13 +13,13 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v3.1._
  */
 abstract contract ERC1155BurnableUpgradeable is Initializable, ERC1155Upgradeable {
-    function __ERC1155Burnable_init() internal initializer {
+    function __ERC1155Burnable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC1155Burnable_init_unchained();
     }
 
-    function __ERC1155Burnable_init_unchained() internal initializer {
+    function __ERC1155Burnable_init_unchained() internal onlyInitializing {
     }
     function burn(
         address account,

@@ -9,12 +9,12 @@ import "../proxy/utils/Initializable.sol";
 contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable {
     uint256 public counter;
 
-    function __ReentrancyMock_init() internal initializer {
+    function __ReentrancyMock_init() internal onlyInitializing {
         __ReentrancyGuard_init_unchained();
         __ReentrancyMock_init_unchained();
     }
 
-    function __ReentrancyMock_init_unchained() internal initializer {
+    function __ReentrancyMock_init_unchained() internal onlyInitializing {
         counter = 0;
     }
 

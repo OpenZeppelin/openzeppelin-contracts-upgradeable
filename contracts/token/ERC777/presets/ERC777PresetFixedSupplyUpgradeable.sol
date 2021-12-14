@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC777/presets/ERC777PresetFixedSupply.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC777/presets/ERC777PresetFixedSupply.sol)
 pragma solidity ^0.8.0;
 
 import "../ERC777Upgradeable.sol";
@@ -34,7 +34,7 @@ contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable 
         address[] memory defaultOperators,
         uint256 initialSupply,
         address owner
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC777_init_unchained(name, symbol, defaultOperators);
         __ERC777PresetFixedSupply_init_unchained(name, symbol, defaultOperators, initialSupply, owner);
@@ -46,7 +46,7 @@ contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable 
         address[] memory defaultOperators,
         uint256 initialSupply,
         address owner
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(owner, initialSupply, "", "");
     }
     uint256[50] private __gap;

@@ -66,11 +66,11 @@ contract CompTimelockUpgradeable is Initializable {
 
     mapping(bytes32 => bool) public queuedTransactions;
 
-    function __CompTimelock_init(address admin_, uint256 delay_) internal initializer {
+    function __CompTimelock_init(address admin_, uint256 delay_) internal onlyInitializing {
         __CompTimelock_init_unchained(admin_, delay_);
     }
 
-    function __CompTimelock_init_unchained(address admin_, uint256 delay_) internal initializer {
+    function __CompTimelock_init_unchained(address admin_, uint256 delay_) internal onlyInitializing {
         require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
         require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
 

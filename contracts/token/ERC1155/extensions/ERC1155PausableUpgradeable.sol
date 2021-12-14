@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/extensions/ERC1155Pausable.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/extensions/ERC1155Pausable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -17,14 +17,14 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v3.1._
  */
 abstract contract ERC1155PausableUpgradeable is Initializable, ERC1155Upgradeable, PausableUpgradeable {
-    function __ERC1155Pausable_init() internal initializer {
+    function __ERC1155Pausable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __Pausable_init_unchained();
         __ERC1155Pausable_init_unchained();
     }
 
-    function __ERC1155Pausable_init_unchained() internal initializer {
+    function __ERC1155Pausable_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev See {ERC1155-_beforeTokenTransfer}.

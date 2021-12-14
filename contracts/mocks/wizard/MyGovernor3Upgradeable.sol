@@ -15,7 +15,7 @@ contract MyGovernorUpgradeable is
     GovernorVotesUpgradeable,
     GovernorVotesQuorumFractionUpgradeable
 {
-    function __MyGovernor_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {
+    function __MyGovernor_init(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __EIP712_init_unchained("MyGovernor", version());
@@ -30,7 +30,7 @@ contract MyGovernorUpgradeable is
         __MyGovernor_init_unchained(_token, _timelock);
     }
 
-    function __MyGovernor_init_unchained(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal initializer {}
+    function __MyGovernor_init_unchained(ERC20VotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {}
 
     function votingDelay() public pure override returns (uint256) {
         return 1; // 1 block

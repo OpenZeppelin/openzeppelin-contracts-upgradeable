@@ -9,11 +9,11 @@ import "../proxy/utils/Initializable.sol";
  * @dev Transparent Proxy feature.
  */
 contract ClashingImplementationUpgradeable is Initializable {
-    function __ClashingImplementation_init() internal initializer {
+    function __ClashingImplementation_init() internal onlyInitializing {
         __ClashingImplementation_init_unchained();
     }
 
-    function __ClashingImplementation_init_unchained() internal initializer {
+    function __ClashingImplementation_init_unchained() internal onlyInitializing {
     }
     function admin() external pure returns (address) {
         return 0x0000000000000000000000000000000011111142;

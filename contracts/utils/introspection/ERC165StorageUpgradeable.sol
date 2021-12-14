@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/introspection/ERC165Storage.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165Storage.sol)
 
 pragma solidity ^0.8.0;
 
@@ -13,12 +13,12 @@ import "../../proxy/utils/Initializable.sol";
  * their support of an interface.
  */
 abstract contract ERC165StorageUpgradeable is Initializable, ERC165Upgradeable {
-    function __ERC165Storage_init() internal initializer {
+    function __ERC165Storage_init() internal onlyInitializing {
         __ERC165_init_unchained();
         __ERC165Storage_init_unchained();
     }
 
-    function __ERC165Storage_init_unchained() internal initializer {
+    function __ERC165Storage_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Mapping of interface ids to whether or not it's supported.

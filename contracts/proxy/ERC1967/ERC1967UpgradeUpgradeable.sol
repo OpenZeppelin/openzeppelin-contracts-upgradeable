@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (proxy/ERC1967/ERC1967Upgrade.sol)
+// OpenZeppelin Contracts v4.4.1 (proxy/ERC1967/ERC1967Upgrade.sol)
 
 pragma solidity ^0.8.2;
 
@@ -17,11 +17,11 @@ import "../utils/Initializable.sol";
  * @custom:oz-upgrades-unsafe-allow delegatecall
  */
 abstract contract ERC1967UpgradeUpgradeable is Initializable {
-    function __ERC1967Upgrade_init() internal initializer {
+    function __ERC1967Upgrade_init() internal onlyInitializing {
         __ERC1967Upgrade_init_unchained();
     }
 
-    function __ERC1967Upgrade_init_unchained() internal initializer {
+    function __ERC1967Upgrade_init_unchained() internal onlyInitializing {
     }
     // This is the keccak-256 hash of "eip1967.proxy.rollback" subtracted by 1
     bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;

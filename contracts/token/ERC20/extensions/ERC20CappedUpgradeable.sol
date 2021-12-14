@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20Capped.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Capped.sol)
 
 pragma solidity ^0.8.0;
 
@@ -16,12 +16,12 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
      * @dev Sets the value of the `cap`. This value is immutable, it can only be
      * set once during construction.
      */
-    function __ERC20Capped_init(uint256 cap_) internal initializer {
+    function __ERC20Capped_init(uint256 cap_) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20Capped_init_unchained(cap_);
     }
 
-    function __ERC20Capped_init_unchained(uint256 cap_) internal initializer {
+    function __ERC20Capped_init_unchained(uint256 cap_) internal onlyInitializing {
         require(cap_ > 0, "ERC20Capped: cap is 0");
         _cap = cap_;
     }

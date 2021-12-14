@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol)
 
 pragma solidity ^0.8.0;
 
@@ -61,7 +61,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
         string memory name,
         string memory symbol,
         string memory baseTokenURI
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -78,7 +78,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
         string memory name,
         string memory symbol,
         string memory baseTokenURI
-    ) internal initializer {
+    ) internal onlyInitializing {
         _baseTokenURI = baseTokenURI;
 
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());

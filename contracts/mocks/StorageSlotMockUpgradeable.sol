@@ -6,11 +6,11 @@ import "../utils/StorageSlotUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract StorageSlotMockUpgradeable is Initializable {
-    function __StorageSlotMock_init() internal initializer {
+    function __StorageSlotMock_init() internal onlyInitializing {
         __StorageSlotMock_init_unchained();
     }
 
-    function __StorageSlotMock_init_unchained() internal initializer {
+    function __StorageSlotMock_init_unchained() internal onlyInitializing {
     }
     using StorageSlotUpgradeable for bytes32;
 

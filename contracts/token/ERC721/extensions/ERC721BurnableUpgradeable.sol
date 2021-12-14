@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC721/extensions/ERC721Burnable.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC721/extensions/ERC721Burnable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -12,13 +12,13 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev ERC721 Token that can be irreversibly burned (destroyed).
  */
 abstract contract ERC721BurnableUpgradeable is Initializable, ContextUpgradeable, ERC721Upgradeable {
-    function __ERC721Burnable_init() internal initializer {
+    function __ERC721Burnable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721Burnable_init_unchained();
     }
 
-    function __ERC721Burnable_init_unchained() internal initializer {
+    function __ERC721Burnable_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (access/AccessControlEnumerable.sol)
+// OpenZeppelin Contracts v4.4.1 (access/AccessControlEnumerable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -12,14 +12,14 @@ import "../proxy/utils/Initializable.sol";
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
  */
 abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerableUpgradeable, AccessControlUpgradeable {
-    function __AccessControlEnumerable_init() internal initializer {
+    function __AccessControlEnumerable_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
         __AccessControlEnumerable_init_unchained();
     }
 
-    function __AccessControlEnumerable_init_unchained() internal initializer {
+    function __AccessControlEnumerable_init_unchained() internal onlyInitializing {
     }
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20FlashMint.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20FlashMint.sol)
 
 pragma solidity ^0.8.0;
 
@@ -17,12 +17,12 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v4.1._
  */
 abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLenderUpgradeable {
-    function __ERC20FlashMint_init() internal initializer {
+    function __ERC20FlashMint_init() internal onlyInitializing {
         __Context_init_unchained();
         __ERC20FlashMint_init_unchained();
     }
 
-    function __ERC20FlashMint_init_unchained() internal initializer {
+    function __ERC20FlashMint_init_unchained() internal onlyInitializing {
     }
     bytes32 private constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 

@@ -20,7 +20,7 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IER
         bool recReverts,
         bytes4 batRetval,
         bool batReverts
-    ) internal initializer {
+    ) internal onlyInitializing {
         __ERC165_init_unchained();
         __ERC1155ReceiverMock_init_unchained(recRetval, recReverts, batRetval, batReverts);
     }
@@ -30,7 +30,7 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IER
         bool recReverts,
         bytes4 batRetval,
         bool batReverts
-    ) internal initializer {
+    ) internal onlyInitializing {
         _recRetval = recRetval;
         _recReverts = recReverts;
         _batRetval = batRetval;

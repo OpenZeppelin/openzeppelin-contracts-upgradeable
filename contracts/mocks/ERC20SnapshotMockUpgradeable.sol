@@ -11,7 +11,7 @@ contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __ERC20Snapshot_init_unchained();
@@ -23,7 +23,7 @@ contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(initialAccount, initialBalance);
     }
 

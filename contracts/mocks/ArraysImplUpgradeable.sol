@@ -10,11 +10,11 @@ contract ArraysImplUpgradeable is Initializable {
 
     uint256[] private _array;
 
-    function __ArraysImpl_init(uint256[] memory array) internal initializer {
+    function __ArraysImpl_init(uint256[] memory array) internal onlyInitializing {
         __ArraysImpl_init_unchained(array);
     }
 
-    function __ArraysImpl_init_unchained(uint256[] memory array) internal initializer {
+    function __ArraysImpl_init_unchained(uint256[] memory array) internal onlyInitializing {
         _array = array;
     }
 

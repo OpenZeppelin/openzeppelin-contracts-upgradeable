@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC777/ERC777.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC777/ERC777.sol)
 
 pragma solidity ^0.8.0;
 
@@ -62,7 +62,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         string memory name_,
         string memory symbol_,
         address[] memory defaultOperators_
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC777_init_unchained(name_, symbol_, defaultOperators_);
     }
@@ -71,7 +71,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         string memory name_,
         string memory symbol_,
         address[] memory defaultOperators_
-    ) internal initializer {
+    ) internal onlyInitializing {
         _name = name_;
         _symbol = symbol_;
 

@@ -15,7 +15,7 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal initializer {
+    ) internal onlyInitializing {
         __Context_init_unchained();
         __ERC777_init_unchained(name, symbol, defaultOperators);
         __ERC777Mock_init_unchained(initialHolder, initialBalance, name, symbol, defaultOperators);
@@ -27,7 +27,7 @@ contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgra
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) internal initializer {
+    ) internal onlyInitializing {
         _mint(initialHolder, initialBalance, "", "");
     }
 

@@ -6,7 +6,7 @@ import "../token/ERC20/extensions/ERC20VotesCompUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC20VotesCompMockUpgradeable is Initializable, ERC20VotesCompUpgradeable {
-    function __ERC20VotesCompMock_init(string memory name, string memory symbol) internal initializer {
+    function __ERC20VotesCompMock_init(string memory name, string memory symbol) internal onlyInitializing {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
         __EIP712_init_unchained(name, "1");
@@ -16,7 +16,7 @@ contract ERC20VotesCompMockUpgradeable is Initializable, ERC20VotesCompUpgradeab
         __ERC20VotesCompMock_init_unchained(name, symbol);
     }
 
-    function __ERC20VotesCompMock_init_unchained(string memory name, string memory symbol) internal initializer {}
+    function __ERC20VotesCompMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
 
     function mint(address account, uint256 amount) public {
         _mint(account, amount);

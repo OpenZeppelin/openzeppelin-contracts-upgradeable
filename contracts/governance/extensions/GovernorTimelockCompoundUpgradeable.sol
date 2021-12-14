@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/extensions/GovernorTimelockCompound.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/extensions/GovernorTimelockCompound.sol)
 
 pragma solidity ^0.8.0;
 
@@ -94,7 +94,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
     /**
      * @dev Set the timelock.
      */
-    function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal initializer {
+    function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __IGovernor_init_unchained();
@@ -102,7 +102,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
         __GovernorTimelockCompound_init_unchained(timelockAddress);
     }
 
-    function __GovernorTimelockCompound_init_unchained(ICompoundTimelockUpgradeable timelockAddress) internal initializer {
+    function __GovernorTimelockCompound_init_unchained(ICompoundTimelockUpgradeable timelockAddress) internal onlyInitializing {
         _updateTimelock(timelockAddress);
     }
 

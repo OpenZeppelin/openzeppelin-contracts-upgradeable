@@ -6,7 +6,7 @@ import "../token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC721BurnableMockUpgradeable is Initializable, ERC721BurnableUpgradeable {
-    function __ERC721BurnableMock_init(string memory name, string memory symbol) internal initializer {
+    function __ERC721BurnableMock_init(string memory name, string memory symbol) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __ERC721_init_unchained(name, symbol);
@@ -14,7 +14,7 @@ contract ERC721BurnableMockUpgradeable is Initializable, ERC721BurnableUpgradeab
         __ERC721BurnableMock_init_unchained(name, symbol);
     }
 
-    function __ERC721BurnableMock_init_unchained(string memory name, string memory symbol) internal initializer {}
+    function __ERC721BurnableMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
 
     function exists(uint256 tokenId) public view returns (bool) {
         return _exists(tokenId);

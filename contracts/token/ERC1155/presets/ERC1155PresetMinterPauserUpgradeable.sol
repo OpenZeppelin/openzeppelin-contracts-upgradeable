@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/presets/ERC1155PresetMinterPauser.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/presets/ERC1155PresetMinterPauser.sol)
 
 pragma solidity ^0.8.0;
 
@@ -35,7 +35,7 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
      * deploys the contract.
      */
-    function __ERC1155PresetMinterPauser_init(string memory uri) internal initializer {
+    function __ERC1155PresetMinterPauser_init(string memory uri) internal onlyInitializing {
         __Context_init_unchained();
         __ERC165_init_unchained();
         __AccessControl_init_unchained();
@@ -47,7 +47,7 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
         __ERC1155PresetMinterPauser_init_unchained(uri);
     }
 
-    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal initializer {
+    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());
