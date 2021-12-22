@@ -16,7 +16,7 @@ contract GovernorMockUpgradeable is
 {
     function __GovernorMock_init(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorumNumerator_
@@ -36,7 +36,7 @@ contract GovernorMockUpgradeable is
 
     function __GovernorMock_init_unchained(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorumNumerator_

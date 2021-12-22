@@ -41,7 +41,7 @@ contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function allowance(address, address) public view returns (uint256) {
-        require(_dummy == 0); // Duummy read from a state variable so that the function is view
+        require(_dummy == 0); // Dummy read from a state variable so that the function is view
         return 0;
     }
     uint256[48] private __gap;

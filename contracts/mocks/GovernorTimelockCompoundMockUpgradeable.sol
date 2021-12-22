@@ -16,7 +16,7 @@ contract GovernorTimelockCompoundMockUpgradeable is
 {
     function __GovernorTimelockCompoundMock_init(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         ICompoundTimelockUpgradeable timelock_,
@@ -38,7 +38,7 @@ contract GovernorTimelockCompoundMockUpgradeable is
 
     function __GovernorTimelockCompoundMock_init_unchained(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         ICompoundTimelockUpgradeable timelock_,

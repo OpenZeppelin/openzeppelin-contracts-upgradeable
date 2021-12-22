@@ -18,7 +18,7 @@ contract GovernorPreventLateQuorumMockUpgradeable is
 
     function __GovernorPreventLateQuorumMock_init(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorum_,
@@ -38,7 +38,7 @@ contract GovernorPreventLateQuorumMockUpgradeable is
 
     function __GovernorPreventLateQuorumMock_init_unchained(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         uint256 quorum_,

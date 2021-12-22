@@ -16,7 +16,7 @@ contract GovernorTimelockControlMockUpgradeable is
 {
     function __GovernorTimelockControlMock_init(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         TimelockControllerUpgradeable timelock_,
@@ -38,7 +38,7 @@ contract GovernorTimelockControlMockUpgradeable is
 
     function __GovernorTimelockControlMock_init_unchained(
         string memory name_,
-        ERC20VotesUpgradeable token_,
+        IVotesUpgradeable token_,
         uint256 votingDelay_,
         uint256 votingPeriod_,
         TimelockControllerUpgradeable timelock_,

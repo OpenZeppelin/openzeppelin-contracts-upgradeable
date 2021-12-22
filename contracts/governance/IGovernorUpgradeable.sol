@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/IGovernor.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/IGovernor.sol)
 
 pragma solidity ^0.8.0;
 
@@ -200,7 +200,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
     function castVote(uint256 proposalId, uint8 support) public virtual returns (uint256 balance);
 
     /**
-     * @dev Cast a with a reason
+     * @dev Cast a vote with a reason
      *
      * Emits a {VoteCast} event.
      */

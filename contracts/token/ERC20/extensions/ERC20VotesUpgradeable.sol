@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (token/ERC20/extensions/ERC20Votes.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Votes.sol)
 
 pragma solidity ^0.8.0;
 
 import "./draft-ERC20PermitUpgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
+import "../../../governance/utils/IVotesUpgradeable.sol";
 import "../../../utils/math/SafeCastUpgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
@@ -26,7 +27,7 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.2._
  */
-abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable {
+abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC20PermitUpgradeable {
     function __ERC20Votes_init_unchained() internal onlyInitializing {
     }
     struct Checkpoint {
@@ -40,16 +41,6 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
     mapping(address => address) private _delegates;
     mapping(address => Checkpoint[]) private _checkpoints;
     Checkpoint[] private _totalSupplyCheckpoints;
-
-    /**
-     * @dev Emitted when an account changes their delegate.
-     */
-    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);
-
-    /**
-     * @dev Emitted when a token transfer or delegate change results in changes to an account's voting power.
-     */
-    event DelegateVotesChanged(address indexed delegate, uint256 previousBalance, uint256 newBalance);
 
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
@@ -68,14 +59,14 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
     /**
      * @dev Get the address `account` is currently delegating to.
      */
-    function delegates(address account) public view virtual returns (address) {
+    function delegates(address account) public view virtual override returns (address) {
         return _delegates[account];
     }
 
     /**
      * @dev Gets the current votes balance for `account`
      */
-    function getVotes(address account) public view returns (uint256) {
+    function getVotes(address account) public view override returns (uint256) {
         uint256 pos = _checkpoints[account].length;
         return pos == 0 ? 0 : _checkpoints[account][pos - 1].votes;
     }
@@ -87,7 +78,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
      *
      * - `blockNumber` must have been already mined
      */
-    function getPastVotes(address account, uint256 blockNumber) public view returns (uint256) {
+    function getPastVotes(address account, uint256 blockNumber) public view override returns (uint256) {
         require(blockNumber < block.number, "ERC20Votes: block not yet mined");
         return _checkpointsLookup(_checkpoints[account], blockNumber);
     }
@@ -100,7 +91,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
      *
      * - `blockNumber` must have been already mined
      */
-    function getPastTotalSupply(uint256 blockNumber) public view returns (uint256) {
+    function getPastTotalSupply(uint256 blockNumber) public view override returns (uint256) {
         require(blockNumber < block.number, "ERC20Votes: block not yet mined");
         return _checkpointsLookup(_totalSupplyCheckpoints, blockNumber);
     }
@@ -137,7 +128,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
     /**
      * @dev Delegate votes from the sender to `delegatee`.
      */
-    function delegate(address delegatee) public virtual {
+    function delegate(address delegatee) public virtual override {
         _delegate(_msgSender(), delegatee);
     }
 
@@ -151,7 +142,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) public virtual {
+    ) public virtual override {
         require(block.timestamp <= expiry, "ERC20Votes: signature expired");
         address signer = ECDSAUpgradeable.recover(
             _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
