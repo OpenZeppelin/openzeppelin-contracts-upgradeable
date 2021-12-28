@@ -727,13 +727,6 @@ contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
         __ContextMockCaller_init();
     }
 }
-import "./ERC2771ContextMockUpgradeable.sol";
-
-contract ERC2771ContextMockUpgradeableWithInit is ERC2771ContextMockUpgradeable {
-    constructor(address trustedForwarder) public payable initializer {
-        __ERC2771ContextMock_init(trustedForwarder);
-    }
-}
 import "./ERC20DecimalsMockUpgradeable.sol";
 
 contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
