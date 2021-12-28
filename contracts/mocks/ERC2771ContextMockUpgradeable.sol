@@ -9,7 +9,7 @@ import "../proxy/utils/Initializable.sol";
 // By inheriting from ERC2771Context, Context's internal functions are overridden automatically
 contract ERC2771ContextMockUpgradeable is Initializable, ContextMockUpgradeable, ERC2771ContextUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow constructor
-    
+    constructor(address trustedForwarder) ERC2771ContextUpgradeable(trustedForwarder) {
         emit Sender(_msgSender()); // _msgSender() should be accessible during construction
     }
 

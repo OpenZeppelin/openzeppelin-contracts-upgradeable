@@ -14,7 +14,7 @@ abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable
     address private immutable _trustedForwarder;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
-    
+    constructor(address trustedForwarder) {
         _trustedForwarder = trustedForwarder;
     }
 
