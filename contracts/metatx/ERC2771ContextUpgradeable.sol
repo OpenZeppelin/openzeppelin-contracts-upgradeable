@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (metatx/ERC2771Context.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.9;
 
 import "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
@@ -10,14 +10,11 @@ import "../proxy/utils/Initializable.sol";
  * @dev Context variant with ERC2771 support.
  */
 abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable {
-    address private _trustedForwarder;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address private immutable _trustedForwarder;
 
-    function __ERC2771Context_init(address trustedForwarder) internal onlyInitializing {
-        __Context_init_unchained();
-        __ERC2771Context_init_unchained(trustedForwarder);
-    }
-
-    function __ERC2771Context_init_unchained(address trustedForwarder) internal onlyInitializing {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    
         _trustedForwarder = trustedForwarder;
     }
 
@@ -43,5 +40,5 @@ abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable
             return super._msgData();
         }
     }
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }
