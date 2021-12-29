@@ -840,6 +840,13 @@ contract BadBeaconNotContractUpgradeableWithInit is BadBeaconNotContractUpgradea
         __BadBeaconNotContract_init();
     }
 }
+import "./Base64MockUpgradeable.sol";
+
+contract Base64MockUpgradeableWithInit is Base64MockUpgradeable {
+    constructor() public payable initializer {
+        __Base64Mock_init();
+    }
+}
 import "./BitmapMockUpgradeable.sol";
 
 contract BitMapMockUpgradeableWithInit is BitMapMockUpgradeable {
