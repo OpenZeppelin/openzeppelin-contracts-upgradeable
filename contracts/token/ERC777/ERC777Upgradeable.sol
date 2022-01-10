@@ -268,6 +268,9 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     /**
      * @dev See {IERC20-approve}.
      *
+     * NOTE: If `value` is the maximum `uint256`, the allowance is not updated on
+     * `transferFrom`. This is semantically equivalent to an infinite approval.
+     *
      * Note that accounts cannot have allowance issued by their operators.
      */
     function approve(address spender, uint256 value) public virtual override returns (bool) {
@@ -278,6 +281,9 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
 
     /**
      * @dev See {IERC20-transferFrom}.
+     *
+     * NOTE: Does not update the allowance if the current allowance
+     * is the maximum `uint256`.
      *
      * Note that operator and allowance concepts are orthogonal: operators cannot
      * call `transferFrom` (unless they have allowance), and accounts with
@@ -298,8 +304,12 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _callTokensToSend(spender, holder, recipient, amount, "", "");
 
         uint256 currentAllowance = _allowances[holder][spender];
-        require(currentAllowance >= amount, "ERC777: transfer amount exceeds allowance");
-        _approve(holder, spender, currentAllowance - amount);
+        if (currentAllowance != type(uint256).max) {
+            require(currentAllowance >= amount, "ERC777: transfer amount exceeds allowance");
+            unchecked {
+                _approve(holder, spender, currentAllowance - amount);
+            }
+        }
 
         _move(spender, holder, recipient, amount, "", "");
 
