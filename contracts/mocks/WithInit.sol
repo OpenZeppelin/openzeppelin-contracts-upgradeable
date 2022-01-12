@@ -931,6 +931,13 @@ contract SafeMathMockUpgradeableWithInit is SafeMathMockUpgradeable {
         __SafeMathMock_init();
     }
 }
+import "./SignedMathMockUpgradeable.sol";
+
+contract SignedMathMockUpgradeableWithInit is SignedMathMockUpgradeable {
+    constructor() public payable initializer {
+        __SignedMathMock_init();
+    }
+}
 import "./SignedSafeMathMockUpgradeable.sol";
 
 contract SignedSafeMathMockUpgradeableWithInit is SignedSafeMathMockUpgradeable {
