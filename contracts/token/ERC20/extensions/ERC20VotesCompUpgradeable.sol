@@ -29,14 +29,14 @@ abstract contract ERC20VotesCompUpgradeable is Initializable, ERC20VotesUpgradea
     /**
      * @dev Comp version of the {getVotes} accessor, with `uint96` return type.
      */
-    function getCurrentVotes(address account) external view returns (uint96) {
+    function getCurrentVotes(address account) external view virtual returns (uint96) {
         return SafeCastUpgradeable.toUint96(getVotes(account));
     }
 
     /**
      * @dev Comp version of the {getPastVotes} accessor, with `uint96` return type.
      */
-    function getPriorVotes(address account, uint256 blockNumber) external view returns (uint96) {
+    function getPriorVotes(address account, uint256 blockNumber) external view virtual returns (uint96) {
         return SafeCastUpgradeable.toUint96(getPastVotes(account, blockNumber));
     }
 

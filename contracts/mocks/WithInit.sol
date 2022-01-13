@@ -661,25 +661,25 @@ contract CountersImplUpgradeableWithInit is CountersImplUpgradeable {
         __CountersImpl_init();
     }
 }
-import "./UUPS/TestInProdUpgradeable.sol";
+import "./UUPS/UUPSUpgradeableMockUpgradeable.sol";
 
 contract UUPSUpgradeableMockUpgradeableWithInit is UUPSUpgradeableMockUpgradeable {
     constructor() payable initializer {
         __UUPSUpgradeableMock_init();
     }
 }
-import "./UUPS/TestInProdUpgradeable.sol";
+import "./UUPS/UUPSUpgradeableMockUpgradeable.sol";
 
 contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMockUpgradeable {
     constructor() payable initializer {
         __UUPSUpgradeableUnsafeMock_init();
     }
 }
-import "./UUPS/TestInProdUpgradeable.sol";
+import "./UUPS/UUPSLegacyUpgradeable.sol";
 
-contract UUPSUpgradeableBrokenMockUpgradeableWithInit is UUPSUpgradeableBrokenMockUpgradeable {
+contract UUPSUpgradeableLegacyMockUpgradeableWithInit is UUPSUpgradeableLegacyMockUpgradeable {
     constructor() payable initializer {
-        __UUPSUpgradeableBrokenMock_init();
+        __UUPSUpgradeableLegacyMock_init();
     }
 }
 import "./ReentrancyAttackUpgradeable.sol";

@@ -379,7 +379,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address target,
         uint256 value,
         bytes calldata data
-    ) external onlyGovernance {
+    ) external virtual onlyGovernance {
         AddressUpgradeable.functionCallWithValue(target, data, value);
     }
 

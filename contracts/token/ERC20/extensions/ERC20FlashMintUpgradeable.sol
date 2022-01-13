@@ -31,7 +31,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      * @param token The address of the token that is requested.
      * @return The amont of token that can be loaned.
      */
-    function maxFlashLoan(address token) public view override returns (uint256) {
+    function maxFlashLoan(address token) public view virtual override returns (uint256) {
         return token == address(this) ? type(uint256).max - ERC20Upgradeable.totalSupply() : 0;
     }
 
@@ -70,6 +70,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
         uint256 amount,
         bytes calldata data
     ) public virtual override returns (bool) {
+        require(amount <= maxFlashLoan(token), "ERC20FlashMint: amount exceeds maxFlashLoan");
         uint256 fee = flashFee(token, amount);
         _mint(address(receiver), amount);
         require(

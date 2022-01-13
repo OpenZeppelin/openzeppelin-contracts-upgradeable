@@ -4,6 +4,7 @@
 pragma solidity ^0.8.2;
 
 import "../beacon/IBeaconUpgradeable.sol";
+import "../../interfaces/draft-IERC1822Upgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/StorageSlotUpgradeable.sol";
 import "../utils/Initializable.sol";
@@ -84,33 +85,23 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits an {Upgraded} event.
      */
-    function _upgradeToAndCallSecure(
+    function _upgradeToAndCallUUPS(
         address newImplementation,
         bytes memory data,
         bool forceCall
     ) internal {
-        address oldImplementation = _getImplementation();
-
-        // Initial upgrade and setup call
-        _setImplementation(newImplementation);
-        if (data.length > 0 || forceCall) {
-            _functionDelegateCall(newImplementation, data);
-        }
-
-        // Perform rollback test if not already in progress
-        StorageSlotUpgradeable.BooleanSlot storage rollbackTesting = StorageSlotUpgradeable.getBooleanSlot(_ROLLBACK_SLOT);
-        if (!rollbackTesting.value) {
-            // Trigger rollback using upgradeTo from the new implementation
-            rollbackTesting.value = true;
-            _functionDelegateCall(
-                newImplementation,
-                abi.encodeWithSignature("upgradeTo(address)", oldImplementation)
-            );
-            rollbackTesting.value = false;
-            // Check rollback was effective
-            require(oldImplementation == _getImplementation(), "ERC1967Upgrade: upgrade breaks further upgrades");
-            // Finally reset to the new implementation and log the upgrade
-            _upgradeTo(newImplementation);
+        // Upgrades from old implementations will perform a rollback test. This test requires the new
+        // implementation to upgrade back to the old, non-ERC1822 compliant, implementation. Removing
+        // this special case will break upgrade paths from old UUPS implementation to new ones.
+        if (StorageSlotUpgradeable.getBooleanSlot(_ROLLBACK_SLOT).value) {
+            _setImplementation(newImplementation);
+        } else {
+            try IERC1822ProxiableUpgradeable(newImplementation).proxiableUUID() returns (bytes32 slot) {
+                require(slot == _IMPLEMENTATION_SLOT, "ERC1967Upgrade: unsupported proxiableUUID");
+            } catch {
+                revert("ERC1967Upgrade: new implementation is not UUPS");
+            }
+            _upgradeToAndCall(newImplementation, data, forceCall);
         }
     }
 

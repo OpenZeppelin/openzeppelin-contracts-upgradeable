@@ -41,24 +41,3 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
     }
     uint256[50] private __gap;
 }
-
-contract UUPSUpgradeableBrokenMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
-    function __UUPSUpgradeableBrokenMock_init() internal onlyInitializing {
-        __CountersImpl_init_unchained();
-        __ERC1967Upgrade_init_unchained();
-        __UUPSUpgradeable_init_unchained();
-        __UUPSUpgradeableMock_init_unchained();
-        __UUPSUpgradeableBrokenMock_init_unchained();
-    }
-
-    function __UUPSUpgradeableBrokenMock_init_unchained() internal onlyInitializing {
-    }
-    function upgradeTo(address) external virtual override {
-        // pass
-    }
-
-    function upgradeToAndCall(address, bytes memory) external payable virtual override {
-        // pass
-    }
-    uint256[50] private __gap;
-}

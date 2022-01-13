@@ -3,6 +3,7 @@
 
 pragma solidity ^0.8.0;
 
+import "../../interfaces/draft-IERC1822Upgradeable.sol";
 import "../ERC1967/ERC1967UpgradeUpgradeable.sol";
 import "./Initializable.sol";
 
@@ -18,7 +19,7 @@ import "./Initializable.sol";
  *
  * _Available since v4.1._
  */
-abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
+abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable, ERC1967UpgradeUpgradeable {
     function __UUPSUpgradeable_init() internal onlyInitializing {
         __ERC1967Upgrade_init_unchained();
         __UUPSUpgradeable_init_unchained();
@@ -43,6 +44,27 @@ abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
     }
 
     /**
+     * @dev Check that the execution is not being performed through a delegate call. This allows a function to be
+     * callable on the implementing contract but not through proxies.
+     */
+    modifier notDelegated() {
+        require(address(this) == __self, "UUPSUpgradeable: must not be called through delegatecall");
+        _;
+    }
+
+    /**
+     * @dev Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the
+     * implementation. It is used to validate that the this implementation remains valid after an upgrade.
+     *
+     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks
+     * bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this
+     * function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.
+     */
+    function proxiableUUID() external view virtual override notDelegated returns (bytes32) {
+        return _IMPLEMENTATION_SLOT;
+    }
+
+    /**
      * @dev Upgrade the implementation of the proxy to `newImplementation`.
      *
      * Calls {_authorizeUpgrade}.
@@ -51,7 +73,7 @@ abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
      */
     function upgradeTo(address newImplementation) external virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
-        _upgradeToAndCallSecure(newImplementation, new bytes(0), false);
+        _upgradeToAndCallUUPS(newImplementation, new bytes(0), false);
     }
 
     /**
@@ -64,7 +86,7 @@ abstract contract UUPSUpgradeable is Initializable, ERC1967UpgradeUpgradeable {
      */
     function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
-        _upgradeToAndCallSecure(newImplementation, data, true);
+        _upgradeToAndCallUUPS(newImplementation, data, true);
     }
 
     /**
