@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (governance/Governor.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/Governor.sol)
 
 pragma solidity ^0.8.0;
 
@@ -370,7 +370,7 @@ abstract contract Governor is Context, ERC165, EIP712, IGovernor {
         address target,
         uint256 value,
         bytes calldata data
-    ) external onlyGovernance {
+    ) external virtual onlyGovernance {
         Address.functionCallWithValue(target, data, value);
     }
 
