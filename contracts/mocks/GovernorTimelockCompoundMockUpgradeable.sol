@@ -37,12 +37,12 @@ contract GovernorTimelockCompoundMockUpgradeable is
     }
 
     function __GovernorTimelockCompoundMock_init_unchained(
-        string memory name_,
-        IVotesUpgradeable token_,
-        uint256 votingDelay_,
-        uint256 votingPeriod_,
-        ICompoundTimelockUpgradeable timelock_,
-        uint256 quorumNumerator_
+        string memory,
+        IVotesUpgradeable,
+        uint256,
+        uint256,
+        ICompoundTimelockUpgradeable,
+        uint256
     ) internal onlyInitializing {}
 
     function supportsInterface(bytes4 interfaceId)

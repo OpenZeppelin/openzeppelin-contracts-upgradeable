@@ -12,7 +12,7 @@ contract EIP712ExternalUpgradeable is Initializable, EIP712Upgradeable {
         __EIP712External_init_unchained(name, version);
     }
 
-    function __EIP712External_init_unchained(string memory name, string memory version) internal onlyInitializing {}
+    function __EIP712External_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function domainSeparator() external view returns (bytes32) {
         return _domainSeparatorV4();

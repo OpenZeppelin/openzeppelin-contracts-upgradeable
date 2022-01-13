@@ -19,8 +19,8 @@ contract ERC20MockUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     function __ERC20Mock_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         address initialAccount,
         uint256 initialBalance
     ) internal onlyInitializing {

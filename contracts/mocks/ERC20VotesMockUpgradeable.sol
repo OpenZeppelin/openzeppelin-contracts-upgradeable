@@ -15,7 +15,7 @@ contract ERC20VotesMockUpgradeable is Initializable, ERC20VotesUpgradeable {
         __ERC20VotesMock_init_unchained(name, symbol);
     }
 
-    function __ERC20VotesMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
+    function __ERC20VotesMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function mint(address account, uint256 amount) public {
         _mint(account, amount);

@@ -18,9 +18,9 @@ contract ERC20WrapperMockUpgradeable is Initializable, ERC20WrapperUpgradeable {
     }
 
     function __ERC20WrapperMock_init_unchained(
-        IERC20Upgradeable _underlyingToken,
-        string memory name,
-        string memory symbol
+        IERC20Upgradeable,
+        string memory,
+        string memory
     ) internal onlyInitializing {}
 
     function recover(address account) public returns (uint256) {

@@ -19,8 +19,8 @@ contract ERC20BurnableMockUpgradeable is Initializable, ERC20BurnableUpgradeable
     }
 
     function __ERC20BurnableMock_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         address initialAccount,
         uint256 initialBalance
     ) internal onlyInitializing {

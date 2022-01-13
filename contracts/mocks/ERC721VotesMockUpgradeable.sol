@@ -16,7 +16,7 @@ contract ERC721VotesMockUpgradeable is Initializable, ERC721VotesUpgradeable {
         __ERC721VotesMock_init_unchained(name, symbol);
     }
 
-    function __ERC721VotesMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
+    function __ERC721VotesMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function getTotalSupply() public view returns (uint256) {
         return _getTotalSupply();

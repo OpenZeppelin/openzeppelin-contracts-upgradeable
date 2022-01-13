@@ -17,7 +17,7 @@ contract ERC1155MockUpgradeable is Initializable, ERC1155Upgradeable {
         __ERC1155Mock_init_unchained(uri);
     }
 
-    function __ERC1155Mock_init_unchained(string memory uri) internal onlyInitializing {}
+    function __ERC1155Mock_init_unchained(string memory) internal onlyInitializing {}
 
     function setURI(string memory newuri) public {
         _setURI(newuri);

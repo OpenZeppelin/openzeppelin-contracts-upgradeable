@@ -20,8 +20,8 @@ contract ERC20PermitMockUpgradeable is Initializable, ERC20PermitUpgradeable {
     }
 
     function __ERC20PermitMock_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         address initialAccount,
         uint256 initialBalance
     ) internal onlyInitializing {

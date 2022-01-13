@@ -41,9 +41,9 @@ contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable 
     }
 
     function __ERC777PresetFixedSupply_init_unchained(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators,
+        string memory,
+        string memory,
+        address[] memory,
         uint256 initialSupply,
         address owner
     ) internal onlyInitializing {

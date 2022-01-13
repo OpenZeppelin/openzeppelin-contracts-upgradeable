@@ -19,8 +19,8 @@ contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     function __ERC20DecimalsMock_init_unchained(
-        string memory name_,
-        string memory symbol_,
+        string memory,
+        string memory,
         uint8 decimals_
     ) internal onlyInitializing {
         _decimals = decimals_;

@@ -37,12 +37,12 @@ contract GovernorCompatibilityBravoMockUpgradeable is
     }
 
     function __GovernorCompatibilityBravoMock_init_unchained(
-        string memory name_,
-        ERC20VotesCompUpgradeable token_,
-        uint256 votingDelay_,
-        uint256 votingPeriod_,
-        uint256 proposalThreshold_,
-        ICompoundTimelockUpgradeable timelock_
+        string memory,
+        ERC20VotesCompUpgradeable,
+        uint256,
+        uint256,
+        uint256,
+        ICompoundTimelockUpgradeable
     ) internal onlyInitializing {}
 
     function supportsInterface(bytes4 interfaceId)

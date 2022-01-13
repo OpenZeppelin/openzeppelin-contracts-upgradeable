@@ -19,7 +19,7 @@ contract ERC721PausableMockUpgradeable is Initializable, ERC721PausableUpgradeab
         __ERC721PausableMock_init_unchained(name, symbol);
     }
 
-    function __ERC721PausableMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
+    function __ERC721PausableMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function pause() external {
         _pause();

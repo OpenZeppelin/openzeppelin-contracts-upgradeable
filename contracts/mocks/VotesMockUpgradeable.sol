@@ -16,7 +16,7 @@ contract VotesMockUpgradeable is Initializable, VotesUpgradeable {
         __VotesMock_init_unchained(name);
     }
 
-    function __VotesMock_init_unchained(string memory name) internal onlyInitializing {}
+    function __VotesMock_init_unchained(string memory) internal onlyInitializing {}
 
     function getTotalSupply() public view returns (uint256) {
         return _getTotalSupply();

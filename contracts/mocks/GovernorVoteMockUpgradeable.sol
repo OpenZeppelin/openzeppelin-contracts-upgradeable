@@ -18,7 +18,7 @@ contract GovernorVoteMocksUpgradeable is Initializable, GovernorVotesUpgradeable
         __GovernorVoteMocks_init_unchained(name_, token_);
     }
 
-    function __GovernorVoteMocks_init_unchained(string memory name_, IVotesUpgradeable token_) internal onlyInitializing {}
+    function __GovernorVoteMocks_init_unchained(string memory, IVotesUpgradeable) internal onlyInitializing {}
 
     function quorum(uint256) public pure override returns (uint256) {
         return 0;

@@ -19,8 +19,8 @@ contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeab
     }
 
     function __ERC20FlashMintMock_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         address initialAccount,
         uint256 initialBalance
     ) internal onlyInitializing {

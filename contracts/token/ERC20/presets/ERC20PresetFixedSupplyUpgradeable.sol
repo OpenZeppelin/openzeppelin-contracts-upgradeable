@@ -46,8 +46,8 @@ contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgrad
     }
 
     function __ERC20PresetFixedSupply_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         uint256 initialSupply,
         address owner
     ) internal onlyInitializing {

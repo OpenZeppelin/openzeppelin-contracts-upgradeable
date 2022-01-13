@@ -15,7 +15,7 @@ contract ERC721RoyaltyMockUpgradeable is Initializable, ERC721RoyaltyUpgradeable
         __ERC721RoyaltyMock_init_unchained(name, symbol);
     }
 
-    function __ERC721RoyaltyMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
+    function __ERC721RoyaltyMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function setTokenRoyalty(
         uint256 tokenId,

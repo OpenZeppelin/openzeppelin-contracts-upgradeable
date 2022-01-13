@@ -77,8 +77,8 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
     }
 
     function __ERC721PresetMinterPauserAutoId_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         string memory baseTokenURI
     ) internal onlyInitializing {
         _baseTokenURI = baseTokenURI;

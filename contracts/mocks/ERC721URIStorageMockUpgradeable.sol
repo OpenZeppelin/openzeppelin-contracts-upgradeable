@@ -20,7 +20,7 @@ contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgra
         __ERC721URIStorageMock_init_unchained(name, symbol);
     }
 
-    function __ERC721URIStorageMock_init_unchained(string memory name, string memory symbol) internal onlyInitializing {}
+    function __ERC721URIStorageMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;

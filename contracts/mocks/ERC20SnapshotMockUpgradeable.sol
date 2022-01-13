@@ -19,8 +19,8 @@ contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable
     }
 
     function __ERC20SnapshotMock_init_unchained(
-        string memory name,
-        string memory symbol,
+        string memory,
+        string memory,
         address initialAccount,
         uint256 initialBalance
     ) internal onlyInitializing {

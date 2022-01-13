@@ -35,11 +35,11 @@ contract GovernorMockUpgradeable is
     }
 
     function __GovernorMock_init_unchained(
-        string memory name_,
-        IVotesUpgradeable token_,
-        uint256 votingDelay_,
-        uint256 votingPeriod_,
-        uint256 quorumNumerator_
+        string memory,
+        IVotesUpgradeable,
+        uint256,
+        uint256,
+        uint256
     ) internal onlyInitializing {}
 
     function cancel(

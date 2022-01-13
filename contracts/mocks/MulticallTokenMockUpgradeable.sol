@@ -15,6 +15,6 @@ contract MulticallTokenMockUpgradeable is Initializable, ERC20MockUpgradeable, M
         __MulticallTokenMock_init_unchained(initialBalance);
     }
 
-    function __MulticallTokenMock_init_unchained(uint256 initialBalance) internal onlyInitializing {}
+    function __MulticallTokenMock_init_unchained(uint256) internal onlyInitializing {}
     uint256[50] private __gap;
 }

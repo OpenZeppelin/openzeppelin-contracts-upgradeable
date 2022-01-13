@@ -49,7 +49,7 @@ contract ERC1155PresetMinterPauserUpgradeable is Initializable, ContextUpgradeab
         __ERC1155PresetMinterPauser_init_unchained(uri);
     }
 
-    function __ERC1155PresetMinterPauser_init_unchained(string memory uri) internal onlyInitializing {
+    function __ERC1155PresetMinterPauser_init_unchained(string memory) internal onlyInitializing {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
         _setupRole(MINTER_ROLE, _msgSender());

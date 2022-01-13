@@ -18,7 +18,7 @@ contract GovernorCompMockUpgradeable is Initializable, GovernorVotesCompUpgradea
         __GovernorCompMock_init_unchained(name_, token_);
     }
 
-    function __GovernorCompMock_init_unchained(string memory name_, ERC20VotesCompUpgradeable token_) internal onlyInitializing {}
+    function __GovernorCompMock_init_unchained(string memory, ERC20VotesCompUpgradeable) internal onlyInitializing {}
 
     function quorum(uint256) public pure override returns (uint256) {
         return 0;

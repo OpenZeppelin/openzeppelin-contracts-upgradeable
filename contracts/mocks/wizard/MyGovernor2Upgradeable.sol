@@ -32,7 +32,7 @@ contract MyGovernor2Upgradeable is
         __MyGovernor2_init_unchained(_token, _timelock);
     }
 
-    function __MyGovernor2_init_unchained(IVotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {}
+    function __MyGovernor2_init_unchained(IVotesUpgradeable, TimelockControllerUpgradeable) internal onlyInitializing {}
 
     function votingDelay() public pure override returns (uint256) {
         return 1; // 1 block

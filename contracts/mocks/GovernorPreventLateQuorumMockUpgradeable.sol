@@ -37,12 +37,12 @@ contract GovernorPreventLateQuorumMockUpgradeable is
     }
 
     function __GovernorPreventLateQuorumMock_init_unchained(
-        string memory name_,
-        IVotesUpgradeable token_,
-        uint256 votingDelay_,
-        uint256 votingPeriod_,
+        string memory,
+        IVotesUpgradeable,
+        uint256,
+        uint256,
         uint256 quorum_,
-        uint64 voteExtension_
+        uint64
     ) internal onlyInitializing {
         _quorum = quorum_;
     }
