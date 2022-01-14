@@ -23,5 +23,9 @@ contract SignedMathMockUpgradeable is Initializable {
     function average(int256 a, int256 b) public pure returns (int256) {
         return SignedMathUpgradeable.average(a, b);
     }
+
+    function abs(int256 n) public pure returns (uint256) {
+        return SignedMathUpgradeable.abs(n);
+    }
     uint256[50] private __gap;
 }
