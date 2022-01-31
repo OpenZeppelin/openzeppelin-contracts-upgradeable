@@ -7,7 +7,6 @@ import "../proxy/utils/Initializable.sol";
 
 contract MathMockUpgradeable is Initializable {
     function __MathMock_init() internal onlyInitializing {
-        __MathMock_init_unchained();
     }
 
     function __MathMock_init_unchained() internal onlyInitializing {
@@ -27,5 +26,11 @@ contract MathMockUpgradeable is Initializable {
     function ceilDiv(uint256 a, uint256 b) public pure returns (uint256) {
         return MathUpgradeable.ceilDiv(a, b);
     }
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[50] private __gap;
 }

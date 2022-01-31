@@ -66,9 +66,6 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         address[] memory proposers,
         address[] memory executors
     ) internal onlyInitializing {
-        __Context_init_unchained();
-        __ERC165_init_unchained();
-        __AccessControl_init_unchained();
         __TimelockController_init_unchained(minDelay, proposers, executors);
     }
 
@@ -273,6 +270,9 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'executor' role.
      */
+    // This function can reenter, but it doesn't pose a risk because _afterCall checks that the proposal is pending,
+    // thus any modifications to the operation during reentrancy should be caught.
+    // slither-disable-next-line reentrancy-eth
     function execute(
         address target,
         uint256 value,
@@ -362,5 +362,11 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         emit MinDelayChange(_minDelay, newDelay);
         _minDelay = newDelay;
     }
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[48] private __gap;
 }

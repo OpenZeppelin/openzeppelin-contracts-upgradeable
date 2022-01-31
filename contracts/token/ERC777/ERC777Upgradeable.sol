@@ -63,7 +63,6 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         string memory symbol_,
         address[] memory defaultOperators_
     ) internal onlyInitializing {
-        __Context_init_unchained();
         __ERC777_init_unchained(name_, symbol_, defaultOperators_);
     }
 
@@ -154,16 +153,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      * Also emits a {Sent} event.
      */
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        require(recipient != address(0), "ERC777: transfer to the zero address");
-
-        address from = _msgSender();
-
-        _callTokensToSend(from, from, recipient, amount, "", "");
-
-        _move(from, from, recipient, amount, "", "");
-
-        _callTokensReceived(from, from, recipient, amount, "", "", false);
-
+        _send(_msgSender(), recipient, amount, "", "", false);
         return true;
     }
 
@@ -296,13 +286,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         address recipient,
         uint256 amount
     ) public virtual override returns (bool) {
-        require(recipient != address(0), "ERC777: transfer to the zero address");
-        require(holder != address(0), "ERC777: transfer from the zero address");
-
         address spender = _msgSender();
-
-        _callTokensToSend(spender, holder, recipient, amount, "", "");
-
         uint256 currentAllowance = _allowances[holder][spender];
         if (currentAllowance != type(uint256).max) {
             require(currentAllowance >= amount, "ERC777: transfer amount exceeds allowance");
@@ -311,9 +295,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
             }
         }
 
-        _move(spender, holder, recipient, amount, "", "");
-
-        _callTokensReceived(spender, holder, recipient, amount, "", "", false);
+        _send(holder, recipient, amount, "", "", false);
 
         return true;
     }
@@ -402,8 +384,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         bytes memory operatorData,
         bool requireReceptionAck
     ) internal virtual {
-        require(from != address(0), "ERC777: send from the zero address");
-        require(to != address(0), "ERC777: send to the zero address");
+        require(from != address(0), "ERC777: transfer from the zero address");
+        require(to != address(0), "ERC777: transfer to the zero address");
 
         address operator = _msgSender();
 
@@ -556,5 +538,11 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         address to,
         uint256 amount
     ) internal virtual {}
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[41] private __gap;
 }

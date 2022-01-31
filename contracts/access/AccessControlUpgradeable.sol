@@ -49,9 +49,6 @@ import "../proxy/utils/Initializable.sol";
  */
 abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControlUpgradeable, ERC165Upgradeable {
     function __AccessControl_init() internal onlyInitializing {
-        __Context_init_unchained();
-        __ERC165_init_unchained();
-        __AccessControl_init_unchained();
     }
 
     function __AccessControl_init_unchained() internal onlyInitializing {
@@ -76,7 +73,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * _Available since v4.1._
      */
     modifier onlyRole(bytes32 role) {
-        _checkRole(role, _msgSender());
+        _checkRole(role);
         _;
     }
 
@@ -92,6 +89,18 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function hasRole(bytes32 role, address account) public view virtual override returns (bool) {
         return _roles[role].members[account];
+    }
+
+    /**
+     * @dev Revert with a standard message if `_msgSender()` is missing `role`.
+     * Overriding this function changes the behavior of the {onlyRole} modifier.
+     *
+     * Format of the revert message is described in {_checkRole}.
+     *
+     * _Available since v4.6._
+     */
+    function _checkRole(bytes32 role) internal view virtual {
+        _checkRole(role, _msgSender());
     }
 
     /**
@@ -229,5 +238,11 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
             emit RoleRevoked(role, account, _msgSender());
         }
     }
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[49] private __gap;
 }

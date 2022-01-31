@@ -36,10 +36,6 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
      * @dev Set the timelock.
      */
     function __GovernorTimelockControl_init(TimelockControllerUpgradeable timelockAddress) internal onlyInitializing {
-        __Context_init_unchained();
-        __ERC165_init_unchained();
-        __IGovernor_init_unchained();
-        __IGovernorTimelock_init_unchained();
         __GovernorTimelockControl_init_unchained(timelockAddress);
     }
 
@@ -131,6 +127,9 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
      * @dev Overriden version of the {Governor-_cancel} function to cancel the timelocked proposal if it as already
      * been queued.
      */
+    // This function can reenter through the external call to the timelock, but we assume the timelock is trusted and
+    // well behaved (according to TimelockController) and this will not happen.
+    // slither-disable-next-line reentrancy-no-eth
     function _cancel(
         address[] memory targets,
         uint256[] memory values,
@@ -166,5 +165,11 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
         emit TimelockChange(address(_timelock), address(newTimelock));
         _timelock = newTimelock;
     }
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[48] private __gap;
 }

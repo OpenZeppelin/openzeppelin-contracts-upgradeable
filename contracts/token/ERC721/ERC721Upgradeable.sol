@@ -43,8 +43,6 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
     function __ERC721_init(string memory name_, string memory symbol_) internal onlyInitializing {
-        __Context_init_unchained();
-        __ERC165_init_unchained();
         __ERC721_init_unchained(name_, symbol_);
     }
 
@@ -107,7 +105,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
      * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
-     * by default, can be overriden in child contracts.
+     * by default, can be overridden in child contracts.
      */
     function _baseURI() internal view virtual returns (string memory) {
         return "";
@@ -451,5 +449,11 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
         address to,
         uint256 tokenId
     ) internal virtual {}
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[44] private __gap;
 }

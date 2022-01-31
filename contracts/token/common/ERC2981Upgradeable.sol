@@ -24,8 +24,6 @@ import "../../proxy/utils/Initializable.sol";
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
     function __ERC2981_init() internal onlyInitializing {
-        __ERC165_init_unchained();
-        __ERC2981_init_unchained();
     }
 
     function __ERC2981_init_unchained() internal onlyInitializing {
@@ -48,7 +46,13 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     /**
      * @inheritdoc IERC2981Upgradeable
      */
-    function royaltyInfo(uint256 _tokenId, uint256 _salePrice) external view override returns (address, uint256) {
+    function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
+        external
+        view
+        virtual
+        override
+        returns (address, uint256)
+    {
         RoyaltyInfo memory royalty = _tokenRoyaltyInfo[_tokenId];
 
         if (royalty.receiver == address(0)) {
@@ -117,5 +121,11 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     function _resetTokenRoyalty(uint256 tokenId) internal virtual {
         delete _tokenRoyaltyInfo[tokenId];
     }
+
+    /**
+     * This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
     uint256[48] private __gap;
 }
