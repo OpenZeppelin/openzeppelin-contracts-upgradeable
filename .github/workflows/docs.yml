@@ -1,15 +1,11 @@
-name: Test
+name: Build Docs
 
 on:
   push:
-    branches:
-      - master
-      - release-v*
-  pull_request: {}
-  workflow_dispatch: {}
+    branches: [release-v*]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,12 +20,6 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
-      - run: bash scripts/upgradeable/transpile.sh
-        if: github.event_name == 'pull_request'
-      - run: npm run test
-        env:
-          FORCE_COLOR: 1
-          ENABLE_GAS_REPORT: true
-      - run: npm run test:inheritance
-      - name: Print gas report
-        run: cat gas-report.txt
+      - run: bash scripts/git-user-config.sh
+      - run: node scripts/update-docs-branch.js
+      - run: git push --all origin 
