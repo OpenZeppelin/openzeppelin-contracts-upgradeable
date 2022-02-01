@@ -57,7 +57,13 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
 
         if (to == address(0)) {
             for (uint256 i = 0; i < ids.length; ++i) {
-                _totalSupply[ids[i]] -= amounts[i];
+                uint256 id = ids[i];
+                uint256 amount = amounts[i];
+                uint256 supply = _totalSupply[id];
+                require(supply >= amount, "ERC1155: burn amount exceeds totalSupply");
+                unchecked {
+                    _totalSupply[id] = supply - amount;
+                }
             }
         }
     }
