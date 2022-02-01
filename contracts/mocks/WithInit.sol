@@ -272,9 +272,16 @@ contract EnumerableUintSetMockUpgradeableWithInit is EnumerableUintSetMockUpgrad
 }
 import "./EnumerableMapMockUpgradeable.sol";
 
-contract EnumerableMapMockUpgradeableWithInit is EnumerableMapMockUpgradeable {
+contract UintToAddressMapMockUpgradeableWithInit is UintToAddressMapMockUpgradeable {
     constructor() payable initializer {
-        __EnumerableMapMock_init();
+        __UintToAddressMapMock_init();
+    }
+}
+import "./EnumerableMapMockUpgradeable.sol";
+
+contract AddressToUintMapMockUpgradeableWithInit is AddressToUintMapMockUpgradeable {
+    constructor() payable initializer {
+        __AddressToUintMapMock_init();
     }
 }
 import "./PausableMockUpgradeable.sol";
