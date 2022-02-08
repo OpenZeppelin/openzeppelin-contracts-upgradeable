@@ -17,6 +17,7 @@ npx @openzeppelin/upgrade-safe-transpiler@latest -D \
   -x '!contracts/proxy/beacon/IBeacon.sol' \
   -p 'contracts/**/presets/**/*'
 
+# this is currently no longer used but could be useful in the future
 for p in scripts/upgradeable/patch/*.patch; do
   git apply "$p"
 done
