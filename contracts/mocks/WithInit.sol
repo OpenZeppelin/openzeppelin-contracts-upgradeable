@@ -189,6 +189,13 @@ contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
         __SafeCastMock_init();
     }
 }
+import "./DoubleEndedQueueMockUpgradeable.sol";
+
+contract Bytes32DequeMockUpgradeableWithInit is Bytes32DequeMockUpgradeable {
+    constructor() payable initializer {
+        __Bytes32DequeMock_init();
+    }
+}
 import "./GovernorMockUpgradeable.sol";
 
 contract GovernorMockUpgradeableWithInit is GovernorMockUpgradeable {
