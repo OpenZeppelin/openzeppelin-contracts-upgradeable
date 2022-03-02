@@ -103,19 +103,11 @@ contract GovernorTimelockControlMockUpgradeable is
         return super._cancel(targets, values, calldatas, descriptionHash);
     }
 
-    function getVotes(address account, uint256 blockNumber)
-        public
-        view
-        virtual
-        override(IGovernorUpgradeable, GovernorVotesUpgradeable)
-        returns (uint256)
-    {
-        return super.getVotes(account, blockNumber);
-    }
-
     function _executor() internal view virtual override(GovernorUpgradeable, GovernorTimelockControlUpgradeable) returns (address) {
         return super._executor();
     }
+
+    function nonGovernanceFunction() external {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new

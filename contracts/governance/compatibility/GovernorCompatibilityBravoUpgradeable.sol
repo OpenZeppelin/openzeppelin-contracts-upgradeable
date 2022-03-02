@@ -271,7 +271,8 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
         uint256 proposalId,
         address account,
         uint8 support,
-        uint256 weight
+        uint256 weight,
+        bytes memory // params
     ) internal virtual override {
         ProposalDetails storage details = _proposalDetails[proposalId];
         Receipt storage receipt = details.receipts[account];

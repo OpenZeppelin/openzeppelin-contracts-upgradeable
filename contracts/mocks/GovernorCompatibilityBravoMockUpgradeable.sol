@@ -135,16 +135,6 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         return super._cancel(targets, values, calldatas, salt);
     }
 
-    function getVotes(address account, uint256 blockNumber)
-        public
-        view
-        virtual
-        override(IGovernorUpgradeable, GovernorVotesCompUpgradeable)
-        returns (uint256)
-    {
-        return super.getVotes(account, blockNumber);
-    }
-
     function _executor() internal view virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (address) {
         return super._executor();
     }

@@ -92,7 +92,8 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
         uint256 proposalId,
         address account,
         uint8 support,
-        uint256 weight
+        uint256 weight,
+        bytes memory // params
     ) internal virtual override {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 

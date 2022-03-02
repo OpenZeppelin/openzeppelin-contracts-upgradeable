@@ -40,6 +40,13 @@ contract MyGovernor1UpgradeableWithInit is MyGovernor1Upgradeable {
         __MyGovernor1_init(_token, _timelock);
     }
 }
+import "./GovernorWithParamsMockUpgradeable.sol";
+
+contract GovernorWithParamsMockUpgradeableWithInit is GovernorWithParamsMockUpgradeable {
+    constructor(string memory name_, IVotesUpgradeable token_) payable initializer {
+        __GovernorWithParamsMock_init(name_, token_);
+    }
+}
 import "./GovernorVoteMockUpgradeable.sol";
 
 contract GovernorVoteMocksUpgradeableWithInit is GovernorVoteMocksUpgradeable {

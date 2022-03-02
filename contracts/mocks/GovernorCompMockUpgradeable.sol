@@ -36,16 +36,6 @@ contract GovernorCompMockUpgradeable is Initializable, GovernorVotesCompUpgradea
         return _cancel(targets, values, calldatas, salt);
     }
 
-    function getVotes(address account, uint256 blockNumber)
-        public
-        view
-        virtual
-        override(IGovernorUpgradeable, GovernorVotesCompUpgradeable)
-        returns (uint256)
-    {
-        return super.getVotes(account, blockNumber);
-    }
-
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.

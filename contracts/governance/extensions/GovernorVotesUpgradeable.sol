@@ -24,9 +24,13 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
     }
 
     /**
-     * Read the voting weight from the token's built in snapshot mechanism (see {IGovernor-getVotes}).
+     * Read the voting weight from the token's built in snapshot mechanism (see {Governor-_getVotes}).
      */
-    function getVotes(address account, uint256 blockNumber) public view virtual override returns (uint256) {
+    function _getVotes(
+        address account,
+        uint256 blockNumber,
+        bytes memory /*params*/
+    ) internal view virtual override returns (uint256) {
         return token.getPastVotes(account, blockNumber);
     }
 

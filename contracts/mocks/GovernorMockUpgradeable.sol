@@ -45,16 +45,6 @@ contract GovernorMockUpgradeable is
         return _cancel(targets, values, calldatas, salt);
     }
 
-    function getVotes(address account, uint256 blockNumber)
-        public
-        view
-        virtual
-        override(IGovernorUpgradeable, GovernorVotesUpgradeable)
-        returns (uint256)
-    {
-        return super.getVotes(account, blockNumber);
-    }
-
     function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
         return super.proposalThreshold();
     }

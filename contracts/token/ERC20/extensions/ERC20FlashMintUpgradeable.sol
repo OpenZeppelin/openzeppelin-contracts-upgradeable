@@ -3,7 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../../../interfaces/IERC3156Upgradeable.sol";
+import "../../../interfaces/IERC3156FlashBorrowerUpgradeable.sol";
+import "../../../interfaces/IERC3156FlashLenderUpgradeable.sol";
 import "../ERC20Upgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
@@ -27,7 +28,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     /**
      * @dev Returns the maximum amount of tokens available for loan.
      * @param token The address of the token that is requested.
-     * @return The amont of token that can be loaned.
+     * @return The amount of token that can be loaned.
      */
     function maxFlashLoan(address token) public view virtual override returns (uint256) {
         return token == address(this) ? type(uint256).max - ERC20Upgradeable.totalSupply() : 0;
@@ -60,7 +61,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      * supported.
      * @param amount The amount of tokens to be loaned.
      * @param data An arbitrary datafield that is passed to the receiver.
-     * @return `true` is the flash loan was successful.
+     * @return `true` if the flash loan was successful.
      */
     // This function can reenter, but it doesn't pose a risk because it always preserves the property that the amount
     // minted at the beginning is always recovered and burned at the end, or else the entire function will revert.

@@ -46,7 +46,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     /**
-     * @dev Mint wrapped token to cover any underlyingTokens that would have been transfered by mistake. Internal
+     * @dev Mint wrapped token to cover any underlyingTokens that would have been transferred by mistake. Internal
      * function that can be exposed with access control if desired.
      */
     function _recover(address account) internal virtual returns (uint256) {
