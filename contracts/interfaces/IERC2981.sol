@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (interfaces/IERC2981.sol)
+// OpenZeppelin Contracts (last updated v4.5.0) (interfaces/IERC2981.sol)
 
 pragma solidity ^0.8.0;
 
-import "./IERC165.sol";
+import "../utils/introspection/IERC165.sol";
 
 /**
  * @dev Interface for the NFT Royalty Standard.
