@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.2 (2022-03-02)
+
+ * Rearrange imports to fix errors in `@openzeppelin/truffle-upgrades`.
+
 ## 4.5.1 (2022-02-11)
 
  * Fix `DocstringParsingError` in Solidity <0.8.4.
