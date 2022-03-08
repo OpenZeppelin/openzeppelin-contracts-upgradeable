@@ -213,7 +213,7 @@ abstract contract VotesUpgradeable is Initializable, IVotesUpgradeable, ContextU
     /**
      * @dev Must return the voting units held by an account.
      */
-    function _getVotingUnits(address) internal virtual returns (uint256);
+    function _getVotingUnits(address) internal view virtual returns (uint256);
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
