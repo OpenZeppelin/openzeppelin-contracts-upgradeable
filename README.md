@@ -19,6 +19,8 @@ It follows all of the rules for [Writing Upgradeable Contracts]: constructors ar
 >
 > **It is strongly encouraged to use these contracts together with a tool that can automatically guarantee the safety of an upgradeable contract, such as the [OpenZeppelin Upgrades Plugins](https://github.com/OpenZeppelin/openzeppelin-upgrades).**
 
+:building_construction: **Want to scale your decentralized application?** Check out [OpenZeppelin Defender](https://openzeppelin.com/defender) — a secure platform for automating and monitoring your operations.
+
 ## Overview
 
 ### Installation
