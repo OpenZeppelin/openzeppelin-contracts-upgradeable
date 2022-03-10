@@ -26,7 +26,16 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
     mapping(address => CountersUpgradeable.Counter) private _nonces;
 
     // solhint-disable-next-line var-name-mixedcase
-    bytes32 private _PERMIT_TYPEHASH;
+    bytes32 private constant _PERMIT_TYPEHASH =
+        keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    /**
+     * @dev In previous versions `_PERMIT_TYPEHASH` was declared as `immutable`.
+     * However, to ensure consistency with the upgradeable transpiler, we will continue
+     * to reserve a slot.
+     * @custom:oz-renamed-from _PERMIT_TYPEHASH
+     */
+    // solhint-disable-next-line var-name-mixedcase
+    bytes32 private _PERMIT_TYPEHASH_DEPRECATED_SLOT;
 
     /**
      * @dev Initializes the {EIP712} domain separator using the `name` parameter, and setting `version` to `"1"`.
@@ -35,11 +44,9 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      */
     function __ERC20Permit_init(string memory name) internal onlyInitializing {
         __EIP712_init_unchained(name, "1");
-        __ERC20Permit_init_unchained(name);
     }
 
-    function __ERC20Permit_init_unchained(string memory) internal onlyInitializing {
-        _PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");}
+    function __ERC20Permit_init_unchained(string memory) internal onlyInitializing {}
 
     /**
      * @dev See {IERC20Permit-permit}.
@@ -96,5 +103,5 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[48] private __gap;
 }
