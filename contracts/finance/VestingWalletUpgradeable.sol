@@ -17,6 +17,8 @@ import "../proxy/utils/Initializable.sol";
  * Any token transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
  * Consequently, if the vesting has already started, any amount of tokens sent to this contract will (at least partly)
  * be immediately releasable.
+ *
+ * @custom:storage-size 52
  */
 contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     event EtherReleased(uint256 amount);
@@ -147,5 +149,5 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[46] private __gap;
+    uint256[48] private __gap;
 }

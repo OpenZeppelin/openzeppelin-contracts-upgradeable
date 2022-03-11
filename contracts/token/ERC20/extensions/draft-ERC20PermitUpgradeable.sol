@@ -19,6 +19,8 @@ import "../../../proxy/utils/Initializable.sol";
  * need to send a transaction, and thus is not required to hold Ether at all.
  *
  * _Available since v3.4._
+ *
+ * @custom:storage-size 51
  */
 abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IERC20PermitUpgradeable, EIP712Upgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
@@ -103,5 +105,5 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[48] private __gap;
+    uint256[49] private __gap;
 }

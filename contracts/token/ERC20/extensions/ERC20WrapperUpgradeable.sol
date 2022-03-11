@@ -15,6 +15,8 @@ import "../../../proxy/utils/Initializable.sol";
  * wrapping of an existing "basic" ERC20 into a governance token.
  *
  * _Available since v4.2._
+ *
+ * @custom:storage-size 51
  */
 abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     IERC20Upgradeable public underlying;
@@ -60,5 +62,5 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }

@@ -12,6 +12,8 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * Useful for simple vesting schedules like "advisors get all of their tokens
  * after 1 year".
+ *
+ * @custom:storage-size 53
  */
 contract TokenTimelockUpgradeable is Initializable {
     using SafeERC20Upgradeable for IERC20Upgradeable;
@@ -88,5 +90,5 @@ contract TokenTimelockUpgradeable is Initializable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[47] private __gap;
+    uint256[50] private __gap;
 }
