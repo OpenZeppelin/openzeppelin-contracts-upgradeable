@@ -24,6 +24,8 @@ import "../../proxy/utils/Initializable.sol";
  * https://docs.metamask.io/guide/signing-data.html[`eth_signTypedDataV4` in MetaMask].
  *
  * _Available since v3.4._
+ *
+ * @custom:storage-size 52
  */
 abstract contract EIP712Upgradeable is Initializable {
     /* solhint-disable var-name-mixedcase */

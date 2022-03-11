@@ -11,6 +11,8 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Extension of {Governor} for voting weight extraction from a Comp token.
  *
  * _Available since v4.3._
+ *
+ * @custom:storage-size 51
  */
 abstract contract GovernorVotesCompUpgradeable is Initializable, GovernorUpgradeable {
     ERC20VotesCompUpgradeable public token;

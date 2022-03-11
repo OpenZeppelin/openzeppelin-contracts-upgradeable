@@ -23,6 +23,8 @@ import "../proxy/utils/Initializable.sol";
  * To use, derive from the `PullPayment` contract, and use {_asyncTransfer}
  * instead of Solidity's `transfer` function. Payees can query their due
  * payments with {payments}, and retrieve them with {withdrawPayments}.
+ *
+ * @custom:storage-size 51
  */
 abstract contract PullPaymentUpgradeable is Initializable {
     EscrowUpgradeable private _escrow;
