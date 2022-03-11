@@ -20,6 +20,9 @@ for (const artifact of artifacts) {
     const deref = astDereferencer(output);
 
     for (const src in output.contracts) {
+        if (src.startsWith('contracts/mocks/')) {
+            continue;
+        }
         for (const contractDef of findAll('ContractDefinition', output.sources[src].ast)) {
             layout[contractDef.name] = extractStorageLayout(
                 contractDef,
