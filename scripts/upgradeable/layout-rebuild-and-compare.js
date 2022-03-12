@@ -1,7 +1,4 @@
-const fs = require('fs');
-const path = require('path');
 const { findAll } = require('solidity-ast/utils');
-
 const { astDereferencer } = require('@openzeppelin/upgrades-core/dist/ast-dereferencer');
 const { solcInputOutputDecoder } = require('@openzeppelin/upgrades-core/dist/src-decoder');
 const { extractStorageLayout } = require('@openzeppelin/upgrades-core/dist/storage/extract');
@@ -10,7 +7,7 @@ const { LayoutCompatibilityReport } = require('@openzeppelin/upgrades-core/dist/
 
 const { ref, head } = require('yargs').argv;
 
-function extractLayouts(file) {
+function extractLayouts (file) {
   const layout = {};
   const { input, output } = require(file);
 
