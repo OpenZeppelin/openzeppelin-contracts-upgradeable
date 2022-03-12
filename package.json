@@ -31,9 +31,7 @@
     "test": "hardhat test",
     "test:inheritance": "node scripts/inheritanceOrdering artifacts/build-info/*",
     "gas-report": "env ENABLE_GAS_REPORT=true npm run test",
-    "slither": "npm run clean && slither . --detect reentrancy-eth,reentrancy-no-eth,reentrancy-unlimited-gas",
-    "layout:build": "node scripts/upgradeable/layout.js artifacts/build-info/* --build storage-layout-cache.json",
-    "layout:test": "node scripts/upgradeable/layout.js artifacts/build-info/* --check storage-layout-cache.json"
+    "slither": "npm run clean && slither . --detect reentrancy-eth,reentrancy-no-eth,reentrancy-unlimited-gas"
   },
   "repository": {
     "type": "git",

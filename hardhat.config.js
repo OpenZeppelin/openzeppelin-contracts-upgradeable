@@ -11,6 +11,10 @@ const path = require('path');
 const argv = require('yargs/yargs')()
   .env('')
   .options({
+    root: {
+      type: 'string',
+      default: '.',
+    },
     ci: {
       type: 'boolean',
       default: false,
@@ -58,6 +62,9 @@ const withOptimizations = argv.enableGasReport || argv.compileMode === 'producti
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  paths: {
+    root: argv.root,
+  },
   solidity: {
     version: argv.compiler,
     settings: {
