@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-
+ * `ERC2771Context`: removed `constructor(address)` and reverted to using `__ERC2771Context_init(address)` and `__ERC2771Context_init_unchained(address)`.
  * `AccessControl`: add a virtual `_checkRole(bytes32)` function that can be overridden to alter the `onlyRole` modifier behavior. ([#3137](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/3137))
  * `EnumerableMap`: add new `AddressToUintMap` map type. ([#3150](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/3150))
  * `ERC1155`: Add a `_afterTokenTransfer` hook for improved extensibility. ([#3166](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/3166))
