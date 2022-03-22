@@ -52,7 +52,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
     }
 
     /**
-     * @dev Overriden version of the {Governor-state} function with added support for the `Queued` status.
+     * @dev Overridden version of the {Governor-state} function with added support for the `Queued` status.
      */
     function state(uint256 proposalId) public view virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (ProposalState) {
         ProposalState status = super.state(proposalId);
@@ -112,7 +112,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
     }
 
     /**
-     * @dev Overriden execute function that run the already queued proposal through the timelock.
+     * @dev Overridden execute function that run the already queued proposal through the timelock.
      */
     function _execute(
         uint256, /* proposalId */
@@ -125,7 +125,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
     }
 
     /**
-     * @dev Overriden version of the {Governor-_cancel} function to cancel the timelocked proposal if it as already
+     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it as already
      * been queued.
      */
     // This function can reenter through the external call to the timelock, but we assume the timelock is trusted and

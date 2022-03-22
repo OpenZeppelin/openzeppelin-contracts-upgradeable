@@ -24,7 +24,7 @@ library DoubleEndedQueueUpgradeable {
     error Empty();
 
     /**
-     * @dev An operation (e.g. {at}) could't be completed due to an index being out of bounds.
+     * @dev An operation (e.g. {at}) couldn't be completed due to an index being out of bounds.
      */
     error OutOfBounds();
 
