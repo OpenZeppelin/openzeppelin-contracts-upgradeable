@@ -298,6 +298,13 @@ contract AddressToUintMapMockUpgradeableWithInit is AddressToUintMapMockUpgradea
         __AddressToUintMapMock_init();
     }
 }
+import "./EnumerableMapMockUpgradeable.sol";
+
+contract Bytes32ToBytes32MapMockUpgradeableWithInit is Bytes32ToBytes32MapMockUpgradeable {
+    constructor() payable initializer {
+        __Bytes32ToBytes32MapMock_init();
+    }
+}
 import "./PausableMockUpgradeable.sol";
 
 contract PausableMockUpgradeableWithInit is PausableMockUpgradeable {
