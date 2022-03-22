@@ -29,6 +29,14 @@ contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
         return _decimals;
     }
 
+    function mint(address account, uint256 amount) public {
+        _mint(account, amount);
+    }
+
+    function burn(address account, uint256 amount) public {
+        _burn(account, amount);
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.
