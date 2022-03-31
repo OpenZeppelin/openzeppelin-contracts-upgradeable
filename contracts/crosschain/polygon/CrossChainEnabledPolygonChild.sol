@@ -65,7 +65,17 @@ abstract contract CrossChainEnabledPolygonChild is IFxMessageProcessor, CrossCha
         require(msg.sender == _fxChild, "unauthorized cross-chain relay");
 
         _sender = rootMessageSender;
-        Address.functionDelegateCall(address(this), data, "crosschain execution failled");
+        __functionDelegateCall(address(this), data, "crosschain execution failled");
         _sender = DEFAULT_SENDER;
+    }
+
+    // ERC1967Upgrade._functionDelegateCall is private so we reproduce it here.
+    // An extra underscore prevents a name clash error.
+    function __functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
+        require(Address.isContract(target), "Address: delegate call to non-contract");
+
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return Address.verifyCallResult(success, returndata, "Address: low-level delegate call failed");
     }
 }
