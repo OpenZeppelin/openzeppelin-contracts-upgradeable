@@ -33,11 +33,8 @@ abstract contract ReceiverUpgradeable is Initializable, OwnableUpgradeable, Cros
  * AMB
  */
 contract CrossChainEnabledAMBMockUpgradeable is Initializable, ReceiverUpgradeable, CrossChainEnabledAMBUpgradeable {
-    function __CrossChainEnabledAMBMock_init(address bridge) internal onlyInitializing {
-        __Ownable_init_unchained();
-    }
-
-    function __CrossChainEnabledAMBMock_init_unchained(address) internal onlyInitializing {}
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(address bridge) CrossChainEnabledAMBUpgradeable(bridge) {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
@@ -51,11 +48,8 @@ contract CrossChainEnabledAMBMockUpgradeable is Initializable, ReceiverUpgradeab
  * Arbitrum
  */
 contract CrossChainEnabledArbitrumL1MockUpgradeable is Initializable, ReceiverUpgradeable, CrossChainEnabledArbitrumL1Upgradeable {
-    function __CrossChainEnabledArbitrumL1Mock_init(address bridge) internal onlyInitializing {
-        __Ownable_init_unchained();
-    }
-
-    function __CrossChainEnabledArbitrumL1Mock_init_unchained(address) internal onlyInitializing {}
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(address bridge) CrossChainEnabledArbitrumL1Upgradeable(bridge) {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
@@ -84,11 +78,8 @@ contract CrossChainEnabledArbitrumL2MockUpgradeable is Initializable, ReceiverUp
  * Optimism
  */
 contract CrossChainEnabledOptimismMockUpgradeable is Initializable, ReceiverUpgradeable, CrossChainEnabledOptimismUpgradeable {
-    function __CrossChainEnabledOptimismMock_init(address bridge) internal onlyInitializing {
-        __Ownable_init_unchained();
-    }
-
-    function __CrossChainEnabledOptimismMock_init_unchained(address) internal onlyInitializing {}
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(address bridge) CrossChainEnabledOptimismUpgradeable(bridge) {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
@@ -102,12 +93,8 @@ contract CrossChainEnabledOptimismMockUpgradeable is Initializable, ReceiverUpgr
  * Polygon
  */
 contract CrossChainEnabledPolygonChildMockUpgradeable is Initializable, ReceiverUpgradeable, CrossChainEnabledPolygonChildUpgradeable {
-    function __CrossChainEnabledPolygonChildMock_init(address bridge) internal onlyInitializing {
-        __Ownable_init_unchained();
-        __ReentrancyGuard_init_unchained();
-    }
-
-    function __CrossChainEnabledPolygonChildMock_init_unchained(address) internal onlyInitializing {}
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(address bridge) CrossChainEnabledPolygonChildUpgradeable(bridge) {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
