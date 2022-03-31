@@ -65,7 +65,7 @@ abstract contract CrossChainEnabledPolygonChild is IFxMessageProcessor, CrossCha
         require(msg.sender == _fxChild, "unauthorized cross-chain relay");
 
         _sender = rootMessageSender;
-        __functionDelegateCall(address(this), data, "crosschain execution failled");
+        __functionDelegateCall(address(this), data);
         _sender = DEFAULT_SENDER;
     }
 
