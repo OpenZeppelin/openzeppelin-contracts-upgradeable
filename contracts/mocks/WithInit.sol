@@ -425,37 +425,9 @@ contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
 }
 import "./crosschain/receiversUpgradeable.sol";
 
-contract CrossChainEnabledAMBMockUpgradeableWithInit is CrossChainEnabledAMBMockUpgradeable {
-    constructor(address bridge) payable initializer {
-        __CrossChainEnabledAMBMock_init(bridge);
-    }
-}
-import "./crosschain/receiversUpgradeable.sol";
-
-contract CrossChainEnabledArbitrumL1MockUpgradeableWithInit is CrossChainEnabledArbitrumL1MockUpgradeable {
-    constructor(address bridge) payable initializer {
-        __CrossChainEnabledArbitrumL1Mock_init(bridge);
-    }
-}
-import "./crosschain/receiversUpgradeable.sol";
-
 contract CrossChainEnabledArbitrumL2MockUpgradeableWithInit is CrossChainEnabledArbitrumL2MockUpgradeable {
     constructor() payable initializer {
         __CrossChainEnabledArbitrumL2Mock_init();
-    }
-}
-import "./crosschain/receiversUpgradeable.sol";
-
-contract CrossChainEnabledOptimismMockUpgradeableWithInit is CrossChainEnabledOptimismMockUpgradeable {
-    constructor(address bridge) payable initializer {
-        __CrossChainEnabledOptimismMock_init(bridge);
-    }
-}
-import "./crosschain/receiversUpgradeable.sol";
-
-contract CrossChainEnabledPolygonChildMockUpgradeableWithInit is CrossChainEnabledPolygonChildMockUpgradeable {
-    constructor(address bridge) payable initializer {
-        __CrossChainEnabledPolygonChildMock_init(bridge);
     }
 }
 import "./AccessControlCrossChainMockUpgradeable.sol";
