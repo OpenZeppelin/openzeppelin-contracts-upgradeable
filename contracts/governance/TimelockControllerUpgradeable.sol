@@ -4,6 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "../access/AccessControlUpgradeable.sol";
+import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
+import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**
@@ -21,7 +23,7 @@ import "../proxy/utils/Initializable.sol";
  *
  * _Available since v3.3._
  */
-contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable {
+contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
     bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
@@ -125,6 +127,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Contract might receive/hold ETH as part of the maintenance process.
      */
     receive() external payable {}
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, AccessControlUpgradeable) returns (bool) {
+        return interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    }
 
     /**
      * @dev Returns whether an id correspond to a registered operation. This
@@ -373,6 +382,44 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         require(msg.sender == address(this), "TimelockController: caller must be timelock");
         emit MinDelayChange(_minDelay, newDelay);
         _minDelay = newDelay;
+    }
+
+    /**
+     * @dev See {IERC721Receiver-onERC721Received}.
+     */
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
+
+    /**
+     * @dev See {IERC1155Receiver-onERC1155Received}.
+     */
+    function onERC1155Received(
+        address,
+        address,
+        uint256,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155Received.selector;
+    }
+
+    /**
+     * @dev See {IERC1155Receiver-onERC1155BatchReceived}.
+     */
+    function onERC1155BatchReceived(
+        address,
+        address,
+        uint256[] memory,
+        uint256[] memory,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
     }
 
     /**

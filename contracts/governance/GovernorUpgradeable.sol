@@ -3,6 +3,8 @@
 
 pragma solidity ^0.8.0;
 
+import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
+import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
 import "../utils/cryptography/ECDSAUpgradeable.sol";
 import "../utils/cryptography/draft-EIP712Upgradeable.sol";
 import "../utils/introspection/ERC165Upgradeable.sol";
@@ -25,7 +27,7 @@ import "../proxy/utils/Initializable.sol";
  *
  * _Available since v4.3._
  */
-abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, IGovernorUpgradeable {
+abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, IGovernorUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
     using DoubleEndedQueueUpgradeable for DoubleEndedQueueUpgradeable.Bytes32Deque;
     using SafeCastUpgradeable for uint256;
     using TimersUpgradeable for TimersUpgradeable.BlockNumber;
@@ -103,6 +105,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
                 this.castVoteWithReasonAndParamsBySig.selector ^
                 this.getVotesWithParams.selector) ||
             interfaceId == type(IGovernorUpgradeable).interfaceId ||
+            interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
@@ -253,7 +256,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     ) public virtual override returns (uint256) {
         require(
             getVotes(_msgSender(), block.number - 1) >= proposalThreshold(),
-            "GovernorCompatibilityBravo: proposer votes below proposal threshold"
+            "Governor: proposer votes below proposal threshold"
         );
 
         uint256 proposalId = hashProposal(targets, values, calldatas, keccak256(bytes(description)));
@@ -557,6 +560,44 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      */
     function _executor() internal view virtual returns (address) {
         return address(this);
+    }
+
+    /**
+     * @dev See {IERC721Receiver-onERC721Received}.
+     */
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
+
+    /**
+     * @dev See {IERC1155Receiver-onERC1155Received}.
+     */
+    function onERC1155Received(
+        address,
+        address,
+        uint256,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155Received.selector;
+    }
+
+    /**
+     * @dev See {IERC1155Receiver-onERC1155BatchReceived}.
+     */
+    function onERC1155BatchReceived(
+        address,
+        address,
+        uint256[] memory,
+        uint256[] memory,
+        bytes memory
+    ) public virtual override returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
     }
 
     /**

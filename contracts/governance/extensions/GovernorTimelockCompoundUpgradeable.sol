@@ -6,61 +6,8 @@ pragma solidity ^0.8.0;
 import "./IGovernorTimelockUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
+import "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
-
-/**
- * https://github.com/compound-finance/compound-protocol/blob/master/contracts/Timelock.sol[Compound's timelock] interface
- */
-interface ICompoundTimelockUpgradeable {
-    receive() external payable;
-
-    // solhint-disable-next-line func-name-mixedcase
-    function GRACE_PERIOD() external view returns (uint256);
-
-    // solhint-disable-next-line func-name-mixedcase
-    function MINIMUM_DELAY() external view returns (uint256);
-
-    // solhint-disable-next-line func-name-mixedcase
-    function MAXIMUM_DELAY() external view returns (uint256);
-
-    function admin() external view returns (address);
-
-    function pendingAdmin() external view returns (address);
-
-    function delay() external view returns (uint256);
-
-    function queuedTransactions(bytes32) external view returns (bool);
-
-    function setDelay(uint256) external;
-
-    function acceptAdmin() external;
-
-    function setPendingAdmin(address) external;
-
-    function queueTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) external returns (bytes32);
-
-    function cancelTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) external;
-
-    function executeTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) external payable returns (bytes memory);
-}
 
 /**
  * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
