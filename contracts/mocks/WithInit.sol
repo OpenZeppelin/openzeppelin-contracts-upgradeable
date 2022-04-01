@@ -425,9 +425,44 @@ contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
 }
 import "./crosschain/receiversUpgradeable.sol";
 
+contract CrossChainEnabledAMBMockUpgradeableWithInit is CrossChainEnabledAMBMockUpgradeable {
+    constructor(address bridge) CrossChainEnabledAMBMockUpgradeable(bridge) payable initializer {
+
+    }
+}
+import "./crosschain/receiversUpgradeable.sol";
+
+contract CrossChainEnabledArbitrumL1MockUpgradeableWithInit is CrossChainEnabledArbitrumL1MockUpgradeable {
+    constructor(address bridge) CrossChainEnabledArbitrumL1MockUpgradeable(bridge) payable initializer {
+
+    }
+}
+import "./crosschain/receiversUpgradeable.sol";
+
 contract CrossChainEnabledArbitrumL2MockUpgradeableWithInit is CrossChainEnabledArbitrumL2MockUpgradeable {
     constructor() payable initializer {
         __CrossChainEnabledArbitrumL2Mock_init();
+    }
+}
+import "./crosschain/receiversUpgradeable.sol";
+
+contract CrossChainEnabledOptimismMockUpgradeableWithInit is CrossChainEnabledOptimismMockUpgradeable {
+    constructor(address bridge) CrossChainEnabledOptimismMockUpgradeable(bridge) payable initializer {
+
+    }
+}
+import "./crosschain/receiversUpgradeable.sol";
+
+contract CrossChainEnabledPolygonChildMockUpgradeableWithInit is CrossChainEnabledPolygonChildMockUpgradeable {
+    constructor(address bridge) CrossChainEnabledPolygonChildMockUpgradeable(bridge) payable initializer {
+
+    }
+}
+import "../crosschain/amb/CrossChainEnabledAMBUpgradeable.sol";
+
+contract CrossChainEnabledAMBUpgradeableWithInit is CrossChainEnabledAMBUpgradeable {
+    constructor(address bridge) CrossChainEnabledAMBUpgradeable(bridge) payable initializer {
+
     }
 }
 import "./AccessControlCrossChainMockUpgradeable.sol";
@@ -529,6 +564,13 @@ import "./ContextMockUpgradeable.sol";
 contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
     constructor() payable initializer {
         __ContextMockCaller_init();
+    }
+}
+import "./ERC2771ContextMockUpgradeable.sol";
+
+contract ERC2771ContextMockUpgradeableWithInit is ERC2771ContextMockUpgradeable {
+    constructor(address trustedForwarder) ERC2771ContextMockUpgradeable(trustedForwarder) payable initializer {
+
     }
 }
 import "./VotesMockUpgradeable.sol";

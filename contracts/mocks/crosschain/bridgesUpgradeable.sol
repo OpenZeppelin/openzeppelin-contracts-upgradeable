@@ -67,15 +67,14 @@ contract BridgeAMBMockUpgradeable is Initializable, BaseRelayMockUpgradeable {
  */
 contract BridgeArbitrumL1MockUpgradeable is Initializable, BaseRelayMockUpgradeable {
     function __BridgeArbitrumL1Mock_init() internal onlyInitializing {
-        __BridgeArbitrumL1Mock_init_unchained();
     }
 
     function __BridgeArbitrumL1Mock_init_unchained() internal onlyInitializing {
-        inbox = address(new BridgeArbitrumL1InboxUpgradeable());
-        outbox = address(new BridgeArbitrumL1OutboxUpgradeable());
     }
-    address public inbox;
-    address public outbox;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable inbox = address(new BridgeArbitrumL1InboxUpgradeable());
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable outbox = address(new BridgeArbitrumL1OutboxUpgradeable());
 
     function activeOutbox() public view returns (address) {
         return outbox;
@@ -90,36 +89,34 @@ contract BridgeArbitrumL1MockUpgradeable is Initializable, BaseRelayMockUpgradea
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[48] private __gap;
+    uint256[50] private __gap;
 }
 
 contract BridgeArbitrumL1InboxUpgradeable is Initializable {
     function __BridgeArbitrumL1Inbox_init() internal onlyInitializing {
-        __BridgeArbitrumL1Inbox_init_unchained();
     }
 
     function __BridgeArbitrumL1Inbox_init_unchained() internal onlyInitializing {
-        bridge = msg.sender;
     }
-    address public bridge;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable bridge = msg.sender;
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }
 
 contract BridgeArbitrumL1OutboxUpgradeable is Initializable {
     function __BridgeArbitrumL1Outbox_init() internal onlyInitializing {
-        __BridgeArbitrumL1Outbox_init_unchained();
     }
 
     function __BridgeArbitrumL1Outbox_init_unchained() internal onlyInitializing {
-        bridge = msg.sender;
     }
-    address public bridge;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable bridge = msg.sender;
 
     function l2ToL1Sender() public view returns (address) {
         return BridgeArbitrumL1MockUpgradeable(bridge).currentSender();
@@ -130,7 +127,7 @@ contract BridgeArbitrumL1OutboxUpgradeable is Initializable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }
 
 contract BridgeArbitrumL2MockUpgradeable is Initializable, BaseRelayMockUpgradeable {

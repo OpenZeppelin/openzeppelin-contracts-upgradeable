@@ -10,16 +10,19 @@ import "../../crosschain/optimism/CrossChainEnabledOptimismUpgradeable.sol";
 import "../../crosschain/polygon/CrossChainEnabledPolygonChildUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
-abstract contract ReceiverUpgradeable is Initializable, OwnableUpgradeable, CrossChainEnabledUpgradeable {
+abstract contract ReceiverUpgradeable is Initializable, CrossChainEnabledUpgradeable {
     function __Receiver_init() internal onlyInitializing {
-        __Ownable_init_unchained();
     }
 
     function __Receiver_init_unchained() internal onlyInitializing {
     }
+    // we don't use Ownable because it messes up testing for the upgradeable contracts
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable owner = msg.sender;
+
     function crossChainRestricted() external onlyCrossChain {}
 
-    function crossChainOwnerRestricted() external onlyCrossChainSender(owner()) {}
+    function crossChainOwnerRestricted() external onlyCrossChainSender(owner) {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
@@ -60,7 +63,6 @@ contract CrossChainEnabledArbitrumL1MockUpgradeable is Initializable, ReceiverUp
 }
 
 contract CrossChainEnabledArbitrumL2MockUpgradeable is Initializable, ReceiverUpgradeable, CrossChainEnabledArbitrumL2Upgradeable {    function __CrossChainEnabledArbitrumL2Mock_init() internal onlyInitializing {
-        __Ownable_init_unchained();
     }
 
     function __CrossChainEnabledArbitrumL2Mock_init_unchained() internal onlyInitializing {

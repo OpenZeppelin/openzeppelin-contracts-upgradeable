@@ -21,14 +21,14 @@ import "../../proxy/utils/Initializable.sol";
  * to the escrow's deposit and withdraw.
  */
 contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
-    function initialize() public virtual initializer {
-        __Escrow_init();
-    }
     function __Escrow_init() internal onlyInitializing {
         __Ownable_init_unchained();
     }
 
     function __Escrow_init_unchained() internal onlyInitializing {
+    }
+    function initialize() public virtual initializer {
+        __Escrow_init();
     }
     using AddressUpgradeable for address payable;
 
