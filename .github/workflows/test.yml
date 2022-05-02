@@ -24,8 +24,13 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
+      - run: bash scripts/upgradeable/git-user-config.sh
+      - run: bash scripts/upgradeable/merge-upstream.sh
+        env:
+          REF: ${{ github.ref }}
+        if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
       - run: bash scripts/upgradeable/transpile.sh
-        if: github.event_name == 'pull_request'
+        if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
       - run: npm run test
         env:
           FORCE_COLOR: 1
