@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.5.0) (token/common/ERC2981.sol)
+// OpenZeppelin Contracts (last updated v4.6.0) (token/common/ERC2981.sol)
 
 pragma solidity ^0.8.0;
 
@@ -94,7 +94,6 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      *
      * Requirements:
      *
-     * - `tokenId` must be already minted.
      * - `receiver` cannot be the zero address.
      * - `feeNumerator` cannot be greater than the fee denominator.
      */

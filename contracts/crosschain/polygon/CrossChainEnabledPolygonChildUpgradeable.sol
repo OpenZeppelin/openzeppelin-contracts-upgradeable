@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (crosschain/polygon/CrossChainEnabledPolygonChild.sol)
 
 pragma solidity ^0.8.4;
 
@@ -63,7 +64,7 @@ abstract contract CrossChainEnabledPolygonChildUpgradeable is Initializable, IFx
         address rootMessageSender,
         bytes calldata data
     ) external override nonReentrant {
-        require(msg.sender == _fxChild, "unauthorized cross-chain relay");
+        if (!_isCrossChain()) revert NotCrossChainCall();
 
         _sender = rootMessageSender;
         __functionDelegateCall(address(this), data);
