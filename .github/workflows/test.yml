@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 12.x
@@ -24,8 +26,14 @@ jobs:
           restore-keys: npm-v2-
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
+      - run: bash scripts/upgradeable/git-user-config.sh
+      - run: bash scripts/upgradeable/merge-upstream.sh
+        env:
+          REF: 'refs/heads/patches'
+          BASE_REF: HEAD
+        if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
       - run: bash scripts/upgradeable/transpile.sh
-        if: github.event_name == 'pull_request'
+        if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
       - run: npm run test
         env:
           FORCE_COLOR: 1

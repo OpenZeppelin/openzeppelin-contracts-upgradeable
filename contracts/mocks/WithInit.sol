@@ -19,6 +19,17 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
         __TimelockController_init(minDelay, proposers, executors);
     }
 }
+import "../governance/TimelockControllerWith46MigrationUpgradeable.sol";
+
+contract TimelockControllerWith46MigrationUpgradeableWithInit is TimelockControllerWith46MigrationUpgradeable {
+    constructor(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors
+    ) payable initializer {
+        __TimelockControllerWith46Migration_init(minDelay, proposers, executors);
+    }
+}
 import "./ERC165CheckerMockUpgradeable.sol";
 
 contract ERC165CheckerMockUpgradeableWithInit is ERC165CheckerMockUpgradeable {
