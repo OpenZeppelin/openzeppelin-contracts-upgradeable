@@ -7,7 +7,7 @@ import "./TimelockController.sol";
 
 /**
  * @dev Extension of the TimelockController that includes an additional
- * function to migrate from @openzeppelin/contracts-upgradeable <4.6 to >=4.6.
+ * function to migrate from OpenZeppelin Upgradeable Contracts <4.6 to >=4.6.
  *
  * This migration is necessary to setup administration rights over the new
  * `CANCELLER_ROLE`.
