@@ -28,6 +28,7 @@ jobs:
       - run: bash scripts/upgradeable/merge-upstream.sh
         env:
           REF: 'refs/heads/patches'
+          BASE_REF: ${{ github.head_ref }}
         if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
       - run: bash scripts/upgradeable/transpile.sh
         if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'

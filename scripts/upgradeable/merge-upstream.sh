@@ -3,6 +3,7 @@
 set -euo pipefail
 
 : "${REF:="$(git rev-parse --symbolic-full-name HEAD)"}"
+: "${BASE_REF:=refs/heads/origin/patches}"
 
 if [[ "$REF" != refs/heads/* ]]; then
   echo "$REF is not a branch" >&2
@@ -16,8 +17,9 @@ set -x
 input="${REF#refs/heads/}"
 upstream="${input#patched/}"
 branch="patched/$upstream"
+base="${BASE_REF#refs/heads/}"
 
-git checkout "$branch" 2>/dev/null || git checkout -b "$branch" origin/patches --no-track
+git checkout "$branch" 2>/dev/null || git checkout -b "$branch" "$base" --no-track
 
 git fetch 'https://github.com/OpenZeppelin/openzeppelin-contracts.git' master
 merge_base="$(git merge-base origin/patches FETCH_HEAD)"
