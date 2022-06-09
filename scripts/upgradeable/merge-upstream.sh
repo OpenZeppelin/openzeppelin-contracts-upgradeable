@@ -17,7 +17,7 @@ set -x
 input="${REF#refs/heads/}"
 upstream="${input#patched/}"
 branch="patched/$upstream"
-base="${BASE_REF}"
+base="${BASE_REF#refs/heads/}"
 
 git checkout "$branch" 2>/dev/null || git checkout -b "$branch" "$base" --no-track
 
