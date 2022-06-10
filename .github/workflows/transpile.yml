@@ -1,0 +1,27 @@
+name: Transpile
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [patched/*]
+
+concurrency:
+  group: transpile-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  transpile:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/patched/')
+    steps:
+      - run: echo ::set-output name=name::"${GITHUB_REF#refs/heads/patched/}"
+        id: branch
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - run: bash scripts/upgradeable/git-user-config.sh
+      - run: bash scripts/upgradeable/transpile-onto.sh ${{ steps.branch.outputs.name }} origin/${{ steps.branch.outputs.name }}
+      - run: git push origin ${{ steps.branch.outputs.name }}
