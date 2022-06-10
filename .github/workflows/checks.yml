@@ -25,9 +25,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up environment
         uses: ./.github/actions/setup
-      - run: |
+      - name: Transpile
+        run: |
           bash scripts/upgradeable/git-user-config.sh
           bash scripts/upgradeable/merge-upstream.sh
           bash scripts/upgradeable/transpile.sh
