@@ -25,7 +25,7 @@ import "../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.6._
  */
-contract CrUpgradeableossChainEnabledAMB is Initializable, CrossChainEnabledUpgradeable {
+contract CrossChainEnabledAMBUpgradeable is Initializable, CrossChainEnabledUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     address private immutable _bridge;
 
