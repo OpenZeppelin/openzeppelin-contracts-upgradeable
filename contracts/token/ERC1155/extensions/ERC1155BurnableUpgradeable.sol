@@ -25,7 +25,7 @@ abstract contract ERC1155BurnableUpgradeable is Initializable, ERC1155Upgradeabl
     ) public virtual {
         require(
             account == _msgSender() || isApprovedForAll(account, _msgSender()),
-            "ERC1155: caller is not owner nor approved"
+            "ERC1155: caller is not token owner nor approved"
         );
 
         _burn(account, id, value);
@@ -38,7 +38,7 @@ abstract contract ERC1155BurnableUpgradeable is Initializable, ERC1155Upgradeabl
     ) public virtual {
         require(
             account == _msgSender() || isApprovedForAll(account, _msgSender()),
-            "ERC1155: caller is not owner nor approved"
+            "ERC1155: caller is not token owner nor approved"
         );
 
         _burnBatch(account, ids, values);

@@ -215,7 +215,7 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
     }
 
     /**
-     * @dev Moves `amount` of tokens from `sender` to `recipient`.
+     * @dev Moves `amount` of tokens from `from` to `to`.
      *
      * This internal function is equivalent to {transfer}, and can be used to
      * e.g. implement automatic token fees, slashing mechanisms, etc.

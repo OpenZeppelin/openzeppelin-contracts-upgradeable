@@ -51,6 +51,8 @@ abstract contract PullPaymentUpgradeable is Initializable {
      * checks-effects-interactions pattern or using {ReentrancyGuard}.
      *
      * @param payee Whose payments will be withdrawn.
+     *
+     * Causes the `escrow` to emit a {Withdrawn} event.
      */
     function withdrawPayments(address payable payee) public virtual {
         _escrow.withdraw(payee);
@@ -71,6 +73,8 @@ abstract contract PullPaymentUpgradeable is Initializable {
      *
      * @param dest The destination address of the funds.
      * @param amount The amount to transfer.
+     *
+     * Causes the `escrow` to emit a {Deposited} event.
      */
     function _asyncTransfer(address dest, uint256 amount) internal virtual {
         _escrow.deposit{value: amount}(dest);

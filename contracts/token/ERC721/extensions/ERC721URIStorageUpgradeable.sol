@@ -24,7 +24,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, ERC721Upgradeabl
      * @dev See {IERC721Metadata-tokenURI}.
      */
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721URIStorage: URI query for nonexistent token");
+        _requireMinted(tokenId);
 
         string memory _tokenURI = _tokenURIs[tokenId];
         string memory base = _baseURI();

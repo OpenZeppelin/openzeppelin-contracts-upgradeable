@@ -35,6 +35,14 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
      * @dev Returns the address of the current owner.
      */
     function owner() public view virtual returns (address) {
@@ -42,11 +50,10 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     /**
-     * @dev Throws if called by any account other than the owner.
+     * @dev Throws if the sender is not the owner.
      */
-    modifier onlyOwner() {
+    function _checkOwner() internal view virtual {
         require(owner() == _msgSender(), "Ownable: caller is not the owner");
-        _;
     }
 
     /**

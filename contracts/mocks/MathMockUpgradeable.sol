@@ -27,6 +27,19 @@ contract MathMockUpgradeable is Initializable {
         return MathUpgradeable.ceilDiv(a, b);
     }
 
+    function mulDiv(
+        uint256 a,
+        uint256 b,
+        uint256 denominator,
+        MathUpgradeable.Rounding direction
+    ) public pure returns (uint256) {
+        return MathUpgradeable.mulDiv(a, b, denominator, direction);
+    }
+
+    function sqrt(uint256 a, MathUpgradeable.Rounding direction) public pure returns (uint256) {
+        return MathUpgradeable.sqrt(a, direction);
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.

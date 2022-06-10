@@ -128,7 +128,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     ) public virtual override {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),
-            "ERC1155: caller is not owner nor approved"
+            "ERC1155: caller is not token owner nor approved"
         );
         _safeTransferFrom(from, to, id, amount, data);
     }
@@ -145,7 +145,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     ) public virtual override {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),
-            "ERC1155: transfer caller is not owner nor approved"
+            "ERC1155: caller is not token owner nor approved"
         );
         _safeBatchTransferFrom(from, to, ids, amounts, data);
     }
@@ -293,6 +293,8 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     /**
      * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_mint}.
      *
+     * Emits a {TransferBatch} event.
+     *
      * Requirements:
      *
      * - `ids` and `amounts` must have the same length.
@@ -326,6 +328,8 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     /**
      * @dev Destroys `amount` tokens of token type `id` from `from`
      *
+     * Emits a {TransferSingle} event.
+     *
      * Requirements:
      *
      * - `from` cannot be the zero address.
@@ -357,6 +361,8 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
     /**
      * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_burn}.
+     *
+     * Emits a {TransferBatch} event.
      *
      * Requirements:
      *
@@ -393,7 +399,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     /**
      * @dev Approve `operator` to operate on all of `owner` tokens
      *
-     * Emits a {ApprovalForAll} event.
+     * Emits an {ApprovalForAll} event.
      */
     function _setApprovalForAll(
         address owner,
@@ -410,7 +416,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
      * and burning, as well as batched variants.
      *
      * The same hook is called on both single and batched variants. For single
-     * transfers, the length of the `id` and `amount` arrays will be 1.
+     * transfers, the length of the `ids` and `amounts` arrays will be 1.
      *
      * Calling conditions (for each `id` and `amount` pair):
      *

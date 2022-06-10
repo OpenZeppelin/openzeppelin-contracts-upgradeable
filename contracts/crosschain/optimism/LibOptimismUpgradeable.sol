@@ -7,8 +7,8 @@ import { ICrossDomainMessengerUpgradeable as Optimism_Bridge } from "../../vendo
 import "../errorsUpgradeable.sol";
 
 /**
- * @dev Primitives for cross-chain aware contracts for [Optimism](https://www.optimism.io/).
- * See the [documentation](https://community.optimism.io/docs/developers/bridge/messaging/#accessing-msg-sender)
+ * @dev Primitives for cross-chain aware contracts for https://www.optimism.io/[Optimism].
+ * See the https://community.optimism.io/docs/developers/bridge/messaging/#accessing-msg-sender[documentation]
  * for the functionality used here.
  */
 library LibOptimismUpgradeable {

@@ -6,6 +6,9 @@ import "../token/ERC20/extensions/ERC20FlashMintUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeable {
+    uint256 _flashFeeAmount;
+    address _flashFeeReceiverAddress;
+
     function __ERC20FlashMintMock_init(
         string memory name,
         string memory symbol,
@@ -25,10 +28,35 @@ contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeab
         _mint(initialAccount, initialBalance);
     }
 
+    function mint(address account, uint256 amount) public {
+        _mint(account, amount);
+    }
+
+    function setFlashFee(uint256 amount) public {
+        _flashFeeAmount = amount;
+    }
+
+    function flashFee(address token, uint256 amount) public view virtual override returns (uint256) {
+        super.flashFee(token, amount);
+        return _flashFeeAmount;
+    }
+
+    function setFlashFeeReceiver(address receiver) public {
+        _flashFeeReceiverAddress = receiver;
+    }
+
+    function flashFeeReceiver() public view returns (address) {
+        return _flashFeeReceiver();
+    }
+
+    function _flashFeeReceiver() internal view override returns (address) {
+        return _flashFeeReceiverAddress;
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[50] private __gap;
+    uint256[48] private __gap;
 }

@@ -40,13 +40,6 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     /**
-     * @dev Returns true if the contract is paused, and false otherwise.
-     */
-    function paused() public view virtual returns (bool) {
-        return _paused;
-    }
-
-    /**
      * @dev Modifier to make a function callable only when the contract is not paused.
      *
      * Requirements:
@@ -54,7 +47,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must not be paused.
      */
     modifier whenNotPaused() {
-        require(!paused(), "Pausable: paused");
+        _requireNotPaused();
         _;
     }
 
@@ -66,8 +59,29 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must be paused.
      */
     modifier whenPaused() {
-        require(paused(), "Pausable: not paused");
+        _requirePaused();
         _;
+    }
+
+    /**
+     * @dev Returns true if the contract is paused, and false otherwise.
+     */
+    function paused() public view virtual returns (bool) {
+        return _paused;
+    }
+
+    /**
+     * @dev Throws if the contract is paused.
+     */
+    function _requireNotPaused() internal view virtual {
+        require(!paused(), "Pausable: paused");
+    }
+
+    /**
+     * @dev Throws if the contract is not paused.
+     */
+    function _requirePaused() internal view virtual {
+        require(paused(), "Pausable: not paused");
     }
 
     /**

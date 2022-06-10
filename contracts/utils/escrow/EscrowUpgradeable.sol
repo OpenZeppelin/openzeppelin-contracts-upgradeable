@@ -44,6 +44,8 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
     /**
      * @dev Stores the sent amount as credit to be withdrawn.
      * @param payee The destination address of the funds.
+     *
+     * Emits a {Deposited} event.
      */
     function deposit(address payee) public payable virtual onlyOwner {
         uint256 amount = msg.value;
@@ -60,6 +62,8 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
      * checks-effects-interactions pattern or using {ReentrancyGuard}.
      *
      * @param payee The address whose funds will be withdrawn and transferred to.
+     *
+     * Emits a {Withdrawn} event.
      */
     function withdraw(address payable payee) public virtual onlyOwner {
         uint256 payment = _deposits[payee];

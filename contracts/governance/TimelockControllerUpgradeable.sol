@@ -140,7 +140,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Returns whether an id correspond to a registered operation. This
      * includes both Pending, Ready and Done operations.
      */
-    function isOperation(bytes32 id) public view virtual returns (bool pending) {
+    function isOperation(bytes32 id) public view virtual returns (bool registered) {
         return getTimestamp(id) > 0;
     }
 

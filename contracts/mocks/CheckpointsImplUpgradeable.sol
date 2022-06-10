@@ -27,6 +27,10 @@ contract CheckpointsImplUpgradeable is Initializable {
         return _totalCheckpoints.push(value);
     }
 
+    function length() public view returns (uint256) {
+        return _totalCheckpoints._checkpoints.length;
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.

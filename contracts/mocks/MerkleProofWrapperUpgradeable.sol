@@ -19,8 +19,37 @@ contract MerkleProofWrapperUpgradeable is Initializable {
         return MerkleProofUpgradeable.verify(proof, root, leaf);
     }
 
+    function verifyCalldata(
+        bytes32[] calldata proof,
+        bytes32 root,
+        bytes32 leaf
+    ) public pure returns (bool) {
+        return MerkleProofUpgradeable.verifyCalldata(proof, root, leaf);
+    }
+
     function processProof(bytes32[] memory proof, bytes32 leaf) public pure returns (bytes32) {
         return MerkleProofUpgradeable.processProof(proof, leaf);
+    }
+
+    function processProofCalldata(bytes32[] calldata proof, bytes32 leaf) public pure returns (bytes32) {
+        return MerkleProofUpgradeable.processProofCalldata(proof, leaf);
+    }
+
+    function multiProofVerify(
+        bytes32[] calldata proofs,
+        bool[] calldata proofFlag,
+        bytes32 root,
+        bytes32[] calldata leaves
+    ) public pure returns (bool) {
+        return MerkleProofUpgradeable.multiProofVerify(proofs, proofFlag, root, leaves);
+    }
+
+    function processMultiProof(
+        bytes32[] calldata proofs,
+        bool[] calldata proofFlag,
+        bytes32[] calldata leaves
+    ) public pure returns (bytes32) {
+        return MerkleProofUpgradeable.processMultiProof(proofs, proofFlag, leaves);
     }
 
     /**

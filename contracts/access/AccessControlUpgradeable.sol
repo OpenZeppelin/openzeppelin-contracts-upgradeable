@@ -144,6 +144,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * Requirements:
      *
      * - the caller must have ``role``'s admin role.
+     *
+     * May emit a {RoleGranted} event.
      */
     function grantRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _grantRole(role, account);
@@ -157,6 +159,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * Requirements:
      *
      * - the caller must have ``role``'s admin role.
+     *
+     * May emit a {RoleRevoked} event.
      */
     function revokeRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _revokeRole(role, account);
@@ -175,6 +179,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * Requirements:
      *
      * - the caller must be `account`.
+     *
+     * May emit a {RoleRevoked} event.
      */
     function renounceRole(bytes32 role, address account) public virtual override {
         require(account == _msgSender(), "AccessControl: can only renounce roles for self");
@@ -188,6 +194,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * If `account` had not been already granted `role`, emits a {RoleGranted}
      * event. Note that unlike {grantRole}, this function doesn't perform any
      * checks on the calling account.
+     *
+     * May emit a {RoleGranted} event.
      *
      * [WARNING]
      * ====
@@ -219,6 +227,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev Grants `role` to `account`.
      *
      * Internal function without access restriction.
+     *
+     * May emit a {RoleGranted} event.
      */
     function _grantRole(bytes32 role, address account) internal virtual {
         if (!hasRole(role, account)) {
@@ -231,6 +241,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev Revokes `role` from `account`.
      *
      * Internal function without access restriction.
+     *
+     * May emit a {RoleRevoked} event.
      */
     function _revokeRole(bytes32 role, address account) internal virtual {
         if (hasRole(role, account)) {

@@ -9,6 +9,11 @@ import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Simple minimal forwarder to be used together with an ERC2771 compatible contract. See {ERC2771Context}.
+ *
+ * MinimalForwarder is mainly meant for testing, as it is missing features to be a good production-ready forwarder. This
+ * contract does not intend to have all the properties that are needed for a sound forwarding system. A fully
+ * functioning forwarding system with good properties requires more complexity. We suggest you look at other projects
+ * such as the GSN which do have the goal of building a system like that.
  */
 contract MinimalForwarderUpgradeable is Initializable, EIP712Upgradeable {
     using ECDSAUpgradeable for bytes32;
@@ -62,6 +67,7 @@ contract MinimalForwarderUpgradeable is Initializable, EIP712Upgradeable {
             // We explicitly trigger invalid opcode to consume all gas and bubble-up the effects, since
             // neither revert or assert consume all gas since Solidity 0.8.0
             // https://docs.soliditylang.org/en/v0.8.0/control-structures.html#panic-via-assert-and-error-via-require
+            /// @solidity memory-safe-assembly
             assembly {
                 invalid()
             }

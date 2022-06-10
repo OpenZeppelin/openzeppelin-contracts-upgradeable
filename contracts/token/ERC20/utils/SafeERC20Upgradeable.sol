@@ -4,6 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../IERC20Upgradeable.sol";
+import "../extensions/draft-IERC20PermitUpgradeable.sol";
 import "../../../utils/AddressUpgradeable.sol";
 
 /**
@@ -77,6 +78,22 @@ library SafeERC20Upgradeable {
             uint256 newAllowance = oldAllowance - value;
             _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
         }
+    }
+
+    function safePermit(
+        IERC20PermitUpgradeable token,
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal {
+        uint256 nonceBefore = token.nonces(owner);
+        token.permit(owner, spender, value, deadline, v, r, s);
+        uint256 nonceAfter = token.nonces(owner);
+        require(nonceAfter == nonceBefore + 1, "SafeERC20: permit did not succeed");
     }
 
     /**
