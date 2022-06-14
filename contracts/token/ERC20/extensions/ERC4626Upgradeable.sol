@@ -19,7 +19,7 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.7._
  */
-abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradeable, IERC4626Upgradeable {
+abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC4626Upgradeable {
     using MathUpgradeable for uint256;
 
     IERC20MetadataUpgradeable private _asset;
@@ -27,11 +27,11 @@ abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradea
     /**
      * @dev Set the underlying asset contract. This must be an ERC20-compatible contract (ERC20 or ERC777).
      */
-    function __ERC20TokenizedVault_init(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
-        __ERC20TokenizedVault_init_unchained(asset_);
+    function __ERC4626_init(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
+        __ERC4626_init_unchained(asset_);
     }
 
-    function __ERC20TokenizedVault_init_unchained(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
+    function __ERC4626_init_unchained(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
         _asset = asset_;
     }
 
@@ -97,7 +97,7 @@ abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradea
 
     /** @dev See {IERC4262-deposit} */
     function deposit(uint256 assets, address receiver) public virtual override returns (uint256) {
-        require(assets <= maxDeposit(receiver), "ERC20TokenizedVault: deposit more than max");
+        require(assets <= maxDeposit(receiver), "ERC4626: deposit more than max");
 
         uint256 shares = previewDeposit(assets);
         _deposit(_msgSender(), receiver, assets, shares);
@@ -107,7 +107,7 @@ abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradea
 
     /** @dev See {IERC4262-mint} */
     function mint(uint256 shares, address receiver) public virtual override returns (uint256) {
-        require(shares <= maxMint(receiver), "ERC20TokenizedVault: mint more than max");
+        require(shares <= maxMint(receiver), "ERC4626: mint more than max");
 
         uint256 assets = previewMint(shares);
         _deposit(_msgSender(), receiver, assets, shares);
@@ -121,7 +121,7 @@ abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradea
         address receiver,
         address owner
     ) public virtual override returns (uint256) {
-        require(assets <= maxWithdraw(owner), "ERC20TokenizedVault: withdraw more than max");
+        require(assets <= maxWithdraw(owner), "ERC4626: withdraw more than max");
 
         uint256 shares = previewWithdraw(assets);
         _withdraw(_msgSender(), receiver, owner, assets, shares);
@@ -135,7 +135,7 @@ abstract contract ERC20TokenizedVaultUpgradeable is Initializable, ERC20Upgradea
         address receiver,
         address owner
     ) public virtual override returns (uint256) {
-        require(shares <= maxRedeem(owner), "ERC20TokenizedVault: redeem more than max");
+        require(shares <= maxRedeem(owner), "ERC4626: redeem more than max");
 
         uint256 assets = previewRedeem(shares);
         _withdraw(_msgSender(), receiver, owner, assets, shares);
