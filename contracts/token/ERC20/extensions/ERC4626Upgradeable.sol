@@ -180,7 +180,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         address receiver,
         uint256 assets,
         uint256 shares
-    ) private {
+    ) internal virtual {
         // If _asset is ERC777, `transferFrom` can trigger a reenterancy BEFORE the transfer happens through the
         // `tokensToSend` hook. On the other hand, the `tokenReceived` hook, that is triggered after the transfer,
         // calls the vault, which is assumed not malicious.
@@ -203,7 +203,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         address owner,
         uint256 assets,
         uint256 shares
-    ) private {
+    ) internal virtual {
         if (caller != owner) {
             _spendAllowance(owner, caller, shares);
         }
