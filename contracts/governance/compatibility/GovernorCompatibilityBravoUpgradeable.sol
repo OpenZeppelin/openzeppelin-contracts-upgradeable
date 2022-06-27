@@ -3,7 +3,6 @@
 
 pragma solidity ^0.8.0;
 
-import "../../utils/CountersUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
 import "../extensions/IGovernorTimelockUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
@@ -26,9 +25,6 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
 
     function __GovernorCompatibilityBravo_init_unchained() internal onlyInitializing {
     }
-    using CountersUpgradeable for CountersUpgradeable.Counter;
-    using TimersUpgradeable for TimersUpgradeable.BlockNumber;
-
     enum VoteType {
         Against,
         For,
