@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.6.0) (access/AccessControl.sol)
+// OpenZeppelin Contracts (last updated v4.7.0) (access/AccessControl.sol)
 
 pragma solidity ^0.8.0;
 
@@ -116,7 +116,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
                 string(
                     abi.encodePacked(
                         "AccessControl: account ",
-                        StringsUpgradeable.toHexString(uint160(account), 20),
+                        StringsUpgradeable.toHexString(account),
                         " is missing role ",
                         StringsUpgradeable.toHexString(uint256(role), 32)
                     )

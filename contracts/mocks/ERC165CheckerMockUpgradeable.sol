@@ -29,6 +29,10 @@ contract ERC165CheckerMockUpgradeable is Initializable {
         return account.getSupportedInterfaces(interfaceIds);
     }
 
+    function supportsERC165InterfaceUnchecked(address account, bytes4 interfaceId) public view returns (bool) {
+        return account.supportsERC165InterfaceUnchecked(interfaceId);
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.
