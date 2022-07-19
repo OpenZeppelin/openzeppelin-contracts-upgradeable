@@ -1,7 +1,9 @@
 # <img src="icon.svg" alt="OpenZeppelin" height="40px" align="left"> OpenZeppelin Contracts Upgradeable
 
-[![Docs](https://img.shields.io/badge/docs-%F0%9F%93%84-blue)](https://docs.openzeppelin.com/contracts/upgradeable)
-[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts-upgradeable.svg)](https://www.npmjs.org/package/@openzeppelin/contracts-upgradeable)
+[![Docs](https://img.shields.io/badge/docs-%F0%9F%93%84-blue)](https://docs.openzeppelin.com/contracts)
+[![NPM Package](https://img.shields.io/npm/v/@openzeppelin/contracts.svg)](https://www.npmjs.org/package/@openzeppelin/contracts)
+[![Coverage Status](https://codecov.io/gh/OpenZeppelin/openzeppelin-contracts/graph/badge.svg)](https://codecov.io/gh/OpenZeppelin/openzeppelin-contracts)
+[![gitpoap badge](https://public-api.gitpoap.io/v1/repo/OpenZeppelin/openzeppelin-contracts/badge)](https://www.gitpoap.io/gh/OpenZeppelin/openzeppelin-contracts)
 
 This repository hosts the Upgradeable variant of [OpenZeppelin Contracts], meant for use in upgradeable contracts. This variant is available as separate package called `@openzeppelin/contracts-upgradeable`.
 
