@@ -38,7 +38,7 @@ jobs:
         env:
           REF: 'refs/heads/patches'
           BASE_REF: HEAD
-        if: ${{ github.base_ref || github.ref }} == 'refs/heads/patches'
+        if: (github.base_ref || github.ref) == 'refs/heads/patches'
       - run: npm run test
         env:
           FORCE_COLOR: 1
