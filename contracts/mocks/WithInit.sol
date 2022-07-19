@@ -132,6 +132,13 @@ contract ERC1271WalletMockUpgradeableWithInit is ERC1271WalletMockUpgradeable {
         __ERC1271WalletMock_init(originalOwner);
     }
 }
+import "./ERC1271WalletMockUpgradeable.sol";
+
+contract ERC1271MaliciousMockUpgradeableWithInit is ERC1271MaliciousMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1271MaliciousMock_init();
+    }
+}
 import "./SignatureCheckerMockUpgradeable.sol";
 
 contract SignatureCheckerMockUpgradeableWithInit is SignatureCheckerMockUpgradeable {
@@ -1077,6 +1084,13 @@ import "./DummyImplementationUpgradeable.sol";
 contract DummyImplementationV2UpgradeableWithInit is DummyImplementationV2Upgradeable {
     constructor() payable initializer {
         __DummyImplementationV2_init();
+    }
+}
+import "./ERC165/ERC165MaliciousDataUpgradeable.sol";
+
+contract ERC165MaliciousDataUpgradeableWithInit is ERC165MaliciousDataUpgradeable {
+    constructor() payable initializer {
+        __ERC165MaliciousData_init();
     }
 }
 import "./ERC165/ERC165MissingDataUpgradeable.sol";

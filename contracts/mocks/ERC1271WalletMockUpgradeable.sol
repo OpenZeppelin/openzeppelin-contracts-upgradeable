@@ -28,3 +28,24 @@ contract ERC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, IERC
      */
     uint256[50] private __gap;
 }
+
+contract ERC1271MaliciousMockUpgradeable is Initializable, IERC1271Upgradeable {
+    function __ERC1271MaliciousMock_init() internal onlyInitializing {
+    }
+
+    function __ERC1271MaliciousMock_init_unchained() internal onlyInitializing {
+    }
+    function isValidSignature(bytes32, bytes memory) public pure override returns (bytes4) {
+        assembly {
+            mstore(0, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+            return(0, 32)
+        }
+    }
+
+    /**
+     * @dev This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
+    uint256[50] private __gap;
+}
