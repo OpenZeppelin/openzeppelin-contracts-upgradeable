@@ -485,7 +485,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
             } catch Error(string memory reason) {
                 revert(reason);
             } catch {
-                revert("ERC1155: transfer to non ERC1155Receiver implementer");
+                revert("ERC1155: transfer to non-ERC1155Receiver implementer");
             }
         }
     }
@@ -508,7 +508,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
             } catch Error(string memory reason) {
                 revert(reason);
             } catch {
-                revert("ERC1155: transfer to non ERC1155Receiver implementer");
+                revert("ERC1155: transfer to non-ERC1155Receiver implementer");
             }
         }
     }

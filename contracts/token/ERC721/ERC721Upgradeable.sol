@@ -311,7 +311,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
         _beforeTokenTransfer(owner, address(0), tokenId);
 
         // Clear approvals
-        _approve(address(0), tokenId);
+        delete _tokenApprovals[tokenId];
 
         _balances[owner] -= 1;
         delete _owners[tokenId];

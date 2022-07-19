@@ -108,6 +108,6 @@ library ERC165CheckerUpgradeable {
         bytes memory encodedParams = abi.encodeWithSelector(IERC165Upgradeable.supportsInterface.selector, interfaceId);
         (bool success, bytes memory result) = account.staticcall{gas: 30000}(encodedParams);
         if (result.length < 32) return false;
-        return success && abi.decode(result, (bool));
+        return success && abi.decode(result, (uint256)) > 0;
     }
 }
