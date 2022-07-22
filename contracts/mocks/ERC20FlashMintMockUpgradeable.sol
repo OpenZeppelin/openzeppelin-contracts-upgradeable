@@ -36,8 +36,7 @@ contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeab
         _flashFeeAmount = amount;
     }
 
-    function flashFee(address token, uint256 amount) public view virtual override returns (uint256) {
-        super.flashFee(token, amount);
+    function _flashFee(address, uint256) internal view override returns (uint256) {
         return _flashFeeAmount;
     }
 
