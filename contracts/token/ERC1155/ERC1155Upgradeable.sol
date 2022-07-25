@@ -128,7 +128,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     ) public virtual override {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),
-            "ERC1155: caller is not token owner nor approved"
+            "ERC1155: caller is not token owner or approved"
         );
         _safeTransferFrom(from, to, id, amount, data);
     }
@@ -145,7 +145,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
     ) public virtual override {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),
-            "ERC1155: caller is not token owner nor approved"
+            "ERC1155: caller is not token owner or approved"
         );
         _safeBatchTransferFrom(from, to, ids, amounts, data);
     }
