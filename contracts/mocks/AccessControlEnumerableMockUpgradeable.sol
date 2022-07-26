@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../access/AccessControlEnumerableUpgradeable.sol";
+import "../access/extensions/AccessControlEnumerableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract AccessControlEnumerableMockUpgradeable is Initializable, AccessControlEnumerableUpgradeable {

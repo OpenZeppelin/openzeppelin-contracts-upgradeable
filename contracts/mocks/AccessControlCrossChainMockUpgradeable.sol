@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "../access/AccessControlCrossChainUpgradeable.sol";
+import "../access/extensions/AccessControlCrossChainUpgradeable.sol";
 import "../crosschain/arbitrum/CrossChainEnabledArbitrumL2Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 

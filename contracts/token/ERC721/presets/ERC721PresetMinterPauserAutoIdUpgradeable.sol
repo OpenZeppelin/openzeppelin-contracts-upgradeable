@@ -7,7 +7,7 @@ import "../ERC721Upgradeable.sol";
 import "../extensions/ERC721EnumerableUpgradeable.sol";
 import "../extensions/ERC721BurnableUpgradeable.sol";
 import "../extensions/ERC721PausableUpgradeable.sol";
-import "../../../access/AccessControlEnumerableUpgradeable.sol";
+import "../../../access/extensions/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";

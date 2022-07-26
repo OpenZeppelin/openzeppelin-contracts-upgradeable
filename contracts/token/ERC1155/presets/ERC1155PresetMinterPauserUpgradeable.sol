@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "../ERC1155Upgradeable.sol";
 import "../extensions/ERC1155BurnableUpgradeable.sol";
 import "../extensions/ERC1155PausableUpgradeable.sol";
-import "../../../access/AccessControlEnumerableUpgradeable.sol";
+import "../../../access/extensions/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
