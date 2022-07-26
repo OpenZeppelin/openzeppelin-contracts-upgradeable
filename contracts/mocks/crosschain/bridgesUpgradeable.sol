@@ -136,12 +136,8 @@ contract BridgeArbitrumL2MockUpgradeable is Initializable, BaseRelayMockUpgradea
 
     function __BridgeArbitrumL2Mock_init_unchained() internal onlyInitializing {
     }
-    function isTopLevelCall() public view returns (bool) {
+    function wasMyCallersAddressAliased() public view returns (bool) {
         return _currentSender != address(0);
-    }
-
-    function wasMyCallersAddressAliased() public pure returns (bool) {
-        return true;
     }
 
     function myCallersAddressWithoutAliasing() public view returns (address) {

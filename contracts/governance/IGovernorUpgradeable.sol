@@ -147,7 +147,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
     /**
      * @notice module:user-config
      * @dev Delay, in number of block, between the proposal is created and the vote starts. This can be increassed to
-     * leave time for users to buy voting power, of delegate it, before the voting of a proposal starts.
+     * leave time for users to buy voting power, or delegate it, before the voting of a proposal starts.
      */
     function votingDelay() public view virtual returns (uint256);
 
