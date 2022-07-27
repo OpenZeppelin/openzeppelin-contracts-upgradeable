@@ -341,6 +341,13 @@ contract ERC165CheckerMockUpgradeableWithInit is ERC165CheckerMockUpgradeable {
         __ERC165CheckerMock_init();
     }
 }
+import "./ERC165/ERC165ReturnBombUpgradeable.sol";
+
+contract ERC165ReturnBombMockUpgradeableWithInit is ERC165ReturnBombMockUpgradeable {
+    constructor() payable initializer {
+        __ERC165ReturnBombMock_init();
+    }
+}
 import "./ERC165/ERC165InterfacesSupportedUpgradeable.sol";
 
 contract SupportsInterfaceWithLookupMockUpgradeableWithInit is SupportsInterfaceWithLookupMockUpgradeable {
