@@ -9,7 +9,7 @@ contract ERC165MaliciousDataUpgradeable is Initializable {
 
     function __ERC165MaliciousData_init_unchained() internal onlyInitializing {
     }
-    function supportsInterface(bytes4) public view returns (bool) {
+    function supportsInterface(bytes4) public pure returns (bool) {
         assembly {
             mstore(0, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
             return(0, 32)
