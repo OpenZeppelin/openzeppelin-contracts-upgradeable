@@ -4,6 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "./GovernorVotesUpgradeable.sol";
+import "../../utils/CheckpointsUpgradeable.sol";
+import "../../utils/math/SafeCastUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -13,7 +15,10 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
-    uint256 private _quorumNumerator;
+    using CheckpointsUpgradeable for CheckpointsUpgradeable.History;
+
+    uint256 private _quorumNumerator; // DEPRECATED
+    CheckpointsUpgradeable.History private _quorumNumeratorHistory;
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
@@ -36,7 +41,27 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the current quorum numerator. See {quorumDenominator}.
      */
     function quorumNumerator() public view virtual returns (uint256) {
-        return _quorumNumerator;
+        return _quorumNumeratorHistory._checkpoints.length == 0 ? _quorumNumerator : _quorumNumeratorHistory.latest();
+    }
+
+    /**
+     * @dev Returns the quorum numerator at a specific block number. See {quorumDenominator}.
+     */
+    function quorumNumerator(uint256 blockNumber) public view virtual returns (uint256) {
+        // If history is empty, fallback to old storage
+        uint256 length = _quorumNumeratorHistory._checkpoints.length;
+        if (length == 0) {
+            return _quorumNumerator;
+        }
+
+        // Optimistic search, check the latest checkpoint
+        CheckpointsUpgradeable.Checkpoint memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
+        if (latest._blockNumber <= blockNumber) {
+            return latest._value;
+        }
+
+        // Otherwize, do the binary search
+        return _quorumNumeratorHistory.getAtBlock(blockNumber);
     }
 
     /**
@@ -50,7 +75,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the quorum for a block number, in terms of number of votes: `supply * numerator / denominator`.
      */
     function quorum(uint256 blockNumber) public view virtual override returns (uint256) {
-        return (token.getPastTotalSupply(blockNumber) * quorumNumerator()) / quorumDenominator();
+        return (token.getPastTotalSupply(blockNumber) * quorumNumerator(blockNumber)) / quorumDenominator();
     }
 
     /**
@@ -82,8 +107,17 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
             "GovernorVotesQuorumFraction: quorumNumerator over quorumDenominator"
         );
 
-        uint256 oldQuorumNumerator = _quorumNumerator;
-        _quorumNumerator = newQuorumNumerator;
+        uint256 oldQuorumNumerator = quorumNumerator();
+
+        // Make sure we keep track of the original numerator in contracts upgraded from a version without checkpoints.
+        if (oldQuorumNumerator != 0 && _quorumNumeratorHistory._checkpoints.length == 0) {
+            _quorumNumeratorHistory._checkpoints.push(
+                CheckpointsUpgradeable.Checkpoint({_blockNumber: 0, _value: SafeCastUpgradeable.toUint224(oldQuorumNumerator)})
+            );
+        }
+
+        // Set new quorum for future proposals
+        _quorumNumeratorHistory.push(newQuorumNumerator);
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }
@@ -93,5 +127,5 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[48] private __gap;
 }
