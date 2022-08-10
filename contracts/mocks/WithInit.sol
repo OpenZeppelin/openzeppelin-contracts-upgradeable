@@ -695,17 +695,6 @@ contract ArraysImplUpgradeableWithInit is ArraysImplUpgradeable {
         __ArraysImpl_init(array);
     }
 }
-import "../finance/VestingWalletUpgradeable.sol";
-
-contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
-    constructor(
-        address beneficiaryAddress,
-        uint64 startTimestamp,
-        uint64 durationSeconds
-    ) payable initializer {
-        __VestingWallet_init(beneficiaryAddress, startTimestamp, durationSeconds);
-    }
-}
 import "./ERC4626MockUpgradeable.sol";
 
 contract ERC4626MockUpgradeableWithInit is ERC4626MockUpgradeable {
@@ -715,6 +704,17 @@ contract ERC4626MockUpgradeableWithInit is ERC4626MockUpgradeable {
         string memory symbol
     ) payable initializer {
         __ERC4626Mock_init(asset, name, symbol);
+    }
+}
+import "../finance/VestingWalletUpgradeable.sol";
+
+contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
+    constructor(
+        address beneficiaryAddress,
+        uint64 startTimestamp,
+        uint64 durationSeconds
+    ) payable initializer {
+        __VestingWallet_init(beneficiaryAddress, startTimestamp, durationSeconds);
     }
 }
 import "../finance/PaymentSplitterUpgradeable.sol";
