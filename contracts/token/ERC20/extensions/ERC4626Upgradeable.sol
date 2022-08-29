@@ -34,6 +34,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
      */
     function __ERC4626_init(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
         __ERC4626_init_unchained(asset_);
+        __ERC20_init(asset_.name(), asset_.symbol());
     }
 
     function __ERC4626_init_unchained(IERC20MetadataUpgradeable asset_) internal onlyInitializing {
