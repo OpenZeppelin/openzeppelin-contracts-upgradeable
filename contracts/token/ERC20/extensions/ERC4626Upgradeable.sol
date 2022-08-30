@@ -40,67 +40,67 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         _asset = asset_;
     }
 
-    /** @dev See {IERC4626-asset}. */
+    /** @dev See {IERC4626Upgradeable-asset}. */
     function asset() public view virtual override returns (address) {
         return address(_asset);
     }
 
-    /** @dev See {IERC4626-totalAssets}. */
+    /** @dev See {IERC4626Upgradeable-totalAssets}. */
     function totalAssets() public view virtual override returns (uint256) {
         return _asset.balanceOf(address(this));
     }
 
-    /** @dev See {IERC4626-convertToShares}. */
+    /** @dev See {IERC4626Upgradeable-convertToShares}. */
     function convertToShares(uint256 assets) public view virtual override returns (uint256 shares) {
         return _convertToShares(assets, MathUpgradeable.Rounding.Down);
     }
 
-    /** @dev See {IERC4626-convertToAssets}. */
+    /** @dev See {IERC4626Upgradeable-convertToAssets}. */
     function convertToAssets(uint256 shares) public view virtual override returns (uint256 assets) {
         return _convertToAssets(shares, MathUpgradeable.Rounding.Down);
     }
 
-    /** @dev See {IERC4626-maxDeposit}. */
+    /** @dev See {IERC4626Upgradeable-maxDeposit}. */
     function maxDeposit(address) public view virtual override returns (uint256) {
         return _isVaultCollateralized() ? type(uint256).max : 0;
     }
 
-    /** @dev See {IERC4626-maxMint}. */
+    /** @dev See {IERC4626Upgradeable-maxMint}. */
     function maxMint(address) public view virtual override returns (uint256) {
         return type(uint256).max;
     }
 
-    /** @dev See {IERC4626-maxWithdraw}. */
+    /** @dev See {IERC4626Upgradeable-maxWithdraw}. */
     function maxWithdraw(address owner) public view virtual override returns (uint256) {
         return _convertToAssets(balanceOf(owner), MathUpgradeable.Rounding.Down);
     }
 
-    /** @dev See {IERC4626-maxRedeem}. */
+    /** @dev See {IERC4626Upgradeable-maxRedeem}. */
     function maxRedeem(address owner) public view virtual override returns (uint256) {
         return balanceOf(owner);
     }
 
-    /** @dev See {IERC4626-previewDeposit}. */
+    /** @dev See {IERC4626Upgradeable-previewDeposit}. */
     function previewDeposit(uint256 assets) public view virtual override returns (uint256) {
         return _convertToShares(assets, MathUpgradeable.Rounding.Down);
     }
 
-    /** @dev See {IERC4626-previewMint}. */
+    /** @dev See {IERC4626Upgradeable-previewMint}. */
     function previewMint(uint256 shares) public view virtual override returns (uint256) {
         return _convertToAssets(shares, MathUpgradeable.Rounding.Up);
     }
 
-    /** @dev See {IERC4626-previewWithdraw}. */
+    /** @dev See {IERC4626Upgradeable-previewWithdraw}. */
     function previewWithdraw(uint256 assets) public view virtual override returns (uint256) {
         return _convertToShares(assets, MathUpgradeable.Rounding.Up);
     }
 
-    /** @dev See {IERC4626-previewRedeem}. */
+    /** @dev See {IERC4626Upgradeable-previewRedeem}. */
     function previewRedeem(uint256 shares) public view virtual override returns (uint256) {
         return _convertToAssets(shares, MathUpgradeable.Rounding.Down);
     }
 
-    /** @dev See {IERC4626-deposit}. */
+    /** @dev See {IERC4626Upgradeable-deposit}. */
     function deposit(uint256 assets, address receiver) public virtual override returns (uint256) {
         require(assets <= maxDeposit(receiver), "ERC4626: deposit more than max");
 
@@ -110,7 +110,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         return shares;
     }
 
-    /** @dev See {IERC4626-mint}. */
+    /** @dev See {IERC4626Upgradeable-mint}. */
     function mint(uint256 shares, address receiver) public virtual override returns (uint256) {
         require(shares <= maxMint(receiver), "ERC4626: mint more than max");
 
@@ -120,7 +120,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         return assets;
     }
 
-    /** @dev See {IERC4626-withdraw}. */
+    /** @dev See {IERC4626Upgradeable-withdraw}. */
     function withdraw(
         uint256 assets,
         address receiver,
@@ -134,7 +134,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         return shares;
     }
 
-    /** @dev See {IERC4626-redeem}. */
+    /** @dev See {IERC4626Upgradeable-redeem}. */
     function redeem(
         uint256 shares,
         address receiver,
