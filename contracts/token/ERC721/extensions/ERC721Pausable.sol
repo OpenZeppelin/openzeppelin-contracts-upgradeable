@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (token/ERC721/extensions/ERC721Pausable.sol)
+// OpenZeppelin Contracts (last updated v4.8.0-rc.0) (token/ERC721/extensions/ERC721Pausable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -27,6 +27,17 @@ abstract contract ERC721Pausable is ERC721, Pausable {
         uint256 tokenId
     ) internal virtual override {
         super._beforeTokenTransfer(from, to, tokenId);
+
+        require(!paused(), "ERC721Pausable: token transfer while paused");
+    }
+
+    function _beforeConsecutiveTokenTransfer(
+        address from,
+        address to,
+        uint256 first,
+        uint96 size
+    ) internal virtual override {
+        super._beforeConsecutiveTokenTransfer(from, to, first, size);
 
         require(!paused(), "ERC721Pausable: token transfer while paused");
     }
