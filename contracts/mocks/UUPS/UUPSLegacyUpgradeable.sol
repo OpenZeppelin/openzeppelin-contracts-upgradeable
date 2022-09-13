@@ -54,11 +54,11 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
     }
 
     // hooking into the old mechanism
-    function upgradeTo(address newImplementation) external virtual override {
+    function upgradeTo(address newImplementation) external override {
         _upgradeToAndCallSecureLegacyV1(newImplementation, bytes(""), false);
     }
 
-    function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual override {
+    function upgradeToAndCall(address newImplementation, bytes memory data) external payable override {
         _upgradeToAndCallSecureLegacyV1(newImplementation, data, false);
     }
 

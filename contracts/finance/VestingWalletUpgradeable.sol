@@ -92,15 +92,30 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     }
 
     /**
+     * @dev Getter for the amount of releasable eth.
+     */
+    function releasable() public view virtual returns (uint256) {
+        return vestedAmount(uint64(block.timestamp)) - released();
+    }
+
+    /**
+     * @dev Getter for the amount of releasable `token` tokens. `token` should be the address of an
+     * IERC20 contract.
+     */
+    function releasable(address token) public view virtual returns (uint256) {
+        return vestedAmount(token, uint64(block.timestamp)) - released(token);
+    }
+
+    /**
      * @dev Release the native token (ether) that have already vested.
      *
      * Emits a {EtherReleased} event.
      */
     function release() public virtual {
-        uint256 releasable = vestedAmount(uint64(block.timestamp)) - released();
-        _released += releasable;
-        emit EtherReleased(releasable);
-        AddressUpgradeable.sendValue(payable(beneficiary()), releasable);
+        uint256 amount = releasable();
+        _released += amount;
+        emit EtherReleased(amount);
+        AddressUpgradeable.sendValue(payable(beneficiary()), amount);
     }
 
     /**
@@ -109,10 +124,10 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      * Emits a {ERC20Released} event.
      */
     function release(address token) public virtual {
-        uint256 releasable = vestedAmount(token, uint64(block.timestamp)) - released(token);
-        _erc20Released[token] += releasable;
-        emit ERC20Released(token, releasable);
-        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), beneficiary(), releasable);
+        uint256 amount = releasable(token);
+        _erc20Released[token] += amount;
+        emit ERC20Released(token, amount);
+        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), beneficiary(), amount);
     }
 
     /**

@@ -190,7 +190,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
 
     /**
      * @notice module:voting
-     * @dev Returns weither `account` has cast a vote on `proposalId`.
+     * @dev Returns whether `account` has cast a vote on `proposalId`.
      */
     function hasVoted(uint256 proposalId, address account) public view virtual returns (bool);
 

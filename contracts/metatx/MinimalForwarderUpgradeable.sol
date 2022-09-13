@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/cryptography/ECDSAUpgradeable.sol";
-import "../utils/cryptography/draft-EIP712Upgradeable.sol";
+import "../utils/cryptography/EIP712Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

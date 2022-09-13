@@ -11,7 +11,7 @@ contract MulticallTestUpgradeable is Initializable {
 
     function __MulticallTest_init_unchained() internal onlyInitializing {
     }
-    function testReturnValues(
+    function checkReturnValues(
         MulticallTokenMockUpgradeable multicallToken,
         address[] calldata recipients,
         uint256[] calldata amounts

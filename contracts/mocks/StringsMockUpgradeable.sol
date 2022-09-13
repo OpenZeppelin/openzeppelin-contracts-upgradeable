@@ -11,19 +11,19 @@ contract StringsMockUpgradeable is Initializable {
 
     function __StringsMock_init_unchained() internal onlyInitializing {
     }
-    function fromUint256(uint256 value) public pure returns (string memory) {
+    function toString(uint256 value) public pure returns (string memory) {
         return StringsUpgradeable.toString(value);
     }
 
-    function fromUint256Hex(uint256 value) public pure returns (string memory) {
+    function toHexString(uint256 value) public pure returns (string memory) {
         return StringsUpgradeable.toHexString(value);
     }
 
-    function fromUint256HexFixed(uint256 value, uint256 length) public pure returns (string memory) {
+    function toHexString(uint256 value, uint256 length) public pure returns (string memory) {
         return StringsUpgradeable.toHexString(value, length);
     }
 
-    function fromAddressHexFixed(address addr) public pure returns (string memory) {
+    function toHexString(address addr) public pure returns (string memory) {
         return StringsUpgradeable.toHexString(addr);
     }
 

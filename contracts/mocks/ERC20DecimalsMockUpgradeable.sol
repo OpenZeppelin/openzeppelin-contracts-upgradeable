@@ -25,7 +25,7 @@ contract ERC20DecimalsMockUpgradeable is Initializable, ERC20Upgradeable {
         _decimals = decimals_;
     }
 
-    function decimals() public view virtual override returns (uint8) {
+    function decimals() public view override returns (uint8) {
         return _decimals;
     }
 

@@ -13,7 +13,7 @@ contract UUPSUpgradeableMockUpgradeable is Initializable, CountersImplUpgradeabl
     function __UUPSUpgradeableMock_init_unchained() internal onlyInitializing {
     }
     // Not having any checks in this function is dangerous! Do not do this outside tests!
-    function _authorizeUpgrade(address) internal virtual override {}
+    function _authorizeUpgrade(address) internal override {}
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
@@ -29,11 +29,11 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
 
     function __UUPSUpgradeableUnsafeMock_init_unchained() internal onlyInitializing {
     }
-    function upgradeTo(address newImplementation) external virtual override {
+    function upgradeTo(address newImplementation) external override {
         ERC1967UpgradeUpgradeable._upgradeToAndCall(newImplementation, bytes(""), false);
     }
 
-    function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual override {
+    function upgradeToAndCall(address newImplementation, bytes memory data) external payable override {
         ERC1967UpgradeUpgradeable._upgradeToAndCall(newImplementation, data, false);
     }
 

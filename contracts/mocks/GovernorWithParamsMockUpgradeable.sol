@@ -33,7 +33,7 @@ contract GovernorWithParamsMockUpgradeable is Initializable, GovernorVotesUpgrad
         address account,
         uint256 blockNumber,
         bytes memory params
-    ) internal view virtual override(GovernorUpgradeable, GovernorVotesUpgradeable) returns (uint256) {
+    ) internal view override(GovernorUpgradeable, GovernorVotesUpgradeable) returns (uint256) {
         uint256 reduction = 0;
         // If the user provides parameters, we reduce the voting weight by the amount of the integer param
         if (params.length > 0) {
@@ -49,7 +49,7 @@ contract GovernorWithParamsMockUpgradeable is Initializable, GovernorVotesUpgrad
         uint8 support,
         uint256 weight,
         bytes memory params
-    ) internal virtual override(GovernorUpgradeable, GovernorCountingSimpleUpgradeable) {
+    ) internal override(GovernorUpgradeable, GovernorCountingSimpleUpgradeable) {
         if (params.length > 0) {
             (uint256 _uintParam, string memory _strParam) = abi.decode(params, (uint256, string));
             emit CountParams(_uintParam, _strParam);

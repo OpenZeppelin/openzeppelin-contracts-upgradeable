@@ -40,6 +40,18 @@ contract MathMockUpgradeable is Initializable {
         return MathUpgradeable.sqrt(a, direction);
     }
 
+    function log2(uint256 a, MathUpgradeable.Rounding direction) public pure returns (uint256) {
+        return MathUpgradeable.log2(a, direction);
+    }
+
+    function log10(uint256 a, MathUpgradeable.Rounding direction) public pure returns (uint256) {
+        return MathUpgradeable.log10(a, direction);
+    }
+
+    function log256(uint256 a, MathUpgradeable.Rounding direction) public pure returns (uint256) {
+        return MathUpgradeable.log256(a, direction);
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.

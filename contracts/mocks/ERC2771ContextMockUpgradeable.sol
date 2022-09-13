@@ -13,11 +13,11 @@ contract ERC2771ContextMockUpgradeable is Initializable, ContextMockUpgradeable,
         emit Sender(_msgSender()); // _msgSender() should be accessible during construction
     }
 
-    function _msgSender() internal view virtual override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (address) {
+    function _msgSender() internal view override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (address) {
         return ERC2771ContextUpgradeable._msgSender();
     }
 
-    function _msgData() internal view virtual override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (bytes calldata) {
+    function _msgData() internal view override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (bytes calldata) {
         return ERC2771ContextUpgradeable._msgData();
     }
 

@@ -21,7 +21,7 @@ contract ERC1155SupplyMockUpgradeable is Initializable, ERC1155MockUpgradeable, 
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) internal virtual override(ERC1155Upgradeable, ERC1155SupplyUpgradeable) {
+    ) internal override(ERC1155Upgradeable, ERC1155SupplyUpgradeable) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 

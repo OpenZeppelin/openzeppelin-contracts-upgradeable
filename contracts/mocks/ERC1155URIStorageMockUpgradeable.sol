@@ -15,7 +15,7 @@ contract ERC1155URIStorageMockUpgradeable is Initializable, ERC1155MockUpgradeab
 
     function __ERC1155URIStorageMock_init_unchained(string memory) internal onlyInitializing {}
 
-    function uri(uint256 tokenId) public view virtual override(ERC1155Upgradeable, ERC1155URIStorageUpgradeable) returns (string memory) {
+    function uri(uint256 tokenId) public view override(ERC1155Upgradeable, ERC1155URIStorageUpgradeable) returns (string memory) {
         return ERC1155URIStorageUpgradeable.uri(tokenId);
     }
 

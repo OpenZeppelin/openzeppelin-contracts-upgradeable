@@ -18,7 +18,7 @@ contract ERC721EnumerableMockUpgradeable is Initializable, ERC721EnumerableUpgra
 
     function __ERC721EnumerableMock_init_unchained(string memory, string memory) internal onlyInitializing {}
 
-    function _baseURI() internal view virtual override returns (string memory) {
+    function _baseURI() internal view override returns (string memory) {
         return _baseTokenURI;
     }
 

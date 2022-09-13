@@ -11,7 +11,7 @@ contract ERC165ReturnBombMockUpgradeable is Initializable, IERC165Upgradeable {
 
     function __ERC165ReturnBombMock_init_unchained() internal onlyInitializing {
     }
-    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public pure override returns (bool) {
         if (interfaceId == type(IERC165Upgradeable).interfaceId) {
             assembly {
                 mstore(0, 1)

@@ -41,7 +41,6 @@ contract GovernorCompatibilityBravoMockUpgradeable is
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        virtual
         override(IERC165Upgradeable, GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (bool)
     {
@@ -55,7 +54,6 @@ contract GovernorCompatibilityBravoMockUpgradeable is
     function state(uint256 proposalId)
         public
         view
-        virtual
         override(IGovernorUpgradeable, GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (ProposalState)
     {
@@ -65,7 +63,6 @@ contract GovernorCompatibilityBravoMockUpgradeable is
     function proposalEta(uint256 proposalId)
         public
         view
-        virtual
         override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (uint256)
     {
@@ -81,7 +78,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable, GovernorCompatibilityBravoUpgradeable) returns (uint256) {
+    ) public override(IGovernorUpgradeable, GovernorUpgradeable, GovernorCompatibilityBravoUpgradeable) returns (uint256) {
         return super.propose(targets, values, calldatas, description);
     }
 
@@ -90,7 +87,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) public virtual override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256) {
+    ) public override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256) {
         return super.queue(targets, values, calldatas, salt);
     }
 
@@ -99,7 +96,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) public payable virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
+    ) public payable override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
         return super.execute(targets, values, calldatas, salt);
     }
 
@@ -109,7 +106,7 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) {
+    ) internal override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) {
         super._execute(proposalId, targets, values, calldatas, descriptionHash);
     }
 
@@ -131,11 +128,11 @@ contract GovernorCompatibilityBravoMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) internal virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256 proposalId) {
+    ) internal override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256 proposalId) {
         return super._cancel(targets, values, calldatas, salt);
     }
 
-    function _executor() internal view virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (address) {
+    function _executor() internal view override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (address) {
         return super._executor();
     }
 

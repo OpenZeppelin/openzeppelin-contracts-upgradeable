@@ -42,7 +42,6 @@ contract GovernorTimelockCompoundMockUpgradeable is
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        virtual
         override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (bool)
     {
@@ -73,7 +72,6 @@ contract GovernorTimelockCompoundMockUpgradeable is
     function state(uint256 proposalId)
         public
         view
-        virtual
         override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable)
         returns (ProposalState)
     {
@@ -90,7 +88,7 @@ contract GovernorTimelockCompoundMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) {
+    ) internal override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) {
         super._execute(proposalId, targets, values, calldatas, descriptionHash);
     }
 
@@ -99,11 +97,11 @@ contract GovernorTimelockCompoundMockUpgradeable is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) internal virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256 proposalId) {
+    ) internal override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256 proposalId) {
         return super._cancel(targets, values, calldatas, salt);
     }
 
-    function _executor() internal view virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (address) {
+    function _executor() internal view override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (address) {
         return super._executor();
     }
 

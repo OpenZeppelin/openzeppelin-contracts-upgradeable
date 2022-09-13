@@ -13,10 +13,10 @@ import "../token/ERC20/extensions/IERC20MetadataUpgradeable.sol";
  * _Available since v4.7._
  */
 interface IERC4626Upgradeable is IERC20Upgradeable, IERC20MetadataUpgradeable {
-    event Deposit(address indexed caller, address indexed owner, uint256 assets, uint256 shares);
+    event Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares);
 
     event Withdraw(
-        address indexed caller,
+        address indexed sender,
         address indexed receiver,
         address indexed owner,
         uint256 assets,

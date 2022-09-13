@@ -43,21 +43,20 @@ contract GovernorPreventLateQuorumMockUpgradeable is
         _quorum = quorum_;
     }
 
-    function quorum(uint256) public view virtual override returns (uint256) {
+    function quorum(uint256) public view override returns (uint256) {
         return _quorum;
     }
 
     function proposalDeadline(uint256 proposalId)
         public
         view
-        virtual
         override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable)
         returns (uint256)
     {
         return super.proposalDeadline(proposalId);
     }
 
-    function proposalThreshold() public view virtual override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
         return super.proposalThreshold();
     }
 
@@ -67,7 +66,7 @@ contract GovernorPreventLateQuorumMockUpgradeable is
         uint8 support,
         string memory reason,
         bytes memory params
-    ) internal virtual override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) returns (uint256) {
+    ) internal override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) returns (uint256) {
         return super._castVote(proposalId, account, support, reason, params);
     }
 

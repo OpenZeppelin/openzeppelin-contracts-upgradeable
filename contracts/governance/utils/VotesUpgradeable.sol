@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/CountersUpgradeable.sol";
 import "../../utils/CheckpointsUpgradeable.sol";
-import "../../utils/cryptography/draft-EIP712Upgradeable.sol";
+import "../../utils/cryptography/EIP712Upgradeable.sol";
 import "./IVotesUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
@@ -62,7 +62,7 @@ abstract contract VotesUpgradeable is Initializable, IVotesUpgradeable, ContextU
      * - `blockNumber` must have been already mined
      */
     function getPastVotes(address account, uint256 blockNumber) public view virtual override returns (uint256) {
-        return _delegateCheckpoints[account].getAtBlock(blockNumber);
+        return _delegateCheckpoints[account].getAtProbablyRecentBlock(blockNumber);
     }
 
     /**
@@ -78,7 +78,7 @@ abstract contract VotesUpgradeable is Initializable, IVotesUpgradeable, ContextU
      */
     function getPastTotalSupply(uint256 blockNumber) public view virtual override returns (uint256) {
         require(blockNumber < block.number, "Votes: block not yet mined");
-        return _totalCheckpoints.getAtBlock(blockNumber);
+        return _totalCheckpoints.getAtProbablyRecentBlock(blockNumber);
     }
 
     /**

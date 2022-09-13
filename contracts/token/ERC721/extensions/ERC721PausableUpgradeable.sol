@@ -38,6 +38,17 @@ abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable,
         require(!paused(), "ERC721Pausable: token transfer while paused");
     }
 
+    function _beforeConsecutiveTokenTransfer(
+        address from,
+        address to,
+        uint256 first,
+        uint96 size
+    ) internal virtual override {
+        super._beforeConsecutiveTokenTransfer(from, to, first, size);
+
+        require(!paused(), "ERC721Pausable: token transfer while paused");
+    }
+
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new
      * variables without shifting down storage in the inheritance chain.
