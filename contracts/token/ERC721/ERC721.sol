@@ -68,7 +68,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      * @dev See {IERC721-ownerOf}.
      */
     function ownerOf(uint256 tokenId) public view virtual override returns (address) {
-        address owner = _owners[tokenId];
+        address owner = _ownerOf(tokenId);
         require(owner != address(0), "ERC721: invalid token ID");
         return owner;
     }
@@ -211,6 +211,13 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     }
 
     /**
+     * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
+     */
+    function _ownerOf(uint256 tokenId) internal view virtual returns (address) {
+        return _owners[tokenId];
+    }
+
+    /**
      * @dev Returns whether `tokenId` exists.
      *
      * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
@@ -219,7 +226,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      * and stop existing when they are burned (`_burn`).
      */
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
-        return _owners[tokenId] != address(0);
+        return _ownerOf(tokenId) != address(0);
     }
 
     /**
@@ -282,7 +289,17 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
         _beforeTokenTransfer(address(0), to, tokenId);
 
-        _balances[to] += 1;
+        // Check that tokenId was not minted by `_beforeTokenTransfer` hook
+        require(!_exists(tokenId), "ERC721: token already minted");
+
+        unchecked {
+            // Will not overflow unless all 2**256 token ids are minted to the same owner.
+            // Given that tokens are minted one by one, it is impossible in practice that
+            // this ever happens. Might change if we allow batch minting.
+            // The ERC fails to describe this case.
+            _balances[to] += 1;
+        }
+
         _owners[tokenId] = to;
 
         emit Transfer(address(0), to, tokenId);
@@ -306,10 +323,17 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
         _beforeTokenTransfer(owner, address(0), tokenId);
 
+        // Update ownership in case tokenId was transferred by `_beforeTokenTransfer` hook
+        owner = ERC721.ownerOf(tokenId);
+
         // Clear approvals
         delete _tokenApprovals[tokenId];
 
-        _balances[owner] -= 1;
+        unchecked {
+            // Cannot overflow, as that would require more tokens to be burned/transferred
+            // out than the owner initially received through minting and transferring in.
+            _balances[owner] -= 1;
+        }
         delete _owners[tokenId];
 
         emit Transfer(owner, address(0), tokenId);
@@ -338,11 +362,21 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
         _beforeTokenTransfer(from, to, tokenId);
 
+        // Check that tokenId was not transferred by `_beforeTokenTransfer` hook
+        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+
         // Clear approvals from the previous owner
         delete _tokenApprovals[tokenId];
 
-        _balances[from] -= 1;
-        _balances[to] += 1;
+        unchecked {
+            // `_balances[from]` cannot overflow for the same reason as described in `_burn`:
+            // `from`'s balance is the number of token held, which is at least one before the current
+            // transfer.
+            // `_balances[to]` could overflow in the conditions described in `_mint`. That would require
+            // all 2**256 token ids to be minted, which in practice is impossible.
+            _balances[from] -= 1;
+            _balances[to] += 1;
+        }
         _owners[tokenId] = to;
 
         emit Transfer(from, to, tokenId);
@@ -417,8 +451,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     }
 
     /**
-     * @dev Hook that is called before any token transfer. This includes minting
-     * and burning.
+     * @dev Hook that is called before any (single) token transfer. This includes minting and burning.
+     * See {_beforeConsecutiveTokenTransfer}.
      *
      * Calling conditions:
      *
@@ -437,8 +471,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     ) internal virtual {}
 
     /**
-     * @dev Hook that is called after any transfer of tokens. This includes
-     * minting and burning.
+     * @dev Hook that is called after any (single) transfer of tokens. This includes minting and burning.
+     * See {_afterConsecutiveTokenTransfer}.
      *
      * Calling conditions:
      *
@@ -451,5 +485,37 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         address from,
         address to,
         uint256 tokenId
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called before consecutive token transfers.
+     * Calling conditions are similar to {_beforeTokenTransfer}.
+     *
+     * The default implementation include balances updates that extensions such as {ERC721Consecutive} cannot perform
+     * directly.
+     */
+    function _beforeConsecutiveTokenTransfer(
+        address from,
+        address to,
+        uint256, /*first*/
+        uint96 size
+    ) internal virtual {
+        if (from != address(0)) {
+            _balances[from] -= size;
+        }
+        if (to != address(0)) {
+            _balances[to] += size;
+        }
+    }
+
+    /**
+     * @dev Hook that is called after consecutive token transfers.
+     * Calling conditions are similar to {_afterTokenTransfer}.
+     */
+    function _afterConsecutiveTokenTransfer(
+        address, /*from*/
+        address, /*to*/
+        uint256, /*first*/
+        uint96 /*size*/
     ) internal virtual {}
 }
