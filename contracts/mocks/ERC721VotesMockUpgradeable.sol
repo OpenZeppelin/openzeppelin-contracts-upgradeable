@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC721/extensions/draft-ERC721VotesUpgradeable.sol";
+import "../token/ERC721/extensions/ERC721VotesUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC721VotesMockUpgradeable is Initializable, ERC721VotesUpgradeable {
