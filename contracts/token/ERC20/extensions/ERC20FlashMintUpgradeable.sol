@@ -35,9 +35,9 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     }
 
     /**
-     * @dev Returns the fee applied when doing flash loans. By default this
-     * implementation has 0 fees. This function can be overloaded to make
-     * the flash loan mechanism deflationary.
+     * @dev Returns the fee applied when doing flash loans. This function calls
+     * the {_flashFee} function which returns the fee applied when doing flash
+     * loans.
      * @param token The token to be flash loaned.
      * @param amount The amount of tokens to be loaned.
      * @return The fees applied to the corresponding flash loan.
@@ -48,7 +48,9 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     }
 
     /**
-     * @dev Returns the fee applied when doing flash loans. This function calls the {flashFee} function which returns the fee applied when doing flash loans.
+     * @dev Returns the fee applied when doing flash loans. By default this
+     * implementation has 0 fees. This function can be overloaded to make
+     * the flash loan mechanism deflationary.
      * @param token The token to be flash loaned.
      * @param amount The amount of tokens to be loaned.
      * @return The fees applied to the corresponding flash loan.

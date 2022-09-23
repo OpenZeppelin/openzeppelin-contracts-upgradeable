@@ -14,9 +14,10 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
     constructor(
         uint256 minDelay,
         address[] memory proposers,
-        address[] memory executors
+        address[] memory executors,
+        address admin
     ) payable initializer {
-        __TimelockController_init(minDelay, proposers, executors);
+        __TimelockController_init(minDelay, proposers, executors, admin);
     }
 }
 import "./wizard/MyGovernor3Upgradeable.sol";
@@ -367,18 +368,6 @@ contract ERC721ConsecutiveMockUpgradeableWithInit is ERC721ConsecutiveMockUpgrad
         uint96[] memory amounts
     ) payable initializer {
         __ERC721ConsecutiveMock_init(name, symbol, delegates, receivers, amounts);
-    }
-}
-import "./ERC721ConsecutiveMockUpgradeable.sol";
-
-contract ERC721ConsecutiveEnumerableMockUpgradeableWithInit is ERC721ConsecutiveEnumerableMockUpgradeable {
-    constructor(
-        string memory name,
-        string memory symbol,
-        address[] memory receivers,
-        uint96[] memory amounts
-    ) payable initializer {
-        __ERC721ConsecutiveEnumerableMock_init(name, symbol, receivers, amounts);
     }
 }
 import "./ERC721ConsecutiveMockUpgradeable.sol";
@@ -1111,9 +1100,10 @@ contract TimelockControllerWith46MigrationUpgradeableWithInit is TimelockControl
     constructor(
         uint256 minDelay,
         address[] memory proposers,
-        address[] memory executors
+        address[] memory executors,
+        address admin
     ) payable initializer {
-        __TimelockControllerWith46Migration_init(minDelay, proposers, executors);
+        __TimelockControllerWith46Migration_init(minDelay, proposers, executors, admin);
     }
 }
 import "./BadBeaconUpgradeable.sol";
