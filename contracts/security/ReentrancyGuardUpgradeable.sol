@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.8.0-rc.0) (security/ReentrancyGuard.sol)
+// OpenZeppelin Contracts (last updated v4.8.0-rc.1) (security/ReentrancyGuard.sol)
 
 pragma solidity ^0.8.0;
 import "../proxy/utils/Initializable.sol";
@@ -59,7 +59,7 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     }
 
     function _nonReentrantBefore() private {
-        // On the first call to nonReentrant, _notEntered will be true
+        // On the first call to nonReentrant, _status will be _NOT_ENTERED
         require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
 
         // Any calls to nonReentrant after this point will fail

@@ -21,15 +21,17 @@ contract TimelockControllerWith46MigrationUpgradeable is Initializable, Timelock
     function __TimelockControllerWith46Migration_init(
         uint256 minDelay,
         address[] memory proposers,
-        address[] memory executors
+        address[] memory executors,
+        address admin
     ) internal onlyInitializing {
-        __TimelockController_init_unchained(minDelay, proposers, executors);
+        __TimelockController_init_unchained(minDelay, proposers, executors, admin);
     }
 
     function __TimelockControllerWith46Migration_init_unchained(
         uint256,
         address[] memory,
-        address[] memory
+        address[] memory,
+        address
     ) internal onlyInitializing {}
 
     /**
