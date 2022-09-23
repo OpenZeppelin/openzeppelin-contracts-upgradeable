@@ -4,7 +4,7 @@ set -euo pipefail -x
 
 npm run compile
 
-build_info=($(jq -r '.input.sources | keys | if any(test("^contracts/mocks/.*\\\\bunreachable\\\\b")) then empty else input_filename end' artifacts/build-info/*))
+build_info=($(jq -r '.input.sources | keys | if any(test("^contracts/mocks/.*\\bunreachable\\b")) then empty else input_filename end' artifacts/build-info/*))
 build_info_num=${#build_info[@]}
 
 if [ $build_info_num -ne 1 ]; then
