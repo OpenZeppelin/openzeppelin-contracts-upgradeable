@@ -2,7 +2,6 @@ const { constants, expectEvent, expectRevert } = require('@openzeppelin/test-hel
 const { expect } = require('chai');
 
 const ERC721ConsecutiveMock = artifacts.require('ERC721ConsecutiveMock');
-const ERC721ConsecutiveEnumerableMock = artifacts.require('ERC721ConsecutiveEnumerableMock');
 const ERC721ConsecutiveNoConstructorMintMock = artifacts.require('ERC721ConsecutiveNoConstructorMintMock');
 
 contract('ERC721Consecutive', function (accounts) {
@@ -173,18 +172,6 @@ contract('ERC721Consecutive', function (accounts) {
           symbol,
         ),
         'ERC721Consecutive: can\'t mint during construction',
-      );
-    });
-
-    it('consecutive mint not compatible with enumerability', async function () {
-      await expectRevert(
-        ERC721ConsecutiveEnumerableMock.new(
-          name,
-          symbol,
-          batches.map(({ receiver }) => receiver),
-          batches.map(({ amount }) => amount),
-        ),
-        'ERC721Enumerable: consecutive transfers not supported',
       );
     });
   });
