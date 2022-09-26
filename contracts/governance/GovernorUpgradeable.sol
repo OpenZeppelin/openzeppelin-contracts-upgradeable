@@ -550,8 +550,9 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address target,
         uint256 value,
         bytes calldata data
-    ) external virtual onlyGovernance {
-        AddressUpgradeable.functionCallWithValue(target, data, value);
+    ) external payable virtual onlyGovernance {
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        AddressUpgradeable.verifyCallResult(success, returndata, "Governor: relay reverted without message");
     }
 
     /**
