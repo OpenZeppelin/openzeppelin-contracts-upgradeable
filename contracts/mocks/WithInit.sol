@@ -392,6 +392,13 @@ contract Bytes32DequeMockUpgradeableWithInit is Bytes32DequeMockUpgradeable {
         __Bytes32DequeMock_init();
     }
 }
+import "./SafeCastMockUpgradeable.sol";
+
+contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
+    constructor() payable initializer {
+        __SafeCastMock_init();
+    }
+}
 import "./CheckpointsMockUpgradeable.sol";
 
 contract CheckpointsMockUpgradeableWithInit is CheckpointsMockUpgradeable {
@@ -411,13 +418,6 @@ import "./CheckpointsMockUpgradeable.sol";
 contract Checkpoints160MockUpgradeableWithInit is Checkpoints160MockUpgradeable {
     constructor() payable initializer {
         __Checkpoints160Mock_init();
-    }
-}
-import "./SafeCastMockUpgradeable.sol";
-
-contract SafeCastMockUpgradeableWithInit is SafeCastMockUpgradeable {
-    constructor() payable initializer {
-        __SafeCastMock_init();
     }
 }
 import "./ERC721BurnableMockUpgradeable.sol";
