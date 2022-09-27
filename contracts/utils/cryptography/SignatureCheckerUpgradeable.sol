@@ -4,7 +4,6 @@
 pragma solidity ^0.8.0;
 
 import "./ECDSAUpgradeable.sol";
-import "../AddressUpgradeable.sol";
 import "../../interfaces/IERC1271Upgradeable.sol";
 
 /**
