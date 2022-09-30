@@ -84,7 +84,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      *
      * CAUTION: Does not invoke `onERC721Received` on the receiver.
      *
-     * Emits a {ConsecutiveTransfer} event.
+     * Emits a {IERC2309-ConsecutiveTransfer} event.
      */
     function _mintConsecutive(address to, uint96 batchSize) internal virtual returns (uint96) {
         uint96 first = _totalConsecutiveSupply();
