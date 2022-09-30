@@ -38,18 +38,33 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     }
 
     function __ERC4626_init_unchained(IERC20Upgradeable asset_) internal onlyInitializing {
-        uint8 decimals_;
-        try IERC20MetadataUpgradeable(address(asset_)).decimals() returns (uint8 value) {
-            decimals_ = value;
-        } catch {
-            decimals_ = super.decimals();
-        }
-
+        (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
+        _decimals = success ? assetDecimals : super.decimals();
         _asset = asset_;
-        _decimals = decimals_;
     }
 
-    /** @dev See {IERC20Metadata-decimals}. */
+    /**
+     * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
+     */
+    function _tryGetAssetDecimals(IERC20Upgradeable asset_) private returns (bool, uint8) {
+        (bool success, bytes memory encodedDecimals) = address(asset_).call(
+            abi.encodeWithSelector(IERC20MetadataUpgradeable.decimals.selector)
+        );
+        if (success && encodedDecimals.length >= 32) {
+            uint256 returnedDecimals = abi.decode(encodedDecimals, (uint256));
+            if (returnedDecimals <= type(uint8).max) {
+                return (true, uint8(returnedDecimals));
+            }
+        }
+        return (false, 0);
+    }
+
+    /**
+     * @dev Decimals are read from the underlying asset in the constructor and cached. If this fails (e.g., the asset
+     * has not been created yet), the cached value is set to a default obtained by `super.decimals()` (which depends on
+     * inheritance but is most likely 18). Override this function in order to set a guaranteed hardcoded value.
+     * See {IERC20Metadata-decimals}.
+     */
     function decimals() public view virtual override(IERC20MetadataUpgradeable, ERC20Upgradeable) returns (uint8) {
         return _decimals;
     }

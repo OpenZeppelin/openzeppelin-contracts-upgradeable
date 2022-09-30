@@ -79,7 +79,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      * amount + fee tokens and have them approved back to the token contract itself so
      * they can be burned.
      * @param receiver The receiver of the flash loan. Should implement the
-     * {IERC3156FlashBorrower.onFlashLoan} interface.
+     * {IERC3156FlashBorrower-onFlashLoan} interface.
      * @param token The token to be flash loaned. Only `address(this)` is
      * supported.
      * @param amount The amount of tokens to be loaned.

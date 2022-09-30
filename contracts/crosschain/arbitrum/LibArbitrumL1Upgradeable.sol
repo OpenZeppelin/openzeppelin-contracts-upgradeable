@@ -4,7 +4,6 @@
 pragma solidity ^0.8.4;
 
 import { IBridgeUpgradeable as ArbitrumL1_Bridge } from "../../vendor/arbitrum/IBridgeUpgradeable.sol";
-import { IInboxUpgradeable as ArbitrumL1_Inbox } from "../../vendor/arbitrum/IInboxUpgradeable.sol";
 import { IOutboxUpgradeable as ArbitrumL1_Outbox } from "../../vendor/arbitrum/IOutboxUpgradeable.sol";
 import "../errorsUpgradeable.sol";
 
