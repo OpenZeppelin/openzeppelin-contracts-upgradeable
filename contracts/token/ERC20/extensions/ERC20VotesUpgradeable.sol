@@ -69,7 +69,9 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
      */
     function getVotes(address account) public view virtual override returns (uint256) {
         uint256 pos = _checkpoints[account].length;
-        return pos == 0 ? 0 : _checkpoints[account][pos - 1].votes;
+        unchecked {
+            return pos == 0 ? 0 : _checkpoints[account][pos - 1].votes;
+        }
     }
 
     /**
@@ -86,7 +88,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
 
     /**
      * @dev Retrieve the `totalSupply` at the end of `blockNumber`. Note, this value is the sum of all balances.
-     * It is but NOT the sum of all the delegated votes!
+     * It is NOT the sum of all the delegated votes!
      *
      * Requirements:
      *
@@ -136,7 +138,9 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
             }
         }
 
-        return high == 0 ? 0 : _unsafeAccess(ckpts, high - 1).votes;
+        unchecked {
+            return high == 0 ? 0 : _unsafeAccess(ckpts, high - 1).votes;
+        }
     }
 
     /**
@@ -249,15 +253,19 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
     ) private returns (uint256 oldWeight, uint256 newWeight) {
         uint256 pos = ckpts.length;
 
-        Checkpoint memory oldCkpt = pos == 0 ? Checkpoint(0, 0) : _unsafeAccess(ckpts, pos - 1);
+        unchecked {
+            Checkpoint memory oldCkpt = pos == 0 ? Checkpoint(0, 0) : _unsafeAccess(ckpts, pos - 1);
 
-        oldWeight = oldCkpt.votes;
-        newWeight = op(oldWeight, delta);
+            oldWeight = oldCkpt.votes;
+            newWeight = op(oldWeight, delta);
 
-        if (pos > 0 && oldCkpt.fromBlock == block.number) {
-            _unsafeAccess(ckpts, pos - 1).votes = SafeCastUpgradeable.toUint224(newWeight);
-        } else {
-            ckpts.push(Checkpoint({fromBlock: SafeCastUpgradeable.toUint32(block.number), votes: SafeCastUpgradeable.toUint224(newWeight)}));
+            if (pos > 0 && oldCkpt.fromBlock == block.number) {
+                _unsafeAccess(ckpts, pos - 1).votes = SafeCastUpgradeable.toUint224(newWeight);
+            } else {
+                ckpts.push(
+                    Checkpoint({fromBlock: SafeCastUpgradeable.toUint32(block.number), votes: SafeCastUpgradeable.toUint224(newWeight)})
+                );
+            }
         }
     }
 
