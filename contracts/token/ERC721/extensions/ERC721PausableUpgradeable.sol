@@ -31,20 +31,10 @@ abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable,
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256 tokenId
+        uint256 firstTokenId,
+        uint256 batchSize
     ) internal virtual override {
-        super._beforeTokenTransfer(from, to, tokenId);
-
-        require(!paused(), "ERC721Pausable: token transfer while paused");
-    }
-
-    function _beforeConsecutiveTokenTransfer(
-        address from,
-        address to,
-        uint256 first,
-        uint96 size
-    ) internal virtual override {
-        super._beforeConsecutiveTokenTransfer(from, to, first, size);
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
 
         require(!paused(), "ERC721Pausable: token transfer while paused");
     }

@@ -420,6 +420,18 @@ contract Checkpoints160MockUpgradeableWithInit is Checkpoints160MockUpgradeable 
         __Checkpoints160Mock_init();
     }
 }
+import "./ERC721ConsecutiveEnumerableMockUpgradeable.sol";
+
+contract ERC721ConsecutiveEnumerableMockUpgradeableWithInit is ERC721ConsecutiveEnumerableMockUpgradeable {
+    constructor(
+        string memory name,
+        string memory symbol,
+        address[] memory receivers,
+        uint96[] memory amounts
+    ) payable initializer {
+        __ERC721ConsecutiveEnumerableMock_init(name, symbol, receivers, amounts);
+    }
+}
 import "./ERC721BurnableMockUpgradeable.sol";
 
 contract ERC721BurnableMockUpgradeableWithInit is ERC721BurnableMockUpgradeable {

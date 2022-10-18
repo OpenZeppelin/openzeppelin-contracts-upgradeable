@@ -77,35 +77,19 @@ contract ERC721ConsecutiveMockUpgradeable is Initializable, ERC721BurnableUpgrad
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256 tokenId
+        uint256 firstTokenId,
+        uint256 batchSize
     ) internal virtual override(ERC721Upgradeable, ERC721PausableUpgradeable) {
-        super._beforeTokenTransfer(from, to, tokenId);
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
     function _afterTokenTransfer(
         address from,
         address to,
-        uint256 tokenId
+        uint256 firstTokenId,
+        uint256 batchSize
     ) internal virtual override(ERC721Upgradeable, ERC721VotesUpgradeable, ERC721ConsecutiveUpgradeable) {
-        super._afterTokenTransfer(from, to, tokenId);
-    }
-
-    function _beforeConsecutiveTokenTransfer(
-        address from,
-        address to,
-        uint256 first,
-        uint96 size
-    ) internal virtual override(ERC721Upgradeable, ERC721PausableUpgradeable) {
-        super._beforeConsecutiveTokenTransfer(from, to, first, size);
-    }
-
-    function _afterConsecutiveTokenTransfer(
-        address from,
-        address to,
-        uint256 first,
-        uint96 size
-    ) internal virtual override(ERC721Upgradeable, ERC721VotesUpgradeable) {
-        super._afterConsecutiveTokenTransfer(from, to, first, size);
+        super._afterTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
     /**
