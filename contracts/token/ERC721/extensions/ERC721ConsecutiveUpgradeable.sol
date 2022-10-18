@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.8.0-rc.1) (token/ERC721/extensions/ERC721Consecutive.sol)
+// OpenZeppelin Contracts (last updated v4.8.0-rc.2) (token/ERC721/extensions/ERC721Consecutive.sol)
 
 pragma solidity ^0.8.0;
 
@@ -97,7 +97,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
             require(batchSize <= _maxBatchSize(), "ERC721Consecutive: batch too large");
 
             // hook before
-            _beforeConsecutiveTokenTransfer(address(0), to, first, batchSize);
+            _beforeTokenTransfer(address(0), to, first, batchSize);
 
             // push an ownership checkpoint & emit event
             uint96 last = first + batchSize - 1;
@@ -105,7 +105,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
             emit ConsecutiveTransfer(first, last, address(0), to);
 
             // hook after
-            _afterConsecutiveTokenTransfer(address(0), to, first, batchSize);
+            _afterTokenTransfer(address(0), to, first, batchSize);
         }
 
         return first;
@@ -128,16 +128,18 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
     function _afterTokenTransfer(
         address from,
         address to,
-        uint256 tokenId
+        uint256 firstTokenId,
+        uint256 batchSize
     ) internal virtual override {
         if (
             to == address(0) && // if we burn
-            tokenId < _totalConsecutiveSupply() && // and the tokenId was minted in a batch
-            !_sequentialBurn.get(tokenId) // and the token was never marked as burnt
+            firstTokenId < _totalConsecutiveSupply() && // and the tokenId was minted in a batch
+            !_sequentialBurn.get(firstTokenId) // and the token was never marked as burnt
         ) {
-            _sequentialBurn.set(tokenId);
+            require(batchSize == 1, "ERC721Consecutive: batch burn not supported");
+            _sequentialBurn.set(firstTokenId);
         }
-        super._afterTokenTransfer(from, to, tokenId);
+        super._afterTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
     function _totalConsecutiveSupply() private view returns (uint96) {

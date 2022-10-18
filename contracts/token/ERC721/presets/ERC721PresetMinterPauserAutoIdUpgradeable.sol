@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.8.0-rc.1) (token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol)
+// OpenZeppelin Contracts (last updated v4.8.0-rc.2) (token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol)
 
 pragma solidity ^0.8.0;
 
@@ -137,18 +137,10 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
     function _beforeTokenTransfer(
         address from,
         address to,
-        uint256 tokenId
+        uint256 firstTokenId,
+        uint256 batchSize
     ) internal virtual override(ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721PausableUpgradeable) {
-        super._beforeTokenTransfer(from, to, tokenId);
-    }
-
-    function _beforeConsecutiveTokenTransfer(
-        address from,
-        address to,
-        uint256 first,
-        uint96 size
-    ) internal virtual override(ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721PausableUpgradeable) {
-        super._beforeConsecutiveTokenTransfer(from, to, first, size);
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
     /**
