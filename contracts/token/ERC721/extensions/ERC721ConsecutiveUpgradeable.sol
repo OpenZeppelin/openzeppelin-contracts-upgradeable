@@ -79,7 +79,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * - `batchSize` must not be greater than {_maxBatchSize}.
      * - The function is called in the constructor of the contract (directly or indirectly).
      *
-     * CAUTION: Does not emit a `Transfer` event. This is ERC721 compliant as long as it is done outside of the
+     * CAUTION: Does not emit a `Transfer` event. This is ERC721 compliant as long as it is done inside of the
      * constructor, which is enforced by this function.
      *
      * CAUTION: Does not invoke `onERC721Received` on the receiver.
