@@ -26,7 +26,9 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      */
     event Unpaused(address account);
 
-    bool private _paused;
+    uint256 private constant _PAUSED_FALSE = 1;
+    uint256 private constant _PAUSED_TRUE = 2;
+    uint256 private _paused = _PAUSED_FALSE;
 
     /**
      * @dev Initializes the contract in unpaused state.
@@ -36,7 +38,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function __Pausable_init_unchained() internal onlyInitializing {
-        _paused = false;
+        _paused = _PAUSED_FALSE;
     }
 
     /**
@@ -67,7 +69,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * @dev Returns true if the contract is paused, and false otherwise.
      */
     function paused() public view virtual returns (bool) {
-        return _paused;
+        return _paused == _PAUSED_TRUE;
     }
 
     /**
@@ -92,7 +94,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must not be paused.
      */
     function _pause() internal virtual whenNotPaused {
-        _paused = true;
+        _paused = _PAUSED_TRUE;
         emit Paused(_msgSender());
     }
 
@@ -104,7 +106,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must be paused.
      */
     function _unpause() internal virtual whenPaused {
-        _paused = false;
+        _paused = _PAUSED_FALSE;
         emit Unpaused(_msgSender());
     }
 
