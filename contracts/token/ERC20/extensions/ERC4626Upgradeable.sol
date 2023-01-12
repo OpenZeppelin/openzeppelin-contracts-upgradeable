@@ -50,8 +50,8 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     /**
      * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
      */
-    function _tryGetAssetDecimals(IERC20Upgradeable asset_) private returns (bool, uint8) {
-        (bool success, bytes memory encodedDecimals) = address(asset_).call(
+    function _tryGetAssetDecimals(IERC20Upgradeable asset_) private view returns (bool, uint8) {
+        (bool success, bytes memory encodedDecimals) = address(asset_).staticcall(
             abi.encodeWithSelector(IERC20MetadataUpgradeable.decimals.selector)
         );
         if (success && encodedDecimals.length >= 32) {
