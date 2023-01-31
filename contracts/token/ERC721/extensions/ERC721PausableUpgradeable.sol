@@ -13,6 +13,12 @@ import "../../../proxy/utils/Initializable.sol";
  * Useful for scenarios such as preventing trades until the end of an evaluation
  * period, or having an emergency switch for freezing all token transfers in the
  * event of a large bug.
+ *
+ * IMPORTANT: This contract does not include public pause and unpause functions. In
+ * addition to inheriting this contract, you must define both functions, invoking the
+ * {Pausable-_pause} and {Pausable-_unpause} internal functions, with appropriate
+ * access control, e.g. using {AccessControl} or {Ownable}. Not doing so will
+ * make the contract unpausable.
  */
 abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable, PausableUpgradeable {
     function __ERC721Pausable_init() internal onlyInitializing {
