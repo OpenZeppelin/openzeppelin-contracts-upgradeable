@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC20/extensions/ERC4626.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/extensions/ERC4626.sol)
 
 pragma solidity ^0.8.0;
 
@@ -17,8 +17,12 @@ import "../../../utils/math/Math.sol";
  * the ERC20 standard. Any additional extensions included along it would affect the "shares" token represented by this
  * contract and not the "assets" token which is an independent contract.
  *
- * CAUTION: Deposits and withdrawals may incur unexpected slippage. Users should verify that the amount received of
- * shares or assets is as expected. EOAs should operate through a wrapper that performs these checks such as
+ * CAUTION: When the vault is empty or nearly empty, deposits are at high risk of being stolen through frontrunning with
+ * a "donation" to the vault that inflates the price of a share. This is variously known as a donation or inflation
+ * attack and is essentially a problem of slippage. Vault deployers can protect against this attack by making an initial
+ * deposit of a non-trivial amount of the asset, such that price manipulation becomes infeasible. Withdrawals may
+ * similarly be affected by slippage. Users can protect against this attack as well unexpected slippage in general by
+ * verifying the amount received is as expected, using a wrapper that performs these checks such as
  * https://github.com/fei-protocol/ERC4626#erc4626router-and-base[ERC4626Router].
  *
  * _Available since v4.7._
@@ -41,8 +45,8 @@ abstract contract ERC4626 is ERC20, IERC4626 {
     /**
      * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
      */
-    function _tryGetAssetDecimals(IERC20 asset_) private returns (bool, uint8) {
-        (bool success, bytes memory encodedDecimals) = address(asset_).call(
+    function _tryGetAssetDecimals(IERC20 asset_) private view returns (bool, uint8) {
+        (bool success, bytes memory encodedDecimals) = address(asset_).staticcall(
             abi.encodeWithSelector(IERC20Metadata.decimals.selector)
         );
         if (success && encodedDecimals.length >= 32) {
@@ -134,7 +138,11 @@ abstract contract ERC4626 is ERC20, IERC4626 {
         return shares;
     }
 
-    /** @dev See {IERC4626-mint}. */
+    /** @dev See {IERC4626-mint}.
+     *
+     * As opposed to {deposit}, minting is allowed even if the vault is in a state where the price of a share is zero.
+     * In this case, the shares will be minted without requiring any assets to be deposited.
+     */
     function mint(uint256 shares, address receiver) public virtual override returns (uint256) {
         require(shares <= maxMint(receiver), "ERC4626: mint more than max");
 
@@ -145,11 +153,7 @@ abstract contract ERC4626 is ERC20, IERC4626 {
     }
 
     /** @dev See {IERC4626-withdraw}. */
-    function withdraw(
-        uint256 assets,
-        address receiver,
-        address owner
-    ) public virtual override returns (uint256) {
+    function withdraw(uint256 assets, address receiver, address owner) public virtual override returns (uint256) {
         require(assets <= maxWithdraw(owner), "ERC4626: withdraw more than max");
 
         uint256 shares = previewWithdraw(assets);
@@ -159,11 +163,7 @@ abstract contract ERC4626 is ERC20, IERC4626 {
     }
 
     /** @dev See {IERC4626-redeem}. */
-    function redeem(
-        uint256 shares,
-        address receiver,
-        address owner
-    ) public virtual override returns (uint256) {
+    function redeem(uint256 shares, address receiver, address owner) public virtual override returns (uint256) {
         require(shares <= maxRedeem(owner), "ERC4626: redeem more than max");
 
         uint256 assets = previewRedeem(shares);
@@ -222,12 +222,7 @@ abstract contract ERC4626 is ERC20, IERC4626 {
     /**
      * @dev Deposit/mint common workflow.
      */
-    function _deposit(
-        address caller,
-        address receiver,
-        uint256 assets,
-        uint256 shares
-    ) internal virtual {
+    function _deposit(address caller, address receiver, uint256 assets, uint256 shares) internal virtual {
         // If _asset is ERC777, `transferFrom` can trigger a reenterancy BEFORE the transfer happens through the
         // `tokensToSend` hook. On the other hand, the `tokenReceived` hook, that is triggered after the transfer,
         // calls the vault, which is assumed not malicious.
@@ -267,6 +262,9 @@ abstract contract ERC4626 is ERC20, IERC4626 {
         emit Withdraw(caller, receiver, owner, assets, shares);
     }
 
+    /**
+     * @dev Checks if vault is "healthy" in the sense of having assets backing the circulating shares.
+     */
     function _isVaultHealthy() private view returns (bool) {
         return totalAssets() > 0 || totalSupply() == 0;
     }
