@@ -352,7 +352,9 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
 
         // Update state variables
         _totalSupply += amount;
-        _balances[account] += amount;
+        unchecked {
+            _balances[account] += amount;
+        }
 
         _callTokensReceived(operator, address(0), account, amount, userData, operatorData, requireReceptionAck);
 
