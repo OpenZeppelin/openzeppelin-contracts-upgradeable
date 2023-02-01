@@ -91,7 +91,7 @@ module.exports = {
     exclude: [
       'vendor/**/*',
       // overflow clash
-      'utils/Timers.sol',
+      'utils/Timers{,Upgradeable}.sol',
     ],
   },
   docgen: require('./docs/config'),
