@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.6.0) (governance/compatibility/GovernorCompatibilityBravo.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (governance/compatibility/GovernorCompatibilityBravo.sol)
 
 pragma solidity ^0.8.0;
 
@@ -9,10 +9,10 @@ import "../Governor.sol";
 import "./IGovernorCompatibilityBravo.sol";
 
 /**
- * @dev Compatibility layer that implements GovernorBravo compatibility on to of {Governor}.
+ * @dev Compatibility layer that implements GovernorBravo compatibility on top of {Governor}.
  *
  * This compatibility layer includes a voting system and requires a {IGovernorTimelock} compatible module to be added
- * through inheritance. It does not include token bindings, not does it include any variable upgrade patterns.
+ * through inheritance. It does not include token bindings, nor does it include any variable upgrade patterns.
  *
  * NOTE: When using this module, you may need to enable the Solidity optimizer to avoid hitting the contract size limit.
  *
@@ -99,7 +99,7 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
         );
     }
 
-    function cancel(uint256 proposalId) public virtual override {
+    function cancel(uint256 proposalId) public virtual override(IGovernor, Governor) {
         ProposalDetails storage details = _proposalDetails[proposalId];
 
         require(
@@ -107,22 +107,16 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
             "GovernorBravo: proposer above threshold"
         );
 
-        _cancel(
-            details.targets,
-            details.values,
-            _encodeCalldata(details.signatures, details.calldatas),
-            details.descriptionHash
-        );
+        _cancel(proposalId);
     }
 
     /**
      * @dev Encodes calldatas with optional function signature.
      */
-    function _encodeCalldata(string[] memory signatures, bytes[] memory calldatas)
-        private
-        pure
-        returns (bytes[] memory)
-    {
+    function _encodeCalldata(
+        string[] memory signatures,
+        bytes[] memory calldatas
+    ) private pure returns (bytes[] memory) {
         bytes[] memory fullcalldatas = new bytes[](calldatas.length);
 
         for (uint256 i = 0; i < signatures.length; ++i) {
@@ -163,7 +157,9 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev See {IGovernorCompatibilityBravo-proposals}.
      */
-    function proposals(uint256 proposalId)
+    function proposals(
+        uint256 proposalId
+    )
         public
         view
         virtual
@@ -200,7 +196,9 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev See {IGovernorCompatibilityBravo-getActions}.
      */
-    function getActions(uint256 proposalId)
+    function getActions(
+        uint256 proposalId
+    )
         public
         view
         virtual
@@ -247,7 +245,7 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     }
 
     /**
-     * @dev See {Governor-_voteSucceeded}. In this module, the forVotes must be scritly over the againstVotes.
+     * @dev See {Governor-_voteSucceeded}. In this module, the forVotes must be strictly over the againstVotes.
      */
     function _voteSucceeded(uint256 proposalId) internal view virtual override returns (bool) {
         ProposalDetails storage details = _proposalDetails[proposalId];
