@@ -126,11 +126,7 @@ abstract contract ERC20SnapshotUpgradeable is Initializable, ERC20Upgradeable {
 
     // Update balance and/or total supply snapshots before the values are modified. This is implemented
     // in the _beforeTokenTransfer hook, which is executed for _mint, _burn, and _transfer operations.
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual override {
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
         super._beforeTokenTransfer(from, to, amount);
 
         if (from == address(0)) {

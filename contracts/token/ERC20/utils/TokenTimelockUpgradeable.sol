@@ -32,19 +32,11 @@ contract TokenTimelockUpgradeable is Initializable {
      * `beneficiary_` when {release} is invoked after `releaseTime_`. The release time is specified as a Unix timestamp
      * (in seconds).
      */
-    function __TokenTimelock_init(
-        IERC20Upgradeable token_,
-        address beneficiary_,
-        uint256 releaseTime_
-    ) internal onlyInitializing {
+    function __TokenTimelock_init(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal onlyInitializing {
         __TokenTimelock_init_unchained(token_, beneficiary_, releaseTime_);
     }
 
-    function __TokenTimelock_init_unchained(
-        IERC20Upgradeable token_,
-        address beneficiary_,
-        uint256 releaseTime_
-    ) internal onlyInitializing {
+    function __TokenTimelock_init_unchained(IERC20Upgradeable token_, address beneficiary_, uint256 releaseTime_) internal onlyInitializing {
         require(releaseTime_ > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token_;
         _beneficiary = beneficiary_;

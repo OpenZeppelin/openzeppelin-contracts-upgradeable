@@ -33,7 +33,7 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
     }
 
     function onFlashLoan(
-        address, /*initiator*/
+        address /*initiator*/,
         address token,
         uint256 amount,
         uint256 fee,

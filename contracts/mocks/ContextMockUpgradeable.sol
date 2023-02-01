@@ -41,11 +41,7 @@ contract ContextMockCallerUpgradeable is Initializable {
         context.msgSender();
     }
 
-    function callData(
-        ContextMockUpgradeable context,
-        uint256 integerValue,
-        string memory stringValue
-    ) public {
+    function callData(ContextMockUpgradeable context, uint256 integerValue, string memory stringValue) public {
         context.msgData(integerValue, stringValue);
     }
 

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./MulticallTokenMockUpgradeable.sol";
+import "./token/ERC20MulticallMockUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract MulticallTestUpgradeable is Initializable {
@@ -12,7 +12,7 @@ contract MulticallTestUpgradeable is Initializable {
     function __MulticallTest_init_unchained() internal onlyInitializing {
     }
     function checkReturnValues(
-        MulticallTokenMockUpgradeable multicallToken,
+        ERC20MulticallMockUpgradeable multicallToken,
         address[] calldata recipients,
         uint256[] calldata amounts
     ) external {

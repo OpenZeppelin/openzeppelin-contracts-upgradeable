@@ -17,7 +17,10 @@ contract MyGovernor2Upgradeable is
     GovernorVotesQuorumFractionUpgradeable,
     GovernorCountingSimpleUpgradeable
 {
-    function __MyGovernor2_init(IVotesUpgradeable _token, TimelockControllerUpgradeable _timelock) internal onlyInitializing {
+    function __MyGovernor2_init(
+        IVotesUpgradeable _token,
+        TimelockControllerUpgradeable _timelock
+    ) internal onlyInitializing {
         __EIP712_init_unchained("MyGovernor", version());
         __Governor_init_unchained("MyGovernor");
         __GovernorTimelockControl_init_unchained(_timelock);
@@ -25,7 +28,10 @@ contract MyGovernor2Upgradeable is
         __GovernorVotesQuorumFraction_init_unchained(4);
     }
 
-    function __MyGovernor2_init_unchained(IVotesUpgradeable, TimelockControllerUpgradeable) internal onlyInitializing {}
+    function __MyGovernor2_init_unchained(
+        IVotesUpgradeable,
+        TimelockControllerUpgradeable
+    ) internal onlyInitializing {}
 
     function votingDelay() public pure override returns (uint256) {
         return 1; // 1 block
@@ -41,12 +47,9 @@ contract MyGovernor2Upgradeable is
 
     // The following functions are overrides required by Solidity.
 
-    function quorum(uint256 blockNumber)
-        public
-        view
-        override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)
-        returns (uint256)
-    {
+    function quorum(
+        uint256 blockNumber
+    ) public view override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable) returns (uint256) {
         return super.quorum(blockNumber);
     }
 
@@ -86,12 +89,9 @@ contract MyGovernor2Upgradeable is
         return super._executor();
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(GovernorUpgradeable, GovernorTimelockControlUpgradeable)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(GovernorUpgradeable, GovernorTimelockControlUpgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 

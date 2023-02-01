@@ -14,8 +14,6 @@ import "../utils/Initializable.sol";
  * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
  *
  * _Available since v4.1._
- *
- * @custom:oz-upgrades-unsafe-allow delegatecall
  */
 abstract contract ERC1967UpgradeUpgradeable is Initializable {
     function __ERC1967Upgrade_init() internal onlyInitializing {
@@ -68,11 +66,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits an {Upgraded} event.
      */
-    function _upgradeToAndCall(
-        address newImplementation,
-        bytes memory data,
-        bool forceCall
-    ) internal {
+    function _upgradeToAndCall(address newImplementation, bytes memory data, bool forceCall) internal {
         _upgradeTo(newImplementation);
         if (data.length > 0 || forceCall) {
             _functionDelegateCall(newImplementation, data);
@@ -84,11 +78,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits an {Upgraded} event.
      */
-    function _upgradeToAndCallUUPS(
-        address newImplementation,
-        bytes memory data,
-        bool forceCall
-    ) internal {
+    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data, bool forceCall) internal {
         // Upgrades from old implementations will perform a rollback test. This test requires the new
         // implementation to upgrade back to the old, non-ERC1822 compliant, implementation. Removing
         // this special case will break upgrade paths from old UUPS implementation to new ones.
@@ -177,11 +167,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable {
      *
      * Emits a {BeaconUpgraded} event.
      */
-    function _upgradeBeaconToAndCall(
-        address newBeacon,
-        bytes memory data,
-        bool forceCall
-    ) internal {
+    function _upgradeBeaconToAndCall(address newBeacon, bytes memory data, bool forceCall) internal {
         _setBeacon(newBeacon);
         emit BeaconUpgraded(newBeacon);
         if (data.length > 0 || forceCall) {

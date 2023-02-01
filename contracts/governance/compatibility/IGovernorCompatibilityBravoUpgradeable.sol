@@ -56,7 +56,9 @@ abstract contract IGovernorCompatibilityBravoUpgradeable is Initializable, IGove
     /**
      * @dev Part of the Governor Bravo's interface: _"The official record of all proposals ever proposed"_.
      */
-    function proposals(uint256)
+    function proposals(
+        uint256
+    )
         public
         view
         virtual
@@ -95,14 +97,11 @@ abstract contract IGovernorCompatibilityBravoUpgradeable is Initializable, IGove
     function execute(uint256 proposalId) public payable virtual;
 
     /**
-     * @dev Cancels a proposal only if sender is the proposer, or proposer delegates dropped below proposal threshold.
-     */
-    function cancel(uint256 proposalId) public virtual;
-
-    /**
      * @dev Part of the Governor Bravo's interface: _"Gets actions of a proposal"_.
      */
-    function getActions(uint256 proposalId)
+    function getActions(
+        uint256 proposalId
+    )
         public
         view
         virtual

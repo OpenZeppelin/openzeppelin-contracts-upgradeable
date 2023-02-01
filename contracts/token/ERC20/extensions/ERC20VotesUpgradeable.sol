@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC20/extensions/ERC20Votes.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/extensions/ERC20Votes.sol)
 
 pragma solidity ^0.8.0;
 
-import "./draft-ERC20PermitUpgradeable.sol";
+import "./ERC20PermitUpgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
 import "../../../governance/utils/IVotesUpgradeable.sol";
 import "../../../utils/math/SafeCastUpgradeable.sol";
@@ -203,11 +203,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
      *
      * Emits a {IVotes-DelegateVotesChanged} event.
      */
-    function _afterTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual override {
+    function _afterTokenTransfer(address from, address to, uint256 amount) internal virtual override {
         super._afterTokenTransfer(from, to, amount);
 
         _moveVotingPower(delegates(from), delegates(to), amount);
@@ -228,11 +224,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
         _moveVotingPower(currentDelegate, delegatee, delegatorBalance);
     }
 
-    function _moveVotingPower(
-        address src,
-        address dst,
-        uint256 amount
-    ) private {
+    function _moveVotingPower(address src, address dst, uint256 amount) private {
         if (src != dst && amount > 0) {
             if (src != address(0)) {
                 (uint256 oldWeight, uint256 newWeight) = _writeCheckpoint(_checkpoints[src], _subtract, amount);
@@ -277,6 +269,9 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
         return a - b;
     }
 
+    /**
+     * @dev Access an element of the array without performing bounds check. The position is assumed to be within bounds.
+     */
     function _unsafeAccess(Checkpoint[] storage ckpts, uint256 pos) private pure returns (Checkpoint storage result) {
         assembly {
             mstore(0, ckpts.slot)

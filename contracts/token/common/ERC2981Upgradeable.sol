@@ -46,14 +46,14 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     /**
      * @inheritdoc IERC2981Upgradeable
      */
-    function royaltyInfo(uint256 _tokenId, uint256 _salePrice) public view virtual override returns (address, uint256) {
-        RoyaltyInfo memory royalty = _tokenRoyaltyInfo[_tokenId];
+    function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual override returns (address, uint256) {
+        RoyaltyInfo memory royalty = _tokenRoyaltyInfo[tokenId];
 
         if (royalty.receiver == address(0)) {
             royalty = _defaultRoyaltyInfo;
         }
 
-        uint256 royaltyAmount = (_salePrice * royalty.royaltyFraction) / _feeDenominator();
+        uint256 royaltyAmount = (salePrice * royalty.royaltyFraction) / _feeDenominator();
 
         return (royalty.receiver, royaltyAmount);
     }
@@ -97,11 +97,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      * - `receiver` cannot be the zero address.
      * - `feeNumerator` cannot be greater than the fee denominator.
      */
-    function _setTokenRoyalty(
-        uint256 tokenId,
-        address receiver,
-        uint96 feeNumerator
-    ) internal virtual {
+    function _setTokenRoyalty(uint256 tokenId, address receiver, uint96 feeNumerator) internal virtual {
         require(feeNumerator <= _feeDenominator(), "ERC2981: royalty fee will exceed salePrice");
         require(receiver != address(0), "ERC2981: Invalid parameters");
 

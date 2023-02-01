@@ -9,8 +9,6 @@ contract CallReceiverMockUpgradeable is Initializable {
 
     function __CallReceiverMock_init_unchained() internal onlyInitializing {
     }
-    string public sharedAnswer;
-
     event MockFunctionCalled();
     event MockFunctionCalledWithArgs(uint256 a, uint256 b);
 
@@ -56,8 +54,10 @@ contract CallReceiverMockUpgradeable is Initializable {
         }
     }
 
-    function mockFunctionWritesStorage() public returns (string memory) {
-        sharedAnswer = "42";
+    function mockFunctionWritesStorage(bytes32 slot, bytes32 value) public returns (string memory) {
+        assembly {
+            sstore(slot, value)
+        }
         return "0x1234";
     }
 
@@ -66,5 +66,5 @@ contract CallReceiverMockUpgradeable is Initializable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[48] private __gap;
+    uint256[49] private __gap;
 }

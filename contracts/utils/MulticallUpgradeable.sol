@@ -19,6 +19,7 @@ abstract contract MulticallUpgradeable is Initializable {
     }
     /**
      * @dev Receives and executes a batch of function calls on this contract.
+     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
      */
     function multicall(bytes[] calldata data) external virtual returns (bytes[] memory results) {
         results = new bytes[](data.length);

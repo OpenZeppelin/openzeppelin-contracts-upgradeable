@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.7.0) (governance/IGovernor.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (governance/IGovernor.sol)
 
 pragma solidity ^0.8.0;
 
@@ -64,7 +64,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
      * @dev Emitted when a vote is cast with params.
      *
      * Note: `support` values should be seen as buckets. Their interpretation depends on the voting module used.
-     * `params` are additional encoded parameters. Their intepepretation also depends on the voting module used.
+     * `params` are additional encoded parameters. Their interpepretation also depends on the voting module used.
      */
     event VoteCastWithParams(
         address indexed voter,
@@ -146,7 +146,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
 
     /**
      * @notice module:user-config
-     * @dev Delay, in number of block, between the proposal is created and the vote starts. This can be increassed to
+     * @dev Delay, in number of block, between the proposal is created and the vote starts. This can be increased to
      * leave time for users to buy voting power, or delegate it, before the voting of a proposal starts.
      */
     function votingDelay() public view virtual returns (uint256);
@@ -221,6 +221,14 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public payable virtual returns (uint256 proposalId);
+
+    /**
+     * @dev Cancel a proposal. This is restricted to Pending proposal (before the vote starts) and is restricted to
+     * the proposal's proposer.
+     *
+     * Emits a {ProposalCanceled} event.
+     */
+    function cancel(uint256 proposalId) public virtual;
 
     /**
      * @dev Cast a vote

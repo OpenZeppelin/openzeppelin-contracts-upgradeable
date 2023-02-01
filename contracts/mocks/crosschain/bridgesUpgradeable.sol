@@ -18,11 +18,7 @@ abstract contract BaseRelayMockUpgradeable is Initializable {
 
     address internal _currentSender;
 
-    function relayAs(
-        address target,
-        bytes calldata data,
-        address sender
-    ) external virtual {
+    function relayAs(address target, bytes calldata data, address sender) external virtual {
         address previousSender = _currentSender;
 
         _currentSender = sender;
@@ -182,11 +178,7 @@ contract BridgePolygonChildMockUpgradeable is Initializable, BaseRelayMockUpgrad
 
     function __BridgePolygonChildMock_init_unchained() internal onlyInitializing {
     }
-    function relayAs(
-        address target,
-        bytes calldata data,
-        address sender
-    ) external override {
+    function relayAs(address target, bytes calldata data, address sender) external override {
         IFxMessageProcessorUpgradeable(target).processMessageFromRoot(0, sender, data);
     }
 

@@ -20,12 +20,7 @@ import "../../../proxy/utils/Initializable.sol";
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgradeable {
-    function initialize(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply,
-        address owner
-    ) public virtual initializer {
+    function initialize(string memory name, string memory symbol, uint256 initialSupply, address owner) public virtual initializer {
         __ERC20PresetFixedSupply_init(name, symbol, initialSupply, owner);
     }
     /**
@@ -33,22 +28,12 @@ contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgrad
      *
      * See {ERC20-constructor}.
      */
-    function __ERC20PresetFixedSupply_init(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply,
-        address owner
-    ) internal onlyInitializing {
+    function __ERC20PresetFixedSupply_init(string memory name, string memory symbol, uint256 initialSupply, address owner) internal onlyInitializing {
         __ERC20_init_unchained(name, symbol);
         __ERC20PresetFixedSupply_init_unchained(name, symbol, initialSupply, owner);
     }
 
-    function __ERC20PresetFixedSupply_init_unchained(
-        string memory,
-        string memory,
-        uint256 initialSupply,
-        address owner
-    ) internal onlyInitializing {
+    function __ERC20PresetFixedSupply_init_unchained(string memory, string memory, uint256 initialSupply, address owner) internal onlyInitializing {
         _mint(owner, initialSupply);
     }
 

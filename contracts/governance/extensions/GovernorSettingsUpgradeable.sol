@@ -23,19 +23,11 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     /**
      * @dev Initialize the governance parameters.
      */
-    function __GovernorSettings_init(
-        uint256 initialVotingDelay,
-        uint256 initialVotingPeriod,
-        uint256 initialProposalThreshold
-    ) internal onlyInitializing {
+    function __GovernorSettings_init(uint256 initialVotingDelay, uint256 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
         __GovernorSettings_init_unchained(initialVotingDelay, initialVotingPeriod, initialProposalThreshold);
     }
 
-    function __GovernorSettings_init_unchained(
-        uint256 initialVotingDelay,
-        uint256 initialVotingPeriod,
-        uint256 initialProposalThreshold
-    ) internal onlyInitializing {
+    function __GovernorSettings_init_unchained(uint256 initialVotingDelay, uint256 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
         _setVotingDelay(initialVotingDelay);
         _setVotingPeriod(initialVotingPeriod);
         _setProposalThreshold(initialProposalThreshold);

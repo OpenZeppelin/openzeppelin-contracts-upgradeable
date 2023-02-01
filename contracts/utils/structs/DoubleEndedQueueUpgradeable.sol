@@ -12,7 +12,7 @@ import "../math/SafeCastUpgradeable.sol";
  *
  * The struct is called `Bytes32Deque`. Other types can be cast to and from `bytes32`. This data structure can only be
  * used in storage, and not in memory.
- * ```
+ * ```solidity
  * DoubleEndedQueue.Bytes32Deque queue;
  * ```
  *

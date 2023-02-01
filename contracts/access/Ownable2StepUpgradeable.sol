@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (access/Ownable2Step.sol)
 
 pragma solidity ^0.8.0;
 
@@ -56,7 +56,7 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
     /**
      * @dev The new owner accepts the ownership transfer.
      */
-    function acceptOwnership() external {
+    function acceptOwnership() public virtual {
         address sender = _msgSender();
         require(pendingOwner() == sender, "Ownable2Step: caller is not the new owner");
         _transferOwnership(sender);

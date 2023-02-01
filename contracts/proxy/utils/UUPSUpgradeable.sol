@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.5.0) (proxy/utils/UUPSUpgradeable.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (proxy/utils/UUPSUpgradeable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -68,8 +68,10 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      * Calls {_authorizeUpgrade}.
      *
      * Emits an {Upgraded} event.
+     *
+     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
      */
-    function upgradeTo(address newImplementation) external virtual onlyProxy {
+    function upgradeTo(address newImplementation) public virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
         _upgradeToAndCallUUPS(newImplementation, new bytes(0), false);
     }
@@ -81,8 +83,10 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      * Calls {_authorizeUpgrade}.
      *
      * Emits an {Upgraded} event.
+     *
+     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
      */
-    function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual onlyProxy {
+    function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
         _upgradeToAndCallUUPS(newImplementation, data, true);
     }

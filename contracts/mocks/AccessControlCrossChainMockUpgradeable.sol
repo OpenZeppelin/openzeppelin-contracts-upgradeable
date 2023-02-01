@@ -6,23 +6,10 @@ import "../access/AccessControlCrossChainUpgradeable.sol";
 import "../crosschain/arbitrum/CrossChainEnabledArbitrumL2Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
-contract AccessControlCrossChainMockUpgradeable is Initializable, AccessControlCrossChainUpgradeable, CrossChainEnabledArbitrumL2Upgradeable {
-    function __AccessControlCrossChainMock_init() internal onlyInitializing {
-        __AccessControlCrossChainMock_init_unchained();
+contract AccessControlCrossChainMockUpgradeable is Initializable, AccessControlCrossChainUpgradeable, CrossChainEnabledArbitrumL2Upgradeable {    function __AccessControlCrossChainMock_init() internal onlyInitializing {
     }
 
     function __AccessControlCrossChainMock_init_unchained() internal onlyInitializing {
-        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
-    }
-
-    function setRoleAdmin(bytes32 roleId, bytes32 adminRoleId) public {
-        _setRoleAdmin(roleId, adminRoleId);
-    }
-
-    function senderProtected(bytes32 roleId) public onlyRole(roleId) {}
-
-    function crossChainRoleAlias(bytes32 role) public pure returns (bytes32) {
-        return _crossChainRoleAlias(role);
     }
 
     /**

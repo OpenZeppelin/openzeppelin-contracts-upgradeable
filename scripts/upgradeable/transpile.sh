@@ -20,6 +20,7 @@ fi
 npx @openzeppelin/upgrade-safe-transpiler@latest -D \
   -b "$build_info" \
   -i contracts/proxy/utils/Initializable.sol \
+  -x 'contracts-exposed/**/*' \
   -x 'contracts/proxy/**/*' \
   -x '!contracts/proxy/Clones.sol' \
   -x '!contracts/proxy/ERC1967/ERC1967Storage.sol' \

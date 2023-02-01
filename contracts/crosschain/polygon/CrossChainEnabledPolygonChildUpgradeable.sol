@@ -60,7 +60,7 @@ abstract contract CrossChainEnabledPolygonChildUpgradeable is Initializable, IFx
      * then security could be compromised.
      */
     function processMessageFromRoot(
-        uint256, /* stateId */
+        uint256 /* stateId */,
         address rootMessageSender,
         bytes calldata data
     ) external override nonReentrant {

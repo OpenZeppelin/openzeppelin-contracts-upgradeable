@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.7.0) (governance/TimelockController.sol)
+// OpenZeppelin Contracts (last updated v4.8.0) (governance/TimelockController.sol)
 
 pragma solidity ^0.8.0;
 
@@ -53,6 +53,11 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
 
     /**
+     * @dev Emitted when new proposal is scheduled with non-zero salt.
+     */
+    event CallSalt(bytes32 indexed id, bytes32 salt);
+
+    /**
      * @dev Emitted when operation `id` is cancelled.
      */
     event Cancelled(bytes32 indexed id);
@@ -75,21 +80,11 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * administration through timelocked proposals. Previous versions of this contract would assign
      * this admin to the deployer automatically and should be renounced as well.
      */
-    function __TimelockController_init(
-        uint256 minDelay,
-        address[] memory proposers,
-        address[] memory executors,
-        address admin
-    ) internal onlyInitializing {
+    function __TimelockController_init(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) internal onlyInitializing {
         __TimelockController_init_unchained(minDelay, proposers, executors, admin);
     }
 
-    function __TimelockController_init_unchained(
-        uint256 minDelay,
-        address[] memory proposers,
-        address[] memory executors,
-        address admin
-    ) internal onlyInitializing {
+    function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) internal onlyInitializing {
         _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
         _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);
@@ -221,7 +216,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Schedule an operation containing a single transaction.
      *
-     * Emits a {CallScheduled} event.
+     * Emits events {CallScheduled} and {CallSalt}.
      *
      * Requirements:
      *
@@ -238,12 +233,15 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         bytes32 id = hashOperation(target, value, data, predecessor, salt);
         _schedule(id, delay);
         emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+        if (salt != bytes32(0)) {
+            emit CallSalt(id, salt);
+        }
     }
 
     /**
      * @dev Schedule an operation containing a batch of transactions.
      *
-     * Emits one {CallScheduled} event per transaction in the batch.
+     * Emits a {CallSalt} event and one {CallScheduled} event per transaction in the batch.
      *
      * Requirements:
      *
@@ -264,6 +262,9 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         _schedule(id, delay);
         for (uint256 i = 0; i < targets.length; ++i) {
             emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
+        }
+        if (salt != bytes32(0)) {
+            emit CallSalt(id, salt);
         }
     }
 
@@ -326,6 +327,9 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      *
      * - the caller must have the 'executor' role.
      */
+    // This function can reenter, but it doesn't pose a risk because _afterCall checks that the proposal is pending,
+    // thus any modifications to the operation during reentrancy should be caught.
+    // slither-disable-next-line reentrancy-eth
     function executeBatch(
         address[] calldata targets,
         uint256[] calldata values,
@@ -352,11 +356,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Execute an operation's call.
      */
-    function _execute(
-        address target,
-        uint256 value,
-        bytes calldata data
-    ) internal virtual {
+    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
         (bool success, ) = target.call{value: value}(data);
         require(success, "TimelockController: underlying transaction reverted");
     }
@@ -396,12 +396,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev See {IERC721Receiver-onERC721Received}.
      */
-    function onERC721Received(
-        address,
-        address,
-        uint256,
-        bytes memory
-    ) public virtual override returns (bytes4) {
+    function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
         return this.onERC721Received.selector;
     }
 
