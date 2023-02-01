@@ -8,7 +8,7 @@ const getMethods = ms => {
     ms,
     m =>
       (self, ...args) =>
-        self.methods[m.replace('_EnumerableSet_', '_EnumerableSetUpgradeable_')](0, ...args),
+        self.methods[m](0, ...args),
   );
 };
 
@@ -25,13 +25,13 @@ contract('EnumerableSet', function (accounts) {
         add: '$add(uint256,bytes32)',
         remove: '$remove(uint256,bytes32)',
         contains: '$contains(uint256,bytes32)',
-        length: '$length_EnumerableSet_Bytes32Set(uint256)',
-        at: '$at_EnumerableSet_Bytes32Set(uint256,uint256)',
-        values: '$values_EnumerableSet_Bytes32Set(uint256)',
+        length: '$length_EnumerableSetUpgradeable_Bytes32Set(uint256)',
+        at: '$at_EnumerableSetUpgradeable_Bytes32Set(uint256,uint256)',
+        values: '$values_EnumerableSetUpgradeable_Bytes32Set(uint256)',
       }),
       {
-        addReturn: 'return$add_EnumerableSet_Bytes32Set_bytes32',
-        removeReturn: 'return$remove_EnumerableSet_Bytes32Set_bytes32',
+        addReturn: 'return$add_EnumerableSetUpgradeable_Bytes32Set_bytes32',
+        removeReturn: 'return$remove_EnumerableSetUpgradeable_Bytes32Set_bytes32',
       },
     );
   });
@@ -44,13 +44,13 @@ contract('EnumerableSet', function (accounts) {
         add: '$add(uint256,address)',
         remove: '$remove(uint256,address)',
         contains: '$contains(uint256,address)',
-        length: '$length_EnumerableSet_AddressSet(uint256)',
-        at: '$at_EnumerableSet_AddressSet(uint256,uint256)',
-        values: '$values_EnumerableSet_AddressSet(uint256)',
+        length: '$length_EnumerableSetUpgradeable_AddressSet(uint256)',
+        at: '$at_EnumerableSetUpgradeable_AddressSet(uint256,uint256)',
+        values: '$values_EnumerableSetUpgradeable_AddressSet(uint256)',
       }),
       {
-        addReturn: 'return$add_EnumerableSet_AddressSet_address',
-        removeReturn: 'return$remove_EnumerableSet_AddressSet_address',
+        addReturn: 'return$add_EnumerableSetUpgradeable_AddressSet_address',
+        removeReturn: 'return$remove_EnumerableSetUpgradeable_AddressSet_address',
       },
     );
   });
@@ -63,13 +63,13 @@ contract('EnumerableSet', function (accounts) {
         add: '$add(uint256,uint256)',
         remove: '$remove(uint256,uint256)',
         contains: '$contains(uint256,uint256)',
-        length: '$length_EnumerableSet_UintSet(uint256)',
-        at: '$at_EnumerableSet_UintSet(uint256,uint256)',
-        values: '$values_EnumerableSet_UintSet(uint256)',
+        length: '$length_EnumerableSetUpgradeable_UintSet(uint256)',
+        at: '$at_EnumerableSetUpgradeable_UintSet(uint256,uint256)',
+        values: '$values_EnumerableSetUpgradeable_UintSet(uint256)',
       }),
       {
-        addReturn: 'return$add_EnumerableSet_UintSet_uint256',
-        removeReturn: 'return$remove_EnumerableSet_UintSet_uint256',
+        addReturn: 'return$add_EnumerableSetUpgradeable_UintSet_uint256',
+        removeReturn: 'return$remove_EnumerableSetUpgradeable_UintSet_uint256',
       },
     );
   });
