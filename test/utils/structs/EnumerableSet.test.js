@@ -8,7 +8,7 @@ const getMethods = ms => {
     ms,
     m =>
       (self, ...args) =>
-        self.methods[m](0, ...args),
+        self.methods[m.replace('_EnumerableSet_', '_EnumerableSetUpgradeable_')](0, ...args),
   );
 };
 

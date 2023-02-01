@@ -10,7 +10,7 @@ const getMethods = ms => {
     ms,
     m =>
       (self, ...args) =>
-        self.methods[m](0, ...args),
+        self.methods[m.replace('_EnumerableMap_', '_EnumerableMapUpgradeable_')](0, ...args),
   );
 };
 
