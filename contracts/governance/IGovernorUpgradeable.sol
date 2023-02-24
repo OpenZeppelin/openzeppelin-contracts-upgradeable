@@ -205,7 +205,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual returns (uint256 proposalId);
+    ) internal virtual returns (uint256 proposalId);
 
     /**
      * @dev Execute a successful proposal. This requires the quorum to be reached, the vote to be successful, and the

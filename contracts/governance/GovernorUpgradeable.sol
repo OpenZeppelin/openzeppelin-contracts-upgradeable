@@ -256,7 +256,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override returns (uint256) {
+    ) internal virtual override returns (uint256) {
         address proposer = _msgSender();
 
         require(
