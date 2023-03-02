@@ -2,6 +2,27 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../access/AccessControlUpgradeable.sol";
+
+contract AccessControlUpgradeableWithInit is AccessControlUpgradeable {
+    constructor() payable initializer {
+        __AccessControl_init();
+    }
+}
+import "../utils/ContextUpgradeable.sol";
+
+contract ContextUpgradeableWithInit is ContextUpgradeable {
+    constructor() payable initializer {
+        __Context_init();
+    }
+}
+import "../utils/introspection/ERC165Upgradeable.sol";
+
+contract ERC165UpgradeableWithInit is ERC165Upgradeable {
+    constructor() payable initializer {
+        __ERC165_init();
+    }
+}
 import "./AccessControlMockUpgradeable.sol";
 
 contract AccessControlMockUpgradeableWithInit is AccessControlMockUpgradeable {
@@ -19,6 +40,13 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
         address admin
     ) payable initializer {
         __TimelockController_init(minDelay, proposers, executors, admin);
+    }
+}
+import "../utils/cryptography/EIP712Upgradeable.sol";
+
+contract EIP712UpgradeableWithInit is EIP712Upgradeable {
+    constructor(string memory name, string memory version) payable initializer {
+        __EIP712_init(name, version);
     }
 }
 import "./wizard/MyGovernor3Upgradeable.sol";
@@ -126,11 +154,25 @@ contract ERC1271MaliciousMockUpgradeableWithInit is ERC1271MaliciousMockUpgradea
         __ERC1271MaliciousMock_init();
     }
 }
+import "../access/OwnableUpgradeable.sol";
+
+contract OwnableUpgradeableWithInit is OwnableUpgradeable {
+    constructor() payable initializer {
+        __Ownable_init();
+    }
+}
 import "../utils/escrow/EscrowUpgradeable.sol";
 
 contract EscrowUpgradeableWithInit is EscrowUpgradeable {
     constructor() payable initializer {
         __Escrow_init();
+    }
+}
+import "../utils/MulticallUpgradeable.sol";
+
+contract MulticallUpgradeableWithInit is MulticallUpgradeable {
+    constructor() payable initializer {
+        __Multicall_init();
     }
 }
 import "./MulticallTokenMockUpgradeable.sol";
@@ -157,6 +199,20 @@ import "../token/ERC20/presets/ERC20PresetMinterPauserUpgradeable.sol";
 contract ERC20PresetMinterPauserUpgradeableWithInit is ERC20PresetMinterPauserUpgradeable {
     constructor(string memory name, string memory symbol) payable initializer {
         __ERC20PresetMinterPauser_init(name, symbol);
+    }
+}
+import "../access/AccessControlEnumerableUpgradeable.sol";
+
+contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUpgradeable {
+    constructor() payable initializer {
+        __AccessControlEnumerable_init();
+    }
+}
+import "../security/PausableUpgradeable.sol";
+
+contract PausableUpgradeableWithInit is PausableUpgradeable {
+    constructor() payable initializer {
+        __Pausable_init();
     }
 }
 import "../token/ERC777/ERC777Upgradeable.sol";
@@ -337,6 +393,13 @@ contract ERC1155BurnableMockUpgradeableWithInit is ERC1155BurnableMockUpgradeabl
         __ERC1155BurnableMock_init(uri);
     }
 }
+import "../utils/introspection/ERC165StorageUpgradeable.sol";
+
+contract ERC165StorageUpgradeableWithInit is ERC165StorageUpgradeable {
+    constructor() payable initializer {
+        __ERC165Storage_init();
+    }
+}
 import "./ERC165StorageMockUpgradeable.sol";
 
 contract ERC165StorageMockUpgradeableWithInit is ERC165StorageMockUpgradeable {
@@ -479,6 +542,13 @@ contract ERC165InterfacesSupportedUpgradeableWithInit is ERC165InterfacesSupport
         __ERC165InterfacesSupported_init(interfaceIds);
     }
 }
+import "../token/common/ERC2981Upgradeable.sol";
+
+contract ERC2981UpgradeableWithInit is ERC2981Upgradeable {
+    constructor() payable initializer {
+        __ERC2981_init();
+    }
+}
 import "./ERC721RoyaltyMockUpgradeable.sol";
 
 contract ERC721RoyaltyMockUpgradeableWithInit is ERC721RoyaltyMockUpgradeable {
@@ -498,6 +568,13 @@ import "./StringsMockUpgradeable.sol";
 contract StringsMockUpgradeableWithInit is StringsMockUpgradeable {
     constructor() payable initializer {
         __StringsMock_init();
+    }
+}
+import "../proxy/ERC1967/ERC1967UpgradeUpgradeable.sol";
+
+contract ERC1967UpgradeUpgradeableWithInit is ERC1967UpgradeUpgradeable {
+    constructor() payable initializer {
+        __ERC1967Upgrade_init();
     }
 }
 import "./UUPS/UUPSUpgradeableMockUpgradeable.sol";
@@ -882,6 +959,20 @@ contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
         __ReentrancyMock_init();
     }
 }
+import "../security/ReentrancyGuardUpgradeable.sol";
+
+contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyGuard_init();
+    }
+}
+import "../crosschain/polygon/CrossChainEnabledPolygonChildUpgradeable.sol";
+
+contract CrossChainEnabledPolygonChildUpgradeableWithInit is CrossChainEnabledPolygonChildUpgradeable {
+    constructor(address fxChild) CrossChainEnabledPolygonChildUpgradeable(fxChild) payable initializer {
+
+    }
+}
 import "./crosschain/receiversUpgradeable.sol";
 
 contract CrossChainEnabledAMBMockUpgradeableWithInit is CrossChainEnabledAMBMockUpgradeable {
@@ -924,11 +1015,39 @@ contract CrossChainEnabledAMBUpgradeableWithInit is CrossChainEnabledAMBUpgradea
 
     }
 }
+import "../crosschain/arbitrum/CrossChainEnabledArbitrumL1Upgradeable.sol";
+
+contract CrossChainEnabledArbitrumL1UpgradeableWithInit is CrossChainEnabledArbitrumL1Upgradeable {
+    constructor(address bridge) CrossChainEnabledArbitrumL1Upgradeable(bridge) payable initializer {
+
+    }
+}
+import "../crosschain/arbitrum/CrossChainEnabledArbitrumL2Upgradeable.sol";
+
+contract CrossChainEnabledArbitrumL2UpgradeableWithInit is CrossChainEnabledArbitrumL2Upgradeable {
+    constructor() payable initializer {
+        __CrossChainEnabledArbitrumL2_init();
+    }
+}
+import "../crosschain/optimism/CrossChainEnabledOptimismUpgradeable.sol";
+
+contract CrossChainEnabledOptimismUpgradeableWithInit is CrossChainEnabledOptimismUpgradeable {
+    constructor(address messenger) CrossChainEnabledOptimismUpgradeable(messenger) payable initializer {
+
+    }
+}
 import "./AccessControlCrossChainMockUpgradeable.sol";
 
 contract AccessControlCrossChainMockUpgradeableWithInit is AccessControlCrossChainMockUpgradeable {
     constructor() payable initializer {
         __AccessControlCrossChainMock_init();
+    }
+}
+import "./crosschain/bridgesUpgradeable.sol";
+
+contract BaseRelayMockUpgradeableWithInit is BaseRelayMockUpgradeable {
+    constructor() payable initializer {
+        __BaseRelayMock_init();
     }
 }
 import "./crosschain/bridgesUpgradeable.sol";
@@ -1001,6 +1120,13 @@ contract ERC2771ContextMockUpgradeableWithInit is ERC2771ContextMockUpgradeable 
 
     }
 }
+import "../metatx/ERC2771ContextUpgradeable.sol";
+
+contract ERC2771ContextUpgradeableWithInit is ERC2771ContextUpgradeable {
+    constructor(address trustedForwarder) ERC2771ContextUpgradeable(trustedForwarder) payable initializer {
+
+    }
+}
 import "./ERC20CappedMockUpgradeable.sol";
 
 contract ERC20CappedMockUpgradeableWithInit is ERC20CappedMockUpgradeable {
@@ -1058,6 +1184,13 @@ contract ConditionalEscrowMockUpgradeableWithInit is ConditionalEscrowMockUpgrad
         __ConditionalEscrowMock_init();
     }
 }
+import "../security/PullPaymentUpgradeable.sol";
+
+contract PullPaymentUpgradeableWithInit is PullPaymentUpgradeable {
+    constructor() payable initializer {
+        __PullPayment_init();
+    }
+}
 import "./PullPaymentMockUpgradeable.sol";
 
 contract PullPaymentMockUpgradeableWithInit is PullPaymentMockUpgradeable {
@@ -1070,6 +1203,13 @@ import "./OwnableMockUpgradeable.sol";
 contract OwnableMockUpgradeableWithInit is OwnableMockUpgradeable {
     constructor() payable initializer {
         __OwnableMock_init();
+    }
+}
+import "../access/Ownable2StepUpgradeable.sol";
+
+contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
+    constructor() payable initializer {
+        __Ownable2Step_init();
     }
 }
 import "./Ownable2StepMockUpgradeable.sol";
