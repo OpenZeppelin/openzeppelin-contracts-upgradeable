@@ -17,7 +17,7 @@ contract ERC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, IERC
         transferOwnership(originalOwner);
     }
 
-    function isValidSignature(bytes32 hash, bytes memory signature) public view override returns (bytes4 magicValue) {
+    function isValidSignature(bytes32 hash, bytes calldata signature) public view override returns (bytes4 magicValue) {
         return ECDSAUpgradeable.recover(hash, signature) == owner() ? this.isValidSignature.selector : bytes4(0);
     }
 
@@ -35,7 +35,7 @@ contract ERC1271MaliciousMockUpgradeable is Initializable, IERC1271Upgradeable {
 
     function __ERC1271MaliciousMock_init_unchained() internal onlyInitializing {
     }
-    function isValidSignature(bytes32, bytes memory) public pure override returns (bytes4) {
+    function isValidSignature(bytes32, bytes calldata) public pure override returns (bytes4) {
         assembly {
             mstore(0, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
             return(0, 32)

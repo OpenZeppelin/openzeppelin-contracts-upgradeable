@@ -50,9 +50,9 @@ abstract contract GovernorTimelockControlMockUpgradeable is
     }
 
     function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
+        address[] calldata targets,
+        uint256[] calldata values,
+        bytes[] calldata calldatas,
         bytes32 descriptionHash
     ) internal override(GovernorUpgradeable, GovernorTimelockControlUpgradeable) returns (uint256 proposalId) {
         return super._cancel(targets, values, calldatas, descriptionHash);
