@@ -36,7 +36,7 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
     ERC721BurnableUpgradeable,
     ERC721PausableUpgradeable
 {
-    function initialize(string memory name, string memory symbol, string memory baseTokenURI) public virtual initializer {
+    function initialize(string calldata name, string calldata symbol, string calldata baseTokenURI) public virtual initializer {
         __ERC721PresetMinterPauserAutoId_init(name, symbol, baseTokenURI);
     }
     using CountersUpgradeable for CountersUpgradeable.Counter;

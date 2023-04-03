@@ -15,9 +15,9 @@ import "../../../proxy/utils/Initializable.sol";
  */
 contract ERC777PresetFixedSupplyUpgradeable is Initializable, ERC777Upgradeable {
     function initialize(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators,
+        string calldata name,
+        string calldata symbol,
+        address[] calldata defaultOperators,
         uint256 initialSupply,
         address owner
     ) public virtual initializer {

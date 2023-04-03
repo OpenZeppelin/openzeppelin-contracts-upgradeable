@@ -20,7 +20,7 @@ import "../../../proxy/utils/Initializable.sol";
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC20PresetFixedSupplyUpgradeable is Initializable, ERC20BurnableUpgradeable {
-    function initialize(string memory name, string memory symbol, uint256 initialSupply, address owner) public virtual initializer {
+    function initialize(string calldata name, string calldata symbol, uint256 initialSupply, address owner) public virtual initializer {
         __ERC20PresetFixedSupply_init(name, symbol, initialSupply, owner);
     }
     /**

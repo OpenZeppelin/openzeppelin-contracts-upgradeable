@@ -396,7 +396,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev See {IERC721Receiver-onERC721Received}.
      */
-    function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
+    function onERC721Received(address, address, uint256, bytes calldata) public virtual override returns (bytes4) {
         return this.onERC721Received.selector;
     }
 
@@ -408,7 +408,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         address,
         uint256,
         uint256,
-        bytes memory
+        bytes calldata
     ) public virtual override returns (bytes4) {
         return this.onERC1155Received.selector;
     }
@@ -419,9 +419,9 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     function onERC1155BatchReceived(
         address,
         address,
-        uint256[] memory,
-        uint256[] memory,
-        bytes memory
+        uint256[] calldata,
+        uint256[] calldata,
+        bytes calldata
     ) public virtual override returns (bytes4) {
         return this.onERC1155BatchReceived.selector;
     }
