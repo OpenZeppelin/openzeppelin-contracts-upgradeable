@@ -58,7 +58,8 @@ library ERC165CheckerUpgradeable {
         // query support of ERC165 itself
         if (supportsERC165(account)) {
             // query support of each interface in interfaceIds
-            for (uint256 i = 0; i < interfaceIds.length; i++) {
+            uint256 len = interfaceIds.length;
+            for (uint256 i = 0; i < len; i++) {
                 interfaceIdsSupported[i] = supportsERC165InterfaceUnchecked(account, interfaceIds[i]);
             }
         }
@@ -82,7 +83,8 @@ library ERC165CheckerUpgradeable {
         }
 
         // query support of each interface in interfaceIds
-        for (uint256 i = 0; i < interfaceIds.length; i++) {
+        uint256 len = interfaceIds.length;
+        for (uint256 i = 0; i < len; i++) {
             if (!supportsERC165InterfaceUnchecked(account, interfaceIds[i])) {
                 return false;
             }

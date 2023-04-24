@@ -125,7 +125,8 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
     ) private pure returns (bytes[] memory) {
         bytes[] memory fullcalldatas = new bytes[](calldatas.length);
 
-        for (uint256 i = 0; i < signatures.length; ++i) {
+        uint256 signaturesLen = signatures.length;
+        for (uint256 i = 0; i < signaturesLen; ++i) {
             fullcalldatas[i] = bytes(signatures[i]).length == 0
                 ? calldatas[i]
                 : abi.encodePacked(bytes4(keccak256(bytes(signatures[i]))), calldatas[i]);

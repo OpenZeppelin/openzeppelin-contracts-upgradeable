@@ -57,7 +57,8 @@ contract PaymentSplitterUpgradeable is Initializable, ContextUpgradeable {
         require(payees.length == shares_.length, "PaymentSplitter: payees and shares length mismatch");
         require(payees.length > 0, "PaymentSplitter: no payees");
 
-        for (uint256 i = 0; i < payees.length; i++) {
+        uint256 len = payees.length;
+        for (uint256 i = 0; i < len; i++) {
             _addPayee(payees[i], shares_[i]);
         }
     }

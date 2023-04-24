@@ -32,11 +32,13 @@ contract ERC721ConsecutiveMockUpgradeable is Initializable, ERC721ConsecutiveUpg
         address[] memory receivers,
         uint96[] memory amounts
     ) internal onlyInitializing {
-        for (uint256 i = 0; i < delegates.length; ++i) {
+        uint256 delegatesLen = delegates.length;
+        for (uint256 i = 0; i < delegatesLen; ++i) {
             _delegate(delegates[i], delegates[i]);
         }
 
-        for (uint256 i = 0; i < receivers.length; ++i) {
+        uint256 receiversLen = receivers.length;
+        for (uint256 i = 0; i < receiversLen; ++i) {
             _mintConsecutive(receivers[i], amounts[i]);
         }
     }

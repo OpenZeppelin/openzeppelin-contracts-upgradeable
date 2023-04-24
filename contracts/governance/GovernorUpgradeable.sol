@@ -342,7 +342,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         bytes32 /*descriptionHash*/
     ) internal virtual {
         string memory errorMessage = "Governor: call reverted without message";
-        for (uint256 i = 0; i < targets.length; ++i) {
+        uint256 targetsLen = targets.length;
+        for (uint256 i = 0; i < targetsLen; ++i) {
             (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
             AddressUpgradeable.verifyCallResult(success, returndata, errorMessage);
         }
@@ -359,7 +360,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         bytes32 /*descriptionHash*/
     ) internal virtual {
         if (_executor() != address(this)) {
-            for (uint256 i = 0; i < targets.length; ++i) {
+            uint256 targetsLen = targets.length;
+            for (uint256 i = 0; i < targetsLen; ++i) {
                 if (targets[i] == address(this)) {
                     _governanceCall.pushBack(keccak256(calldatas[i]));
                 }

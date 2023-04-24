@@ -99,13 +99,15 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         }
 
         // register proposers and cancellers
-        for (uint256 i = 0; i < proposers.length; ++i) {
+        uint256 proposersLen = proposers.length;
+        for (uint256 i = 0; i < proposersLen; ++i) {
             _setupRole(PROPOSER_ROLE, proposers[i]);
             _setupRole(CANCELLER_ROLE, proposers[i]);
         }
 
         // register executors
-        for (uint256 i = 0; i < executors.length; ++i) {
+        uint256 executorsLen = executors.length;
+        for (uint256 i = 0; i < executorsLen; ++i) {
             _setupRole(EXECUTOR_ROLE, executors[i]);
         }
 
@@ -260,7 +262,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
 
         bytes32 id = hashOperationBatch(targets, values, payloads, predecessor, salt);
         _schedule(id, delay);
-        for (uint256 i = 0; i < targets.length; ++i) {
+        uint256 targetsLen = targets.length;
+        for (uint256 i = 0; i < targetsLen; ++i) {
             emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
         }
         if (salt != bytes32(0)) {
@@ -343,7 +346,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         bytes32 id = hashOperationBatch(targets, values, payloads, predecessor, salt);
 
         _beforeCall(id, predecessor);
-        for (uint256 i = 0; i < targets.length; ++i) {
+        uint256 targetsLen = targets.length;
+        for (uint256 i = 0; i < targetsLen; ++i) {
             address target = targets[i];
             uint256 value = values[i];
             bytes calldata payload = payloads[i];

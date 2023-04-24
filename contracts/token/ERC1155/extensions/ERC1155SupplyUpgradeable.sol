@@ -50,13 +50,15 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 idsLen = ids.length;
+            for (uint256 i = 0; i < idsLen; ++i) {
                 _totalSupply[ids[i]] += amounts[i];
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 idsLen = ids.length;
+            for (uint256 i = 0; i < idsLen; ++i) {
                 uint256 id = ids[i];
                 uint256 amount = amounts[i];
                 uint256 supply = _totalSupply[id];

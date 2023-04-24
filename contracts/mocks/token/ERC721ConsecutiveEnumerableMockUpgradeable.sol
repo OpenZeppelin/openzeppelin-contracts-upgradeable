@@ -23,7 +23,8 @@ contract ERC721ConsecutiveEnumerableMockUpgradeable is Initializable, ERC721Cons
         address[] memory receivers,
         uint96[] memory amounts
     ) internal onlyInitializing {
-        for (uint256 i = 0; i < receivers.length; ++i) {
+        uint256 receiversLen = receivers.length;
+        for (uint256 i = 0; i < receiversLen; ++i) {
             _mintConsecutive(receivers[i], amounts[i]);
         }
     }
