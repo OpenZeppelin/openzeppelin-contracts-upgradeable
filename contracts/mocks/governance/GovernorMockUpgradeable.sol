@@ -24,10 +24,10 @@ abstract contract GovernorMockUpgradeable is
     }
 
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public override(GovernorUpgradeable, GovernorProposalThresholdUpgradeable) returns (uint256) {
         return super.propose(targets, values, calldatas, description);
     }

@@ -56,10 +56,10 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
      * @dev See {IGovernor-propose}.
      */
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
         _storeProposal(_msgSender(), targets, values, new string[](calldatas.length), calldatas, description);
         return super.propose(targets, values, calldatas, description);
@@ -69,11 +69,11 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
      * @dev See {IGovernorCompatibilityBravo-propose}.
      */
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
-        string[] memory signatures,
-        bytes[] memory calldatas,
-        string memory description
+        address[] calldata targets,
+        uint256[] calldata values,
+        string[] calldata signatures,
+        bytes[] calldata calldatas,
+        string calldata description
     ) public virtual override returns (uint256) {
         _storeProposal(_msgSender(), targets, values, signatures, calldatas, description);
         return propose(targets, values, _encodeCalldata(signatures, calldatas), description);
@@ -139,11 +139,11 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
      */
     function _storeProposal(
         address proposer,
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         string[] memory signatures,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) private {
         bytes32 descriptionHash = keccak256(bytes(description));
         uint256 proposalId = hashProposal(targets, values, _encodeCalldata(signatures, calldatas), descriptionHash);

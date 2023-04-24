@@ -117,8 +117,8 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
      * @dev Hashing function used to (re)build the proposal id from the proposal details..
      */
     function hashProposal(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public pure virtual returns (uint256);
@@ -201,10 +201,10 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable {
      * Emits a {ProposalCreated} event.
      */
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public virtual returns (uint256 proposalId);
 
     /**

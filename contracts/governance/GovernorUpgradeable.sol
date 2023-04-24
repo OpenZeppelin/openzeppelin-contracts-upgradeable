@@ -140,8 +140,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * governor) the proposer will have to change the description in order to avoid proposal id conflicts.
      */
     function hashProposal(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public pure virtual override returns (uint256) {
@@ -252,10 +252,10 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * @dev See {IGovernor-propose}.
      */
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public virtual override returns (uint256) {
         address proposer = _msgSender();
 
@@ -299,8 +299,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * @dev See {IGovernor-execute}.
      */
     function execute(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public payable virtual override returns (uint256) {
@@ -391,8 +391,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * Emits a {IGovernor-ProposalCanceled} event.
      */
     function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) internal virtual returns (uint256) {
@@ -432,7 +432,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     function getVotesWithParams(
         address account,
         uint256 blockNumber,
-        bytes memory params
+        bytes calldata params
     ) public view virtual override returns (uint256) {
         return _getVotes(account, blockNumber, params);
     }
@@ -464,7 +464,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256 proposalId,
         uint8 support,
         string calldata reason,
-        bytes memory params
+        bytes calldata params
     ) public virtual override returns (uint256) {
         address voter = _msgSender();
         return _castVote(proposalId, voter, support, reason, params);
@@ -496,7 +496,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256 proposalId,
         uint8 support,
         string calldata reason,
-        bytes memory params,
+        bytes calldata params,
         uint8 v,
         bytes32 r,
         bytes32 s
@@ -586,7 +586,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IERC721Receiver-onERC721Received}.
      */
-    function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
+    function onERC721Received(address, address, uint256, bytes calldata) public virtual override returns (bytes4) {
         return this.onERC721Received.selector;
     }
 
@@ -598,7 +598,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address,
         uint256,
         uint256,
-        bytes memory
+        bytes calldata
     ) public virtual override returns (bytes4) {
         return this.onERC1155Received.selector;
     }
@@ -609,9 +609,9 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     function onERC1155BatchReceived(
         address,
         address,
-        uint256[] memory,
-        uint256[] memory,
-        bytes memory
+        uint256[] calldata,
+        uint256[] calldata,
+        bytes calldata
     ) public virtual override returns (bytes4) {
         return this.onERC1155BatchReceived.selector;
     }

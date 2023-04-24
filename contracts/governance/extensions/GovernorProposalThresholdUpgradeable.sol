@@ -19,10 +19,10 @@ abstract contract GovernorProposalThresholdUpgradeable is Initializable, Governo
     function __GovernorProposalThreshold_init_unchained() internal onlyInitializing {
     }
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public virtual override returns (uint256) {
         return super.propose(targets, values, calldatas, description);
     }

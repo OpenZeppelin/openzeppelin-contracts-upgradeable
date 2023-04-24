@@ -12,7 +12,7 @@ abstract contract EIP712VerifierUpgradeable is Initializable, EIP712Upgradeable 
 
     function __EIP712Verifier_init_unchained() internal onlyInitializing {
     }
-    function verify(bytes memory signature, address signer, address mailTo, string memory mailContents) external view {
+    function verify(bytes calldata signature, address signer, address mailTo, string calldata mailContents) external view {
         bytes32 digest = _hashTypedDataV4(
             keccak256(abi.encode(keccak256("Mail(address to,string contents)"), mailTo, keccak256(bytes(mailContents))))
         );

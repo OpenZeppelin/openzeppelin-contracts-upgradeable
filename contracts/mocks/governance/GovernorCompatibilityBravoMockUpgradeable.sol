@@ -46,17 +46,17 @@ abstract contract GovernorCompatibilityBravoMockUpgradeable is
     }
 
     function propose(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
-        string memory description
+        string calldata description
     ) public override(IGovernorUpgradeable, GovernorUpgradeable, GovernorCompatibilityBravoUpgradeable) returns (uint256) {
         return super.propose(targets, values, calldatas, description);
     }
 
     function queue(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 salt
     ) public override(IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256) {
@@ -64,8 +64,8 @@ abstract contract GovernorCompatibilityBravoMockUpgradeable is
     }
 
     function execute(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 salt
     ) public payable override(IGovernorUpgradeable, GovernorUpgradeable) returns (uint256) {
@@ -87,8 +87,8 @@ abstract contract GovernorCompatibilityBravoMockUpgradeable is
     }
 
     function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 salt
     ) internal override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (uint256 proposalId) {

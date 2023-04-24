@@ -94,8 +94,8 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
      * @dev Function to queue a proposal to the timelock.
      */
     function queue(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public virtual override returns (uint256) {
@@ -141,8 +141,8 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGoverno
      * been queued.
      */
     function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
+        address[] calldata targets,
+        uint256[] calldata values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) internal virtual override returns (uint256) {
