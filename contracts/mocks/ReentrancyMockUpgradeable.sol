@@ -44,7 +44,9 @@ contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable 
     }
 
     function _count() private {
-        counter += 1;
+        unchecked {
+            counter += 1;
+        }
     }
 
     function guardedCheckEntered() public nonReentrant {

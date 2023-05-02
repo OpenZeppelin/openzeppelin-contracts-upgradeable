@@ -20,7 +20,9 @@ contract PausableMockUpgradeable is Initializable, PausableUpgradeable {
     }
 
     function normalProcess() external whenNotPaused {
-        count++;
+        unchecked {
+            count++;
+        }
     }
 
     function drasticMeasure() external whenPaused {
