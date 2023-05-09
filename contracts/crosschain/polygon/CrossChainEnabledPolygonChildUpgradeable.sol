@@ -67,18 +67,8 @@ abstract contract CrossChainEnabledPolygonChildUpgradeable is Initializable, IFx
         if (!_isCrossChain()) revert NotCrossChainCall();
 
         _sender = rootMessageSender;
-        __functionDelegateCall(address(this), data);
+        AddressUpgradeable.functionDelegateCall(address(this), data, "cross-chain execution failed");
         _sender = DEFAULT_SENDER;
-    }
-
-    // ERC1967Upgrade._functionDelegateCall is private so we reproduce it here.
-    // An extra underscore prevents a name clash error.
-    function __functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
-        require(AddressUpgradeable.isContract(target), "Address: delegate call to non-contract");
-
-        // solhint-disable-next-line avoid-low-level-calls
-        (bool success, bytes memory returndata) = target.delegatecall(data);
-        return AddressUpgradeable.verifyCallResult(success, returndata, "Address: low-level delegate call failed");
     }
 
     /**

@@ -1,34 +1,26 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
+
+import "../../token/ERC20/ERC20Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
-contract ERC20ReturnFalseMockUpgradeable is Initializable {
+abstract contract ERC20ReturnFalseMockUpgradeable is Initializable, ERC20Upgradeable {
     function __ERC20ReturnFalseMock_init() internal onlyInitializing {
     }
 
     function __ERC20ReturnFalseMock_init_unchained() internal onlyInitializing {
     }
-    mapping(address => uint256) private _allowances;
-
-    function transfer(address, uint256) public pure returns (bool) {
+    function transfer(address, uint256) public pure override returns (bool) {
         return false;
     }
 
-    function transferFrom(address, address, uint256) public pure returns (bool) {
+    function transferFrom(address, address, uint256) public pure override returns (bool) {
         return false;
     }
 
-    function approve(address, uint256) public pure returns (bool) {
+    function approve(address, uint256) public pure override returns (bool) {
         return false;
-    }
-
-    function setAllowance(address account, uint256 allowance_) public {
-        _allowances[account] = allowance_;
-    }
-
-    function allowance(address owner, address) public view returns (uint256) {
-        return _allowances[owner];
     }
 
     /**
@@ -36,5 +28,5 @@ contract ERC20ReturnFalseMockUpgradeable is Initializable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[49] private __gap;
+    uint256[50] private __gap;
 }

@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../GovernorUpgradeable.sol";
-import "../utils/IVotesUpgradeable.sol";
+import "../../interfaces/IERC5805Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -15,14 +15,38 @@ import "../../proxy/utils/Initializable.sol";
  * @custom:storage-size 51
  */
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
-    IVotesUpgradeable public token;
+    IERC5805Upgradeable public token;
 
     function __GovernorVotes_init(IVotesUpgradeable tokenAddress) internal onlyInitializing {
         __GovernorVotes_init_unchained(tokenAddress);
     }
 
     function __GovernorVotes_init_unchained(IVotesUpgradeable tokenAddress) internal onlyInitializing {
-        token = tokenAddress;
+        token = IERC5805Upgradeable(address(tokenAddress));
+    }
+
+    /**
+     * @dev Clock (as specified in EIP-6372) is set to match the token's clock. Fallback to block numbers if the token
+     * does not implement EIP-6372.
+     */
+    function clock() public view virtual override returns (uint48) {
+        try token.clock() returns (uint48 timepoint) {
+            return timepoint;
+        } catch {
+            return SafeCastUpgradeable.toUint48(block.number);
+        }
+    }
+
+    /**
+     * @dev Machine-readable description of the clock as specified in EIP-6372.
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function CLOCK_MODE() public view virtual override returns (string memory) {
+        try token.CLOCK_MODE() returns (string memory clockmode) {
+            return clockmode;
+        } catch {
+            return "mode=blocknumber&from=default";
+        }
     }
 
     /**
@@ -30,10 +54,10 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
      */
     function _getVotes(
         address account,
-        uint256 blockNumber,
+        uint256 timepoint,
         bytes memory /*params*/
     ) internal view virtual override returns (uint256) {
-        return token.getPastVotes(account, blockNumber);
+        return token.getPastVotes(account, timepoint);
     }
 
     /**

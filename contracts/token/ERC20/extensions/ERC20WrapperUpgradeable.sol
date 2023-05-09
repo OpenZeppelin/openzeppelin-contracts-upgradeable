@@ -26,6 +26,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     function __ERC20Wrapper_init_unchained(IERC20Upgradeable underlyingToken) internal onlyInitializing {
+        require(underlyingToken != this, "ERC20Wrapper: cannot self wrap");
         _underlying = underlyingToken;
     }
 
@@ -51,7 +52,9 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      * @dev Allow a user to deposit underlying tokens and mint the corresponding number of wrapped tokens.
      */
     function depositFor(address account, uint256 amount) public virtual returns (bool) {
-        SafeERC20Upgradeable.safeTransferFrom(_underlying, _msgSender(), address(this), amount);
+        address sender = _msgSender();
+        require(sender != address(this), "ERC20Wrapper: wrapper can't deposit");
+        SafeERC20Upgradeable.safeTransferFrom(_underlying, sender, address(this), amount);
         _mint(account, amount);
         return true;
     }

@@ -12,7 +12,8 @@ contract('ERC721Consecutive', function (accounts) {
   const symbol = 'NFT';
   const batches = [
     { receiver: user1, amount: 0 },
-    { receiver: user1, amount: 3 },
+    { receiver: user1, amount: 1 },
+    { receiver: user1, amount: 2 },
     { receiver: user2, amount: 5 },
     { receiver: user3, amount: 0 },
     { receiver: user1, amount: 7 },
@@ -187,6 +188,18 @@ contract('ERC721Consecutive', function (accounts) {
       await expectRevert(
         ERC721ConsecutiveNoConstructorMintMock.new(name, symbol),
         "ERC721Consecutive: can't mint during construction",
+      );
+    });
+
+    it('consecutive mint not compatible with enumerability', async function () {
+      await expectRevert(
+        ERC721ConsecutiveEnumerableMock.new(
+          name,
+          symbol,
+          batches.map(({ receiver }) => receiver),
+          batches.map(({ amount }) => amount),
+        ),
+        'ERC721Enumerable: consecutive transfers not supported',
       );
     });
   });

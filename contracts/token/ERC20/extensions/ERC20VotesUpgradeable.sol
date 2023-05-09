@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/extensions/ERC20Votes.sol)
+// OpenZeppelin Contracts (last updated v4.8.1) (token/ERC20/extensions/ERC20Votes.sol)
 
 pragma solidity ^0.8.0;
 
 import "./ERC20PermitUpgradeable.sol";
+import "../../../interfaces/IERC5805Upgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
-import "../../../governance/utils/IVotesUpgradeable.sol";
 import "../../../utils/math/SafeCastUpgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
@@ -25,7 +25,7 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.2._
  */
-abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC20PermitUpgradeable {
+abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable, IERC5805Upgradeable {
     function __ERC20Votes_init() internal onlyInitializing {
     }
 
@@ -42,6 +42,23 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
     mapping(address => address) private _delegates;
     mapping(address => Checkpoint[]) private _checkpoints;
     Checkpoint[] private _totalSupplyCheckpoints;
+
+    /**
+     * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based checkpoints (and voting).
+     */
+    function clock() public view virtual override returns (uint48) {
+        return SafeCastUpgradeable.toUint48(block.number);
+    }
+
+    /**
+     * @dev Description of the clock
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function CLOCK_MODE() public view virtual override returns (string memory) {
+        // Check that the clock was not modified
+        require(clock() == block.number, "ERC20Votes: broken clock mode");
+        return "mode=blocknumber&from=default";
+    }
 
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
@@ -75,45 +92,45 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
     }
 
     /**
-     * @dev Retrieve the number of votes for `account` at the end of `blockNumber`.
+     * @dev Retrieve the number of votes for `account` at the end of `timepoint`.
      *
      * Requirements:
      *
-     * - `blockNumber` must have been already mined
+     * - `timepoint` must be in the past
      */
-    function getPastVotes(address account, uint256 blockNumber) public view virtual override returns (uint256) {
-        require(blockNumber < block.number, "ERC20Votes: block not yet mined");
-        return _checkpointsLookup(_checkpoints[account], blockNumber);
+    function getPastVotes(address account, uint256 timepoint) public view virtual override returns (uint256) {
+        require(timepoint < clock(), "ERC20Votes: future lookup");
+        return _checkpointsLookup(_checkpoints[account], timepoint);
     }
 
     /**
-     * @dev Retrieve the `totalSupply` at the end of `blockNumber`. Note, this value is the sum of all balances.
+     * @dev Retrieve the `totalSupply` at the end of `timepoint`. Note, this value is the sum of all balances.
      * It is NOT the sum of all the delegated votes!
      *
      * Requirements:
      *
-     * - `blockNumber` must have been already mined
+     * - `timepoint` must be in the past
      */
-    function getPastTotalSupply(uint256 blockNumber) public view virtual override returns (uint256) {
-        require(blockNumber < block.number, "ERC20Votes: block not yet mined");
-        return _checkpointsLookup(_totalSupplyCheckpoints, blockNumber);
+    function getPastTotalSupply(uint256 timepoint) public view virtual override returns (uint256) {
+        require(timepoint < clock(), "ERC20Votes: future lookup");
+        return _checkpointsLookup(_totalSupplyCheckpoints, timepoint);
     }
 
     /**
      * @dev Lookup a value in a list of (sorted) checkpoints.
      */
-    function _checkpointsLookup(Checkpoint[] storage ckpts, uint256 blockNumber) private view returns (uint256) {
-        // We run a binary search to look for the earliest checkpoint taken after `blockNumber`.
+    function _checkpointsLookup(Checkpoint[] storage ckpts, uint256 timepoint) private view returns (uint256) {
+        // We run a binary search to look for the last (most recent) checkpoint taken before (or at) `timepoint`.
         //
         // Initially we check if the block is recent to narrow the search range.
         // During the loop, the index of the wanted checkpoint remains in the range [low-1, high).
         // With each iteration, either `low` or `high` is moved towards the middle of the range to maintain the invariant.
-        // - If the middle checkpoint is after `blockNumber`, we look in [low, mid)
-        // - If the middle checkpoint is before or equal to `blockNumber`, we look in [mid+1, high)
+        // - If the middle checkpoint is after `timepoint`, we look in [low, mid)
+        // - If the middle checkpoint is before or equal to `timepoint`, we look in [mid+1, high)
         // Once we reach a single value (when low == high), we've found the right checkpoint at the index high-1, if not
         // out of bounds (in which case we're looking too far in the past and the result is 0).
-        // Note that if the latest checkpoint available is exactly for `blockNumber`, we end up with an index that is
-        // past the end of the array, so we technically don't find a checkpoint after `blockNumber`, but it works out
+        // Note that if the latest checkpoint available is exactly for `timepoint`, we end up with an index that is
+        // past the end of the array, so we technically don't find a checkpoint after `timepoint`, but it works out
         // the same.
         uint256 length = ckpts.length;
 
@@ -122,7 +139,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
 
         if (length > 5) {
             uint256 mid = length - MathUpgradeable.sqrt(length);
-            if (_unsafeAccess(ckpts, mid).fromBlock > blockNumber) {
+            if (_unsafeAccess(ckpts, mid).fromBlock > timepoint) {
                 high = mid;
             } else {
                 low = mid + 1;
@@ -131,7 +148,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
 
         while (low < high) {
             uint256 mid = MathUpgradeable.average(low, high);
-            if (_unsafeAccess(ckpts, mid).fromBlock > blockNumber) {
+            if (_unsafeAccess(ckpts, mid).fromBlock > timepoint) {
                 high = mid;
             } else {
                 low = mid + 1;
@@ -251,12 +268,10 @@ abstract contract ERC20VotesUpgradeable is Initializable, IVotesUpgradeable, ERC
             oldWeight = oldCkpt.votes;
             newWeight = op(oldWeight, delta);
 
-            if (pos > 0 && oldCkpt.fromBlock == block.number) {
+            if (pos > 0 && oldCkpt.fromBlock == clock()) {
                 _unsafeAccess(ckpts, pos - 1).votes = SafeCastUpgradeable.toUint224(newWeight);
             } else {
-                ckpts.push(
-                    Checkpoint({fromBlock: SafeCastUpgradeable.toUint32(block.number), votes: SafeCastUpgradeable.toUint224(newWeight)})
-                );
+                ckpts.push(Checkpoint({fromBlock: SafeCastUpgradeable.toUint32(clock()), votes: SafeCastUpgradeable.toUint224(newWeight)}));
             }
         }
     }

@@ -13,6 +13,8 @@ import "../../proxy/utils/Initializable.sol";
  * declare their willingness to be implementers.
  * {IERC1820Registry-setInterfaceImplementer} should then be called for the
  * registration to be complete.
+ *
+ * CAUTION: This file is deprecated as of v4.9 and will be removed in the next major release.
  */
 contract ERC1820ImplementerUpgradeable is Initializable, IERC1820ImplementerUpgradeable {
     function __ERC1820Implementer_init() internal onlyInitializing {

@@ -40,6 +40,8 @@ abstract contract ERC721VotesUpgradeable is Initializable, ERC721Upgradeable, Vo
 
     /**
      * @dev Returns the balance of `account`.
+     *
+     * WARNING: Overriding this function will likely result in incorrect vote tracking.
      */
     function _getVotingUnits(address account) internal view virtual override returns (uint256) {
         return balanceOf(account);

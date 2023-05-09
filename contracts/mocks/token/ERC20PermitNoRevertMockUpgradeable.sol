@@ -6,15 +6,12 @@ import "../../token/ERC20/ERC20Upgradeable.sol";
 import "../../token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
-contract ERC20PermitNoRevertMockUpgradeable is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable {
+abstract contract ERC20PermitNoRevertMockUpgradeable is Initializable, ERC20PermitUpgradeable {
     function __ERC20PermitNoRevertMock_init() internal onlyInitializing {
-        __ERC20_init_unchained("ERC20PermitNoRevertMock", "ERC20PermitNoRevertMock");
-        __EIP712_init_unchained("ERC20PermitNoRevertMock", "1");
-        __ERC20Permit_init_unchained("ERC20PermitNoRevertMock");
     }
 
-    function __ERC20PermitNoRevertMock_init_unchained() internal onlyInitializing {}
-
+    function __ERC20PermitNoRevertMock_init_unchained() internal onlyInitializing {
+    }
     function permitThatMayRevert(
         address owner,
         address spender,

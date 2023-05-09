@@ -26,6 +26,8 @@ import "../../proxy/utils/Initializable.sol";
  * Additionally, the {IERC777-granularity} value is hard-coded to `1`, meaning that there
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
+ *
+ * CAUTION: This file is deprecated as of v4.9 and will be removed in the next major release.
  */
 contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradeable, IERC20Upgradeable {
     using AddressUpgradeable for address;
@@ -501,7 +503,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
 
     /**
      * @dev Hook that is called before any token transfer. This includes
-     * calls to {send}, {transfer}, {operatorSend}, minting and burning.
+     * calls to {send}, {transfer}, {operatorSend}, {transferFrom}, minting and burning.
      *
      * Calling conditions:
      *

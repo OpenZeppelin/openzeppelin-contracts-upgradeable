@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.8.0) (utils/cryptography/EIP712.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.8;
 
 import "./ECDSAUpgradeable.sol";
+import "../../interfaces/IERC5267Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -23,17 +24,25 @@ import "../../proxy/utils/Initializable.sol";
  * NOTE: This contract implements the version of the encoding known as "v4", as implemented by the JSON RPC method
  * https://docs.metamask.io/guide/signing-data.html[`eth_signTypedDataV4` in MetaMask].
  *
+ * NOTE: In the upgradeable version of this contract, the cached values will correspond to the address, and the domain
+ * separator of the implementation contract. This will cause the `_domainSeparatorV4` function to always rebuild the
+ * separator from the immutable values, which is cheaper than accessing a cached version in cold storage.
+ *
  * _Available since v3.4._
  *
  * @custom:storage-size 52
  */
-abstract contract EIP712Upgradeable is Initializable {
-    /* solhint-disable var-name-mixedcase */
-    bytes32 private _HASHED_NAME;
-    bytes32 private _HASHED_VERSION;
-    bytes32 private constant _TYPE_HASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
+abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
+    bytes32 private constant _TYPE_HASH =
+        keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
 
-    /* solhint-enable var-name-mixedcase */
+    /// @custom:oz-renamed-from _HASHED_NAME
+    bytes32 private _hashedName;
+    /// @custom:oz-renamed-from _HASHED_VERSION
+    bytes32 private _hashedVersion;
+
+    string private _name;
+    string private _version;
 
     /**
      * @dev Initializes the domain separator and parameter caches.
@@ -52,25 +61,23 @@ abstract contract EIP712Upgradeable is Initializable {
     }
 
     function __EIP712_init_unchained(string memory name, string memory version) internal onlyInitializing {
-        bytes32 hashedName = keccak256(bytes(name));
-        bytes32 hashedVersion = keccak256(bytes(version));
-        _HASHED_NAME = hashedName;
-        _HASHED_VERSION = hashedVersion;
+        _name = name;
+        _version = version;
+
+        // Reset prior values in storage if upgrading
+        _hashedName = 0;
+        _hashedVersion = 0;
     }
 
     /**
      * @dev Returns the domain separator for the current chain.
      */
     function _domainSeparatorV4() internal view returns (bytes32) {
-        return _buildDomainSeparator(_TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash());
+        return _buildDomainSeparator();
     }
 
-    function _buildDomainSeparator(
-        bytes32 typeHash,
-        bytes32 nameHash,
-        bytes32 versionHash
-    ) private view returns (bytes32) {
-        return keccak256(abi.encode(typeHash, nameHash, versionHash, block.chainid, address(this)));
+    function _buildDomainSeparator() private view returns (bytes32) {
+        return keccak256(abi.encode(_TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash(), block.chainid, address(this)));
     }
 
     /**
@@ -93,23 +100,100 @@ abstract contract EIP712Upgradeable is Initializable {
     }
 
     /**
-     * @dev The hash of the name parameter for the EIP712 domain.
+     * @dev See {EIP-5267}.
+     *
+     * _Available since v4.9._
+     */
+    function eip712Domain()
+        public
+        view
+        virtual
+        override
+        returns (
+            bytes1 fields,
+            string memory name,
+            string memory version,
+            uint256 chainId,
+            address verifyingContract,
+            bytes32 salt,
+            uint256[] memory extensions
+        )
+    {
+        // If the hashed name and version in storage are non-zero, the contract hasn't been properly initialized
+        // and the EIP712 domain is not reliable, as it will be missing name and version.
+        require(_hashedName == 0 && _hashedVersion == 0, "EIP712: Uninitialized");
+
+        return (
+            hex"0f", // 01111
+            _EIP712Name(),
+            _EIP712Version(),
+            block.chainid,
+            address(this),
+            bytes32(0),
+            new uint256[](0)
+        );
+    }
+
+    /**
+     * @dev The name parameter for the EIP712 domain.
      *
      * NOTE: This function reads from storage by default, but can be redefined to return a constant value if gas costs
      * are a concern.
      */
-    function _EIP712NameHash() internal virtual view returns (bytes32) {
-        return _HASHED_NAME;
+    function _EIP712Name() internal virtual view returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev The version parameter for the EIP712 domain.
+     *
+     * NOTE: This function reads from storage by default, but can be redefined to return a constant value if gas costs
+     * are a concern.
+     */
+    function _EIP712Version() internal virtual view returns (string memory) {
+        return _version;
+    }
+
+    /**
+     * @dev The hash of the name parameter for the EIP712 domain.
+     *
+     * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Name` instead.
+     */
+    function _EIP712NameHash() internal view returns (bytes32) {
+        string memory name = _EIP712Name();
+        if (bytes(name).length > 0) {
+            return keccak256(bytes(name));
+        } else {
+            // If the name is empty, the contract may have been upgraded without initializing the new storage.
+            // We return the name hash in storage if non-zero, otherwise we assume the name is empty by design.
+            bytes32 hashedName = _hashedName;
+            if (hashedName != 0) {
+                return hashedName;
+            } else {
+                return keccak256("");
+            }
+        }
     }
 
     /**
      * @dev The hash of the version parameter for the EIP712 domain.
      *
-     * NOTE: This function reads from storage by default, but can be redefined to return a constant value if gas costs
-     * are a concern.
+     * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Version` instead.
      */
-    function _EIP712VersionHash() internal virtual view returns (bytes32) {
-        return _HASHED_VERSION;
+    function _EIP712VersionHash() internal view returns (bytes32) {
+        string memory version = _EIP712Version();
+        if (bytes(version).length > 0) {
+            return keccak256(bytes(version));
+        } else {
+            // If the version is empty, the contract may have been upgraded without initializing the new storage.
+            // We return the version hash in storage if non-zero, otherwise we assume the version is empty by design.
+            bytes32 hashedVersion = _hashedVersion;
+            if (hashedVersion != 0) {
+                return hashedVersion;
+            } else {
+                return keccak256("");
+            }
+        }
     }
 
     /**
@@ -117,5 +201,5 @@ abstract contract EIP712Upgradeable is Initializable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[50] private __gap;
+    uint256[48] private __gap;
 }

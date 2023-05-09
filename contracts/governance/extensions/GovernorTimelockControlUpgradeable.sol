@@ -52,19 +52,19 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, IGovernor
     }
 
     /**
-     * @dev Overridden version of the {Governor-state} function with added support for the `Queued` status.
+     * @dev Overridden version of the {Governor-state} function with added support for the `Queued` state.
      */
     function state(uint256 proposalId) public view virtual override(IGovernorUpgradeable, GovernorUpgradeable) returns (ProposalState) {
-        ProposalState status = super.state(proposalId);
+        ProposalState currentState = super.state(proposalId);
 
-        if (status != ProposalState.Succeeded) {
-            return status;
+        if (currentState != ProposalState.Succeeded) {
+            return currentState;
         }
 
         // core tracks execution, so we just have to check if successful proposal have been queued.
         bytes32 queueid = _timelockIds[proposalId];
         if (queueid == bytes32(0)) {
-            return status;
+            return currentState;
         } else if (_timelock.isOperationDone(queueid)) {
             return ProposalState.Executed;
         } else if (_timelock.isOperationPending(queueid)) {

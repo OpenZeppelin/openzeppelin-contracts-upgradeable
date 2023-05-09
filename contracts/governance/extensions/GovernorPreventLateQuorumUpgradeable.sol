@@ -13,17 +13,16 @@ import "../../proxy/utils/Initializable.sol";
  * and try to oppose the decision.
  *
  * If a vote causes quorum to be reached, the proposal's voting period may be extended so that it does not end before at
- * least a given number of blocks have passed (the "vote extension" parameter). This parameter can be set by the
- * governance executor (e.g. through a governance proposal).
+ * least a specified time has passed (the "vote extension" parameter). This parameter can be set through a governance
+ * proposal.
  *
  * _Available since v4.5._
  */
 abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, GovernorUpgradeable {
-    using SafeCastUpgradeable for uint256;
-    using TimersUpgradeable for TimersUpgradeable.BlockNumber;
-
     uint64 private _voteExtension;
-    mapping(uint256 => TimersUpgradeable.BlockNumber) private _extendedDeadlines;
+
+    /// @custom:oz-retyped-from mapping(uint256 => Timers.BlockNumber)
+    mapping(uint256 => uint64) private _extendedDeadlines;
 
     /// @dev Emitted when a proposal deadline is pushed back due to reaching quorum late in its voting period.
     event ProposalExtended(uint256 indexed proposalId, uint64 extendedDeadline);
@@ -32,9 +31,9 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
     event LateQuorumVoteExtensionSet(uint64 oldVoteExtension, uint64 newVoteExtension);
 
     /**
-     * @dev Initializes the vote extension parameter: the number of blocks that are required to pass since a proposal
-     * reaches quorum until its voting period ends. If necessary the voting period will be extended beyond the one set
-     * at proposal creation.
+     * @dev Initializes the vote extension parameter: the time in either number of blocks or seconds (depending on the governor
+     * clock mode) that is required to pass since the moment a proposal reaches quorum until its voting period ends. If
+     * necessary the voting period will be extended beyond the one set during proposal creation.
      */
     function __GovernorPreventLateQuorum_init(uint64 initialVoteExtension) internal onlyInitializing {
         __GovernorPreventLateQuorum_init_unchained(initialVoteExtension);
@@ -49,7 +48,7 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      * proposal reached quorum late in the voting period. See {Governor-proposalDeadline}.
      */
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
-        return MathUpgradeable.max(super.proposalDeadline(proposalId), _extendedDeadlines[proposalId].getDeadline());
+        return MathUpgradeable.max(super.proposalDeadline(proposalId), _extendedDeadlines[proposalId]);
     }
 
     /**
@@ -67,16 +66,14 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
     ) internal virtual override returns (uint256) {
         uint256 result = super._castVote(proposalId, account, support, reason, params);
 
-        TimersUpgradeable.BlockNumber storage extendedDeadline = _extendedDeadlines[proposalId];
+        if (_extendedDeadlines[proposalId] == 0 && _quorumReached(proposalId)) {
+            uint64 extendedDeadline = clock() + lateQuorumVoteExtension();
 
-        if (extendedDeadline.isUnset() && _quorumReached(proposalId)) {
-            uint64 extendedDeadlineValue = block.number.toUint64() + lateQuorumVoteExtension();
-
-            if (extendedDeadlineValue > proposalDeadline(proposalId)) {
-                emit ProposalExtended(proposalId, extendedDeadlineValue);
+            if (extendedDeadline > proposalDeadline(proposalId)) {
+                emit ProposalExtended(proposalId, extendedDeadline);
             }
 
-            extendedDeadline.setDeadline(extendedDeadlineValue);
+            _extendedDeadlines[proposalId] = extendedDeadline;
         }
 
         return result;

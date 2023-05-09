@@ -89,9 +89,10 @@ module.exports = {
     },
   },
   exposed: {
+    initializers: true,
     exclude: [
       'vendor/**/*',
-      // overflow clash
+      // Exclude Timers from hardhat-exposed because its overloaded functions are not transformed correctly
       'utils/Timers{,Upgradeable}.sol',
     ],
   },

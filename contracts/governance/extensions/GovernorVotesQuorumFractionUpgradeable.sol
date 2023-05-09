@@ -15,10 +15,12 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.History;
+    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
 
-    uint256 private _quorumNumerator; // DEPRECATED
-    CheckpointsUpgradeable.History private _quorumNumeratorHistory;
+    uint256 private _quorumNumerator; // DEPRECATED in favor of _quorumNumeratorHistory
+
+    /// @custom:oz-retyped-from Checkpoints.History
+    CheckpointsUpgradeable.Trace224 private _quorumNumeratorHistory;
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
@@ -45,9 +47,9 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
     }
 
     /**
-     * @dev Returns the quorum numerator at a specific block number. See {quorumDenominator}.
+     * @dev Returns the quorum numerator at a specific timepoint. See {quorumDenominator}.
      */
-    function quorumNumerator(uint256 blockNumber) public view virtual returns (uint256) {
+    function quorumNumerator(uint256 timepoint) public view virtual returns (uint256) {
         // If history is empty, fallback to old storage
         uint256 length = _quorumNumeratorHistory._checkpoints.length;
         if (length == 0) {
@@ -55,13 +57,13 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         }
 
         // Optimistic search, check the latest checkpoint
-        CheckpointsUpgradeable.Checkpoint memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
-        if (latest._blockNumber <= blockNumber) {
+        CheckpointsUpgradeable.Checkpoint224 memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
+        if (latest._key <= timepoint) {
             return latest._value;
         }
 
         // Otherwise, do the binary search
-        return _quorumNumeratorHistory.getAtBlock(blockNumber);
+        return _quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
 
     /**
@@ -72,10 +74,10 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
     }
 
     /**
-     * @dev Returns the quorum for a block number, in terms of number of votes: `supply * numerator / denominator`.
+     * @dev Returns the quorum for a timepoint, in terms of number of votes: `supply * numerator / denominator`.
      */
-    function quorum(uint256 blockNumber) public view virtual override returns (uint256) {
-        return (token.getPastTotalSupply(blockNumber) * quorumNumerator(blockNumber)) / quorumDenominator();
+    function quorum(uint256 timepoint) public view virtual override returns (uint256) {
+        return (token.getPastTotalSupply(timepoint) * quorumNumerator(timepoint)) / quorumDenominator();
     }
 
     /**
@@ -112,12 +114,12 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         // Make sure we keep track of the original numerator in contracts upgraded from a version without checkpoints.
         if (oldQuorumNumerator != 0 && _quorumNumeratorHistory._checkpoints.length == 0) {
             _quorumNumeratorHistory._checkpoints.push(
-                CheckpointsUpgradeable.Checkpoint({_blockNumber: 0, _value: SafeCastUpgradeable.toUint224(oldQuorumNumerator)})
+                CheckpointsUpgradeable.Checkpoint224({_key: 0, _value: SafeCastUpgradeable.toUint224(oldQuorumNumerator)})
             );
         }
 
         // Set new quorum for future proposals
-        _quorumNumeratorHistory.push(newQuorumNumerator);
+        _quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }

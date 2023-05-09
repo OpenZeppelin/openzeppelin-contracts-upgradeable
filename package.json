@@ -1,8 +1,7 @@
 {
-  "private": true,
   "name": "openzeppelin-solidity",
   "description": "Secure Smart Contract library for Solidity",
-  "version": "4.8.0",
+  "version": "4.8.2",
   "files": [
     "/contracts/**/*.sol",
     "/build/contracts/*.json",
@@ -33,11 +32,11 @@
     "test:inheritance": "scripts/checks/inheritance-ordering.js artifacts/build-info/*",
     "test:generation": "scripts/checks/generation.sh",
     "gas-report": "env ENABLE_GAS_REPORT=true npm run test",
-    "slither": "npm run clean && slither . --detect reentrancy-eth,reentrancy-no-eth,reentrancy-unlimited-gas"
+    "slither": "npm run clean && slither ."
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts.git"
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable.git"
   },
   "keywords": [
     "solidity",
@@ -73,7 +72,7 @@
     "glob": "^8.0.3",
     "graphlib": "^2.1.8",
     "hardhat": "^2.9.1",
-    "hardhat-exposed": "^0.3.1",
+    "hardhat-exposed": "^0.3.3",
     "hardhat-gas-reporter": "^1.0.4",
     "hardhat-ignore-warnings": "^0.2.0",
     "keccak256": "^1.0.2",
@@ -81,6 +80,7 @@
     "lodash.zip": "^4.2.0",
     "merkletreejs": "^0.2.13",
     "micromatch": "^4.0.2",
+    "p-limit": "^3.1.0",
     "prettier": "^2.8.1",
     "prettier-plugin-solidity": "^1.1.0",
     "rimraf": "^3.0.2",

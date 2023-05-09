@@ -29,7 +29,7 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
         // Initial upgrade and setup call
         __setImplementation(newImplementation);
         if (data.length > 0 || forceCall) {
-            __functionDelegateCall(newImplementation, data);
+            AddressUpgradeable.functionDelegateCall(newImplementation, data);
         }
 
         // Perform rollback test if not already in progress
@@ -37,7 +37,7 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
         if (!rollbackTesting.value) {
             // Trigger rollback using upgradeTo from the new implementation
             rollbackTesting.value = true;
-            __functionDelegateCall(
+            AddressUpgradeable.functionDelegateCall(
                 newImplementation,
                 abi.encodeWithSignature("upgradeTo(address)", oldImplementation)
             );
@@ -56,16 +56,6 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
 
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable override {
         _upgradeToAndCallSecureLegacyV1(newImplementation, data, false);
-    }
-
-    // ERC1967Upgrade._functionDelegateCall is private so we reproduce it here.
-    // An extra underscore prevents a name clash error.
-    function __functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {
-        require(AddressUpgradeable.isContract(target), "Address: delegate call to non-contract");
-
-        // solhint-disable-next-line avoid-low-level-calls
-        (bool success, bytes memory returndata) = target.delegatecall(data);
-        return AddressUpgradeable.verifyCallResult(success, returndata, "Address: low-level delegate call failed");
     }
 
     /**

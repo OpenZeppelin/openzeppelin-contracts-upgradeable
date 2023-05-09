@@ -1,8 +1,29 @@
 # Changelog
 
+### Breaking changes
+
+- `EIP712`: Addition of ERC5267 support requires support for user defined value types, which was released in Solidity version 0.8.8. This requires a pragma change from `^0.8.0` to `^0.8.8`.
+- `EIP712`: Optimization of the cache for the upgradeable version affects the way `name` and `version` are set. This is no longer done through an initializer, and is instead part of the implementation's constructor. As a consequence, all proxies using the same implementation will necessarily share the same `name` and `version`. Additionally, an implementation upgrade risks changing the EIP712 domain unless the same `name` and `version` are used when deploying the new implementation contract.
+
 ### Deprecations
 
 - `ERC20Permit`: Added the file `IERC20Permit.sol` and `ERC20Permit.sol` and deprecated `draft-IERC20Permit.sol` and `draft-ERC20Permit.sol` since [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612) is no longer a Draft. Developers are encouraged to update their imports. ([#3793](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/3793))
+- `Timers`: The `Timers` library is now deprecated and will be removed in the next major release. ([#4062](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4062))
+- `ERC777`: The `ERC777` token standard is no longer supported by OpenZeppelin. Our implementation is now deprecated and will be removed in the next major release. The corresponding standard interfaces remain available. ([#4066](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4066))
+- `ERC1820Implementer`: The `ERC1820` pseudo-introspection mechanism is no longer supported by OpenZeppelin. Our implementation is now deprecated and will be removed in the next major release. The corresponding standard interfaces remain available. ([#4066](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4066))
+
+## 4.8.3 (2023-04-13)
+
+- `GovernorCompatibilityBravo`: Fix encoding of proposal data when signatures are missing.
+- `TransparentUpgradeableProxy`: Fix transparency in case of selector clash with non-decodable calldata or payable mutability. ([#4154](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/4154))
+
+## 4.8.2 (2023-03-02)
+
+- `ERC721Consecutive`: Fixed a bug when `_mintConsecutive` is used for batches of size 1 that could lead to balance overflow. Refer to the breaking changes section in the changelog for a note on the behavior of `ERC721._beforeTokenTransfer`.
+
+### Breaking changes
+
+- `ERC721`: The internal function `_beforeTokenTransfer` no longer updates balances, which it previously did when `batchSize` was greater than 1. This change has no consequence unless a custom ERC721 extension is explicitly invoking `_beforeTokenTransfer`. Balance updates in extensions must now be done explicitly using `__unsafe_increaseBalance`, with a name that indicates that there is an invariant that has to be manually verified.
 
 ## 4.8.1 (2023-01-12)
 
@@ -388,10 +409,6 @@ If you're using our implementation of ERC777 from version 3.3.0 or earlier, and 
 - `Address`: added `functionStaticCall`, similar to the existing `functionCall`. ([#2333](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2333))
 - `TimelockController`: added a contract to augment access control schemes with a delay. ([#2354](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2354))
 - `EnumerableSet`: added `Bytes32Set`, for sets of `bytes32`. ([#2395](https://github.com/OpenZeppelin/openzeppelin-contracts/pull/2395))
-
-## Upgradeable 3.2.0 (2020-11-11)
-
- * First release of Upgradeable variant, replacing Ethereum Package variant which is now deprecated.
 
 ## 3.2.2-solc-0.7 (2020-10-28)
 
