@@ -117,6 +117,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
                 newDefaultAdmin == address(0) && _isScheduleSet(schedule) && _hasSchedulePassed(schedule),
                 "AccessControl: only can renounce in two delayed steps"
             );
+            delete _pendingDefaultAdminSchedule;
         }
         super.renounceRole(role, account);
     }
