@@ -85,8 +85,8 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
      * - `accounts` and `ids` must have the same length.
      */
     function balanceOfBatch(
-        address[] memory accounts,
-        uint256[] memory ids
+        address[] calldata accounts,
+        uint256[] calldata ids
     ) public view virtual override returns (uint256[] memory) {
         require(accounts.length == ids.length, "ERC1155: accounts and ids length mismatch");
 
@@ -121,7 +121,7 @@ contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
         address to,
         uint256 id,
         uint256 amount,
-        bytes memory data
+        bytes calldata data
     ) public virtual override {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),

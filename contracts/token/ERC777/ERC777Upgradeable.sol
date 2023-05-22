@@ -128,7 +128,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
      */
-    function send(address recipient, uint256 amount, bytes memory data) public virtual override {
+    function send(address recipient, uint256 amount, bytes calldata data) public virtual override {
         _send(_msgSender(), recipient, amount, data, "", true);
     }
 
@@ -150,7 +150,7 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
      *
      * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
      */
-    function burn(uint256 amount, bytes memory data) public virtual override {
+    function burn(uint256 amount, bytes calldata data) public virtual override {
         _burn(_msgSender(), amount, data, "");
     }
 
@@ -210,8 +210,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         address sender,
         address recipient,
         uint256 amount,
-        bytes memory data,
-        bytes memory operatorData
+        bytes calldata data,
+        bytes calldata operatorData
     ) public virtual override {
         require(isOperatorFor(_msgSender(), sender), "ERC777: caller is not an operator for holder");
         _send(sender, recipient, amount, data, operatorData, true);
@@ -225,8 +225,8 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     function operatorBurn(
         address account,
         uint256 amount,
-        bytes memory data,
-        bytes memory operatorData
+        bytes calldata data,
+        bytes calldata operatorData
     ) public virtual override {
         require(isOperatorFor(_msgSender(), account), "ERC777: caller is not an operator for holder");
         _burn(account, amount, data, operatorData);
