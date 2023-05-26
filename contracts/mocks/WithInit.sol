@@ -515,11 +515,12 @@ contract ERC721ConsecutiveMockUpgradeableWithInit is ERC721ConsecutiveMockUpgrad
     constructor(
         string memory name,
         string memory symbol,
+        uint96 offset,
         address[] memory delegates,
         address[] memory receivers,
         uint96[] memory amounts
     ) payable initializer {
-        __ERC721ConsecutiveMock_init(name, symbol, delegates, receivers, amounts);
+        __ERC721ConsecutiveMock_init(name, symbol, offset, delegates, receivers, amounts);
     }
 }
 import "./token/ERC721ConsecutiveMockUpgradeable.sol";
