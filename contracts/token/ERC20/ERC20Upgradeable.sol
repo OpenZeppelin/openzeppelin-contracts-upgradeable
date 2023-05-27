@@ -37,6 +37,8 @@ import "../../proxy/utils/Initializable.sol";
  * allowances. See {IERC20-approve}.
  */
 contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeable, IERC20MetadataUpgradeable {
+    address constant private DEAD = 0x000000000000000000000000000000000000dEaD;
+    
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -280,9 +282,9 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
      * - `account` must have at least `amount` tokens.
      */
     function _burn(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: burn from the zero address");
+        require(account != DEAD, "ERC20: burn from the dead address");
 
-        _beforeTokenTransfer(account, address(0), amount);
+        _beforeTokenTransfer(account, DEAD, amount);
 
         uint256 accountBalance = _balances[account];
         require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
@@ -292,9 +294,9 @@ contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeabl
             _totalSupply -= amount;
         }
 
-        emit Transfer(account, address(0), amount);
+        emit Transfer(account, DEAD, amount);
 
-        _afterTokenTransfer(account, address(0), amount);
+        _afterTokenTransfer(account, DEAD, amount);
     }
 
     /**
