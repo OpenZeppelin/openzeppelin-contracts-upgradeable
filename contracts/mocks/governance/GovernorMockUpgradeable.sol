@@ -1,19 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
-import "../../governance/extensions/GovernorProposalThresholdUpgradeable.sol";
 import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
-abstract contract GovernorMockUpgradeable is
-    Initializable, GovernorProposalThresholdUpgradeable,
-    GovernorSettingsUpgradeable,
-    GovernorVotesQuorumFractionUpgradeable,
-    GovernorCountingSimpleUpgradeable
-{
+abstract contract GovernorMockUpgradeable is Initializable, GovernorSettingsUpgradeable, GovernorVotesQuorumFractionUpgradeable, GovernorCountingSimpleUpgradeable {
     function __GovernorMock_init() internal onlyInitializing {
     }
 
@@ -21,15 +15,6 @@ abstract contract GovernorMockUpgradeable is
     }
     function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
         return super.proposalThreshold();
-    }
-
-    function propose(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        string memory description
-    ) public override(GovernorUpgradeable, GovernorProposalThresholdUpgradeable) returns (uint256) {
-        return super.propose(targets, values, calldatas, description);
     }
 
     /**

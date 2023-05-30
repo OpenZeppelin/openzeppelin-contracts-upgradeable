@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/utils/Votes.sol)
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../../interfaces/IERC5805Upgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
-import "../../utils/CountersUpgradeable.sol";
-import "../../utils/CheckpointsUpgradeable.sol";
+import "../../utils/NoncesUpgradeable.sol";
 import "../../utils/cryptography/EIP712Upgradeable.sol";
+import "../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -29,14 +29,13 @@ import "../../proxy/utils/Initializable.sol";
  *
  * _Available since v4.5._
  */
-abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, IERC5805Upgradeable {
+abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805Upgradeable {
     function __Votes_init() internal onlyInitializing {
     }
 
     function __Votes_init_unchained() internal onlyInitializing {
     }
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
-    using CountersUpgradeable for CountersUpgradeable.Counter;
 
     bytes32 private constant _DELEGATION_TYPEHASH =
         keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
@@ -48,8 +47,6 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
 
     /// @custom:oz-retyped-from Checkpoints.History
     CheckpointsUpgradeable.Trace224 private _totalCheckpoints;
-
-    mapping(address => CountersUpgradeable.Counter) private _nonces;
 
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
@@ -201,6 +198,23 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         }
     }
 
+    /**
+     * @dev Get number of checkpoints for `account`.
+     */
+    function _numCheckpoints(address account) internal view virtual returns (uint32) {
+        return SafeCastUpgradeable.toUint32(_delegateCheckpoints[account].length());
+    }
+
+    /**
+     * @dev Get the `pos`-th checkpoint for `account`.
+     */
+    function _checkpoints(
+        address account,
+        uint32 pos
+    ) internal view virtual returns (CheckpointsUpgradeable.Checkpoint224 memory) {
+        return _delegateCheckpoints[account].at(pos);
+    }
+
     function _push(
         CheckpointsUpgradeable.Trace224 storage store,
         function(uint224, uint224) view returns (uint224) op,
@@ -215,24 +229,6 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
 
     function _subtract(uint224 a, uint224 b) private pure returns (uint224) {
         return a - b;
-    }
-
-    /**
-     * @dev Consumes a nonce.
-     *
-     * Returns the current value and increments nonce.
-     */
-    function _useNonce(address owner) internal virtual returns (uint256 current) {
-        CountersUpgradeable.Counter storage nonce = _nonces[owner];
-        current = nonce.current();
-        nonce.increment();
-    }
-
-    /**
-     * @dev Returns an address nonce.
-     */
-    function nonces(address owner) public view virtual returns (uint256) {
-        return _nonces[owner].current();
     }
 
     /**
@@ -253,5 +249,5 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[46] private __gap;
+    uint256[47] private __gap;
 }

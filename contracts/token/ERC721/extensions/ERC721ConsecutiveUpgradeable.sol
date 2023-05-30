@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/extensions/ERC721Consecutive.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../ERC721Upgradeable.sol";
 import "../../../interfaces/IERC2309Upgradeable.sol";
-import "../../../utils/CheckpointsUpgradeable.sol";
 import "../../../utils/structs/BitMapsUpgradeable.sol";
+import "../../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -92,7 +92,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
 
         // minting a batch of size 0 is a no-op
         if (batchSize > 0) {
-            require(!AddressUpgradeable.isContract(address(this)), "ERC721Consecutive: batch minting restricted to constructor");
+            require(address(this).code.length == 0, "ERC721Consecutive: batch minting restricted to constructor");
             require(to != address(0), "ERC721Consecutive: mint to the zero address");
             require(batchSize <= _maxBatchSize(), "ERC721Consecutive: batch too large");
 
@@ -123,7 +123,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * After construction, {_mintConsecutive} is no longer available and {_mint} becomes available.
      */
     function _mint(address to, uint256 tokenId) internal virtual override {
-        require(AddressUpgradeable.isContract(address(this)), "ERC721Consecutive: can't mint during construction");
+        require(address(this).code.length > 0, "ERC721Consecutive: can't mint during construction");
         super._mint(to, tokenId);
     }
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable2Step.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "./OwnableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
@@ -19,7 +19,6 @@ import "../proxy/utils/Initializable.sol";
  */
 abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
     function __Ownable2Step_init() internal onlyInitializing {
-        __Ownable_init_unchained();
     }
 
     function __Ownable2Step_init_unchained() internal onlyInitializing {

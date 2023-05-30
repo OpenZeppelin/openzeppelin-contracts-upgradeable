@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
@@ -26,12 +26,12 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    function __Ownable_init() internal onlyInitializing {
-        __Ownable_init_unchained();
+    function __Ownable_init(address initialOwner) internal onlyInitializing {
+        __Ownable_init_unchained(initialOwner);
     }
 
-    function __Ownable_init_unchained() internal onlyInitializing {
-        _transferOwnership(_msgSender());
+    function __Ownable_init_unchained(address initialOwner) internal onlyInitializing {
+        _transferOwnership(initialOwner);
     }
 
     /**

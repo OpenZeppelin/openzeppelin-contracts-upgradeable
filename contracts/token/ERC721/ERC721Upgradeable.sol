@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/ERC721.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "./IERC721Upgradeable.sol";
 import "./IERC721ReceiverUpgradeable.sol";
 import "./extensions/IERC721MetadataUpgradeable.sol";
-import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/StringsUpgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";
@@ -18,7 +17,6 @@ import "../../proxy/utils/Initializable.sol";
  * {ERC721Enumerable}.
  */
 contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC721Upgradeable, IERC721MetadataUpgradeable {
-    using AddressUpgradeable for address;
     using StringsUpgradeable for uint256;
 
     // Token name
@@ -407,7 +405,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
         uint256 tokenId,
         bytes memory data
     ) private returns (bool) {
-        if (to.isContract()) {
+        if (to.code.length > 0) {
             try IERC721ReceiverUpgradeable(to).onERC721Received(_msgSender(), from, tokenId, data) returns (bytes4 retval) {
                 return retval == IERC721ReceiverUpgradeable.onERC721Received.selector;
             } catch (bytes memory reason) {

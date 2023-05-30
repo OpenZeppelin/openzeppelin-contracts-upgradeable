@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "./IERC165Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
@@ -17,8 +17,6 @@ import "../../proxy/utils/Initializable.sol";
  *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);
  * }
  * ```
- *
- * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.
  */
 abstract contract ERC165Upgradeable is Initializable, IERC165Upgradeable {
     function __ERC165_init() internal onlyInitializing {

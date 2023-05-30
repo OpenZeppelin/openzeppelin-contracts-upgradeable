@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";

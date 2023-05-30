@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/TimelockController.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../access/AccessControlUpgradeable.sol";
 import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
@@ -24,7 +24,6 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v3.3._
  */
 contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
-    bytes32 public constant TIMELOCK_ADMIN_ROLE = keccak256("TIMELOCK_ADMIN_ROLE");
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
@@ -84,28 +83,23 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     }
 
     function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) internal onlyInitializing {
-        _setRoleAdmin(TIMELOCK_ADMIN_ROLE, TIMELOCK_ADMIN_ROLE);
-        _setRoleAdmin(PROPOSER_ROLE, TIMELOCK_ADMIN_ROLE);
-        _setRoleAdmin(EXECUTOR_ROLE, TIMELOCK_ADMIN_ROLE);
-        _setRoleAdmin(CANCELLER_ROLE, TIMELOCK_ADMIN_ROLE);
-
         // self administration
-        _setupRole(TIMELOCK_ADMIN_ROLE, address(this));
+        _grantRole(DEFAULT_ADMIN_ROLE, address(this));
 
         // optional admin
         if (admin != address(0)) {
-            _setupRole(TIMELOCK_ADMIN_ROLE, admin);
+            _grantRole(DEFAULT_ADMIN_ROLE, admin);
         }
 
         // register proposers and cancellers
         for (uint256 i = 0; i < proposers.length; ++i) {
-            _setupRole(PROPOSER_ROLE, proposers[i]);
-            _setupRole(CANCELLER_ROLE, proposers[i]);
+            _grantRole(PROPOSER_ROLE, proposers[i]);
+            _grantRole(CANCELLER_ROLE, proposers[i]);
         }
 
         // register executors
         for (uint256 i = 0; i < executors.length; ++i) {
-            _setupRole(EXECUTOR_ROLE, executors[i]);
+            _grantRole(EXECUTOR_ROLE, executors[i]);
         }
 
         _minDelay = minDelay;

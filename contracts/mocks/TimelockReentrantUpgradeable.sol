@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";

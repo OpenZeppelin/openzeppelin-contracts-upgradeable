@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
 import "../../governance/extensions/GovernorTimelockCompoundUpgradeable.sol";
 import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesCompUpgradeable.sol";
+import "../../governance/extensions/GovernorVotesUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorCompatibilityBravoMockUpgradeable is
     Initializable, GovernorCompatibilityBravoUpgradeable,
     GovernorSettingsUpgradeable,
     GovernorTimelockCompoundUpgradeable,
-    GovernorVotesCompUpgradeable
+    GovernorVotesUpgradeable
 {
     function __GovernorCompatibilityBravoMock_init() internal onlyInitializing {
     }

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (finance/VestingWallet.sol)
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "../token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "../utils/AddressUpgradeable.sol";
@@ -16,6 +16,9 @@ import "../proxy/utils/Initializable.sol";
  * Any token transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
  * Consequently, if the vesting has already started, any amount of tokens sent to this contract will (at least partly)
  * be immediately releasable.
+ *
+ * By setting the duration to 0, one can configure this contract to behave like an asset timelock that hold tokens for
+ * a beneficiary until a specified time.
  *
  * @custom:storage-size 52
  */
@@ -67,6 +70,13 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      */
     function duration() public view virtual returns (uint256) {
         return _duration;
+    }
+
+    /**
+     * @dev Getter for the end timestamp.
+     */
+    function end() public view virtual returns (uint256) {
+        return start() + duration();
     }
 
     /**
@@ -143,7 +153,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     function _vestingSchedule(uint256 totalAllocation, uint64 timestamp) internal view virtual returns (uint256) {
         if (timestamp < start()) {
             return 0;
-        } else if (timestamp > start() + duration()) {
+        } else if (timestamp > end()) {
             return totalAllocation;
         } else {
             return (totalAllocation * (timestamp - start())) / duration();

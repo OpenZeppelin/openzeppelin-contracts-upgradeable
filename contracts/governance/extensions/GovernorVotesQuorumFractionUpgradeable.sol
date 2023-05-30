@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/extensions/GovernorVotesQuorumFraction.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "./GovernorVotesUpgradeable.sol";
-import "../../utils/CheckpointsUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
+import "../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -16,8 +16,6 @@ import "../../proxy/utils/Initializable.sol";
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
-
-    uint256 private _quorumNumerator; // DEPRECATED in favor of _quorumNumeratorHistory
 
     /// @custom:oz-retyped-from Checkpoints.History
     CheckpointsUpgradeable.Trace224 private _quorumNumeratorHistory;
@@ -43,7 +41,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the current quorum numerator. See {quorumDenominator}.
      */
     function quorumNumerator() public view virtual returns (uint256) {
-        return _quorumNumeratorHistory._checkpoints.length == 0 ? _quorumNumerator : _quorumNumeratorHistory.latest();
+        return _quorumNumeratorHistory.latest();
     }
 
     /**
@@ -52,9 +50,6 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
     function quorumNumerator(uint256 timepoint) public view virtual returns (uint256) {
         // If history is empty, fallback to old storage
         uint256 length = _quorumNumeratorHistory._checkpoints.length;
-        if (length == 0) {
-            return _quorumNumerator;
-        }
 
         // Optimistic search, check the latest checkpoint
         CheckpointsUpgradeable.Checkpoint224 memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
@@ -110,15 +105,6 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         );
 
         uint256 oldQuorumNumerator = quorumNumerator();
-
-        // Make sure we keep track of the original numerator in contracts upgraded from a version without checkpoints.
-        if (oldQuorumNumerator != 0 && _quorumNumeratorHistory._checkpoints.length == 0) {
-            _quorumNumeratorHistory._checkpoints.push(
-                CheckpointsUpgradeable.Checkpoint224({_key: 0, _value: SafeCastUpgradeable.toUint224(oldQuorumNumerator)})
-            );
-        }
-
-        // Set new quorum for future proposals
         _quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
@@ -129,5 +115,5 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[48] private __gap;
+    uint256[49] private __gap;
 }

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (proxy/ERC1967/ERC1967Upgrade.sol)
 
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.19;
 
 import "../beacon/IBeaconUpgradeable.sol";
 import "../../interfaces/IERC1967Upgradeable.sol";
@@ -43,7 +43,7 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeabl
      * @dev Stores a new address in the EIP1967 implementation slot.
      */
     function _setImplementation(address newImplementation) private {
-        require(AddressUpgradeable.isContract(newImplementation), "ERC1967: new implementation is not a contract");
+        require(newImplementation.code.length > 0, "ERC1967: new implementation is not a contract");
         StorageSlotUpgradeable.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;
     }
 
@@ -99,6 +99,10 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeabl
 
     /**
      * @dev Returns the current admin.
+     *
+     * TIP: To get this value clients can read directly from the storage slot shown below (specified by EIP1967) using the
+     * https://eth.wiki/json-rpc/API#eth_getstorageat[`eth_getStorageAt`] RPC call.
+     * `0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103`
      */
     function _getAdmin() internal view returns (address) {
         return StorageSlotUpgradeable.getAddressSlot(_ADMIN_SLOT).value;
@@ -139,9 +143,9 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeabl
      * @dev Stores a new beacon in the EIP1967 beacon slot.
      */
     function _setBeacon(address newBeacon) private {
-        require(AddressUpgradeable.isContract(newBeacon), "ERC1967: new beacon is not a contract");
+        require(newBeacon.code.length > 0, "ERC1967: new beacon is not a contract");
         require(
-            AddressUpgradeable.isContract(IBeaconUpgradeable(newBeacon).implementation()),
+            IBeaconUpgradeable(newBeacon).implementation().code.length > 0,
             "ERC1967: beacon implementation is not a contract"
         );
         StorageSlotUpgradeable.getAddressSlot(_BEACON_SLOT).value = newBeacon;
