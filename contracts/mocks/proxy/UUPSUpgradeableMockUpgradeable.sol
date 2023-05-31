@@ -3,7 +3,6 @@
 pragma solidity ^0.8.19;
 
 import "../../proxy/utils/UUPSUpgradeable.sol";
-import "../../utils/CountersUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
@@ -12,14 +11,14 @@ contract NonUpgradeableMockUpgradeable is Initializable {
 
     function __NonUpgradeableMock_init_unchained() internal onlyInitializing {
     }
-    CountersUpgradeable.Counter internal _counter;
+    uint256 internal _counter;
 
     function current() external view returns (uint256) {
-        return CountersUpgradeable.current(_counter);
+        return _counter;
     }
 
     function increment() external {
-        return CountersUpgradeable.increment(_counter);
+        ++_counter;
     }
 
     /**

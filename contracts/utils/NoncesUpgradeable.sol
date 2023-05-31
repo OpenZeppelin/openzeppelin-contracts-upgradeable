@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
-
-import "./CountersUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**
@@ -13,15 +11,13 @@ abstract contract NoncesUpgradeable is Initializable {
 
     function __Nonces_init_unchained() internal onlyInitializing {
     }
-    using CountersUpgradeable for CountersUpgradeable.Counter;
-
-    mapping(address => CountersUpgradeable.Counter) private _nonces;
+    mapping(address => uint256) private _nonces;
 
     /**
      * @dev Returns an address nonce.
      */
     function nonces(address owner) public view virtual returns (uint256) {
-        return _nonces[owner].current();
+        return _nonces[owner];
     }
 
     /**
@@ -29,10 +25,13 @@ abstract contract NoncesUpgradeable is Initializable {
      *
      * Returns the current value and increments nonce.
      */
-    function _useNonce(address owner) internal virtual returns (uint256 current) {
-        CountersUpgradeable.Counter storage nonce = _nonces[owner];
-        current = nonce.current();
-        nonce.increment();
+    function _useNonce(address owner) internal virtual returns (uint256) {
+        // For each account, the nonce has an initial value of 0, can only be incremented by one, and cannot be
+        // decremented or reset. This guarantees that the nonce never overflows.
+        unchecked {
+            // It is important to do x++ and not ++x here.
+            return _nonces[owner]++;
+        }
     }
 
     /**
