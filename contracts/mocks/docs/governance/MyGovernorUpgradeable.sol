@@ -1,55 +1,49 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.2;
 
-import "../../governance/GovernorUpgradeable.sol";
-import "../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import "../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import "../../../governance/GovernorUpgradeable.sol";
+import "../../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
+import "../../../governance/extensions/GovernorVotesUpgradeable.sol";
+import "../../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
+import "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
+import "../../../proxy/utils/Initializable.sol";
 
-contract MyGovernor3Upgradeable is
+contract MyGovernorUpgradeable is
     Initializable, GovernorUpgradeable,
-    GovernorTimelockControlUpgradeable,
     GovernorCompatibilityBravoUpgradeable,
     GovernorVotesUpgradeable,
-    GovernorVotesQuorumFractionUpgradeable
+    GovernorVotesQuorumFractionUpgradeable,
+    GovernorTimelockControlUpgradeable
 {
-    function __MyGovernor3_init(
+    function __MyGovernor_init(
         IVotesUpgradeable _token,
         TimelockControllerUpgradeable _timelock
     ) internal onlyInitializing {
         __EIP712_init_unchained("MyGovernor", version());
         __Governor_init_unchained("MyGovernor");
-        __GovernorTimelockControl_init_unchained(_timelock);
         __GovernorVotes_init_unchained(_token);
         __GovernorVotesQuorumFraction_init_unchained(4);
+        __GovernorTimelockControl_init_unchained(_timelock);
     }
 
-    function __MyGovernor3_init_unchained(
+    function __MyGovernor_init_unchained(
         IVotesUpgradeable,
         TimelockControllerUpgradeable
     ) internal onlyInitializing {}
 
     function votingDelay() public pure override returns (uint256) {
-        return 1; // 1 block
+        return 7200; // 1 day
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 45818; // 1 week
+        return 50400; // 1 week
     }
 
     function proposalThreshold() public pure override returns (uint256) {
-        return 1000e18;
+        return 0;
     }
 
-    // The following functions are overrides required by Solidity.
-
-    function quorum(
-        uint256 blockNumber
-    ) public view override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable) returns (uint256) {
-        return super.quorum(blockNumber);
-    }
+    // The functions below are overrides required by Solidity.
 
     function state(
         uint256 proposalId
