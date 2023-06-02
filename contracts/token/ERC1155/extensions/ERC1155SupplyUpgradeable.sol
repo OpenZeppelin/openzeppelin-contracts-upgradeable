@@ -44,7 +44,7 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
      * @dev Indicates whether any token exist with a given id, or not.
      */
     function exists(uint256 id) public view virtual returns (bool) {
-        return ERC1155SupplyUpgradeable.totalSupply(id) > 0;
+        return totalSupply(id) > 0;
     }
 
     /**

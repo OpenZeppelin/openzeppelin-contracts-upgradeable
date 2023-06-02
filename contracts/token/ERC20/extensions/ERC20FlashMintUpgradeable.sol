@@ -31,7 +31,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      * @return The amount of token that can be loaned.
      */
     function maxFlashLoan(address token) public view virtual override returns (uint256) {
-        return token == address(this) ? type(uint256).max - ERC20Upgradeable.totalSupply() : 0;
+        return token == address(this) ? type(uint256).max - totalSupply() : 0;
     }
 
     /**
