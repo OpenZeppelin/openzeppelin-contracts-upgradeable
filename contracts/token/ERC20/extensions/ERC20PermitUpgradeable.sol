@@ -73,7 +73,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      * @dev See {IERC20Permit-DOMAIN_SEPARATOR}.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function DOMAIN_SEPARATOR() external view override returns (bytes32) {
+    function DOMAIN_SEPARATOR() external view virtual override returns (bytes32) {
         return _domainSeparatorV4();
     }
 

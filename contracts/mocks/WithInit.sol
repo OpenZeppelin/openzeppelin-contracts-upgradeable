@@ -121,6 +121,39 @@ contract ERC4626FeesUpgradeableWithInit is ERC4626FeesUpgradeable {
         __ERC4626Fees_init();
     }
 }
+import "./docs/governance/MyGovernorUpgradeable.sol";
+
+contract MyGovernorUpgradeableWithInit is MyGovernorUpgradeable {
+    constructor(
+        IVotesUpgradeable _token,
+        TimelockControllerUpgradeable _timelock
+    ) payable initializer {
+        __MyGovernor_init(_token, _timelock);
+    }
+}
+import "./docs/governance/MyTokenUpgradeable.sol";
+
+contract MyTokenUpgradeableWithInit is MyTokenUpgradeable {
+    constructor() payable initializer {
+        __MyToken_init();
+    }
+}
+import "./docs/governance/MyTokenTimestampBasedUpgradeable.sol";
+
+contract MyTokenTimestampBasedUpgradeableWithInit is MyTokenTimestampBasedUpgradeable {
+    constructor() payable initializer {
+        __MyTokenTimestampBased_init();
+    }
+}
+import "./docs/governance/MyTokenWrappedUpgradeable.sol";
+
+contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
+    constructor(
+        IERC20Upgradeable wrappedToken
+    ) payable initializer {
+        __MyTokenWrapped_init(wrappedToken);
+    }
+}
 import "./DummyImplementationUpgradeable.sol";
 
 contract DummyImplementationUpgradeableWithInit is DummyImplementationUpgradeable {
