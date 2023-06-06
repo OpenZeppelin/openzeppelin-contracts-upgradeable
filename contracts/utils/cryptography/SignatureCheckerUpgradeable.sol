@@ -41,7 +41,7 @@ library SignatureCheckerUpgradeable {
         bytes memory signature
     ) internal view returns (bool) {
         (bool success, bytes memory result) = signer.staticcall(
-            abi.encodeWithSelector(IERC1271Upgradeable.isValidSignature.selector, hash, signature)
+            abi.encodeCall(IERC1271Upgradeable.isValidSignature, (hash, signature))
         );
         return (success &&
             result.length >= 32 &&
