@@ -49,7 +49,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) public virtual override {
+    ) public virtual {
         require(block.timestamp <= deadline, "ERC20Permit: expired deadline");
 
         bytes32 structHash = keccak256(abi.encode(_PERMIT_TYPEHASH, owner, spender, value, _useNonce(owner), deadline));
@@ -73,7 +73,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
      * @dev See {IERC20Permit-DOMAIN_SEPARATOR}.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function DOMAIN_SEPARATOR() external view virtual override returns (bytes32) {
+    function DOMAIN_SEPARATOR() external view virtual returns (bytes32) {
         return _domainSeparatorV4();
     }
 

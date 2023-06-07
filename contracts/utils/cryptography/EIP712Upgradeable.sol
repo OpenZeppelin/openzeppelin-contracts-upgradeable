@@ -108,7 +108,6 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
         public
         view
         virtual
-        override
         returns (
             bytes1 fields,
             string memory name,

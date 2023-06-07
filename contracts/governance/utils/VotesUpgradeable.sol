@@ -52,7 +52,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.
      */
-    function clock() public view virtual override returns (uint48) {
+    function clock() public view virtual returns (uint48) {
         return SafeCastUpgradeable.toUint48(block.number);
     }
 
@@ -60,7 +60,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Machine-readable description of the clock as specified in EIP-6372.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function CLOCK_MODE() public view virtual override returns (string memory) {
+    function CLOCK_MODE() public view virtual returns (string memory) {
         // Check that the clock was not modified
         require(clock() == block.number, "Votes: broken clock mode");
         return "mode=blocknumber&from=default";
@@ -69,7 +69,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     /**
      * @dev Returns the current amount of votes that `account` has.
      */
-    function getVotes(address account) public view virtual override returns (uint256) {
+    function getVotes(address account) public view virtual returns (uint256) {
         return _delegateCheckpoints[account].latest();
     }
 
@@ -81,7 +81,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      *
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
-    function getPastVotes(address account, uint256 timepoint) public view virtual override returns (uint256) {
+    function getPastVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
         require(timepoint < clock(), "Votes: future lookup");
         return _delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
@@ -98,7 +98,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      *
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
-    function getPastTotalSupply(uint256 timepoint) public view virtual override returns (uint256) {
+    function getPastTotalSupply(uint256 timepoint) public view virtual returns (uint256) {
         require(timepoint < clock(), "Votes: future lookup");
         return _totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
@@ -113,14 +113,14 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     /**
      * @dev Returns the delegate that `account` has chosen.
      */
-    function delegates(address account) public view virtual override returns (address) {
+    function delegates(address account) public view virtual returns (address) {
         return _delegation[account];
     }
 
     /**
      * @dev Delegates votes from the sender to `delegatee`.
      */
-    function delegate(address delegatee) public virtual override {
+    function delegate(address delegatee) public virtual {
         address account = _msgSender();
         _delegate(account, delegatee);
     }
@@ -135,7 +135,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) public virtual override {
+    ) public virtual {
         require(block.timestamp <= expiry, "Votes: signature expired");
         address signer = ECDSAUpgradeable.recover(
             _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),

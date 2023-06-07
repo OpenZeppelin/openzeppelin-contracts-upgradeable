@@ -38,7 +38,7 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
         uint256 amount,
         uint256 fee,
         bytes calldata data
-    ) public override returns (bytes32) {
+    ) public returns (bytes32) {
         require(msg.sender == token);
 
         emit BalanceOf(token, address(this), IERC20Upgradeable(token).balanceOf(address(this)));

@@ -88,7 +88,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
     /**
      * @dev Returns `true` if `account` has been granted `role`.
      */
-    function hasRole(bytes32 role, address account) public view virtual override returns (bool) {
+    function hasRole(bytes32 role, address account) public view virtual returns (bool) {
         return _roles[role].members[account];
     }
 
@@ -132,7 +132,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * To change a role's admin, use {_setRoleAdmin}.
      */
-    function getRoleAdmin(bytes32 role) public view virtual override returns (bytes32) {
+    function getRoleAdmin(bytes32 role) public view virtual returns (bytes32) {
         return _roles[role].adminRole;
     }
 
@@ -148,7 +148,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * May emit a {RoleGranted} event.
      */
-    function grantRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
+    function grantRole(bytes32 role, address account) public virtual onlyRole(getRoleAdmin(role)) {
         _grantRole(role, account);
     }
 
@@ -163,7 +163,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * May emit a {RoleRevoked} event.
      */
-    function revokeRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
+    function revokeRole(bytes32 role, address account) public virtual onlyRole(getRoleAdmin(role)) {
         _revokeRole(role, account);
     }
 
@@ -183,7 +183,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      *
      * May emit a {RoleRevoked} event.
      */
-    function renounceRole(bytes32 role, address account) public virtual override {
+    function renounceRole(bytes32 role, address account) public virtual {
         require(account == _msgSender(), "AccessControl: can only renounce roles for self");
 
         _revokeRole(role, account);

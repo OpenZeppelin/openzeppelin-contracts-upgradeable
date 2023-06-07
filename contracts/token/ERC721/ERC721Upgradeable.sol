@@ -62,7 +62,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-balanceOf}.
      */
-    function balanceOf(address owner) public view virtual override returns (uint256) {
+    function balanceOf(address owner) public view virtual returns (uint256) {
         require(owner != address(0), "ERC721: address zero is not a valid owner");
         return _balances[owner];
     }
@@ -70,7 +70,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-ownerOf}.
      */
-    function ownerOf(uint256 tokenId) public view virtual override returns (address) {
+    function ownerOf(uint256 tokenId) public view virtual returns (address) {
         address owner = _ownerOf(tokenId);
         require(owner != address(0), "ERC721: invalid token ID");
         return owner;
@@ -79,21 +79,21 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721Metadata-name}.
      */
-    function name() public view virtual override returns (string memory) {
+    function name() public view virtual returns (string memory) {
         return _name;
     }
 
     /**
      * @dev See {IERC721Metadata-symbol}.
      */
-    function symbol() public view virtual override returns (string memory) {
+    function symbol() public view virtual returns (string memory) {
         return _symbol;
     }
 
     /**
      * @dev See {IERC721Metadata-tokenURI}.
      */
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view virtual returns (string memory) {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
@@ -112,7 +112,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-approve}.
      */
-    function approve(address to, uint256 tokenId) public virtual override {
+    function approve(address to, uint256 tokenId) public virtual {
         address owner = ownerOf(tokenId);
         require(to != owner, "ERC721: approval to current owner");
 
@@ -127,7 +127,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-getApproved}.
      */
-    function getApproved(uint256 tokenId) public view virtual override returns (address) {
+    function getApproved(uint256 tokenId) public view virtual returns (address) {
         _requireMinted(tokenId);
 
         return _tokenApprovals[tokenId];
@@ -136,21 +136,21 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-setApprovalForAll}.
      */
-    function setApprovalForAll(address operator, bool approved) public virtual override {
+    function setApprovalForAll(address operator, bool approved) public virtual {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
 
     /**
      * @dev See {IERC721-isApprovedForAll}.
      */
-    function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
+    function isApprovedForAll(address owner, address operator) public view virtual returns (bool) {
         return _operatorApprovals[owner][operator];
     }
 
     /**
      * @dev See {IERC721-transferFrom}.
      */
-    function transferFrom(address from, address to, uint256 tokenId) public virtual override {
+    function transferFrom(address from, address to, uint256 tokenId) public virtual {
         //solhint-disable-next-line max-line-length
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
 
@@ -160,14 +160,14 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
     /**
      * @dev See {IERC721-safeTransferFrom}.
      */
-    function safeTransferFrom(address from, address to, uint256 tokenId) public virtual override {
+    function safeTransferFrom(address from, address to, uint256 tokenId) public virtual {
         safeTransferFrom(from, to, tokenId, "");
     }
 
     /**
      * @dev See {IERC721-safeTransferFrom}.
      */
-    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual override {
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual {
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
         _safeTransfer(from, to, tokenId, data);
     }

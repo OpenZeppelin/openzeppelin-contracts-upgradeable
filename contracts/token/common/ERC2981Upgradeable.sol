@@ -46,7 +46,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     /**
      * @inheritdoc IERC2981Upgradeable
      */
-    function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual override returns (address, uint256) {
+    function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual returns (address, uint256) {
         RoyaltyInfo memory royalty = _tokenRoyaltyInfo[tokenId];
 
         if (royalty.receiver == address(0)) {
