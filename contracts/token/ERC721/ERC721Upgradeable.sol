@@ -9,6 +9,7 @@ import "./extensions/IERC721MetadataUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/StringsUpgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";
+import "../../interfaces/draft-IERC6093Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -16,7 +17,7 @@ import "../../proxy/utils/Initializable.sol";
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
-contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC721Upgradeable, IERC721MetadataUpgradeable {
+contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC721Upgradeable, IERC721MetadataUpgradeable, IERC721ErrorsUpgradeable {
     using StringsUpgradeable for uint256;
 
     // Token name
@@ -63,7 +64,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev See {IERC721-balanceOf}.
      */
     function balanceOf(address owner) public view virtual returns (uint256) {
-        require(owner != address(0), "ERC721: address zero is not a valid owner");
+        if (owner == address(0)) {
+            revert ERC721InvalidOwner(address(0));
+        }
         return _balances[owner];
     }
 
@@ -72,7 +75,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      */
     function ownerOf(uint256 tokenId) public view virtual returns (address) {
         address owner = _ownerOf(tokenId);
-        require(owner != address(0), "ERC721: invalid token ID");
+        if (owner == address(0)) {
+            revert ERC721NonexistentToken(tokenId);
+        }
         return owner;
     }
 
@@ -114,12 +119,13 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      */
     function approve(address to, uint256 tokenId) public virtual {
         address owner = ownerOf(tokenId);
-        require(to != owner, "ERC721: approval to current owner");
+        if (to == owner) {
+            revert ERC721InvalidOperator(owner);
+        }
 
-        require(
-            _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
-            "ERC721: approve caller is not token owner or approved for all"
-        );
+        if (_msgSender() != owner && !isApprovedForAll(owner, _msgSender())) {
+            revert ERC721InvalidApprover(_msgSender());
+        }
 
         _approve(to, tokenId);
     }
@@ -151,8 +157,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev See {IERC721-transferFrom}.
      */
     function transferFrom(address from, address to, uint256 tokenId) public virtual {
-        //solhint-disable-next-line max-line-length
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
+        if (!_isApprovedOrOwner(_msgSender(), tokenId)) {
+            revert ERC721InsufficientApproval(_msgSender(), tokenId);
+        }
 
         _transfer(from, to, tokenId);
     }
@@ -168,7 +175,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev See {IERC721-safeTransferFrom}.
      */
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual {
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: caller is not token owner or approved");
+        if (!_isApprovedOrOwner(_msgSender(), tokenId)) {
+            revert ERC721InsufficientApproval(_msgSender(), tokenId);
+        }
         _safeTransfer(from, to, tokenId, data);
     }
 
@@ -192,7 +201,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      */
     function _safeTransfer(address from, address to, uint256 tokenId, bytes memory data) internal virtual {
         _transfer(from, to, tokenId);
-        require(_checkOnERC721Received(from, to, tokenId, data), "ERC721: transfer to non ERC721Receiver implementer");
+        if (!_checkOnERC721Received(from, to, tokenId, data)) {
+            revert ERC721InvalidReceiver(to);
+        }
     }
 
     /**
@@ -246,10 +257,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      */
     function _safeMint(address to, uint256 tokenId, bytes memory data) internal virtual {
         _mint(to, tokenId);
-        require(
-            _checkOnERC721Received(address(0), to, tokenId, data),
-            "ERC721: transfer to non ERC721Receiver implementer"
-        );
+        if (!_checkOnERC721Received(address(0), to, tokenId, data)) {
+            revert ERC721InvalidReceiver(to);
+        }
     }
 
     /**
@@ -265,13 +275,19 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * Emits a {Transfer} event.
      */
     function _mint(address to, uint256 tokenId) internal virtual {
-        require(to != address(0), "ERC721: mint to the zero address");
-        require(!_exists(tokenId), "ERC721: token already minted");
+        if (to == address(0)) {
+            revert ERC721InvalidReceiver(address(0));
+        }
+        if (_exists(tokenId)) {
+            revert ERC721InvalidSender(address(0));
+        }
 
         _beforeTokenTransfer(address(0), to, tokenId, 1);
 
         // Check that tokenId was not minted by `_beforeTokenTransfer` hook
-        require(!_exists(tokenId), "ERC721: token already minted");
+        if (_exists(tokenId)) {
+            revert ERC721InvalidSender(address(0));
+        }
 
         unchecked {
             // Will not overflow unless all 2**256 token ids are minted to the same owner.
@@ -333,13 +349,21 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * Emits a {Transfer} event.
      */
     function _transfer(address from, address to, uint256 tokenId) internal virtual {
-        require(ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
-        require(to != address(0), "ERC721: transfer to the zero address");
+        address owner = ownerOf(tokenId);
+        if (owner != from) {
+            revert ERC721IncorrectOwner(from, tokenId, owner);
+        }
+        if (to == address(0)) {
+            revert ERC721InvalidReceiver(address(0));
+        }
 
         _beforeTokenTransfer(from, to, tokenId, 1);
 
         // Check that tokenId was not transferred by `_beforeTokenTransfer` hook
-        require(ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+        owner = ownerOf(tokenId);
+        if (owner != from) {
+            revert ERC721IncorrectOwner(from, tokenId, owner);
+        }
 
         // Clear approvals from the previous owner
         delete _tokenApprovals[tokenId];
@@ -377,7 +401,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * Emits an {ApprovalForAll} event.
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
-        require(owner != operator, "ERC721: approve to caller");
+        if (owner == operator) {
+            revert ERC721InvalidOperator(owner);
+        }
         _operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }
@@ -386,7 +412,9 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
      * @dev Reverts if the `tokenId` has not been minted yet.
      */
     function _requireMinted(uint256 tokenId) internal view virtual {
-        require(_exists(tokenId), "ERC721: invalid token ID");
+        if (!_exists(tokenId)) {
+            revert ERC721NonexistentToken(tokenId);
+        }
     }
 
     /**
@@ -410,7 +438,7 @@ contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeab
                 return retval == IERC721ReceiverUpgradeable.onERC721Received.selector;
             } catch (bytes memory reason) {
                 if (reason.length == 0) {
-                    revert("ERC721: transfer to non ERC721Receiver implementer");
+                    revert ERC721InvalidReceiver(to);
                 } else {
                     /// @solidity memory-safe-assembly
                     assembly {

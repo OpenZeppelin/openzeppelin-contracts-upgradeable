@@ -30,6 +30,11 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20Upgradeable, Vote
     function __ERC20Votes_init_unchained() internal onlyInitializing {
     }
     /**
+     * @dev Total supply cap has been exceeded, introducing a risk of votes overflowing.
+     */
+    error ERC20ExceededSafeSupply(uint256 increasedSupply, uint256 cap);
+
+    /**
      * @dev Maximum token supply. Defaults to `type(uint224).max` (2^224^ - 1).
      */
     function _maxSupply() internal view virtual returns (uint224) {
@@ -44,7 +49,11 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20Upgradeable, Vote
     function _update(address from, address to, uint256 amount) internal virtual override {
         super._update(from, to, amount);
         if (from == address(0)) {
-            require(totalSupply() <= _maxSupply(), "ERC20Votes: total supply risks overflowing votes");
+            uint256 supply = totalSupply();
+            uint256 cap = _maxSupply();
+            if (supply > cap) {
+                revert ERC20ExceededSafeSupply(supply, cap);
+            }
         }
         _transferVotingUnits(from, to, amount);
     }

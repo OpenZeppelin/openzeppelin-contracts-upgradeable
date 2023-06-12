@@ -17,6 +17,16 @@ abstract contract IGovernorTimelockUpgradeable is Initializable, IGovernorUpgrad
 
     function __IGovernorTimelock_init_unchained() internal onlyInitializing {
     }
+    /**
+     * @dev The proposal hasn't been queued yet.
+     */
+    error GovernorNotQueuedProposal(uint256 proposalId);
+
+    /**
+     * @dev The proposal has already been queued.
+     */
+    error GovernorAlreadyQueuedProposal(uint256 proposalId);
+
     event ProposalQueued(uint256 proposalId, uint256 eta);
 
     function timelock() public view virtual returns (address);

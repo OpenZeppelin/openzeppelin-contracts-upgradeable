@@ -72,11 +72,8 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
             for (uint256 i = 0; i < ids.length; ++i) {
                 uint256 id = ids[i];
                 uint256 amount = amounts[i];
-                uint256 supply = _totalSupply[id];
-                require(supply >= amount, "ERC1155: burn amount exceeds totalSupply");
+                _totalSupply[id] -= amount;
                 unchecked {
-                    // Overflow not possible: amounts[i] <= totalSupply(i)
-                    _totalSupply[id] = supply - amount;
                     // Overflow not possible: sum(amounts[i]) <= sum(totalSupply(i)) <= totalSupplyAll
                     totalBurnAmount += amount;
                 }

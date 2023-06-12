@@ -49,6 +49,16 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     CheckpointsUpgradeable.Trace224 private _totalCheckpoints;
 
     /**
+     * @dev The clock was incorrectly modified.
+     */
+    error ERC6372InconsistentClock();
+
+    /**
+     * @dev Lookup to future votes is not available.
+     */
+    error ERC5805FutureLookup(uint256 timepoint, uint48 clock);
+
+    /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.
      */
@@ -62,7 +72,9 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     // solhint-disable-next-line func-name-mixedcase
     function CLOCK_MODE() public view virtual returns (string memory) {
         // Check that the clock was not modified
-        require(clock() == block.number, "Votes: broken clock mode");
+        if (clock() != block.number) {
+            revert ERC6372InconsistentClock();
+        }
         return "mode=blocknumber&from=default";
     }
 
@@ -82,7 +94,10 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
     function getPastVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
-        require(timepoint < clock(), "Votes: future lookup");
+        uint48 currentTimepoint = clock();
+        if (timepoint >= currentTimepoint) {
+            revert ERC5805FutureLookup(timepoint, currentTimepoint);
+        }
         return _delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
 
@@ -99,7 +114,10 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
     function getPastTotalSupply(uint256 timepoint) public view virtual returns (uint256) {
-        require(timepoint < clock(), "Votes: future lookup");
+        uint48 currentTimepoint = clock();
+        if (timepoint >= currentTimepoint) {
+            revert ERC5805FutureLookup(timepoint, currentTimepoint);
+        }
         return _totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
 
@@ -136,14 +154,16 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         bytes32 r,
         bytes32 s
     ) public virtual {
-        require(block.timestamp <= expiry, "Votes: signature expired");
+        if (block.timestamp > expiry) {
+            revert VotesExpiredSignature(expiry);
+        }
         address signer = ECDSAUpgradeable.recover(
             _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
             v,
             r,
             s
         );
-        require(nonce == _useNonce(signer), "Votes: invalid nonce");
+        _useCheckedNonce(signer, nonce);
         _delegate(signer, delegatee);
     }
 

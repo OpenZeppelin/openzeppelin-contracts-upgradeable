@@ -18,6 +18,11 @@ abstract contract IGovernorCompatibilityBravoUpgradeable is Initializable, IGove
     function __IGovernorCompatibilityBravo_init_unchained() internal onlyInitializing {
     }
     /**
+     * @dev Mismatch between the parameters length for a proposal call.
+     */
+    error GovernorInvalidSignaturesLength(uint256 signatures, uint256 calldatas);
+
+    /**
      * @dev Proposal structure from Compound Governor Bravo. Not actually used by the compatibility layer, as
      * {{proposal}} returns a very different structure.
      */

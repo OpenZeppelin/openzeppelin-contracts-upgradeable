@@ -59,7 +59,9 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * - `tokenId` must exist.
      */
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
-        require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
+        if (!_exists(tokenId)) {
+            revert ERC721NonexistentToken(tokenId);
+        }
         _tokenURIs[tokenId] = _tokenURI;
 
         emit MetadataUpdate(tokenId);

@@ -26,6 +26,11 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     event EtherReleased(uint256 amount);
     event ERC20Released(address indexed token, uint256 amount);
 
+    /**
+     * @dev The `beneficiary` is not a valid account.
+     */
+    error VestingWalletInvalidBeneficiary(address beneficiary);
+
     uint256 private _released;
     mapping(address => uint256) private _erc20Released;
     address private _beneficiary;
@@ -40,7 +45,9 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function __VestingWallet_init_unchained(address beneficiaryAddress, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
-        require(beneficiaryAddress != address(0), "VestingWallet: beneficiary is zero address");
+        if (beneficiaryAddress == address(0)) {
+            revert VestingWalletInvalidBeneficiary(address(0));
+        }
         _beneficiary = beneficiaryAddress;
         _start = startTimestamp;
         _duration = durationSeconds;

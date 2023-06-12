@@ -21,12 +21,19 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     IERC20Upgradeable private _underlying;
 
+    /**
+     * @dev The underlying token couldn't be wrapped.
+     */
+    error ERC20InvalidUnderlying(address token);
+
     function __ERC20Wrapper_init(IERC20Upgradeable underlyingToken) internal onlyInitializing {
         __ERC20Wrapper_init_unchained(underlyingToken);
     }
 
     function __ERC20Wrapper_init_unchained(IERC20Upgradeable underlyingToken) internal onlyInitializing {
-        require(underlyingToken != this, "ERC20Wrapper: cannot self wrap");
+        if (underlyingToken == this) {
+            revert ERC20InvalidUnderlying(address(this));
+        }
         _underlying = underlyingToken;
     }
 
@@ -53,7 +60,9 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      */
     function depositFor(address account, uint256 amount) public virtual returns (bool) {
         address sender = _msgSender();
-        require(sender != address(this), "ERC20Wrapper: wrapper can't deposit");
+        if (sender == address(this)) {
+            revert ERC20InvalidSender(address(this));
+        }
         SafeERC20Upgradeable.safeTransferFrom(_underlying, sender, address(this), amount);
         _mint(account, amount);
         return true;

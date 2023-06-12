@@ -23,6 +23,11 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
     /**
+     * @dev The quorum set is not a valid fraction.
+     */
+    error GovernorInvalidQuorumFraction(uint256 quorumNumerator, uint256 quorumDenominator);
+
+    /**
      * @dev Initialize quorum as a fraction of the token's total supply.
      *
      * The fraction is specified as `numerator / denominator`. By default the denominator is 100, so quorum is
@@ -99,10 +104,10 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * - New numerator must be smaller or equal to the denominator.
      */
     function _updateQuorumNumerator(uint256 newQuorumNumerator) internal virtual {
-        require(
-            newQuorumNumerator <= quorumDenominator(),
-            "GovernorVotesQuorumFraction: quorumNumerator over quorumDenominator"
-        );
+        uint256 denominator = quorumDenominator();
+        if (newQuorumNumerator > denominator) {
+            revert GovernorInvalidQuorumFraction(newQuorumNumerator, denominator);
+        }
 
         uint256 oldQuorumNumerator = quorumNumerator();
         _quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));

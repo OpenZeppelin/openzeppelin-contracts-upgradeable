@@ -65,6 +65,13 @@ contract MinimalForwarderUpgradeableWithInit is MinimalForwarderUpgradeable {
         __MinimalForwarder_init();
     }
 }
+import "./AddressFnPointersMockUpgradeable.sol";
+
+contract AddressFnPointerMockUpgradeableWithInit is AddressFnPointerMockUpgradeable {
+    constructor() payable initializer {
+        __AddressFnPointerMock_init();
+    }
+}
 import "./ArraysMockUpgradeable.sol";
 
 contract Uint256ArraysMockUpgradeableWithInit is Uint256ArraysMockUpgradeable {

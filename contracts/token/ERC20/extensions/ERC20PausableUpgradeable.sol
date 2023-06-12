@@ -34,8 +34,7 @@ abstract contract ERC20PausableUpgradeable is Initializable, ERC20Upgradeable, P
      *
      * - the contract must not be paused.
      */
-    function _update(address from, address to, uint256 amount) internal virtual override {
-        require(!paused(), "ERC20Pausable: token transfer while paused");
+    function _update(address from, address to, uint256 amount) internal virtual override whenNotPaused {
         super._update(from, to, amount);
     }
 

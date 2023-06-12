@@ -18,6 +18,11 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721ReceiverUpgradeable {
     IERC721Upgradeable private _underlying;
 
+    /**
+     * @dev The received ERC721 token couldn't be wrapped.
+     */
+    error ERC721UnsupportedToken(address token);
+
     function __ERC721Wrapper_init(IERC721Upgradeable underlyingToken) internal onlyInitializing {
         __ERC721Wrapper_init_unchained(underlyingToken);
     }
@@ -51,7 +56,9 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
         uint256 length = tokenIds.length;
         for (uint256 i = 0; i < length; ++i) {
             uint256 tokenId = tokenIds[i];
-            require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721Wrapper: caller is not token owner or approved");
+            if (!_isApprovedOrOwner(_msgSender(), tokenId)) {
+                revert ERC721InsufficientApproval(_msgSender(), tokenId);
+            }
             _burn(tokenId);
             // Checks were already performed at this point, and there's no way to retake ownership or approval from
             // the wrapped tokenId after this point, so it's safe to remove the reentrancy check for the next line.
@@ -73,7 +80,9 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
      * for recovering in that scenario.
      */
     function onERC721Received(address, address from, uint256 tokenId, bytes memory) public virtual returns (bytes4) {
-        require(address(underlying()) == _msgSender(), "ERC721Wrapper: caller is not underlying");
+        if (address(underlying()) != _msgSender()) {
+            revert ERC721UnsupportedToken(_msgSender());
+        }
         _safeMint(from, tokenId);
         return IERC721ReceiverUpgradeable.onERC721Received.selector;
     }
@@ -83,7 +92,10 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
      * function that can be exposed with access control if desired.
      */
     function _recover(address account, uint256 tokenId) internal virtual returns (uint256) {
-        require(underlying().ownerOf(tokenId) == address(this), "ERC721Wrapper: wrapper is not token owner");
+        address owner = underlying().ownerOf(tokenId);
+        if (owner != address(this)) {
+            revert ERC721IncorrectOwner(address(this), tokenId, owner);
+        }
         _safeMint(account, tokenId);
         return tokenId;
     }
