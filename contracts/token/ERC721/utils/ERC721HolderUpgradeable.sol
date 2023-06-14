@@ -12,7 +12,7 @@ import "../../../proxy/utils/Initializable.sol";
  * Accepts all token transfers.
  * Make sure the contract is able to use its token with {IERC721-safeTransferFrom}, {IERC721-approve} or {IERC721-setApprovalForAll}.
  */
-contract ERC721HolderUpgradeable is Initializable, IERC721ReceiverUpgradeable {
+abstract contract ERC721HolderUpgradeable is Initializable, IERC721ReceiverUpgradeable {
     function __ERC721Holder_init() internal onlyInitializing {
     }
 

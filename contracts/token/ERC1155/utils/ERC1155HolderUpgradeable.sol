@@ -14,7 +14,7 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * @dev _Available since v3.1._
  */
-contract ERC1155HolderUpgradeable is Initializable, ERC1155ReceiverUpgradeable {
+abstract contract ERC1155HolderUpgradeable is Initializable, ERC1155ReceiverUpgradeable {
     function __ERC1155Holder_init() internal onlyInitializing {
     }
 
