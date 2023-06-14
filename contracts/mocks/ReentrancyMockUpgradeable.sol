@@ -39,8 +39,7 @@ contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable 
 
     function countAndCall(ReentrancyAttackUpgradeable attacker) public nonReentrant {
         _count();
-        bytes4 func = bytes4(keccak256("callback()"));
-        attacker.callSender(func);
+        attacker.callSender(abi.encodeCall(this.callback, ()));
     }
 
     function _count() private {

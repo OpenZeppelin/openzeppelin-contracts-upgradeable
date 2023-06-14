@@ -11,8 +11,8 @@ contract ReentrancyAttackUpgradeable is Initializable, ContextUpgradeable {
 
     function __ReentrancyAttack_init_unchained() internal onlyInitializing {
     }
-    function callSender(bytes4 data) public {
-        (bool success, ) = _msgSender().call(abi.encodeWithSelector(data));
+    function callSender(bytes calldata data) public {
+        (bool success, ) = _msgSender().call(data);
         require(success, "ReentrancyAttack: failed call");
     }
 

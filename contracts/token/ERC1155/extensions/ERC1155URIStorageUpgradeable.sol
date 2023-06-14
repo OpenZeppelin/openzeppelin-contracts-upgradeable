@@ -50,8 +50,8 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
     function uri(uint256 tokenId) public view virtual override returns (string memory) {
         string memory tokenURI = _tokenURIs[tokenId];
 
-        // If token URI is set, concatenate base URI and tokenURI (via abi.encodePacked).
-        return bytes(tokenURI).length > 0 ? string(abi.encodePacked(_baseURI, tokenURI)) : super.uri(tokenId);
+        // If token URI is set, concatenate base URI and tokenURI (via string.concat).
+        return bytes(tokenURI).length > 0 ? string.concat(_baseURI, tokenURI) : super.uri(tokenId);
     }
 
     /**
