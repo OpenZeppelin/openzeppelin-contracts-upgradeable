@@ -483,6 +483,13 @@ contract ERC20VotesLegacyMockUpgradeableWithInit is ERC20VotesLegacyMockUpgradea
         __ERC20VotesLegacyMock_init();
     }
 }
+import "./token/ERC4626LimitsMockUpgradeable.sol";
+
+contract ERC4626LimitsMockUpgradeableWithInit is ERC4626LimitsMockUpgradeable {
+    constructor() payable initializer {
+        __ERC4626LimitsMock_init();
+    }
+}
 import "./token/ERC4626MockUpgradeable.sol";
 
 contract ERC4626MockUpgradeableWithInit is ERC4626MockUpgradeable {

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "../../token/ERC20/ERC20Upgradeable.sol";
-import "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
+import "../../utils/AddressUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
