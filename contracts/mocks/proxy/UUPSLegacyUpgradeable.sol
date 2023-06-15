@@ -13,18 +13,18 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
 
     function __UUPSUpgradeableLegacyMock_init_unchained() internal onlyInitializing {
     }
-    // Inlined from ERC1967Upgrade
+    // Inlined from ERC1967Utils
     bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
 
-    // ERC1967Upgrade._setImplementation is private so we reproduce it here.
+    // ERC1967Utils._setImplementation is private so we reproduce it here.
     // An extra underscore prevents a name clash error.
     function __setImplementation(address newImplementation) private {
         require(newImplementation.code.length > 0, "ERC1967: new implementation is not a contract");
-        StorageSlotUpgradeable.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;
+        StorageSlotUpgradeable.getAddressSlot(ERC1967UtilsUpgradeable.IMPLEMENTATION_SLOT).value = newImplementation;
     }
 
     function _upgradeToAndCallSecureLegacyV1(address newImplementation, bytes memory data, bool forceCall) internal {
-        address oldImplementation = _getImplementation();
+        address oldImplementation = ERC1967UtilsUpgradeable.getImplementation();
 
         // Initial upgrade and setup call
         __setImplementation(newImplementation);
@@ -40,9 +40,12 @@ contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableM
             AddressUpgradeable.functionDelegateCall(newImplementation, abi.encodeCall(this.upgradeTo, (oldImplementation)));
             rollbackTesting.value = false;
             // Check rollback was effective
-            require(oldImplementation == _getImplementation(), "ERC1967Upgrade: upgrade breaks further upgrades");
+            require(
+                oldImplementation == ERC1967UtilsUpgradeable.getImplementation(),
+                "ERC1967Utils: upgrade breaks further upgrades"
+            );
             // Finally reset to the new implementation and log the upgrade
-            _upgradeTo(newImplementation);
+            ERC1967UtilsUpgradeable.upgradeTo(newImplementation);
         }
     }
 

@@ -591,13 +591,6 @@ contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable 
         __VotesTimestampMock_init();
     }
 }
-import "../proxy/ERC1967/ERC1967UpgradeUpgradeable.sol";
-
-contract ERC1967UpgradeUpgradeableWithInit is ERC1967UpgradeUpgradeable {
-    constructor() payable initializer {
-        __ERC1967Upgrade_init();
-    }
-}
 import "../security/PausableUpgradeable.sol";
 
 contract PausableUpgradeableWithInit is PausableUpgradeable {
