@@ -4,8 +4,8 @@
 pragma solidity ^0.8.19;
 
 import "../access/AccessControlUpgradeable.sol";
-import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
-import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
+import "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
+import "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
@@ -24,7 +24,7 @@ import "../proxy/utils/Initializable.sol";
  *
  * _Available since v3.3._
  */
-contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
+contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
@@ -160,8 +160,10 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, AccessControlUpgradeable) returns (bool) {
-        return interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(AccessControlUpgradeable, ERC1155ReceiverUpgradeable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 
     /**
@@ -434,33 +436,6 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         }
         emit MinDelayChange(_minDelay, newDelay);
         _minDelay = newDelay;
-    }
-
-    /**
-     * @dev See {IERC721Receiver-onERC721Received}.
-     */
-    function onERC721Received(address, address, uint256, bytes memory) public virtual returns (bytes4) {
-        return this.onERC721Received.selector;
-    }
-
-    /**
-     * @dev See {IERC1155Receiver-onERC1155Received}.
-     */
-    function onERC1155Received(address, address, uint256, uint256, bytes memory) public virtual returns (bytes4) {
-        return this.onERC1155Received.selector;
-    }
-
-    /**
-     * @dev See {IERC1155Receiver-onERC1155BatchReceived}.
-     */
-    function onERC1155BatchReceived(
-        address,
-        address,
-        uint256[] memory,
-        uint256[] memory,
-        bytes memory
-    ) public virtual returns (bytes4) {
-        return this.onERC1155BatchReceived.selector;
     }
 
     /**
