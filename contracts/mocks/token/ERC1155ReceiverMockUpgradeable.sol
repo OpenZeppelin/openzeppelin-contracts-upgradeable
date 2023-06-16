@@ -7,19 +7,28 @@ import "../../utils/introspection/ERC165Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IERC1155ReceiverUpgradeable {
+    enum RevertType {
+        None,
+        Empty,
+        String,
+        Custom
+    }
+
     bytes4 private _recRetval;
-    bool private _recReverts;
+    RevertType private _recReverts;
     bytes4 private _batRetval;
-    bool private _batReverts;
+    RevertType private _batReverts;
 
     event Received(address operator, address from, uint256 id, uint256 value, bytes data, uint256 gas);
     event BatchReceived(address operator, address from, uint256[] ids, uint256[] values, bytes data, uint256 gas);
 
-    function __ERC1155ReceiverMock_init(bytes4 recRetval, bool recReverts, bytes4 batRetval, bool batReverts) internal onlyInitializing {
+    error ERC1155ReceiverMockError();
+
+    function __ERC1155ReceiverMock_init(bytes4 recRetval, RevertType recReverts, bytes4 batRetval, RevertType batReverts) internal onlyInitializing {
         __ERC1155ReceiverMock_init_unchained(recRetval, recReverts, batRetval, batReverts);
     }
 
-    function __ERC1155ReceiverMock_init_unchained(bytes4 recRetval, bool recReverts, bytes4 batRetval, bool batReverts) internal onlyInitializing {
+    function __ERC1155ReceiverMock_init_unchained(bytes4 recRetval, RevertType recReverts, bytes4 batRetval, RevertType batReverts) internal onlyInitializing {
         _recRetval = recRetval;
         _recReverts = recReverts;
         _batRetval = batRetval;
@@ -33,7 +42,14 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IER
         uint256 value,
         bytes calldata data
     ) external returns (bytes4) {
-        require(!_recReverts, "ERC1155ReceiverMock: reverting on receive");
+        if (_recReverts == RevertType.Empty) {
+            revert();
+        } else if (_recReverts == RevertType.String) {
+            revert("ERC1155ReceiverMock: reverting on receive");
+        } else if (_recReverts == RevertType.Custom) {
+            revert ERC1155ReceiverMockError();
+        }
+
         emit Received(operator, from, id, value, data, gasleft());
         return _recRetval;
     }
@@ -45,7 +61,14 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IER
         uint256[] calldata values,
         bytes calldata data
     ) external returns (bytes4) {
-        require(!_batReverts, "ERC1155ReceiverMock: reverting on batch receive");
+        if (_batReverts == RevertType.Empty) {
+            revert();
+        } else if (_batReverts == RevertType.String) {
+            revert("ERC1155ReceiverMock: reverting on batch receive");
+        } else if (_batReverts == RevertType.Custom) {
+            revert ERC1155ReceiverMockError();
+        }
+
         emit BatchReceived(operator, from, ids, values, data, gasleft());
         return _batRetval;
     }

@@ -71,7 +71,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * governance protocol (since v4.6).
      */
     modifier onlyGovernance() {
-        if (_msgSender() != _executor()) {
+        if (_executor() != _msgSender()) {
             revert GovernorOnlyExecutor(_msgSender());
         }
         if (_executor() != address(this)) {
@@ -637,20 +637,29 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
 
     /**
      * @dev See {IERC721Receiver-onERC721Received}.
+     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
      */
     function onERC721Received(address, address, uint256, bytes memory) public virtual returns (bytes4) {
+        if (_executor() != address(this)) {
+            revert GovernorDisabledDeposit();
+        }
         return this.onERC721Received.selector;
     }
 
     /**
      * @dev See {IERC1155Receiver-onERC1155Received}.
+     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
      */
     function onERC1155Received(address, address, uint256, uint256, bytes memory) public virtual returns (bytes4) {
+        if (_executor() != address(this)) {
+            revert GovernorDisabledDeposit();
+        }
         return this.onERC1155Received.selector;
     }
 
     /**
      * @dev See {IERC1155Receiver-onERC1155BatchReceived}.
+     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
      */
     function onERC1155BatchReceived(
         address,
@@ -659,6 +668,9 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory,
         bytes memory
     ) public virtual returns (bytes4) {
+        if (_executor() != address(this)) {
+            revert GovernorDisabledDeposit();
+        }
         return this.onERC1155BatchReceived.selector;
     }
 
