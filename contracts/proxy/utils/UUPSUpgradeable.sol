@@ -34,6 +34,11 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
     error UUPSUnauthorizedCallContext();
 
     /**
+     * @dev The storage `slot` is unsupported as a UUID.
+     */
+    error UUPSUnsupportedProxiableUUID(bytes32 slot);
+
+    /**
      * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
      * a proxy contract with an implementation (as defined in ERC1967) pointing to self. This should only be the case
      * for UUPS and transparent proxies that are using the current contract as their implementation. Execution of a
@@ -41,12 +46,10 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      * fail.
      */
     modifier onlyProxy() {
-        if (address(this) == __self) {
-            // Must be called through delegatecall
-            revert UUPSUnauthorizedCallContext();
-        }
-        if (ERC1967UtilsUpgradeable.getImplementation() != __self) {
-            // Must be called through an active proxy
+        if (
+            address(this) == __self || // Must be called through delegatecall
+            ERC1967UtilsUpgradeable.getImplementation() != __self // Must be called through an active proxy
+        ) {
             revert UUPSUnauthorizedCallContext();
         }
         _;
@@ -87,7 +90,7 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      */
     function upgradeTo(address newImplementation) public virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
-        ERC1967UtilsUpgradeable.upgradeToAndCallUUPS(newImplementation, new bytes(0), false);
+        _upgradeToAndCallUUPS(newImplementation, new bytes(0), false);
     }
 
     /**
@@ -102,7 +105,7 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      */
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
-        ERC1967UtilsUpgradeable.upgradeToAndCallUUPS(newImplementation, data, true);
+        _upgradeToAndCallUUPS(newImplementation, data, true);
     }
 
     /**
@@ -116,6 +119,23 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      * ```
      */
     function _authorizeUpgrade(address newImplementation) internal virtual;
+
+    /**
+     * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
+     *
+     * Emits an {IERC1967-Upgraded} event.
+     */
+    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data, bool forceCall) private {
+        try IERC1822ProxiableUpgradeable(newImplementation).proxiableUUID() returns (bytes32 slot) {
+            if (slot != ERC1967UtilsUpgradeable.IMPLEMENTATION_SLOT) {
+                revert UUPSUnsupportedProxiableUUID(slot);
+            }
+            ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data, forceCall);
+        } catch {
+            // The implementation is not UUPS
+            revert ERC1967UtilsUpgradeable.ERC1967InvalidImplementation(newImplementation);
+        }
+    }
 
     /**
      * @dev This empty reserved space is put in place to allow future versions to add new

@@ -343,13 +343,6 @@ contract ClashingImplementationUpgradeableWithInit is ClashingImplementationUpgr
         __ClashingImplementation_init();
     }
 }
-import "./proxy/UUPSLegacyUpgradeable.sol";
-
-contract UUPSUpgradeableLegacyMockUpgradeableWithInit is UUPSUpgradeableLegacyMockUpgradeable {
-    constructor() payable initializer {
-        __UUPSUpgradeableLegacyMock_init();
-    }
-}
 import "./proxy/UUPSUpgradeableMockUpgradeable.sol";
 
 contract NonUpgradeableMockUpgradeableWithInit is NonUpgradeableMockUpgradeable {
@@ -369,6 +362,13 @@ import "./proxy/UUPSUpgradeableMockUpgradeable.sol";
 contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMockUpgradeable {
     constructor() payable initializer {
         __UUPSUpgradeableUnsafeMock_init();
+    }
+}
+import "./proxy/UUPSUpgradeableMockUpgradeable.sol";
+
+contract UUPSUnsupportedProxiableUUIDUpgradeableWithInit is UUPSUnsupportedProxiableUUIDUpgradeable {
+    constructor() payable initializer {
+        __UUPSUnsupportedProxiableUUID_init();
     }
 }
 import "./ReentrancyAttackUpgradeable.sol";
