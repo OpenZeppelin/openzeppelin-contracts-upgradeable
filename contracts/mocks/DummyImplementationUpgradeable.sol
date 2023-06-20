@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
+
+import "../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 abstract contract ImplUpgradeable is Initializable {
@@ -61,6 +63,11 @@ contract DummyImplementationUpgradeable is Initializable {
 
     function reverts() public pure {
         require(false, "DummyImplementation reverted");
+    }
+
+    // Use for forcing an unsafe TransparentUpgradeableProxy admin override
+    function unsafeOverrideAdmin(address newAdmin) public {
+        StorageSlotUpgradeable.getAddressSlot(ERC1967UtilsUpgradeable.ADMIN_SLOT).value = newAdmin;
     }
 
     /**
