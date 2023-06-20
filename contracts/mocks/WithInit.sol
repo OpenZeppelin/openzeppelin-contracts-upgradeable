@@ -402,8 +402,8 @@ contract TimelockReentrantUpgradeableWithInit is TimelockReentrantUpgradeable {
 import "./token/ERC1155ReceiverMockUpgradeable.sol";
 
 contract ERC1155ReceiverMockUpgradeableWithInit is ERC1155ReceiverMockUpgradeable {
-    constructor(bytes4 recRetval, RevertType recReverts, bytes4 batRetval, RevertType batReverts) payable initializer {
-        __ERC1155ReceiverMock_init(recRetval, recReverts, batRetval, batReverts);
+    constructor(bytes4 recRetval, bytes4 batRetval, RevertType error) payable initializer {
+        __ERC1155ReceiverMock_init(recRetval, batRetval, error);
     }
 }
 import "./token/ERC20DecimalsMockUpgradeable.sol";
@@ -552,7 +552,7 @@ contract ERC721ConsecutiveNoConstructorMintMockUpgradeableWithInit is ERC721Cons
 import "./token/ERC721ReceiverMockUpgradeable.sol";
 
 contract ERC721ReceiverMockUpgradeableWithInit is ERC721ReceiverMockUpgradeable {
-    constructor(bytes4 retval, Error error) payable initializer {
+    constructor(bytes4 retval, RevertType error) payable initializer {
         __ERC721ReceiverMock_init(retval, error);
     }
 }
