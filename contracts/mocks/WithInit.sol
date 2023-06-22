@@ -406,6 +406,13 @@ contract ERC1155ReceiverMockUpgradeableWithInit is ERC1155ReceiverMockUpgradeabl
         __ERC1155ReceiverMock_init(recRetval, batRetval, error);
     }
 }
+import "./token/ERC20ApprovalMockUpgradeable.sol";
+
+contract ERC20ApprovalMockUpgradeableWithInit is ERC20ApprovalMockUpgradeable {
+    constructor() payable initializer {
+        __ERC20ApprovalMock_init();
+    }
+}
 import "./token/ERC20DecimalsMockUpgradeable.sol";
 
 contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
