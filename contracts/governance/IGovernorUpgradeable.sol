@@ -228,6 +228,9 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
      *
      * This can be increased to leave time for users to buy voting power, or delegate it, before the voting of a
      * proposal starts.
+     *
+     * NOTE: While this interface returns a uint256, timepoints are stored as uint48 following the ERC-6372 clock type.
+     * Consequently this value must fit in a uint48 (when added to the current clock). See {IERC6372-clock}.
      */
     function votingDelay() public view virtual returns (uint256);
 
@@ -238,6 +241,10 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
      *
      * NOTE: The {votingDelay} can delay the start of the vote. This must be considered when setting the voting
      * duration compared to the voting delay.
+     *
+     * NOTE: This value is stored when the proposal is submitted so that possible changes to the value do not affect
+     * proposals that have already been submitted. The type used to save it is a uint32. Consequently, while this
+     * interface returns a uint256, the value it returns should fit in a uint32.
      */
     function votingPeriod() public view virtual returns (uint256);
 

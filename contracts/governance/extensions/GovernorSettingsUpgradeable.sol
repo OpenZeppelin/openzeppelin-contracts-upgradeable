@@ -12,9 +12,12 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.4._
  */
 abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradeable {
-    uint256 private _votingDelay;
-    uint256 private _votingPeriod;
+    // amount of token
     uint256 private _proposalThreshold;
+    // timepoint: limited to uint48 in core (same as clock() type)
+    uint48 private _votingDelay;
+    // duration: limited to uint32 in core
+    uint32 private _votingPeriod;
 
     event VotingDelaySet(uint256 oldVotingDelay, uint256 newVotingDelay);
     event VotingPeriodSet(uint256 oldVotingPeriod, uint256 newVotingPeriod);
@@ -23,11 +26,11 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
     /**
      * @dev Initialize the governance parameters.
      */
-    function __GovernorSettings_init(uint256 initialVotingDelay, uint256 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
+    function __GovernorSettings_init(uint48 initialVotingDelay, uint32 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
         __GovernorSettings_init_unchained(initialVotingDelay, initialVotingPeriod, initialProposalThreshold);
     }
 
-    function __GovernorSettings_init_unchained(uint256 initialVotingDelay, uint256 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
+    function __GovernorSettings_init_unchained(uint48 initialVotingDelay, uint32 initialVotingPeriod, uint256 initialProposalThreshold) internal onlyInitializing {
         _setVotingDelay(initialVotingDelay);
         _setVotingPeriod(initialVotingPeriod);
         _setProposalThreshold(initialProposalThreshold);
@@ -59,7 +62,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingDelaySet} event.
      */
-    function setVotingDelay(uint256 newVotingDelay) public virtual onlyGovernance {
+    function setVotingDelay(uint48 newVotingDelay) public virtual onlyGovernance {
         _setVotingDelay(newVotingDelay);
     }
 
@@ -68,7 +71,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingPeriodSet} event.
      */
-    function setVotingPeriod(uint256 newVotingPeriod) public virtual onlyGovernance {
+    function setVotingPeriod(uint32 newVotingPeriod) public virtual onlyGovernance {
         _setVotingPeriod(newVotingPeriod);
     }
 
@@ -86,7 +89,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingDelaySet} event.
      */
-    function _setVotingDelay(uint256 newVotingDelay) internal virtual {
+    function _setVotingDelay(uint48 newVotingDelay) internal virtual {
         emit VotingDelaySet(_votingDelay, newVotingDelay);
         _votingDelay = newVotingDelay;
     }
@@ -96,7 +99,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      *
      * Emits a {VotingPeriodSet} event.
      */
-    function _setVotingPeriod(uint256 newVotingPeriod) internal virtual {
+    function _setVotingPeriod(uint32 newVotingPeriod) internal virtual {
         // voting period must be at least one block long
         if (newVotingPeriod == 0) {
             revert GovernorInvalidVotingPeriod(0);
@@ -120,5 +123,5 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[47] private __gap;
+    uint256[48] private __gap;
 }
