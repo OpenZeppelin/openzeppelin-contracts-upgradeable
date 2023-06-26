@@ -121,7 +121,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      */
     function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes memory data) public virtual {
         if (from != _msgSender() && !isApprovedForAll(from, _msgSender())) {
-            revert ERC1155InsufficientApprovalForAll(_msgSender(), from);
+            revert ERC1155MissingApprovalForAll(_msgSender(), from);
         }
         _safeTransferFrom(from, to, id, amount, data);
     }
@@ -137,7 +137,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         bytes memory data
     ) public virtual {
         if (from != _msgSender() && !isApprovedForAll(from, _msgSender())) {
-            revert ERC1155InsufficientApprovalForAll(_msgSender(), from);
+            revert ERC1155MissingApprovalForAll(_msgSender(), from);
         }
         _safeBatchTransferFrom(from, to, ids, amounts, data);
     }
