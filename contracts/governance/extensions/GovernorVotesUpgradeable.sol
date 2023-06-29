@@ -3,8 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "../GovernorUpgradeable.sol";
-import "../../interfaces/IERC5805Upgradeable.sol";
+import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
+import { IVotesUpgradeable } from "../utils/IVotesUpgradeable.sol";
+import { IERC5805Upgradeable } from "../../interfaces/IERC5805Upgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

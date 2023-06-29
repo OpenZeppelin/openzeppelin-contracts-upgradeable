@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.19;
 
-import "./GovernorVotesUpgradeable.sol";
-import "../../utils/math/SafeCastUpgradeable.sol";
-import "../../utils/structs/CheckpointsUpgradeable.sol";
+import { GovernorVotesUpgradeable } from "./GovernorVotesUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
+import { CheckpointsUpgradeable } from "../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

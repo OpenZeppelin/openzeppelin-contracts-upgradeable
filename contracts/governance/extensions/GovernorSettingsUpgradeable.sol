@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../GovernorUpgradeable.sol";
+import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

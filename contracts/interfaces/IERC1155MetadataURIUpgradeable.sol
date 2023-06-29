@@ -3,4 +3,4 @@
 
 pragma solidity ^0.8.19;
 
-import "../token/ERC1155/extensions/IERC1155MetadataURIUpgradeable.sol";
+import { IERC1155MetadataURIUpgradeable } from "../token/ERC1155/extensions/IERC1155MetadataURIUpgradeable.sol";

@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../../../utils/StringsUpgradeable.sol";
-import "../ERC1155Upgradeable.sol";
+import { StringsUpgradeable } from "../../../utils/StringsUpgradeable.sol";
+import { ERC1155Upgradeable } from "../ERC1155Upgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

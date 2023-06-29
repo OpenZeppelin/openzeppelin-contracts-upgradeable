@@ -2,9 +2,10 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (finance/VestingWallet.sol)
 pragma solidity ^0.8.19;
 
-import "../token/ERC20/utils/SafeERC20Upgradeable.sol";
-import "../utils/AddressUpgradeable.sol";
-import "../utils/ContextUpgradeable.sol";
+import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
+import { SafeERC20Upgradeable } from "../token/ERC20/utils/SafeERC20Upgradeable.sol";
+import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
+import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../../../token/ERC20/ERC20Upgradeable.sol";
-import "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import { ERC20Upgradeable } from "../../../token/ERC20/ERC20Upgradeable.sol";
+import { ERC20PermitUpgradeable } from "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import { ERC20VotesUpgradeable } from "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import { NoncesUpgradeable } from "../../../utils/NoncesUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 contract MyTokenTimestampBasedUpgradeable is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, ERC20VotesUpgradeable {

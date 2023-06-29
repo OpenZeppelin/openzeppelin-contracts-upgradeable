@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "./IGovernorTimelockUpgradeable.sol";
-import "../GovernorUpgradeable.sol";
-import "../TimelockControllerUpgradeable.sol";
+import { IGovernorTimelockUpgradeable } from "./IGovernorTimelockUpgradeable.sol";
+import { IGovernorUpgradeable, GovernorUpgradeable } from "../GovernorUpgradeable.sol";
+import { TimelockControllerUpgradeable } from "../TimelockControllerUpgradeable.sol";
+import { IERC165Upgradeable } from "../../interfaces/IERC165Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

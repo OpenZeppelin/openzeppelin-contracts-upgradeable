@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesUpgradeable.sol";
+import { GovernorCountingSimpleUpgradeable } from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
+import { GovernorVotesUpgradeable } from "../../governance/extensions/GovernorVotesUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorVoteMocksUpgradeable is Initializable, GovernorVotesUpgradeable, GovernorCountingSimpleUpgradeable {

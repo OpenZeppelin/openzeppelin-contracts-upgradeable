@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./ERC1155ReceiverUpgradeable.sol";
+import { ERC1155ReceiverUpgradeable } from "./ERC1155ReceiverUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

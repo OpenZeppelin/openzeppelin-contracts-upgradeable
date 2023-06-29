@@ -2,8 +2,9 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
-import "../../token/ERC721/extensions/ERC721VotesUpgradeable.sol";
+import { ERC20VotesUpgradeable } from "../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import { ERC721VotesUpgradeable } from "../../token/ERC721/extensions/ERC721VotesUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20VotesTimestampMockUpgradeable is Initializable, ERC20VotesUpgradeable {

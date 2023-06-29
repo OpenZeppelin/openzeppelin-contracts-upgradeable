@@ -51,7 +51,7 @@ Once installed, you can use the contracts in the library by importing them:
 ```solidity
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import {ERC721Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 
 contract MyCollectible is ERC721Upgradeable {
     function initialize() initializer public {

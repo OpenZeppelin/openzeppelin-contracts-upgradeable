@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../governance/utils/VotesUpgradeable.sol";
+import { VotesUpgradeable } from "../governance/utils/VotesUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 abstract contract VotesMockUpgradeable is Initializable, VotesUpgradeable {

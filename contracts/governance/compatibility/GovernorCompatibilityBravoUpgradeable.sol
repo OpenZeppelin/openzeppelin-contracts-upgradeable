@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "../../utils/math/SafeCastUpgradeable.sol";
-import "../extensions/IGovernorTimelockUpgradeable.sol";
-import "../GovernorUpgradeable.sol";
-import "./IGovernorCompatibilityBravoUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
+import { IGovernorTimelockUpgradeable } from "../extensions/IGovernorTimelockUpgradeable.sol";
+import { IGovernorUpgradeable, GovernorUpgradeable } from "../GovernorUpgradeable.sol";
+import { IGovernorCompatibilityBravoUpgradeable } from "./IGovernorCompatibilityBravoUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

@@ -3,4 +3,4 @@
 
 pragma solidity ^0.8.19;
 
-import "../utils/introspection/IERC165Upgradeable.sol";
+import { IERC165Upgradeable } from "../utils/introspection/IERC165Upgradeable.sol";

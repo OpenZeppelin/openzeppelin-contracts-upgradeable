@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.19;
 
-import "../access/OwnableUpgradeable.sol";
-import "../interfaces/IERC1271Upgradeable.sol";
-import "../utils/cryptography/ECDSAUpgradeable.sol";
+import { OwnableUpgradeable } from "../access/OwnableUpgradeable.sol";
+import { IERC1271Upgradeable } from "../interfaces/IERC1271Upgradeable.sol";
+import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, IERC1271Upgradeable {

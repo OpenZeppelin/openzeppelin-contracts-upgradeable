@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./token/ERC20MulticallMockUpgradeable.sol";
+import { ERC20MulticallMockUpgradeable } from "./token/ERC20MulticallMockUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract MulticallTestUpgradeable is Initializable {

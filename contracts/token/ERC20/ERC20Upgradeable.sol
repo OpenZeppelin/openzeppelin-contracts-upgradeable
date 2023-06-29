@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC20Upgradeable.sol";
-import "./extensions/IERC20MetadataUpgradeable.sol";
-import "../../utils/ContextUpgradeable.sol";
-import "../../interfaces/draft-IERC6093Upgradeable.sol";
+import { IERC20Upgradeable } from "./IERC20Upgradeable.sol";
+import { IERC20MetadataUpgradeable } from "./extensions/IERC20MetadataUpgradeable.sol";
+import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
+import { IERC20ErrorsUpgradeable } from "../../interfaces/draft-IERC6093Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

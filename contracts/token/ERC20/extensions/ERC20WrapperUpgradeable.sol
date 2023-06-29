@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../ERC20Upgradeable.sol";
-import "../utils/SafeERC20Upgradeable.sol";
+import { IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable } from "../ERC20Upgradeable.sol";
+import { SafeERC20Upgradeable } from "../utils/SafeERC20Upgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

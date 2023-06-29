@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC20Upgradeable.sol";
-import "./IERC165Upgradeable.sol";
+import { IERC20Upgradeable } from "./IERC20Upgradeable.sol";
+import { IERC165Upgradeable } from "./IERC165Upgradeable.sol";
 
 /**
  * @dev Interface of an ERC1363 compliant contract, as defined in the

@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../IERC721ReceiverUpgradeable.sol";
+import { IERC721ReceiverUpgradeable } from "../IERC721ReceiverUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

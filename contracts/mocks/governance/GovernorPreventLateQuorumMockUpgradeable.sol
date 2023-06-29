@@ -2,10 +2,11 @@
 
 pragma solidity ^0.8.19;
 
-import "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
-import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
-import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesUpgradeable.sol";
+import { GovernorUpgradeable } from "../../governance/GovernorUpgradeable.sol";
+import { GovernorPreventLateQuorumUpgradeable } from "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
+import { GovernorSettingsUpgradeable } from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
+import { GovernorCountingSimpleUpgradeable } from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
+import { GovernorVotesUpgradeable } from "../../governance/extensions/GovernorVotesUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorPreventLateQuorumMockUpgradeable is

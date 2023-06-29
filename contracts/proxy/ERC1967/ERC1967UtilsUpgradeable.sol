@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import "../beacon/IBeaconUpgradeable.sol";
-import "../../utils/AddressUpgradeable.sol";
-import "../../utils/StorageSlotUpgradeable.sol";
+import { IBeaconUpgradeable } from "../beacon/IBeaconUpgradeable.sol";
+import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
+import { StorageSlotUpgradeable } from "../../utils/StorageSlotUpgradeable.sol";
 
 /**
  * @dev This abstract contract provides getters and event emitting update functions for

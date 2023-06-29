@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/ERC20Upgradeable.sol";
-import "../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import { ERC20Upgradeable } from "../../token/ERC20/ERC20Upgradeable.sol";
+import { ERC20PermitUpgradeable } from "../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20PermitNoRevertMockUpgradeable is Initializable, ERC20PermitUpgradeable {

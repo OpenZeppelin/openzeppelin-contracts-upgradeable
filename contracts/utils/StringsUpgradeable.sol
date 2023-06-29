@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "./math/MathUpgradeable.sol";
-import "./math/SignedMathUpgradeable.sol";
+import { MathUpgradeable } from "./math/MathUpgradeable.sol";
+import { SignedMathUpgradeable } from "./math/SignedMathUpgradeable.sol";
 
 /**
  * @dev String operations.

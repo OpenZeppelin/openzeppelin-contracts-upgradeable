@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import "../../utils/math/MathUpgradeable.sol";
-import "../../governance/utils/IVotesUpgradeable.sol";
-import "../../utils/math/SafeCastUpgradeable.sol";
-import "../../utils/cryptography/ECDSAUpgradeable.sol";
+import { ERC20PermitUpgradeable } from "../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
+import { IVotesUpgradeable } from "../../governance/utils/IVotesUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
+import { ECDSAUpgradeable } from "../../utils/cryptography/ECDSAUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

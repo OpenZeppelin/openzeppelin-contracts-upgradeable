@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "../ERC20Upgradeable.sol";
-import "../../../governance/utils/VotesUpgradeable.sol";
-import "../../../utils/math/SafeCastUpgradeable.sol";
+import { ERC20Upgradeable } from "../ERC20Upgradeable.sol";
+import { VotesUpgradeable } from "../../../governance/utils/VotesUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../../utils/math/SafeCastUpgradeable.sol";
+import { CheckpointsUpgradeable } from "../../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

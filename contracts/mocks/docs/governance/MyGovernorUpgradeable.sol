@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../../../governance/GovernorUpgradeable.sol";
-import "../../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
-import "../../../governance/extensions/GovernorVotesUpgradeable.sol";
-import "../../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
+import { IGovernorUpgradeable, GovernorUpgradeable } from "../../../governance/GovernorUpgradeable.sol";
+import { GovernorCompatibilityBravoUpgradeable } from "../../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
+import { GovernorVotesUpgradeable } from "../../../governance/extensions/GovernorVotesUpgradeable.sol";
+import { GovernorVotesQuorumFractionUpgradeable } from "../../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
+import { GovernorTimelockControlUpgradeable } from "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
+import { TimelockControllerUpgradeable } from "../../../governance/TimelockControllerUpgradeable.sol";
+import { IVotesUpgradeable } from "../../../governance/utils/IVotesUpgradeable.sol";
+import { IERC165Upgradeable } from "../../../interfaces/IERC165Upgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 contract MyGovernorUpgradeable is

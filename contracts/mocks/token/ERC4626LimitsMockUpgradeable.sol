@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
+import { ERC4626Upgradeable } from "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC4626LimitsMockUpgradeable is Initializable, ERC4626Upgradeable {

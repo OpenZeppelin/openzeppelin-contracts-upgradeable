@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC3156FlashBorrowerUpgradeable.sol";
+import { IERC3156FlashBorrowerUpgradeable } from "./IERC3156FlashBorrowerUpgradeable.sol";
 
 /**
  * @dev Interface of the ERC3156 FlashLender, as defined in

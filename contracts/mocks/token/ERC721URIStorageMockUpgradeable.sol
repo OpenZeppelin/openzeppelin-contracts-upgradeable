@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import { ERC721URIStorageUpgradeable } from "../../token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgradeable {

@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../IERC721Upgradeable.sol";
+import { IERC721Upgradeable } from "../IERC721Upgradeable.sol";
 
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension

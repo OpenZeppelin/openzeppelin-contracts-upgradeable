@@ -3,4 +3,4 @@
 
 pragma solidity ^0.8.19;
 
-import "../token/ERC721/extensions/IERC721MetadataUpgradeable.sol";
+import { IERC721MetadataUpgradeable } from "../token/ERC721/extensions/IERC721MetadataUpgradeable.sol";

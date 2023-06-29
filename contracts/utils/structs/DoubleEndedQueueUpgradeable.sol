@@ -2,7 +2,7 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (utils/structs/DoubleEndedQueue.sol)
 pragma solidity ^0.8.19;
 
-import "../math/SafeCastUpgradeable.sol";
+import { SafeCastUpgradeable } from "../math/SafeCastUpgradeable.sol";
 
 /**
  * @dev A sequence of items with the ability to efficiently push and pop items (i.e. insert and remove) on both ends of

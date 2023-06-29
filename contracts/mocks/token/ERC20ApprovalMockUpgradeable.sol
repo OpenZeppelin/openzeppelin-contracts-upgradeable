@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/ERC20Upgradeable.sol";
+import { ERC20Upgradeable } from "../../token/ERC20/ERC20Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20ApprovalMockUpgradeable is Initializable, ERC20Upgradeable {

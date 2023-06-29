@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "./ECDSAUpgradeable.sol";
-import "../../interfaces/IERC5267Upgradeable.sol";
+import { ECDSAUpgradeable } from "./ECDSAUpgradeable.sol";
+import { IERC5267Upgradeable } from "../../interfaces/IERC5267Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

@@ -2,10 +2,12 @@
 
 pragma solidity ^0.8.19;
 
-import "../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
-import "../../governance/extensions/GovernorTimelockCompoundUpgradeable.sol";
-import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
-import "../../governance/extensions/GovernorVotesUpgradeable.sol";
+import { IGovernorUpgradeable, GovernorUpgradeable } from "../../governance/GovernorUpgradeable.sol";
+import { GovernorCompatibilityBravoUpgradeable } from "../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol";
+import { IGovernorTimelockUpgradeable, GovernorTimelockCompoundUpgradeable } from "../../governance/extensions/GovernorTimelockCompoundUpgradeable.sol";
+import { GovernorSettingsUpgradeable } from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
+import { GovernorVotesUpgradeable } from "../../governance/extensions/GovernorVotesUpgradeable.sol";
+import { IERC165Upgradeable } from "../../interfaces/IERC165Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorCompatibilityBravoMockUpgradeable is

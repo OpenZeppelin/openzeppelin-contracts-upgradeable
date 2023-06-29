@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../StringsUpgradeable.sol";
+import { StringsUpgradeable } from "../StringsUpgradeable.sol";
 
 /**
  * @dev Elliptic Curve Digital Signature Algorithm (ECDSA) operations.

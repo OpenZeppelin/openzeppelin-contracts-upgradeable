@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../../token/ERC20/ERC20Upgradeable.sol";
+import { ERC20Upgradeable } from "../../token/ERC20/ERC20Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 // contract that replicate USDT (0xdac17f958d2ee523a2206206994597c13d831ec7) approval beavior

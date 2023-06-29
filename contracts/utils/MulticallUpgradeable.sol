@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./AddressUpgradeable.sol";
+import { AddressUpgradeable } from "./AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

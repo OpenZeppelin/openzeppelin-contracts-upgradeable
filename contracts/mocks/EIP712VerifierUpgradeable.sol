@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../utils/cryptography/ECDSAUpgradeable.sol";
-import "../utils/cryptography/EIP712Upgradeable.sol";
+import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
+import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 abstract contract EIP712VerifierUpgradeable is Initializable, EIP712Upgradeable {

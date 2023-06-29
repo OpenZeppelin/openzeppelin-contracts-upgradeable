@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC165Upgradeable.sol";
+import { IERC165Upgradeable } from "./IERC165Upgradeable.sol";
 
 /**
  * @dev Library used to query support of an interface declared via {IERC165}.

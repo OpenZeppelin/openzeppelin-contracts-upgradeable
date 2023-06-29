@@ -3,16 +3,16 @@
 
 pragma solidity ^0.8.19;
 
-import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
-import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import "../utils/cryptography/ECDSAUpgradeable.sol";
-import "../utils/cryptography/EIP712Upgradeable.sol";
-import "../utils/introspection/ERC165Upgradeable.sol";
-import "../utils/math/SafeCastUpgradeable.sol";
-import "../utils/structs/DoubleEndedQueueUpgradeable.sol";
-import "../utils/AddressUpgradeable.sol";
-import "../utils/ContextUpgradeable.sol";
-import "./IGovernorUpgradeable.sol";
+import { IERC721ReceiverUpgradeable } from "../token/ERC721/IERC721ReceiverUpgradeable.sol";
+import { IERC1155ReceiverUpgradeable } from "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
+import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
+import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";
+import { IERC165Upgradeable, ERC165Upgradeable } from "../utils/introspection/ERC165Upgradeable.sol";
+import { SafeCastUpgradeable } from "../utils/math/SafeCastUpgradeable.sol";
+import { DoubleEndedQueueUpgradeable } from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
+import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
+import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
+import { IGovernorUpgradeable, IERC6372Upgradeable } from "./IGovernorUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "../ERC721Upgradeable.sol";
-import "../../../interfaces/IERC2309Upgradeable.sol";
-import "../../../utils/structs/BitMapsUpgradeable.sol";
-import "../../../utils/structs/CheckpointsUpgradeable.sol";
+import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
+import { IERC2309Upgradeable } from "../../../interfaces/IERC2309Upgradeable.sol";
+import { BitMapsUpgradeable } from "../../../utils/structs/BitMapsUpgradeable.sol";
+import { CheckpointsUpgradeable } from "../../../utils/structs/CheckpointsUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

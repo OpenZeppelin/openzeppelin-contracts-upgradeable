@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../interfaces/IERC165Upgradeable.sol";
-import "../interfaces/IERC6372Upgradeable.sol";
+import { IERC165Upgradeable } from "../interfaces/IERC165Upgradeable.sol";
+import { IERC6372Upgradeable } from "../interfaces/IERC6372Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

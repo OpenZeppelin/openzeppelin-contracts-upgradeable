@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../IGovernorUpgradeable.sol";
+import { IGovernorUpgradeable } from "../IGovernorUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

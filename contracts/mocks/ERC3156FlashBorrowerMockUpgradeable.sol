@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.19;
 
-import "../token/ERC20/IERC20Upgradeable.sol";
-import "../interfaces/IERC3156Upgradeable.sol";
-import "../utils/AddressUpgradeable.sol";
+import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
+import { IERC3156FlashBorrowerUpgradeable } from "../interfaces/IERC3156Upgradeable.sol";
+import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../ERC20Upgradeable.sol";
-import "../../../utils/ContextUpgradeable.sol";
+import { ERC20Upgradeable } from "../ERC20Upgradeable.sol";
+import { ContextUpgradeable } from "../../../utils/ContextUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

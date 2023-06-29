@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../ERC721Upgradeable.sol";
-import "../../../governance/utils/VotesUpgradeable.sol";
+import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
+import { VotesUpgradeable } from "../../../governance/utils/VotesUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

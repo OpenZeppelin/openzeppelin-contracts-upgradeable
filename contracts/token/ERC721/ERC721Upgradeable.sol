@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC721Upgradeable.sol";
-import "./IERC721ReceiverUpgradeable.sol";
-import "./extensions/IERC721MetadataUpgradeable.sol";
-import "../../utils/ContextUpgradeable.sol";
-import "../../utils/StringsUpgradeable.sol";
-import "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../interfaces/draft-IERC6093Upgradeable.sol";
+import { IERC721Upgradeable } from "./IERC721Upgradeable.sol";
+import { IERC721ReceiverUpgradeable } from "./IERC721ReceiverUpgradeable.sol";
+import { IERC721MetadataUpgradeable } from "./extensions/IERC721MetadataUpgradeable.sol";
+import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
+import { StringsUpgradeable } from "../../utils/StringsUpgradeable.sol";
+import { IERC165Upgradeable, ERC165Upgradeable } from "../../utils/introspection/ERC165Upgradeable.sol";
+import { IERC721ErrorsUpgradeable } from "../../interfaces/draft-IERC6093Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

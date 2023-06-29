@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./OwnableUpgradeable.sol";
+import { OwnableUpgradeable } from "./OwnableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

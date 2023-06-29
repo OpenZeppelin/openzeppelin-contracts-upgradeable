@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../IERC1155Upgradeable.sol";
+import { IERC1155Upgradeable } from "../IERC1155Upgradeable.sol";
 
 /**
  * @dev Interface of the optional ERC1155MetadataExtension interface, as defined

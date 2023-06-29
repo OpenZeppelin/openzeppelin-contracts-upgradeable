@@ -4,7 +4,7 @@
 
 pragma solidity ^0.8.19;
 
-import "./EnumerableSetUpgradeable.sol";
+import { EnumerableSetUpgradeable } from "./EnumerableSetUpgradeable.sol";
 
 /**
  * @dev Library for managing an enumerable variant of Solidity's

@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import "../utils/ContextUpgradeable.sol";
+import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**

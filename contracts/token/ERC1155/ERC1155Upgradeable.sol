@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC1155Upgradeable.sol";
-import "./IERC1155ReceiverUpgradeable.sol";
-import "./extensions/IERC1155MetadataURIUpgradeable.sol";
-import "../../utils/ContextUpgradeable.sol";
-import "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../utils/ArraysUpgradeable.sol";
-import "../../interfaces/draft-IERC6093Upgradeable.sol";
+import { IERC1155Upgradeable } from "./IERC1155Upgradeable.sol";
+import { IERC1155ReceiverUpgradeable } from "./IERC1155ReceiverUpgradeable.sol";
+import { IERC1155MetadataURIUpgradeable } from "./extensions/IERC1155MetadataURIUpgradeable.sol";
+import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
+import { IERC165Upgradeable, ERC165Upgradeable } from "../../utils/introspection/ERC165Upgradeable.sol";
+import { ArraysUpgradeable } from "../../utils/ArraysUpgradeable.sol";
+import { IERC1155ErrorsUpgradeable } from "../../interfaces/draft-IERC6093Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**

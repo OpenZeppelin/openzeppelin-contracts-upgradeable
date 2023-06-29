@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.19;
 
-import "../token/ERC20/IERC20Upgradeable.sol";
-import "../token/ERC20/extensions/IERC20MetadataUpgradeable.sol";
+import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
+import { IERC20MetadataUpgradeable } from "../token/ERC20/extensions/IERC20MetadataUpgradeable.sol";
 
 /**
  * @dev Interface of the ERC4626 "Tokenized Vault Standard", as defined in

@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.19;
 
-import "../utils/cryptography/ECDSAUpgradeable.sol";
-import "../utils/cryptography/EIP712Upgradeable.sol";
-import "../utils/NoncesUpgradeable.sol";
-import "../utils/AddressUpgradeable.sol";
+import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
+import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";
+import { NoncesUpgradeable } from "../utils/NoncesUpgradeable.sol";
+import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**
