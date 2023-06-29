@@ -58,11 +58,11 @@ contract ERC2771ContextUpgradeableWithInit is ERC2771ContextUpgradeable {
 
     }
 }
-import "../metatx/MinimalForwarderUpgradeable.sol";
+import "../metatx/ERC2771ForwarderUpgradeable.sol";
 
-contract MinimalForwarderUpgradeableWithInit is MinimalForwarderUpgradeable {
-    constructor() payable initializer {
-        __MinimalForwarder_init();
+contract ERC2771ForwarderUpgradeableWithInit is ERC2771ForwarderUpgradeable {
+    constructor(string memory name) payable initializer {
+        __ERC2771Forwarder_init(name);
     }
 }
 import "./AddressFnPointersMockUpgradeable.sol";
