@@ -19,28 +19,28 @@ abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable,
     function __ERC20Burnable_init_unchained() internal onlyInitializing {
     }
     /**
-     * @dev Destroys `amount` tokens from the caller.
+     * @dev Destroys a `value` amount of tokens from the caller.
      *
      * See {ERC20-_burn}.
      */
-    function burn(uint256 amount) public virtual {
-        _burn(_msgSender(), amount);
+    function burn(uint256 value) public virtual {
+        _burn(_msgSender(), value);
     }
 
     /**
-     * @dev Destroys `amount` tokens from `account`, deducting from the caller's
-     * allowance.
+     * @dev Destroys a `value` amount of tokens from `account`, deducting from
+     * the caller's allowance.
      *
      * See {ERC20-_burn} and {ERC20-allowance}.
      *
      * Requirements:
      *
      * - the caller must have allowance for ``accounts``'s tokens of at least
-     * `amount`.
+     * `value`.
      */
-    function burnFrom(address account, uint256 amount) public virtual {
-        _spendAllowance(account, _msgSender(), amount);
-        _burn(account, amount);
+    function burnFrom(address account, uint256 value) public virtual {
+        _spendAllowance(account, _msgSender(), value);
+        _burn(account, value);
     }
 
     /**

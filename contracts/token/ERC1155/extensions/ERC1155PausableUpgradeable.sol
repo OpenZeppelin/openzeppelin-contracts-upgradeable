@@ -18,7 +18,7 @@ import "../../../proxy/utils/Initializable.sol";
  * addition to inheriting this contract, you must define both functions, invoking the
  * {Pausable-_pause} and {Pausable-_unpause} internal functions, with appropriate
  * access control, e.g. using {AccessControl} or {Ownable}. Not doing so will
- * make the contract unpausable.
+ * make the contract pause mechanism of the contract unreachable, and thus unusable.
  *
  * _Available since v3.1._
  */
@@ -40,10 +40,9 @@ abstract contract ERC1155PausableUpgradeable is Initializable, ERC1155Upgradeabl
         address from,
         address to,
         uint256[] memory ids,
-        uint256[] memory amounts,
-        bytes memory data
+        uint256[] memory values
     ) internal virtual override whenNotPaused {
-        super._update(from, to, ids, amounts, data);
+        super._update(from, to, ids, values);
     }
 
     /**

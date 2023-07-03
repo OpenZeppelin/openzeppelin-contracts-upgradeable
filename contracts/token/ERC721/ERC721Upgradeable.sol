@@ -491,8 +491,8 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * that `ownerOf(tokenId)` is `a`.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function __unsafe_increaseBalance(address account, uint256 amount) internal {
-        _balances[account] += amount;
+    function __unsafe_increaseBalance(address account, uint256 value) internal {
+        _balances[account] += value;
     }
 
     /**
