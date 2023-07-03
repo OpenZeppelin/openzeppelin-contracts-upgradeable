@@ -12,6 +12,7 @@ import { SafeCastUpgradeable } from "../utils/math/SafeCastUpgradeable.sol";
 import { DoubleEndedQueueUpgradeable } from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
 import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
+import { NoncesUpgradeable } from "../utils/NoncesUpgradeable.sol";
 import { IGovernorUpgradeable, IERC6372Upgradeable } from "./IGovernorUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
@@ -26,12 +27,15 @@ import "../proxy/utils/Initializable.sol";
  *
  * _Available since v4.3._
  */
-abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, IGovernorUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
+abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, NoncesUpgradeable, IGovernorUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
     using DoubleEndedQueueUpgradeable for DoubleEndedQueueUpgradeable.Bytes32Deque;
 
-    bytes32 public constant BALLOT_TYPEHASH = keccak256("Ballot(uint256 proposalId,uint8 support)");
+    bytes32 public constant BALLOT_TYPEHASH =
+        keccak256("Ballot(uint256 proposalId,uint8 support,address voter,uint256 nonce)");
     bytes32 public constant EXTENDED_BALLOT_TYPEHASH =
-        keccak256("ExtendedBallot(uint256 proposalId,uint8 support,string reason,bytes params)");
+        keccak256(
+            "ExtendedBallot(uint256 proposalId,uint8 support,address voter,uint256 nonce,string reason,bytes params)"
+        );
 
     // solhint-disable var-name-mixedcase
     struct ProposalCore {
@@ -520,17 +524,23 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     function castVoteBySig(
         uint256 proposalId,
         uint8 support,
+        address voter,
         uint8 v,
         bytes32 r,
         bytes32 s
     ) public virtual override returns (uint256) {
-        address voter = ECDSAUpgradeable.recover(
-            _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support))),
+        address signer = ECDSAUpgradeable.recover(
+            _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support, voter, _useNonce(voter)))),
             v,
             r,
             s
         );
-        return _castVote(proposalId, voter, support, "");
+
+        if (voter != signer) {
+            revert GovernorInvalidSigner(signer, voter);
+        }
+
+        return _castVote(proposalId, signer, support, "");
     }
 
     /**
@@ -539,19 +549,22 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     function castVoteWithReasonAndParamsBySig(
         uint256 proposalId,
         uint8 support,
+        address voter,
         string calldata reason,
         bytes memory params,
         uint8 v,
         bytes32 r,
         bytes32 s
     ) public virtual override returns (uint256) {
-        address voter = ECDSAUpgradeable.recover(
+        address signer = ECDSAUpgradeable.recover(
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
                         EXTENDED_BALLOT_TYPEHASH,
                         proposalId,
                         support,
+                        voter,
+                        _useNonce(voter),
                         keccak256(bytes(reason)),
                         keccak256(params)
                     )
@@ -562,7 +575,11 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
             s
         );
 
-        return _castVote(proposalId, voter, support, reason, params);
+        if (voter != signer) {
+            revert GovernorInvalidSigner(signer, voter);
+        }
+
+        return _castVote(proposalId, signer, support, reason, params);
     }
 
     /**

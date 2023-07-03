@@ -87,6 +87,11 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
     error GovernorInvalidVoteType();
 
     /**
+     * @dev The `voter` doesn't match with the recovered `signer`.
+     */
+    error GovernorInvalidSigner(address signer, address voter);
+
+    /**
      * @dev Emitted when a proposal is created.
      */
     event ProposalCreated(
@@ -361,6 +366,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
     function castVoteBySig(
         uint256 proposalId,
         uint8 support,
+        address voter,
         uint8 v,
         bytes32 r,
         bytes32 s
@@ -374,6 +380,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
     function castVoteWithReasonAndParamsBySig(
         uint256 proposalId,
         uint8 support,
+        address voter,
         string calldata reason,
         bytes memory params,
         uint8 v,
