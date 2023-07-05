@@ -5,8 +5,8 @@ pragma solidity ^0.8.19;
 
 import { IERC721ReceiverUpgradeable } from "../token/ERC721/IERC721ReceiverUpgradeable.sol";
 import { IERC1155ReceiverUpgradeable } from "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
 import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";
+import { SignatureCheckerUpgradeable } from "../utils/cryptography/SignatureCheckerUpgradeable.sol";
 import { IERC165Upgradeable, ERC165Upgradeable } from "../utils/introspection/ERC165Upgradeable.sol";
 import { SafeCastUpgradeable } from "../utils/math/SafeCastUpgradeable.sol";
 import { DoubleEndedQueueUpgradeable } from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
@@ -525,22 +525,19 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256 proposalId,
         uint8 support,
         address voter,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
+        bytes memory signature
     ) public virtual override returns (uint256) {
-        address signer = ECDSAUpgradeable.recover(
+        bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
+            voter,
             _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support, voter, _useNonce(voter)))),
-            v,
-            r,
-            s
+            signature
         );
 
-        if (voter != signer) {
-            revert GovernorInvalidSigner(signer, voter);
+        if (!valid) {
+            revert GovernorInvalidSignature(voter);
         }
 
-        return _castVote(proposalId, signer, support, "");
+        return _castVote(proposalId, voter, support, "");
     }
 
     /**
@@ -552,11 +549,10 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address voter,
         string calldata reason,
         bytes memory params,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
+        bytes memory signature
     ) public virtual override returns (uint256) {
-        address signer = ECDSAUpgradeable.recover(
+        bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
+            voter,
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
@@ -570,16 +566,14 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
                     )
                 )
             ),
-            v,
-            r,
-            s
+            signature
         );
 
-        if (voter != signer) {
-            revert GovernorInvalidSigner(signer, voter);
+        if (!valid) {
+            revert GovernorInvalidSignature(voter);
         }
 
-        return _castVote(proposalId, signer, support, reason, params);
+        return _castVote(proposalId, voter, support, reason, params);
     }
 
     /**

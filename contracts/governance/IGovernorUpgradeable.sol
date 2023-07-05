@@ -87,9 +87,10 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
     error GovernorInvalidVoteType();
 
     /**
-     * @dev The `voter` doesn't match with the recovered `signer`.
+     * @dev The provided signature is not valid for the expected `voter`.
+     * If the `voter` is a contract, the signature is not valid using {IERC1271-isValidSignature}.
      */
-    error GovernorInvalidSigner(address signer, address voter);
+    error GovernorInvalidSignature(address voter);
 
     /**
      * @dev Emitted when a proposal is created.
@@ -359,7 +360,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
     ) public virtual returns (uint256 balance);
 
     /**
-     * @dev Cast a vote using the user's cryptographic signature.
+     * @dev Cast a vote using the voter's signature, including ERC-1271 signature support.
      *
      * Emits a {VoteCast} event.
      */
@@ -367,13 +368,12 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
         uint256 proposalId,
         uint8 support,
         address voter,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
+        bytes memory signature
     ) public virtual returns (uint256 balance);
 
     /**
-     * @dev Cast a vote with a reason and additional encoded parameters using the user's cryptographic signature.
+     * @dev Cast a vote with a reason and additional encoded parameters using the voter's signature,
+     * including ERC-1271 signature support.
      *
      * Emits a {VoteCast} or {VoteCastWithParams} event depending on the length of params.
      */
@@ -383,9 +383,7 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
         address voter,
         string calldata reason,
         bytes memory params,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
+        bytes memory signature
     ) public virtual returns (uint256 balance);
 
     /**
