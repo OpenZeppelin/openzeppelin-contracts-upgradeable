@@ -26,7 +26,6 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGovernorTimelockUpgradeable, GovernorUpgradeable {
     ICompoundTimelockUpgradeable private _timelock;
 
-    /// @custom:oz-retyped-from mapping(uint256 => GovernorTimelockCompound.ProposalTimelock)
     mapping(uint256 => uint256) private _proposalTimelocks;
 
     /**

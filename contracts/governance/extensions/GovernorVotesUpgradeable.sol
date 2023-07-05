@@ -13,8 +13,6 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token, or since v4.5 an {ERC721Votes} token.
  *
  * _Available since v4.3._
- *
- * @custom:storage-size 51
  */
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
     IERC5805Upgradeable public token;
@@ -67,5 +65,5 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[50] private __gap;
+    uint256[49] private __gap;
 }

@@ -17,7 +17,6 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
 
-    /// @custom:oz-retyped-from Checkpoints.History
     CheckpointsUpgradeable.Trace224 private _quorumNumeratorHistory;
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);

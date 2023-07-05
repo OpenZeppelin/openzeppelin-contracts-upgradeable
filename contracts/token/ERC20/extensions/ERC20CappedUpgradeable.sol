@@ -8,8 +8,6 @@ import "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
- *
- * @custom:storage-size 51
  */
 abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
     uint256 private _cap;
@@ -66,5 +64,5 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[50] private __gap;
+    uint256[49] private __gap;
 }

@@ -20,8 +20,6 @@ import "../proxy/utils/Initializable.sol";
  *
  * By setting the duration to 0, one can configure this contract to behave like an asset timelock that hold tokens for
  * a beneficiary until a specified time.
- *
- * @custom:storage-size 52
  */
 contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     event EtherReleased(uint256 amount);
@@ -173,5 +171,5 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[48] private __gap;
+    uint256[46] private __gap;
 }

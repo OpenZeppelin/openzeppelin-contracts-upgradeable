@@ -44,10 +44,8 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
 
     mapping(address => address) private _delegation;
 
-    /// @custom:oz-retyped-from mapping(address => Checkpoints.History)
     mapping(address => CheckpointsUpgradeable.Trace224) private _delegateCheckpoints;
 
-    /// @custom:oz-retyped-from Checkpoints.History
     CheckpointsUpgradeable.Trace224 private _totalCheckpoints;
 
     /**
