@@ -8,8 +8,6 @@ import { IERC3156FlashBorrowerUpgradeable } from "./IERC3156FlashBorrowerUpgrade
 /**
  * @dev Interface of the ERC3156 FlashLender, as defined in
  * https://eips.ethereum.org/EIPS/eip-3156[ERC-3156].
- *
- * _Available since v4.1._
  */
 interface IERC3156FlashLenderUpgradeable {
     /**

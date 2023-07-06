@@ -8,8 +8,6 @@ import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface extension that adds missing functions to the {Governor} core to provide `GovernorBravo` compatibility.
- *
- * _Available since v4.3._
  */
 abstract contract IGovernorCompatibilityBravoUpgradeable is Initializable, IGovernorUpgradeable {
     function __IGovernorCompatibilityBravo_init() internal onlyInitializing {

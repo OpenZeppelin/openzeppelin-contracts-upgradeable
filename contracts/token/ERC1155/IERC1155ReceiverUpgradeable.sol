@@ -6,7 +6,8 @@ pragma solidity ^0.8.19;
 import { IERC165Upgradeable } from "../../utils/introspection/IERC165Upgradeable.sol";
 
 /**
- * @dev _Available since v3.1._
+ * @dev Interface that must be implemented by smart contracts in order to receive
+ * ERC-1155 token transfers.
  */
 interface IERC1155ReceiverUpgradeable is IERC165Upgradeable {
     /**

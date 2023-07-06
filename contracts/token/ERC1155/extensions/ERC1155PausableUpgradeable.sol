@@ -19,8 +19,6 @@ import "../../../proxy/utils/Initializable.sol";
  * {Pausable-_pause} and {Pausable-_unpause} internal functions, with appropriate
  * access control, e.g. using {AccessControl} or {Ownable}. Not doing so will
  * make the contract pause mechanism of the contract unreachable, and thus unusable.
- *
- * _Available since v3.1._
  */
 abstract contract ERC1155PausableUpgradeable is Initializable, ERC1155Upgradeable, PausableUpgradeable {
     function __ERC1155Pausable_init() internal onlyInitializing {

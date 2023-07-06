@@ -8,8 +8,6 @@ import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for settings updatable through governance.
- *
- * _Available since v4.4._
  */
 abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradeable {
     // amount of token

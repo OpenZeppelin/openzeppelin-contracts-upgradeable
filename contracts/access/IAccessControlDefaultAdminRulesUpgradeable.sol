@@ -7,8 +7,6 @@ import { IAccessControlUpgradeable } from "./IAccessControlUpgradeable.sol";
 
 /**
  * @dev External interface of AccessControlDefaultAdminRules declared to support ERC165 detection.
- *
- * _Available since v4.9._
  */
 interface IAccessControlDefaultAdminRulesUpgradeable is IAccessControlUpgradeable {
     /**

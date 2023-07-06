@@ -8,7 +8,9 @@ import { IERC165Upgradeable, ERC165Upgradeable } from "../../../utils/introspect
 import "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev _Available since v3.1._
+ * @dev Basic contract implementing the ERC-165 interface for {IERC1155Receiver}.
+ *
+ * NOTE: This contract does not suffice to receive tokens. See {ERC1155Holder}.
  */
 abstract contract ERC1155ReceiverUpgradeable is Initializable, ERC165Upgradeable, IERC1155ReceiverUpgradeable {
     function __ERC1155Receiver_init() internal onlyInitializing {

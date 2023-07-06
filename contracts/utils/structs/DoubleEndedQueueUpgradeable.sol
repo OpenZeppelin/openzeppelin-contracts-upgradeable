@@ -15,8 +15,6 @@ import { SafeCastUpgradeable } from "../math/SafeCastUpgradeable.sol";
  * ```solidity
  * DoubleEndedQueue.Bytes32Deque queue;
  * ```
- *
- * _Available since v4.6._
  */
 library DoubleEndedQueueUpgradeable {
     /**

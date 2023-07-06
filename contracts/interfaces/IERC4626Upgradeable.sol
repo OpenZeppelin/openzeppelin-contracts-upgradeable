@@ -9,8 +9,6 @@ import { IERC20MetadataUpgradeable } from "../token/ERC20/extensions/IERC20Metad
 /**
  * @dev Interface of the ERC4626 "Tokenized Vault Standard", as defined in
  * https://eips.ethereum.org/EIPS/eip-4626[ERC-4626].
- *
- * _Available since v4.7._
  */
 interface IERC4626Upgradeable is IERC20Upgradeable, IERC20MetadataUpgradeable {
     event Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares);

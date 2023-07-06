@@ -7,12 +7,10 @@ import { ERC1155ReceiverUpgradeable } from "./ERC1155ReceiverUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**
- * Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens.
+ * @dev Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens.
  *
  * IMPORTANT: When inheriting this contract, you must include a way to use the received tokens, otherwise they will be
  * stuck.
- *
- * @dev _Available since v3.1._
  */
 abstract contract ERC1155HolderUpgradeable is Initializable, ERC1155ReceiverUpgradeable {
     function __ERC1155Holder_init() internal onlyInitializing {

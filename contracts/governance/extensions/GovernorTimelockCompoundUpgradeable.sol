@@ -20,8 +20,6 @@ import "../../proxy/utils/Initializable.sol";
  * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
  * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
  * inaccessible.
- *
- * _Available since v4.3._
  */
 abstract contract GovernorTimelockCompoundUpgradeable is Initializable, IGovernorTimelockUpgradeable, GovernorUpgradeable {
     ICompoundTimelockUpgradeable private _timelock;

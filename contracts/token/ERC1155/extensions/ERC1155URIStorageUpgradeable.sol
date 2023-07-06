@@ -10,8 +10,6 @@ import "../../../proxy/utils/Initializable.sol";
 /**
  * @dev ERC1155 token with storage based token URI management.
  * Inspired by the ERC721URIStorage extension
- *
- * _Available since v4.6._
  */
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
     function __ERC1155URIStorage_init() internal onlyInitializing {

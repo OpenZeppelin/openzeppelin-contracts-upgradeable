@@ -27,8 +27,6 @@ import "../../../proxy/utils/Initializable.sol";
  * IMPORTANT: When overriding {_afterTokenTransfer}, be careful about call ordering. {ownerOf} may return invalid
  * values during the {_afterTokenTransfer} execution if the super call is not called first. To be safe, execute the
  * super call before your custom logic.
- *
- * _Available since v4.8._
  */
 abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgradeable, ERC721Upgradeable {
     function __ERC721Consecutive_init() internal onlyInitializing {

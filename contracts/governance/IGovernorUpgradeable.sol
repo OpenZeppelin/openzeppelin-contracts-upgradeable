@@ -9,8 +9,6 @@ import "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface of the {Governor} core.
- *
- * _Available since v4.3._
  */
 abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IERC6372Upgradeable {
     function __IGovernor_init() internal onlyInitializing {

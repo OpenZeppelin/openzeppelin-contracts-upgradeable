@@ -9,8 +9,6 @@ import "../../../proxy/utils/Initializable.sol";
 /**
  * @dev Extension of {ERC1155} that allows token holders to destroy both their
  * own tokens and those that they have been approved to use.
- *
- * _Available since v3.1._
  */
 abstract contract ERC1155BurnableUpgradeable is Initializable, ERC1155Upgradeable {
     function __ERC1155Burnable_init() internal onlyInitializing {

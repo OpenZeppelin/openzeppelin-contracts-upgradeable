@@ -16,8 +16,6 @@ import "./Initializable.sol";
  * `UUPSUpgradeable` with a custom implementation of upgrades.
  *
  * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
- *
- * _Available since v4.1._
  */
 abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable {
     function __UUPSUpgradeable_init() internal onlyInitializing {

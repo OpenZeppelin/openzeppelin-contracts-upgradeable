@@ -15,8 +15,6 @@ import "../../proxy/utils/Initializable.sol";
  * If a vote causes quorum to be reached, the proposal's voting period may be extended so that it does not end before at
  * least a specified time has passed (the "vote extension" parameter). This parameter can be set through a governance
  * proposal.
- *
- * _Available since v4.5._
  */
 abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, GovernorUpgradeable {
     uint48 private _voteExtension;

@@ -8,8 +8,6 @@ import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for simple, 3 options, vote counting.
- *
- * _Available since v4.3._
  */
 abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUpgradeable {
     function __GovernorCountingSimple_init() internal onlyInitializing {

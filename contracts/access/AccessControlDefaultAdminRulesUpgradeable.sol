@@ -36,8 +36,6 @@ import "../proxy/utils/Initializable.sol";
  *    ) {}
  * }
  * ```
- *
- * _Available since v4.9._
  */
 abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRulesUpgradeable, IERC5313Upgradeable, AccessControlUpgradeable {
     // pending admin pair read/written together frequently

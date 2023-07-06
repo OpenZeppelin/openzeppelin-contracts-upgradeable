@@ -8,8 +8,6 @@ import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the {IGovernor} for timelock supporting modules.
- *
- * _Available since v4.3._
  */
 abstract contract IGovernorTimelockUpgradeable is Initializable, IGovernorUpgradeable {
     function __IGovernorTimelock_init() internal onlyInitializing {

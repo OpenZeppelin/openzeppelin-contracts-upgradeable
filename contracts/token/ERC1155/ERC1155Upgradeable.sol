@@ -16,8 +16,6 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Implementation of the basic standard multi-token.
  * See https://eips.ethereum.org/EIPS/eip-1155
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
- *
- * _Available since v3.1._
  */
 abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC1155Upgradeable, IERC1155MetadataURIUpgradeable, IERC1155ErrorsUpgradeable {
     using ArraysUpgradeable for uint256[];

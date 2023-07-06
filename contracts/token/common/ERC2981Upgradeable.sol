@@ -19,8 +19,6 @@ import "../../proxy/utils/Initializable.sol";
  * IMPORTANT: ERC-2981 only specifies a way to signal royalty information and does not enforce its payment. See
  * https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments[Rationale] in the EIP. Marketplaces are expected to
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
- *
- * _Available since v4.5._
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
     function __ERC2981_init() internal onlyInitializing {

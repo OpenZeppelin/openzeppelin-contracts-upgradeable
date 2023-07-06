@@ -18,8 +18,6 @@ import "../../../proxy/utils/Initializable.sol";
  * NOTE: When this extension is used along with the {ERC20Capped} or {ERC20Votes} extensions,
  * {maxFlashLoan} will not correctly reflect the maximum that can be flash minted. We recommend
  * overriding {maxFlashLoan} so that it correctly reflects the supply cap.
- *
- * _Available since v4.1._
  */
 abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLenderUpgradeable {
     function __ERC20FlashMint_init() internal onlyInitializing {

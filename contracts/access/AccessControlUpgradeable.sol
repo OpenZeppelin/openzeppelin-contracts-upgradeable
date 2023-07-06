@@ -70,8 +70,6 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * The format of the revert reason is given by the following regular expression:
      *
      *  /^AccessControl: account (0x[0-9a-f]{40}) is missing role (0x[0-9a-f]{64})$/
-     *
-     * _Available since v4.1._
      */
     modifier onlyRole(bytes32 role) {
         _checkRole(role);
@@ -97,8 +95,6 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * Overriding this function changes the behavior of the {onlyRole} modifier.
      *
      * Format of the revert message is described in {_checkRole}.
-     *
-     * _Available since v4.6._
      */
     function _checkRole(bytes32 role) internal view virtual {
         _checkRole(role, _msgSender());

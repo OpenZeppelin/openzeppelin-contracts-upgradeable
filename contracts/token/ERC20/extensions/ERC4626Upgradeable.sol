@@ -45,8 +45,6 @@ import "../../../proxy/utils/Initializable.sol";
  *
  * To learn more, check out our xref:ROOT:erc4626.adoc[ERC-4626 guide].
  * ====
- *
- * _Available since v4.7._
  */
 abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC4626Upgradeable {
     using MathUpgradeable for uint256;

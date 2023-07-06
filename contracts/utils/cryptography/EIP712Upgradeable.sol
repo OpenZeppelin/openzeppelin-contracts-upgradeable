@@ -27,8 +27,6 @@ import "../../proxy/utils/Initializable.sol";
  * NOTE: In the upgradeable version of this contract, the cached values will correspond to the address, and the domain
  * separator of the implementation contract. This will cause the `_domainSeparatorV4` function to always rebuild the
  * separator from the immutable values, which is cheaper than accessing a cached version in cold storage.
- *
- * _Available since v3.4._
  */
 abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
     bytes32 private constant _TYPE_HASH =
@@ -99,8 +97,6 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
 
     /**
      * @dev See {IERC-5267}.
-     *
-     * _Available since v4.9._
      */
     function eip712Domain()
         public

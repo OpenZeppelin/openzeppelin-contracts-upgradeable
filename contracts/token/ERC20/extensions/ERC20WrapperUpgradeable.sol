@@ -13,8 +13,6 @@ import "../../../proxy/utils/Initializable.sol";
  * Users can deposit and withdraw "underlying tokens" and receive a matching number of "wrapped tokens". This is useful
  * in conjunction with other modules. For example, combining this wrapping mechanism with {ERC20Votes} will allow the
  * wrapping of an existing "basic" ERC20 into a governance token.
- *
- * _Available since v4.2._
  */
 abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     IERC20Upgradeable private _underlying;
