@@ -6,7 +6,6 @@ pragma solidity ^0.8.19;
 import { AccessControlUpgradeable } from "../access/AccessControlUpgradeable.sol";
 import { ERC721HolderUpgradeable } from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import { ERC1155HolderUpgradeable } from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
-import { ERC1155ReceiverUpgradeable } from "../token/ERC1155/utils/ERC1155ReceiverUpgradeable.sol";
 import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
@@ -165,7 +164,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function supportsInterface(
         bytes4 interfaceId
-    ) public view virtual override(AccessControlUpgradeable, ERC1155ReceiverUpgradeable) returns (bool) {
+    ) public view virtual override(AccessControlUpgradeable, ERC1155HolderUpgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
