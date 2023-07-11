@@ -5,7 +5,6 @@ pragma solidity ^0.8.19;
 
 import { IAccessControlUpgradeable } from "./IAccessControlUpgradeable.sol";
 import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
-import { StringsUpgradeable } from "../utils/StringsUpgradeable.sol";
 import { ERC165Upgradeable } from "../utils/introspection/ERC165Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
