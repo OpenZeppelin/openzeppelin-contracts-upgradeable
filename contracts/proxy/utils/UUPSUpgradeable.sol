@@ -23,7 +23,7 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
 
     function __UUPSUpgradeable_init_unchained() internal onlyInitializing {
     }
-    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     address private immutable __self = address(this);
 
     /**
