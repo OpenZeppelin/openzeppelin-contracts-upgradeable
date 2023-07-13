@@ -124,12 +124,12 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-convertToShares}. */
     function convertToShares(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Down);
+        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-convertToAssets}. */
     function convertToAssets(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Down);
+        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-maxDeposit}. */
@@ -144,7 +144,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-maxWithdraw}. */
     function maxWithdraw(address owner) public view virtual returns (uint256) {
-        return _convertToAssets(balanceOf(owner), MathUpgradeable.Rounding.Down);
+        return _convertToAssets(balanceOf(owner), MathUpgradeable.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-maxRedeem}. */
@@ -154,22 +154,22 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-previewDeposit}. */
     function previewDeposit(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Down);
+        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-previewMint}. */
     function previewMint(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Up);
+        return _convertToAssets(shares, MathUpgradeable.Rounding.Ceil);
     }
 
     /** @dev See {IERC4626-previewWithdraw}. */
     function previewWithdraw(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Up);
+        return _convertToShares(assets, MathUpgradeable.Rounding.Ceil);
     }
 
     /** @dev See {IERC4626-previewRedeem}. */
     function previewRedeem(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Down);
+        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-deposit}. */

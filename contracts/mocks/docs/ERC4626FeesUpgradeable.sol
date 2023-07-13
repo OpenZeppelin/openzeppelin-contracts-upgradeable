@@ -87,11 +87,11 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
     }
 
     function _feeOnRaw(uint256 assets, uint256 feeBasePoint) private pure returns (uint256) {
-        return assets.mulDiv(feeBasePoint, 1e5, MathUpgradeable.Rounding.Up);
+        return assets.mulDiv(feeBasePoint, 1e5, MathUpgradeable.Rounding.Ceil);
     }
 
     function _feeOnTotal(uint256 assets, uint256 feeBasePoint) private pure returns (uint256) {
-        return assets.mulDiv(feeBasePoint, feeBasePoint + 1e5, MathUpgradeable.Rounding.Up);
+        return assets.mulDiv(feeBasePoint, feeBasePoint + 1e5, MathUpgradeable.Rounding.Ceil);
     }
 
     /**
