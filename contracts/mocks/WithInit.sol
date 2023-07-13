@@ -9,14 +9,14 @@ contract AccessControlUpgradeableWithInit is AccessControlUpgradeable {
         __AccessControl_init();
     }
 }
-import "../access/AccessControlDefaultAdminRulesUpgradeable.sol";
+import "../access/extensions/AccessControlDefaultAdminRulesUpgradeable.sol";
 
 contract AccessControlDefaultAdminRulesUpgradeableWithInit is AccessControlDefaultAdminRulesUpgradeable {
     constructor(uint48 initialDelay, address initialDefaultAdmin) payable initializer {
         __AccessControlDefaultAdminRules_init(initialDelay, initialDefaultAdmin);
     }
 }
-import "../access/AccessControlEnumerableUpgradeable.sol";
+import "../access/extensions/AccessControlEnumerableUpgradeable.sol";
 
 contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUpgradeable {
     constructor() payable initializer {

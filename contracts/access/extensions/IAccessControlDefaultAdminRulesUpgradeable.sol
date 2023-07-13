@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.19;
 
-import { IAccessControlUpgradeable } from "./IAccessControlUpgradeable.sol";
+import { IAccessControlUpgradeable } from "../IAccessControlUpgradeable.sol";
 
 /**
  * @dev External interface of AccessControlDefaultAdminRules declared to support ERC165 detection.

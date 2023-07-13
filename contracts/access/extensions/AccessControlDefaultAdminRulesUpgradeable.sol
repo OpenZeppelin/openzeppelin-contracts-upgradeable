@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.19;
 
-import { AccessControlUpgradeable, IAccessControlUpgradeable } from "./AccessControlUpgradeable.sol";
 import { IAccessControlDefaultAdminRulesUpgradeable } from "./IAccessControlDefaultAdminRulesUpgradeable.sol";
-import { SafeCastUpgradeable } from "../utils/math/SafeCastUpgradeable.sol";
-import { MathUpgradeable } from "../utils/math/MathUpgradeable.sol";
-import { IERC5313Upgradeable } from "../interfaces/IERC5313Upgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import { AccessControlUpgradeable, IAccessControlUpgradeable } from "../AccessControlUpgradeable.sol";
+import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
+import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
+import { IERC5313Upgradeable } from "../../interfaces/IERC5313Upgradeable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows specifying special rules to manage

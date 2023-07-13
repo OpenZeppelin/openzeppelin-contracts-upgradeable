@@ -4,9 +4,9 @@
 pragma solidity ^0.8.19;
 
 import { IAccessControlEnumerableUpgradeable } from "./IAccessControlEnumerableUpgradeable.sol";
-import { AccessControlUpgradeable } from "./AccessControlUpgradeable.sol";
-import { EnumerableSetUpgradeable } from "../utils/structs/EnumerableSetUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import { AccessControlUpgradeable } from "../AccessControlUpgradeable.sol";
+import { EnumerableSetUpgradeable } from "../../utils/structs/EnumerableSetUpgradeable.sol";
+import "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
