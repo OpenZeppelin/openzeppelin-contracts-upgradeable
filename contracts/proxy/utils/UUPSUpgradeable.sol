@@ -27,6 +27,16 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
     address private immutable __self = address(this);
 
     /**
+     * @dev The version of the upgrade interface of the contract. If this getter is missing, both `upgradeTo(address)`
+     * and `upgradeToAndCall(address,bytes)` are present, and `upgradeTo` must be used if no function should be called,
+     * while `upgradeToAndCall` will invoke the `receive` function if the second argument is the empty byte string.
+     * If the getter returns `"5.0.0"`, only `upgradeToAndCall(address,bytes)` is present, and the second argument must
+     * be the empty byte string if no function should be called, being impossible to invoke the `receive` function
+     * during an upgrade.
+     */
+    string public constant UPGRADE_INTERFACE_VERSION = "5.0.0";
+
+    /**
      * @dev The call is from an unauthorized context.
      */
     error UUPSUnauthorizedCallContext();
@@ -78,20 +88,6 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
     }
 
     /**
-     * @dev Upgrade the implementation of the proxy to `newImplementation`.
-     *
-     * Calls {_authorizeUpgrade}.
-     *
-     * Emits an {Upgraded} event.
-     *
-     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
-     */
-    function upgradeTo(address newImplementation) public virtual onlyProxy {
-        _authorizeUpgrade(newImplementation);
-        _upgradeToAndCallUUPS(newImplementation, new bytes(0), false);
-    }
-
-    /**
      * @dev Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call
      * encoded in `data`.
      *
@@ -103,17 +99,17 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      */
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {
         _authorizeUpgrade(newImplementation);
-        _upgradeToAndCallUUPS(newImplementation, data, true);
+        _upgradeToAndCallUUPS(newImplementation, data);
     }
 
     /**
      * @dev Function that should revert when `msg.sender` is not authorized to upgrade the contract. Called by
-     * {upgradeTo} and {upgradeToAndCall}.
+     * {upgradeToAndCall}.
      *
      * Normally, this function will use an xref:access.adoc[access control] modifier such as {Ownable-onlyOwner}.
      *
      * ```solidity
-     * function _authorizeUpgrade(address) internal  onlyOwner {}
+     * function _authorizeUpgrade(address) internal onlyOwner {}
      * ```
      */
     function _authorizeUpgrade(address newImplementation) internal virtual;
@@ -123,12 +119,12 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
      *
      * Emits an {IERC1967-Upgraded} event.
      */
-    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data, bool forceCall) private {
+    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data) private {
         try IERC1822ProxiableUpgradeable(newImplementation).proxiableUUID() returns (bytes32 slot) {
             if (slot != ERC1967UtilsUpgradeable.IMPLEMENTATION_SLOT) {
                 revert UUPSUnsupportedProxiableUUID(slot);
             }
-            ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data, forceCall);
+            ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data);
         } catch {
             // The implementation is not UUPS
             revert ERC1967UtilsUpgradeable.ERC1967InvalidImplementation(newImplementation);

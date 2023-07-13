@@ -15,7 +15,7 @@ contract ClashingImplementationUpgradeable is Initializable {
     }
     event ClashingImplementationCall();
 
-    function upgradeTo(address) external payable {
+    function upgradeToAndCall(address, bytes calldata) external payable {
         emit ClashingImplementationCall();
     }
 

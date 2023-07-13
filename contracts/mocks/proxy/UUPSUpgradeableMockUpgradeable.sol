@@ -53,12 +53,8 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
 
     function __UUPSUpgradeableUnsafeMock_init_unchained() internal onlyInitializing {
     }
-    function upgradeTo(address newImplementation) public override {
-        ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, bytes(""), false);
-    }
-
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable override {
-        ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data, false);
+        ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data);
     }
 
     /**

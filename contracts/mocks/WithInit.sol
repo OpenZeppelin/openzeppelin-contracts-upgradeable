@@ -584,6 +584,13 @@ contract ERC721VotesTimestampMockUpgradeableWithInit is ERC721VotesTimestampMock
         __ERC721VotesTimestampMock_init();
     }
 }
+import "./UpgreadeableBeaconMockUpgradeable.sol";
+
+contract UpgradeableBeaconMockUpgradeableWithInit is UpgradeableBeaconMockUpgradeable {
+    constructor(address impl) payable initializer {
+        __UpgradeableBeaconMock_init(impl);
+    }
+}
 import "./VotesMockUpgradeable.sol";
 
 contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
