@@ -35,7 +35,7 @@ abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable
     }
 
     function _msgData() internal view virtual override returns (bytes calldata) {
-        if (isTrustedForwarder(msg.sender)) {
+        if (isTrustedForwarder(msg.sender) && msg.data.length >= 20) {
             return msg.data[:msg.data.length - 20];
         } else {
             return super._msgData();
