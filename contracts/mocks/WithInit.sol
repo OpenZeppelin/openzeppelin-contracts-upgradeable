@@ -515,12 +515,12 @@ import "./token/ERC4646FeesMockUpgradeable.sol";
 
 contract ERC4626FeesMockUpgradeableWithInit is ERC4626FeesMockUpgradeable {
     constructor(
-        uint256 entryFeeBasePoint,
+        uint256 entryFeeBasisPoints,
         address entryFeeRecipient,
-        uint256 exitFeeBasePoint,
+        uint256 exitFeeBasisPoints,
         address exitFeeRecipient
     ) payable initializer {
-        __ERC4626FeesMock_init(entryFeeBasePoint, entryFeeRecipient, exitFeeBasePoint, exitFeeRecipient);
+        __ERC4626FeesMock_init(entryFeeBasisPoints, entryFeeRecipient, exitFeeBasisPoints, exitFeeRecipient);
     }
 }
 import "./token/ERC721ConsecutiveEnumerableMockUpgradeable.sol";

@@ -6,42 +6,42 @@ import { ERC4626FeesUpgradeable } from "../docs/ERC4626FeesUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC4626FeesMockUpgradeable is Initializable, ERC4626FeesUpgradeable {
-    uint256 private _entryFeeBasePointValue;
+    uint256 private _entryFeeBasisPointValue;
     address private _entryFeeRecipientValue;
-    uint256 private _exitFeeBasePointValue;
+    uint256 private _exitFeeBasisPointValue;
     address private _exitFeeRecipientValue;
 
     function __ERC4626FeesMock_init(
-        uint256 entryFeeBasePoint,
+        uint256 entryFeeBasisPoints,
         address entryFeeRecipient,
-        uint256 exitFeeBasePoint,
+        uint256 exitFeeBasisPoints,
         address exitFeeRecipient
     ) internal onlyInitializing {
-        __ERC4626FeesMock_init_unchained(entryFeeBasePoint, entryFeeRecipient, exitFeeBasePoint, exitFeeRecipient);
+        __ERC4626FeesMock_init_unchained(entryFeeBasisPoints, entryFeeRecipient, exitFeeBasisPoints, exitFeeRecipient);
     }
 
     function __ERC4626FeesMock_init_unchained(
-        uint256 entryFeeBasePoint,
+        uint256 entryFeeBasisPoints,
         address entryFeeRecipient,
-        uint256 exitFeeBasePoint,
+        uint256 exitFeeBasisPoints,
         address exitFeeRecipient
     ) internal onlyInitializing {
-        _entryFeeBasePointValue = entryFeeBasePoint;
+        _entryFeeBasisPointValue = entryFeeBasisPoints;
         _entryFeeRecipientValue = entryFeeRecipient;
-        _exitFeeBasePointValue = exitFeeBasePoint;
+        _exitFeeBasisPointValue = exitFeeBasisPoints;
         _exitFeeRecipientValue = exitFeeRecipient;
     }
 
-    function _entryFeeBasePoint() internal view virtual override returns (uint256) {
-        return _entryFeeBasePointValue;
+    function _entryFeeBasisPoints() internal view virtual override returns (uint256) {
+        return _entryFeeBasisPointValue;
     }
 
     function _entryFeeRecipient() internal view virtual override returns (address) {
         return _entryFeeRecipientValue;
     }
 
-    function _exitFeeBasePoint() internal view virtual override returns (uint256) {
-        return _exitFeeBasePointValue;
+    function _exitFeeBasisPoints() internal view virtual override returns (uint256) {
+        return _exitFeeBasisPointValue;
     }
 
     function _exitFeeRecipient() internal view virtual override returns (address) {
