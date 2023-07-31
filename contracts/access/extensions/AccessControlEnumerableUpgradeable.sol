@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.5.0) (access/AccessControlEnumerable.sol)
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { IAccessControlEnumerableUpgradeable } from "./IAccessControlEnumerableUpgradeable.sol";
 import { AccessControlUpgradeable } from "../AccessControlUpgradeable.sol";

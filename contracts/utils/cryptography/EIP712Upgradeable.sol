@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (utils/cryptography/EIP712.sol)
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { MessageHashUtilsUpgradeable } from "./MessageHashUtilsUpgradeable.sol";
 import { IERC5267Upgradeable } from "../../interfaces/IERC5267Upgradeable.sol";

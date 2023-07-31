@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/TimelockController.sol)
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { AccessControlUpgradeable } from "../access/AccessControlUpgradeable.sol";
 import { ERC721HolderUpgradeable } from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";

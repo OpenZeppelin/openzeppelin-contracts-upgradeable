@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { GovernorUpgradeable } from "../../governance/GovernorUpgradeable.sol";
 import { GovernorPreventLateQuorumUpgradeable } from "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";

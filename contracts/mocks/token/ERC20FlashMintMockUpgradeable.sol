@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { ERC20FlashMintUpgradeable } from "../../token/ERC20/extensions/ERC20FlashMintUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";

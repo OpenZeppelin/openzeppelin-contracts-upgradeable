@@ -24,7 +24,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 import "../../proxy/utils/Initializable.sol";
 
 contract CompTimelockUpgradeable is Initializable {

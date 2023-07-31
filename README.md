@@ -51,7 +51,7 @@ Add `@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable
 Once installed, you can use the contracts in the library by importing them:
 
 ```solidity
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import {ERC721Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 

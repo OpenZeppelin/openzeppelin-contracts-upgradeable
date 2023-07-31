@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/extensions/ERC4626.sol)
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable } from "../ERC20Upgradeable.sol";
 import { SafeERC20Upgradeable } from "../utils/SafeERC20Upgradeable.sol";

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { ERC721Upgradeable } from "../../token/ERC721/ERC721Upgradeable.sol";
 import { ERC721ConsecutiveUpgradeable } from "../../token/ERC721/extensions/ERC721ConsecutiveUpgradeable.sol";

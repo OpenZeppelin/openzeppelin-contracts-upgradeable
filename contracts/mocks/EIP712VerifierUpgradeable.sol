@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { ECDSAUpgradeable } from "../utils/cryptography/ECDSAUpgradeable.sol";
 import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";

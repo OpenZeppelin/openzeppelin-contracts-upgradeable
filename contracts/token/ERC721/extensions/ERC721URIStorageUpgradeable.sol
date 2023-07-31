@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/extensions/ERC721URIStorage.sol)
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
 import { StringsUpgradeable } from "../../../utils/StringsUpgradeable.sol";

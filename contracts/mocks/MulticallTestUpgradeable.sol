@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { ERC20MulticallMockUpgradeable } from "./token/ERC20MulticallMockUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
