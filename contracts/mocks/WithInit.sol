@@ -259,13 +259,6 @@ contract EtherReceiverMockUpgradeableWithInit is EtherReceiverMockUpgradeable {
         __EtherReceiverMock_init();
     }
 }
-import "./governance/GovernorCompatibilityBravoMockUpgradeable.sol";
-
-contract GovernorCompatibilityBravoMockUpgradeableWithInit is GovernorCompatibilityBravoMockUpgradeable {
-    constructor() payable initializer {
-        __GovernorCompatibilityBravoMock_init();
-    }
-}
 import "./governance/GovernorMockUpgradeable.sol";
 
 contract GovernorMockUpgradeableWithInit is GovernorMockUpgradeable {
@@ -278,6 +271,13 @@ import "./governance/GovernorPreventLateQuorumMockUpgradeable.sol";
 contract GovernorPreventLateQuorumMockUpgradeableWithInit is GovernorPreventLateQuorumMockUpgradeable {
     constructor(uint256 quorum_) payable initializer {
         __GovernorPreventLateQuorumMock_init(quorum_);
+    }
+}
+import "./governance/GovernorStorageMockUpgradeable.sol";
+
+contract GovernorStorageMockUpgradeableWithInit is GovernorStorageMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorStorageMock_init();
     }
 }
 import "./governance/GovernorTimelockCompoundMockUpgradeable.sol";
