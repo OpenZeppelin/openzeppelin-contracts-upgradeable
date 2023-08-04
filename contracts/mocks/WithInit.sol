@@ -54,7 +54,7 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
 import "../metatx/ERC2771ContextUpgradeable.sol";
 
 contract ERC2771ContextUpgradeableWithInit is ERC2771ContextUpgradeable {
-    constructor(address trustedForwarder) ERC2771ContextUpgradeable(trustedForwarder) payable initializer {
+    constructor(address trustedForwarder_) ERC2771ContextUpgradeable(trustedForwarder_) payable initializer {
 
     }
 }
@@ -63,13 +63,6 @@ import "../metatx/ERC2771ForwarderUpgradeable.sol";
 contract ERC2771ForwarderUpgradeableWithInit is ERC2771ForwarderUpgradeable {
     constructor(string memory name) payable initializer {
         __ERC2771Forwarder_init(name);
-    }
-}
-import "./AddressFnPointersMockUpgradeable.sol";
-
-contract AddressFnPointerMockUpgradeableWithInit is AddressFnPointerMockUpgradeable {
-    constructor() payable initializer {
-        __AddressFnPointerMock_init();
     }
 }
 import "./ArraysMockUpgradeable.sol";
@@ -98,6 +91,13 @@ import "./CallReceiverMockUpgradeable.sol";
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
     constructor() payable initializer {
         __CallReceiverMock_init();
+    }
+}
+import "./CallReceiverMockUpgradeable.sol";
+
+contract CallReceiverMockTrustingForwarderUpgradeableWithInit is CallReceiverMockTrustingForwarderUpgradeable {
+    constructor(address trustedForwarder_) payable initializer {
+        __CallReceiverMockTrustingForwarder_init(trustedForwarder_);
     }
 }
 import "./compound/CompTimelockUpgradeable.sol";
@@ -584,11 +584,18 @@ contract ERC721VotesTimestampMockUpgradeableWithInit is ERC721VotesTimestampMock
         __ERC721VotesTimestampMock_init();
     }
 }
-import "./UpgreadeableBeaconMockUpgradeable.sol";
+import "./UpgradeableBeaconMockUpgradeable.sol";
 
 contract UpgradeableBeaconMockUpgradeableWithInit is UpgradeableBeaconMockUpgradeable {
     constructor(address impl) payable initializer {
         __UpgradeableBeaconMock_init(impl);
+    }
+}
+import "./UpgradeableBeaconMockUpgradeable.sol";
+
+contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconReentrantMockUpgradeable {
+    constructor() payable initializer {
+        __UpgradeableBeaconReentrantMock_init();
     }
 }
 import "./VotesMockUpgradeable.sol";

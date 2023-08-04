@@ -72,3 +72,26 @@ contract CallReceiverMockUpgradeable is Initializable {
      */
     uint256[49] private __gap;
 }
+
+contract CallReceiverMockTrustingForwarderUpgradeable is Initializable, CallReceiverMockUpgradeable {
+    address private _trustedForwarder;
+
+    function __CallReceiverMockTrustingForwarder_init(address trustedForwarder_) internal onlyInitializing {
+        __CallReceiverMockTrustingForwarder_init_unchained(trustedForwarder_);
+    }
+
+    function __CallReceiverMockTrustingForwarder_init_unchained(address trustedForwarder_) internal onlyInitializing {
+        _trustedForwarder = trustedForwarder_;
+    }
+
+    function isTrustedForwarder(address forwarder) public view virtual returns (bool) {
+        return forwarder == _trustedForwarder;
+    }
+
+    /**
+     * @dev This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
+    uint256[49] private __gap;
+}

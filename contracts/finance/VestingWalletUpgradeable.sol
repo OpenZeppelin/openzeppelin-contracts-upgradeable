@@ -20,6 +20,9 @@ import "../proxy/utils/Initializable.sol";
  *
  * By setting the duration to 0, one can configure this contract to behave like an asset timelock that hold tokens for
  * a beneficiary until a specified time.
+ *
+ * NOTE: When using this contract with any token whose balance is adjusted automatically (i.e. a rebase token), make sure
+ * to account the supply/balance adjustment in the vesting schedule to ensure the vested amount is as intended.
  */
 contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     event EtherReleased(uint256 amount);
@@ -159,7 +162,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
     function _vestingSchedule(uint256 totalAllocation, uint64 timestamp) internal view virtual returns (uint256) {
         if (timestamp < start()) {
             return 0;
-        } else if (timestamp > end()) {
+        } else if (timestamp >= end()) {
             return totalAllocation;
         } else {
             return (totalAllocation * (timestamp - start())) / duration();
