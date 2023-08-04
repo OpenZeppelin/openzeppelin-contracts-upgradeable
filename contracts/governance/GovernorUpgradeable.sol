@@ -41,22 +41,13 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint32 voteDuration;
         bool executed;
         bool canceled;
-    }
-
-    struct ProposalExtra {
         uint48 eta;
-    }
-
-    // Each object in this should fit into a single slot so it can be cached efficiently
-    struct ProposalFull {
-        ProposalCore core;
-        ProposalExtra extra;
     }
 
     bytes32 private constant _ALL_PROPOSAL_STATES_BITMAP = bytes32((2 ** (uint8(type(ProposalState).max) + 1)) - 1);
     string private _name;
 
-    mapping(uint256 => ProposalFull) private _proposals;
+    mapping(uint256 => ProposalCore) private _proposals;
 
     // This queue keeps track of the governor operating on itself. Calls to functions protected by the
     // {onlyGovernance} modifier needs to be whitelisted in this queue. Whitelisting is set in {_beforeExecute},
@@ -150,13 +141,16 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * @dev See {IGovernor-state}.
      */
     function state(uint256 proposalId) public view virtual override returns (ProposalState) {
-        // ProposalCore is just one slot. We can load it from storage to memory with a single sload and use memory
-        // object as a cache. This avoid duplicating expensive sloads.
-        ProposalCore memory core = _proposals[proposalId].core;
+        // ProposalCore is just one slot. We can load it from storage to stack with a single sload
+        ProposalCore storage proposal = _proposals[proposalId];
+        bool proposalExecuted = proposal.executed;
+        bool proposalCanceled = proposal.canceled;
 
-        if (core.executed) {
+        if (proposalExecuted) {
             return ProposalState.Executed;
-        } else if (core.canceled) {
+        }
+
+        if (proposalCanceled) {
             return ProposalState.Canceled;
         }
 
@@ -196,28 +190,28 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * @dev See {IGovernor-proposalSnapshot}.
      */
     function proposalSnapshot(uint256 proposalId) public view virtual override returns (uint256) {
-        return _proposals[proposalId].core.voteStart;
+        return _proposals[proposalId].voteStart;
     }
 
     /**
      * @dev See {IGovernor-proposalDeadline}.
      */
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
-        return _proposals[proposalId].core.voteStart + _proposals[proposalId].core.voteDuration;
+        return _proposals[proposalId].voteStart + _proposals[proposalId].voteDuration;
     }
 
     /**
      * @dev See {IGovernor-proposalProposer}.
      */
     function proposalProposer(uint256 proposalId) public view virtual override returns (address) {
-        return _proposals[proposalId].core.proposer;
+        return _proposals[proposalId].proposer;
     }
 
     /**
      * @dev See {IGovernor-proposalEta}.
      */
     function proposalEta(uint256 proposalId) public view virtual override returns (uint256) {
-        return _proposals[proposalId].extra.eta;
+        return _proposals[proposalId].eta;
     }
 
     /**
@@ -317,20 +311,17 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         if (targets.length != values.length || targets.length != calldatas.length || targets.length == 0) {
             revert GovernorInvalidProposalLength(targets.length, calldatas.length, values.length);
         }
-        if (_proposals[proposalId].core.voteStart != 0) {
+        if (_proposals[proposalId].voteStart != 0) {
             revert GovernorUnexpectedProposalState(proposalId, state(proposalId), bytes32(0));
         }
 
         uint256 snapshot = clock() + votingDelay();
         uint256 duration = votingPeriod();
 
-        _proposals[proposalId].core = ProposalCore({
-            proposer: proposer,
-            voteStart: SafeCastUpgradeable.toUint48(snapshot),
-            voteDuration: SafeCastUpgradeable.toUint32(duration),
-            executed: false,
-            canceled: false
-        });
+        ProposalCore storage proposal = _proposals[proposalId];
+        proposal.proposer = proposer;
+        proposal.voteStart = SafeCastUpgradeable.toUint48(snapshot);
+        proposal.voteDuration = SafeCastUpgradeable.toUint32(duration);
 
         emit ProposalCreated(
             proposalId,
@@ -363,7 +354,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint48 eta = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
 
         if (eta != 0) {
-            _proposals[proposalId].extra.eta = eta;
+            _proposals[proposalId].eta = eta;
             emit ProposalQueued(proposalId, eta);
         } else {
             revert GovernorQueueNotImplemented();
@@ -412,7 +403,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         );
 
         // mark as executed before calls to avoid reentrancy
-        _proposals[proposalId].core.executed = true;
+        _proposals[proposalId].executed = true;
 
         // before execute: register governance call in queue.
         if (_executor() != address(this)) {
@@ -500,7 +491,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
                 _encodeStateBitmap(ProposalState.Executed)
         );
 
-        _proposals[proposalId].core.canceled = true;
+        _proposals[proposalId].canceled = true;
         emit ProposalCanceled(proposalId);
 
         return proposalId;
