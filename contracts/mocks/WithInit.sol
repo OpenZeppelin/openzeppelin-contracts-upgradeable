@@ -40,8 +40,8 @@ contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
 import "../finance/VestingWalletUpgradeable.sol";
 
 contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
-    constructor(address beneficiaryAddress, uint64 startTimestamp, uint64 durationSeconds) payable initializer {
-        __VestingWallet_init(beneficiaryAddress, startTimestamp, durationSeconds);
+    constructor(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) payable initializer {
+        __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
     }
 }
 import "../governance/TimelockControllerUpgradeable.sol";

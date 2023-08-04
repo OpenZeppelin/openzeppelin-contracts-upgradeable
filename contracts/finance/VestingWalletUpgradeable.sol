@@ -6,25 +6,29 @@ import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
 import { SafeERC20Upgradeable } from "../token/ERC20/utils/SafeERC20Upgradeable.sol";
 import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
+import { OwnableUpgradeable } from "../access/OwnableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 /**
- * @title VestingWallet
- * @dev This contract handles the vesting of Eth and ERC20 tokens for a given beneficiary. Custody of multiple tokens
- * can be given to this contract, which will release the token to the beneficiary following a given vesting schedule.
- * The vesting schedule is customizable through the {vestedAmount} function.
+ * @dev A vesting wallet is an ownable contract that can receive native currency and ERC20 tokens, and release these
+ * assets to the wallet owner, also referred to as "beneficiary", according to a vesting schedule.
  *
- * Any token transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
+ * Any assets transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
  * Consequently, if the vesting has already started, any amount of tokens sent to this contract will (at least partly)
  * be immediately releasable.
  *
  * By setting the duration to 0, one can configure this contract to behave like an asset timelock that hold tokens for
  * a beneficiary until a specified time.
  *
+ * NOTE: Since the wallet is {Ownable}, and ownership can be transferred, it is possible to sell unvested tokens.
+ * Preventing this in a smart contract is difficult, considering that: 1) a beneficiary address could be a
+ * counterfactually deployed contract, 2) there is likely to be a migration path for EOAs to become contracts in the
+ * near future.
+ *
  * NOTE: When using this contract with any token whose balance is adjusted automatically (i.e. a rebase token), make sure
  * to account the supply/balance adjustment in the vesting schedule to ensure the vested amount is as intended.
  */
-contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
+contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableUpgradeable {
     event EtherReleased(uint256 amount);
     event ERC20Released(address indexed token, uint256 amount);
 
@@ -35,22 +39,23 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
 
     uint256 private _released;
     mapping(address => uint256) private _erc20Released;
-    address private _beneficiary;
     uint64 private _start;
     uint64 private _duration;
 
     /**
-     * @dev Set the beneficiary, start timestamp and vesting duration of the vesting wallet.
+     * @dev Sets the sender as the initial owner, the beneficiary as the pending owner, the start timestamp and the
+     * vesting duration of the vesting wallet.
      */
-    function __VestingWallet_init(address beneficiaryAddress, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
-        __VestingWallet_init_unchained(beneficiaryAddress, startTimestamp, durationSeconds);
+    function __VestingWallet_init(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
+        __Ownable_init_unchained(beneficiary);
+        __VestingWallet_init_unchained(beneficiary, startTimestamp, durationSeconds);
     }
 
-    function __VestingWallet_init_unchained(address beneficiaryAddress, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
-        if (beneficiaryAddress == address(0)) {
+    function __VestingWallet_init_unchained(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
+        if (beneficiary == address(0)) {
             revert VestingWalletInvalidBeneficiary(address(0));
         }
-        _beneficiary = beneficiaryAddress;
+
         _start = startTimestamp;
         _duration = durationSeconds;
     }
@@ -59,13 +64,6 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      * @dev The contract should be able to receive Eth.
      */
     receive() external payable virtual {}
-
-    /**
-     * @dev Getter for the beneficiary address.
-     */
-    function beneficiary() public view virtual returns (address) {
-        return _beneficiary;
-    }
 
     /**
      * @dev Getter for the start timestamp.
@@ -126,7 +124,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
         uint256 amount = releasable();
         _released += amount;
         emit EtherReleased(amount);
-        AddressUpgradeable.sendValue(payable(beneficiary()), amount);
+        AddressUpgradeable.sendValue(payable(owner()), amount);
     }
 
     /**
@@ -138,7 +136,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
         uint256 amount = releasable(token);
         _erc20Released[token] += amount;
         emit ERC20Released(token, amount);
-        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), beneficiary(), amount);
+        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), owner(), amount);
     }
 
     /**
@@ -174,5 +172,5 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable {
      * variables without shifting down storage in the inheritance chain.
      * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
      */
-    uint256[46] private __gap;
+    uint256[47] private __gap;
 }
