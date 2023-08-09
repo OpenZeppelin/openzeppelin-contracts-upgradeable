@@ -32,7 +32,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     }
 
     RoyaltyInfo private _defaultRoyaltyInfo;
-    mapping(uint256 => RoyaltyInfo) private _tokenRoyaltyInfo;
+    mapping(uint256 tokenId => RoyaltyInfo) private _tokenRoyaltyInfo;
 
     /**
      * @dev The default royalty set is invalid (eg. (numerator / denominator) >= 1).

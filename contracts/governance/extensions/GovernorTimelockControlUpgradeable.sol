@@ -25,7 +25,7 @@ import "../../proxy/utils/Initializable.sol";
  */
 abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorUpgradeable {
     TimelockControllerUpgradeable private _timelock;
-    mapping(uint256 => bytes32) private _timelockIds;
+    mapping(uint256 proposalId => bytes32) private _timelockIds;
 
     /**
      * @dev Emitted when the timelock controller used for proposal execution is modified.

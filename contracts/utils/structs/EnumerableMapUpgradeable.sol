@@ -65,7 +65,7 @@ library EnumerableMapUpgradeable {
     struct Bytes32ToBytes32Map {
         // Storage of keys
         EnumerableSetUpgradeable.Bytes32Set _keys;
-        mapping(bytes32 => bytes32) _values;
+        mapping(bytes32 key => bytes32) _values;
     }
 
     /**

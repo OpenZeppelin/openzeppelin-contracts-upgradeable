@@ -11,7 +11,7 @@ abstract contract VotesMockUpgradeable is Initializable, VotesUpgradeable {
 
     function __VotesMock_init_unchained() internal onlyInitializing {
     }
-    mapping(address => uint256) private _votingUnits;
+    mapping(address voter => uint256) private _votingUnits;
 
     function getTotalSupply() public view returns (uint256) {
         return _getTotalSupply();

@@ -37,9 +37,9 @@ import "../../proxy/utils/Initializable.sol";
  * allowances. See {IERC20-approve}.
  */
 abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20Upgradeable, IERC20MetadataUpgradeable, IERC20ErrorsUpgradeable {
-    mapping(address => uint256) private _balances;
+    mapping(address account => uint256) private _balances;
 
-    mapping(address => mapping(address => uint256)) private _allowances;
+    mapping(address account => mapping(address spender => uint256)) private _allowances;
 
     uint256 private _totalSupply;
 

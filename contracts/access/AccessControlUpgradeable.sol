@@ -54,11 +54,11 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
     function __AccessControl_init_unchained() internal onlyInitializing {
     }
     struct RoleData {
-        mapping(address => bool) members;
+        mapping(address account => bool) hasRole;
         bytes32 adminRole;
     }
 
-    mapping(bytes32 => RoleData) private _roles;
+    mapping(bytes32 role => RoleData) private _roles;
 
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
 
@@ -82,7 +82,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev Returns `true` if `account` has been granted `role`.
      */
     function hasRole(bytes32 role, address account) public view virtual returns (bool) {
-        return _roles[role].members[account];
+        return _roles[role].hasRole[account];
     }
 
     /**
@@ -188,7 +188,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function _grantRole(bytes32 role, address account) internal virtual returns (bool) {
         if (!hasRole(role, account)) {
-            _roles[role].members[account] = true;
+            _roles[role].hasRole[account] = true;
             emit RoleGranted(role, account, _msgSender());
             return true;
         } else {
@@ -205,7 +205,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      */
     function _revokeRole(bytes32 role, address account) internal virtual returns (bool) {
         if (hasRole(role, account)) {
-            _roles[role].members[account] = false;
+            _roles[role].hasRole[account] = false;
             emit RoleRevoked(role, account, _msgSender());
             return true;
         } else {

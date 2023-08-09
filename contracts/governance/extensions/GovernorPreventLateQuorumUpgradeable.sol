@@ -19,7 +19,7 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, GovernorUpgradeable {
     uint48 private _voteExtension;
 
-    mapping(uint256 => uint48) private _extendedDeadlines;
+    mapping(uint256 proposalId => uint48) private _extendedDeadlines;
 
     /// @dev Emitted when a proposal deadline is pushed back due to reaching quorum late in its voting period.
     event ProposalExtended(uint256 indexed proposalId, uint64 extendedDeadline);

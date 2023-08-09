@@ -21,7 +21,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
     using StringsUpgradeable for uint256;
 
     // Optional mapping for token URIs
-    mapping(uint256 => string) private _tokenURIs;
+    mapping(uint256 tokenId => string) private _tokenURIs;
 
     /**
      * @dev See {IERC165-supportsInterface}

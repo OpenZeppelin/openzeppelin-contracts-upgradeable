@@ -19,7 +19,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
     }
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 
-    mapping(bytes32 => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
+    mapping(bytes32 role => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
 
     /**
      * @dev See {IERC165-supportsInterface}.

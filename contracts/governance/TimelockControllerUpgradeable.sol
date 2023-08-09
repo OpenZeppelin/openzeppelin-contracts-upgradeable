@@ -28,7 +28,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
     uint256 internal constant _DONE_TIMESTAMP = uint256(1);
 
-    mapping(bytes32 => uint256) private _timestamps;
+    mapping(bytes32 id => uint256) private _timestamps;
     uint256 private _minDelay;
 
     enum OperationState {

@@ -38,7 +38,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
     error VestingWalletInvalidBeneficiary(address beneficiary);
 
     uint256 private _released;
-    mapping(address => uint256) private _erc20Released;
+    mapping(address token => uint256) private _erc20Released;
     uint64 private _start;
     uint64 private _duration;
 

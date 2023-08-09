@@ -25,7 +25,7 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
     string private _baseURI;
 
     // Optional mapping for token URIs
-    mapping(uint256 => string) private _tokenURIs;
+    mapping(uint256 tokenId => string) private _tokenURIs;
 
     /**
      * @dev See {IERC1155MetadataURI-uri}.

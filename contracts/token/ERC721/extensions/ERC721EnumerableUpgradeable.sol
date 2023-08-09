@@ -21,17 +21,11 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
 
     function __ERC721Enumerable_init_unchained() internal onlyInitializing {
     }
-    // Mapping from owner to list of owned token IDs
-    mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
+    mapping(address owner => mapping(uint256 index => uint256)) private _ownedTokens;
+    mapping(uint256 tokenId => uint256) private _ownedTokensIndex;
 
-    // Mapping from token ID to index of the owner tokens list
-    mapping(uint256 => uint256) private _ownedTokensIndex;
-
-    // Array with all token ids, used for enumeration
     uint256[] private _allTokens;
-
-    // Mapping from token id to position in the allTokens array
-    mapping(uint256 => uint256) private _allTokensIndex;
+    mapping(uint256 tokenId => uint256) private _allTokensIndex;
 
     /**
      * @dev An `owner`'s token query was out of bounds for `index`.
