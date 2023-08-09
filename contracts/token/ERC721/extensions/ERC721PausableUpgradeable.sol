@@ -28,21 +28,18 @@ abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable,
     function __ERC721Pausable_init_unchained() internal onlyInitializing {
     }
     /**
-     * @dev See {ERC721-_beforeTokenTransfer}.
+     * @dev See {ERC721-_update}.
      *
      * Requirements:
      *
      * - the contract must not be paused.
      */
-    function _beforeTokenTransfer(
-        address from,
+    function _update(
         address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override {
-        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
-
-        _requireNotPaused();
+        uint256 tokenId,
+        address auth
+    ) internal virtual override whenNotPaused returns (address) {
+        return super._update(to, tokenId, auth);
     }
 
     /**

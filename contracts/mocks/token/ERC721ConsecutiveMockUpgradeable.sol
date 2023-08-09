@@ -56,26 +56,16 @@ contract ERC721ConsecutiveMockUpgradeable is Initializable, ERC721ConsecutiveUpg
         return super._ownerOf(tokenId);
     }
 
-    function _mint(address to, uint256 tokenId) internal virtual override(ERC721Upgradeable, ERC721ConsecutiveUpgradeable) {
-        super._mint(to, tokenId);
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal virtual override(ERC721ConsecutiveUpgradeable, ERC721PausableUpgradeable, ERC721VotesUpgradeable) returns (address) {
+        return super._update(to, tokenId, auth);
     }
 
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override(ERC721Upgradeable, ERC721PausableUpgradeable) {
-        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
-    }
-
-    function _afterTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override(ERC721Upgradeable, ERC721VotesUpgradeable, ERC721ConsecutiveUpgradeable) {
-        super._afterTokenTransfer(from, to, firstTokenId, batchSize);
+    function _increaseBalance(address account, uint128 amount) internal virtual override(ERC721Upgradeable, ERC721VotesUpgradeable) {
+        super._increaseBalance(account, amount);
     }
 
     /**
