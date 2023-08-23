@@ -49,7 +49,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
 
         // pending delay pair read/written together frequently
         uint48 _pendingDelay;
-        uint48 _pendingDelaySchedule;
+        uint48 _pendingDelaySchedule; // 0 == unset
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlDefaultAdminRules")) - 1))
@@ -59,7 +59,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         assembly {
             $.slot := AccessControlDefaultAdminRulesStorageLocation
         }
-    } // 0 == unset
+    }
 
     /**
      * @dev Sets the initial values for {defaultAdminDelay} and {defaultAdmin} address.
