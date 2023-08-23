@@ -13,13 +13,6 @@ abstract contract ImplUpgradeable is Initializable {
     function __Impl_init_unchained() internal onlyInitializing {
     }
     function version() public pure virtual returns (string memory);
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 contract DummyImplementationUpgradeable is Initializable {
@@ -70,13 +63,6 @@ contract DummyImplementationUpgradeable is Initializable {
     function unsafeOverrideAdmin(address newAdmin) public {
         StorageSlotUpgradeable.getAddressSlot(ERC1967UtilsUpgradeable.ADMIN_SLOT).value = newAdmin;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[47] private __gap;
 }
 
 contract DummyImplementationV2Upgradeable is Initializable, DummyImplementationUpgradeable {
@@ -92,11 +78,4 @@ contract DummyImplementationV2Upgradeable is Initializable, DummyImplementationU
     function version() public pure override returns (string memory) {
         return "V2";
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

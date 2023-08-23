@@ -15,7 +15,19 @@ import "../../../proxy/utils/Initializable.sol";
  * wrapping of an existing "basic" ERC721 into a governance token.
  */
 abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721ReceiverUpgradeable {
-    IERC721Upgradeable private _underlying;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Wrapper
+    struct ERC721WrapperStorage {
+        IERC721Upgradeable _underlying;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Wrapper")) - 1))
+    bytes32 private constant ERC721WrapperStorageLocation = 0xa27ade666fc2e768f0cfbad659dfd6a7039cae52f9274d2ab808f70dce3644a8;
+
+    function _getERC721WrapperStorage() private pure returns (ERC721WrapperStorage storage $) {
+        assembly {
+            $.slot := ERC721WrapperStorageLocation
+        }
+    }
 
     /**
      * @dev The received ERC721 token couldn't be wrapped.
@@ -27,7 +39,8 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
     }
 
     function __ERC721Wrapper_init_unchained(IERC721Upgradeable underlyingToken) internal onlyInitializing {
-        _underlying = underlyingToken;
+        ERC721WrapperStorage storage $ = _getERC721WrapperStorage();
+        $._underlying = underlyingToken;
     }
 
     /**
@@ -102,13 +115,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
      * @dev Returns the underlying token.
      */
     function underlying() public view virtual returns (IERC721Upgradeable) {
-        return _underlying;
+        ERC721WrapperStorage storage $ = _getERC721WrapperStorage();
+        return $._underlying;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

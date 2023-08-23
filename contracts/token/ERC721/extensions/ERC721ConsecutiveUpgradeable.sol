@@ -37,8 +37,20 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
     using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
 
-    CheckpointsUpgradeable.Trace160 private _sequentialOwnership;
-    BitMapsUpgradeable.BitMap private _sequentialBurn;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Consecutive
+    struct ERC721ConsecutiveStorage {
+        CheckpointsUpgradeable.Trace160 _sequentialOwnership;
+        BitMapsUpgradeable.BitMap _sequentialBurn;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Consecutive")) - 1))
+    bytes32 private constant ERC721ConsecutiveStorageLocation = 0x24de1071a22e1e6f709b09cc0dadb696f919b85b456665cd36195df4bc89ffe3;
+
+    function _getERC721ConsecutiveStorage() private pure returns (ERC721ConsecutiveStorage storage $) {
+        assembly {
+            $.slot := ERC721ConsecutiveStorageLocation
+        }
+    }
 
     /**
      * @dev Batch mint is restricted to the constructor.
@@ -79,6 +91,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * been minted as part of a batch, and not yet transferred.
      */
     function _ownerOf(uint256 tokenId) internal view virtual override returns (address) {
+        ERC721ConsecutiveStorage storage $ = _getERC721ConsecutiveStorage();
         address owner = super._ownerOf(tokenId);
 
         // If token is owned by the core, or beyond consecutive range, return base value
@@ -88,7 +101,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
 
         // Otherwise, check the token was not burned, and fetch ownership from the anchors
         // Note: no need for safe cast, we know that tokenId <= type(uint96).max
-        return _sequentialBurn.get(tokenId) ? address(0) : address(_sequentialOwnership.lowerLookup(uint96(tokenId)));
+        return $._sequentialBurn.get(tokenId) ? address(0) : address($._sequentialOwnership.lowerLookup(uint96(tokenId)));
     }
 
     /**
@@ -108,6 +121,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * Emits a {IERC2309-ConsecutiveTransfer} event.
      */
     function _mintConsecutive(address to, uint96 batchSize) internal virtual returns (uint96) {
+        ERC721ConsecutiveStorage storage $ = _getERC721ConsecutiveStorage();
         uint96 next = _nextConsecutiveId();
 
         // minting a batch of size 0 is a no-op
@@ -126,7 +140,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
 
             // push an ownership checkpoint & emit event
             uint96 last = next + batchSize - 1;
-            _sequentialOwnership.push(last, uint160(to));
+            $._sequentialOwnership.push(last, uint160(to));
 
             // The invariant required by this function is preserved because the new sequentialOwnership checkpoint
             // is attributing ownership of `batchSize` new tokens to account `to`.
@@ -145,6 +159,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * After construction, {_mintConsecutive} is no longer available and minting through {_update} becomes available.
      */
     function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
+        ERC721ConsecutiveStorage storage $ = _getERC721ConsecutiveStorage();
         address previousOwner = super._update(to, tokenId, auth);
 
         // only mint after construction
@@ -156,9 +171,9 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
         if (
             to == address(0) && // if we burn
             tokenId < _nextConsecutiveId() && // and the tokenId was minted in a batch
-            !_sequentialBurn.get(tokenId) // and the token was never marked as burnt
+            !$._sequentialBurn.get(tokenId) // and the token was never marked as burnt
         ) {
-            _sequentialBurn.set(tokenId);
+            $._sequentialBurn.set(tokenId);
         }
 
         return previousOwner;
@@ -176,14 +191,8 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      * if no consecutive tokenId has been minted before.
      */
     function _nextConsecutiveId() private view returns (uint96) {
-        (bool exists, uint96 latestId, ) = _sequentialOwnership.latestCheckpoint();
+        ERC721ConsecutiveStorage storage $ = _getERC721ConsecutiveStorage();
+        (bool exists, uint96 latestId, ) = $._sequentialOwnership.latestCheckpoint();
         return exists ? latestId + 1 : _firstConsecutiveId();
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

@@ -18,11 +18,4 @@ contract ERC20MockUpgradeable is Initializable, ERC20Upgradeable {
     function burn(address account, uint256 amount) external {
         _burn(account, amount);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

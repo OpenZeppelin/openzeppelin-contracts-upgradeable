@@ -20,19 +20,31 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC721Upgradeable, IERC721MetadataUpgradeable, IERC721ErrorsUpgradeable {
     using StringsUpgradeable for uint256;
 
-    // Token name
-    string private _name;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC721
+    struct ERC721Storage {
+        // Token name
+        string _name;
 
-    // Token symbol
-    string private _symbol;
+        // Token symbol
+        string _symbol;
 
-    mapping(uint256 tokenId => address) private _owners;
+        mapping(uint256 tokenId => address) _owners;
 
-    mapping(address owner => uint256) private _balances;
+        mapping(address owner => uint256) _balances;
 
-    mapping(uint256 tokenId => address) private _tokenApprovals;
+        mapping(uint256 tokenId => address) _tokenApprovals;
 
-    mapping(address owner => mapping(address operator => bool)) private _operatorApprovals;
+        mapping(address owner => mapping(address operator => bool)) _operatorApprovals;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721")) - 1))
+    bytes32 private constant ERC721StorageLocation = 0x80bb2b638cc20bc4d0a60d66940f3ab4a00c1d7b313497ca82fb0b4ab007934f;
+
+    function _getERC721Storage() private pure returns (ERC721Storage storage $) {
+        assembly {
+            $.slot := ERC721StorageLocation
+        }
+    }
 
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
@@ -42,8 +54,9 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
     }
 
     function __ERC721_init_unchained(string memory name_, string memory symbol_) internal onlyInitializing {
-        _name = name_;
-        _symbol = symbol_;
+        ERC721Storage storage $ = _getERC721Storage();
+        $._name = name_;
+        $._symbol = symbol_;
     }
 
     /**
@@ -60,10 +73,11 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * @dev See {IERC721-balanceOf}.
      */
     function balanceOf(address owner) public view virtual returns (uint256) {
+        ERC721Storage storage $ = _getERC721Storage();
         if (owner == address(0)) {
             revert ERC721InvalidOwner(address(0));
         }
-        return _balances[owner];
+        return $._balances[owner];
     }
 
     /**
@@ -81,14 +95,16 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * @dev See {IERC721Metadata-name}.
      */
     function name() public view virtual returns (string memory) {
-        return _name;
+        ERC721Storage storage $ = _getERC721Storage();
+        return $._name;
     }
 
     /**
      * @dev See {IERC721Metadata-symbol}.
      */
     function symbol() public view virtual returns (string memory) {
-        return _symbol;
+        ERC721Storage storage $ = _getERC721Storage();
+        return $._symbol;
     }
 
     /**
@@ -137,7 +153,8 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * @dev See {IERC721-isApprovedForAll}.
      */
     function isApprovedForAll(address owner, address operator) public view virtual returns (bool) {
-        return _operatorApprovals[owner][operator];
+        ERC721Storage storage $ = _getERC721Storage();
+        return $._operatorApprovals[owner][operator];
     }
 
     /**
@@ -179,14 +196,16 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * `balanceOf(a)` must be equal to the number of tokens such that `_ownerOf(tokenId)` is `a`.
      */
     function _ownerOf(uint256 tokenId) internal view virtual returns (address) {
-        return _owners[tokenId];
+        ERC721Storage storage $ = _getERC721Storage();
+        return $._owners[tokenId];
     }
 
     /**
      * @dev Returns the approved address for `tokenId`. Returns 0 if `tokenId` is not minted.
      */
     function _getApproved(uint256 tokenId) internal view virtual returns (address) {
-        return _tokenApprovals[tokenId];
+        ERC721Storage storage $ = _getERC721Storage();
+        return $._tokenApprovals[tokenId];
     }
 
     /**
@@ -230,8 +249,9 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * remain consistent with one another.
      */
     function _increaseBalance(address account, uint128 value) internal virtual {
+        ERC721Storage storage $ = _getERC721Storage();
         unchecked {
-            _balances[account] += value;
+            $._balances[account] += value;
         }
     }
 
@@ -247,6 +267,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * NOTE: If overriding this function in a way that tracks balances, see also {_increaseBalance}.
      */
     function _update(address to, uint256 tokenId, address auth) internal virtual returns (address) {
+        ERC721Storage storage $ = _getERC721Storage();
         address from = _ownerOf(tokenId);
 
         // Perform (optional) operator check
@@ -256,19 +277,19 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
 
         // Execute the update
         if (from != address(0)) {
-            delete _tokenApprovals[tokenId];
+            delete $._tokenApprovals[tokenId];
             unchecked {
-                _balances[from] -= 1;
+                $._balances[from] -= 1;
             }
         }
 
         if (to != address(0)) {
             unchecked {
-                _balances[to] += 1;
+                $._balances[to] += 1;
             }
         }
 
-        _owners[tokenId] = to;
+        $._owners[tokenId] = to;
 
         emit Transfer(from, to, tokenId);
 
@@ -402,6 +423,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * Emits an {Approval} event.
      */
     function _approve(address to, uint256 tokenId, address auth) internal virtual returns (address) {
+        ERC721Storage storage $ = _getERC721Storage();
         address owner = ownerOf(tokenId);
 
         // We do not use _isAuthorized because single-token approvals should not be able to call approve
@@ -409,7 +431,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
             revert ERC721InvalidApprover(auth);
         }
 
-        _tokenApprovals[tokenId] = to;
+        $._tokenApprovals[tokenId] = to;
         emit Approval(owner, to, tokenId);
 
         return owner;
@@ -424,10 +446,11 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * Emits an {ApprovalForAll} event.
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
+        ERC721Storage storage $ = _getERC721Storage();
         if (operator == address(0)) {
             revert ERC721InvalidOperator(operator);
         }
-        _operatorApprovals[owner][operator] = approved;
+        $._operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }
 
@@ -467,11 +490,4 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
             }
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[44] private __gap;
 }

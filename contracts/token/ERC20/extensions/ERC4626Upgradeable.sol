@@ -49,8 +49,20 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC4626Upgradeable {
     using MathUpgradeable for uint256;
 
-    IERC20Upgradeable private _asset;
-    uint8 private _underlyingDecimals;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC4626
+    struct ERC4626Storage {
+        IERC20Upgradeable _asset;
+        uint8 _underlyingDecimals;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC4626")) - 1))
+    bytes32 private constant ERC4626StorageLocation = 0x0773e532dfede91f04b12a73d3d2acd361424f41f76b4fb79f090161e36b4eec;
+
+    function _getERC4626Storage() private pure returns (ERC4626Storage storage $) {
+        assembly {
+            $.slot := ERC4626StorageLocation
+        }
+    }
 
     /**
      * @dev Attempted to deposit more assets than the max amount for `receiver`.
@@ -80,9 +92,10 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     }
 
     function __ERC4626_init_unchained(IERC20Upgradeable asset_) internal onlyInitializing {
+        ERC4626Storage storage $ = _getERC4626Storage();
         (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
-        _underlyingDecimals = success ? assetDecimals : 18;
-        _asset = asset_;
+        $._underlyingDecimals = success ? assetDecimals : 18;
+        $._asset = asset_;
     }
 
     /**
@@ -109,17 +122,20 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
      * See {IERC20Metadata-decimals}.
      */
     function decimals() public view virtual override(IERC20MetadataUpgradeable, ERC20Upgradeable) returns (uint8) {
-        return _underlyingDecimals + _decimalsOffset();
+        ERC4626Storage storage $ = _getERC4626Storage();
+        return $._underlyingDecimals + _decimalsOffset();
     }
 
     /** @dev See {IERC4626-asset}. */
     function asset() public view virtual returns (address) {
-        return address(_asset);
+        ERC4626Storage storage $ = _getERC4626Storage();
+        return address($._asset);
     }
 
     /** @dev See {IERC4626-totalAssets}. */
     function totalAssets() public view virtual returns (uint256) {
-        return _asset.balanceOf(address(this));
+        ERC4626Storage storage $ = _getERC4626Storage();
+        return $._asset.balanceOf(address(this));
     }
 
     /** @dev See {IERC4626-convertToShares}. */
@@ -246,6 +262,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
      * @dev Deposit/mint common workflow.
      */
     function _deposit(address caller, address receiver, uint256 assets, uint256 shares) internal virtual {
+        ERC4626Storage storage $ = _getERC4626Storage();
         // If _asset is ERC777, `transferFrom` can trigger a reentrancy BEFORE the transfer happens through the
         // `tokensToSend` hook. On the other hand, the `tokenReceived` hook, that is triggered after the transfer,
         // calls the vault, which is assumed not malicious.
@@ -253,7 +270,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         // Conclusion: we need to do the transfer before we mint so that any reentrancy would happen before the
         // assets are transferred and before the shares are minted, which is a valid state.
         // slither-disable-next-line reentrancy-no-eth
-        SafeERC20Upgradeable.safeTransferFrom(_asset, caller, address(this), assets);
+        SafeERC20Upgradeable.safeTransferFrom($._asset, caller, address(this), assets);
         _mint(receiver, shares);
 
         emit Deposit(caller, receiver, assets, shares);
@@ -269,6 +286,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         uint256 assets,
         uint256 shares
     ) internal virtual {
+        ERC4626Storage storage $ = _getERC4626Storage();
         if (caller != owner) {
             _spendAllowance(owner, caller, shares);
         }
@@ -280,7 +298,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         // Conclusion: we need to do the transfer after the burn so that any reentrancy would happen after the
         // shares are burned and after the assets are transferred, which is a valid state.
         _burn(owner, shares);
-        SafeERC20Upgradeable.safeTransfer(_asset, receiver, assets);
+        SafeERC20Upgradeable.safeTransfer($._asset, receiver, assets);
 
         emit Withdraw(caller, receiver, owner, assets, shares);
     }
@@ -288,11 +306,4 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     function _decimalsOffset() internal view virtual returns (uint8) {
         return 0;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

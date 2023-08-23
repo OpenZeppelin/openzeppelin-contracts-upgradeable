@@ -13,14 +13,35 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token, or since v4.5 an {ERC721Votes} token.
  */
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
-    IERC5805Upgradeable public token;
+    /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotes
+    struct GovernorVotesStorage {
+        IERC5805Upgradeable _token;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotes")) - 1))
+    bytes32 private constant GovernorVotesStorageLocation = 0x3ba4977254e415696610a40ebf2258dbfa0ec6a2ff64e84bfe715ff16977cc81;
+
+    function _getGovernorVotesStorage() private pure returns (GovernorVotesStorage storage $) {
+        assembly {
+            $.slot := GovernorVotesStorageLocation
+        }
+    }
 
     function __GovernorVotes_init(IVotesUpgradeable tokenAddress) internal onlyInitializing {
         __GovernorVotes_init_unchained(tokenAddress);
     }
 
     function __GovernorVotes_init_unchained(IVotesUpgradeable tokenAddress) internal onlyInitializing {
-        token = IERC5805Upgradeable(address(tokenAddress));
+        GovernorVotesStorage storage $ = _getGovernorVotesStorage();
+        $._token = IERC5805Upgradeable(address(tokenAddress));
+    }
+
+    /**
+     * @dev The token that voting power is sourced from.
+     */
+    function token() public view virtual returns (IERC5805Upgradeable) {
+        GovernorVotesStorage storage $ = _getGovernorVotesStorage();
+        return $._token;
     }
 
     /**
@@ -28,7 +49,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
      * does not implement EIP-6372.
      */
     function clock() public view virtual override returns (uint48) {
-        try token.clock() returns (uint48 timepoint) {
+        try token().clock() returns (uint48 timepoint) {
             return timepoint;
         } catch {
             return SafeCastUpgradeable.toUint48(block.number);
@@ -40,7 +61,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
      */
     // solhint-disable-next-line func-name-mixedcase
     function CLOCK_MODE() public view virtual override returns (string memory) {
-        try token.CLOCK_MODE() returns (string memory clockmode) {
+        try token().CLOCK_MODE() returns (string memory clockmode) {
             return clockmode;
         } catch {
             return "mode=blocknumber&from=default";
@@ -55,13 +76,6 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
         uint256 timepoint,
         bytes memory /*params*/
     ) internal view virtual override returns (uint256) {
-        return token.getPastVotes(account, timepoint);
+        return token().getPastVotes(account, timepoint);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

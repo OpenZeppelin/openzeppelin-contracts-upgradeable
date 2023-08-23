@@ -26,8 +26,20 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         bytes32 descriptionHash;
     }
 
-    uint256[] private _proposalIds;
-    mapping(uint256 proposalId => ProposalDetails) private _proposalDetails;
+    /// @custom:storage-location erc7201:openzeppelin.storage.GovernorStorage
+    struct GovernorStorageStorage {
+        uint256[] _proposalIds;
+        mapping(uint256 proposalId => ProposalDetails) _proposalDetails;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorStorage")) - 1))
+    bytes32 private constant GovernorStorageStorageLocation = 0x7fd223d3380145bd26132714391e777c488a0df7ac2dd4b66419d8549fb3a609;
+
+    function _getGovernorStorageStorage() private pure returns (GovernorStorageStorage storage $) {
+        assembly {
+            $.slot := GovernorStorageStorageLocation
+        }
+    }
 
     /**
      * @dev Hook into the proposing mechanism
@@ -39,11 +51,12 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         string memory description,
         address proposer
     ) internal virtual override returns (uint256) {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         uint256 proposalId = super._propose(targets, values, calldatas, description, proposer);
 
         // store
-        _proposalIds.push(proposalId);
-        _proposalDetails[proposalId] = ProposalDetails({
+        $._proposalIds.push(proposalId);
+        $._proposalDetails[proposalId] = ProposalDetails({
             targets: targets,
             values: values,
             calldatas: calldatas,
@@ -57,8 +70,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      * @dev Version of {IGovernorTimelock-queue} with only `proposalId` as an argument.
      */
     function queue(uint256 proposalId) public virtual {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
-        ProposalDetails storage details = _proposalDetails[proposalId];
+        ProposalDetails storage details = $._proposalDetails[proposalId];
         queue(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -66,8 +80,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      * @dev Version of {IGovernor-execute} with only `proposalId` as an argument.
      */
     function execute(uint256 proposalId) public payable virtual {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
-        ProposalDetails storage details = _proposalDetails[proposalId];
+        ProposalDetails storage details = $._proposalDetails[proposalId];
         execute(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -75,8 +90,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      * @dev ProposalId version of {IGovernor-cancel}.
      */
     function cancel(uint256 proposalId) public virtual {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
-        ProposalDetails storage details = _proposalDetails[proposalId];
+        ProposalDetails storage details = $._proposalDetails[proposalId];
         cancel(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -84,7 +100,8 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      * @dev Returns the number of stored proposals.
      */
     function proposalCount() public view virtual returns (uint256) {
-        return _proposalIds.length;
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
+        return $._proposalIds.length;
     }
 
     /**
@@ -93,8 +110,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
     function proposalDetails(
         uint256 proposalId
     ) public view virtual returns (address[] memory, uint256[] memory, bytes[] memory, bytes32) {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using memory is more efficient than storage
-        ProposalDetails memory details = _proposalDetails[proposalId];
+        ProposalDetails memory details = $._proposalDetails[proposalId];
         if (details.descriptionHash == 0) {
             revert GovernorNonexistentProposal(proposalId);
         }
@@ -107,7 +125,8 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
     function proposalDetailsAt(
         uint256 index
     ) public view virtual returns (uint256, address[] memory, uint256[] memory, bytes[] memory, bytes32) {
-        uint256 proposalId = _proposalIds[index];
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
+        uint256 proposalId = $._proposalIds[index];
         (
             address[] memory targets,
             uint256[] memory values,
@@ -116,11 +135,4 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         ) = proposalDetails(proposalId);
         return (proposalId, targets, values, calldatas, descriptionHash);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

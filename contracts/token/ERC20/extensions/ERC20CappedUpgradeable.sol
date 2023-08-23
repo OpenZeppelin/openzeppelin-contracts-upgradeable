@@ -10,7 +10,19 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
  */
 abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
-    uint256 private _cap;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC20Capped
+    struct ERC20CappedStorage {
+        uint256 _cap;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Capped")) - 1))
+    bytes32 private constant ERC20CappedStorageLocation = 0x0f070392f17d5f958cc1ac31867dabecfc5c9758b4a419a200803226d7155d28;
+
+    function _getERC20CappedStorage() private pure returns (ERC20CappedStorage storage $) {
+        assembly {
+            $.slot := ERC20CappedStorageLocation
+        }
+    }
 
     /**
      * @dev Total supply cap has been exceeded.
@@ -31,17 +43,19 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     function __ERC20Capped_init_unchained(uint256 cap_) internal onlyInitializing {
+        ERC20CappedStorage storage $ = _getERC20CappedStorage();
         if (cap_ == 0) {
             revert ERC20InvalidCap(0);
         }
-        _cap = cap_;
+        $._cap = cap_;
     }
 
     /**
      * @dev Returns the cap on the token's total supply.
      */
     function cap() public view virtual returns (uint256) {
-        return _cap;
+        ERC20CappedStorage storage $ = _getERC20CappedStorage();
+        return $._cap;
     }
 
     /**
@@ -58,11 +72,4 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
             }
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

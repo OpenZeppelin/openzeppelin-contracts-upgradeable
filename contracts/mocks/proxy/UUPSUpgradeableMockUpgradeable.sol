@@ -21,13 +21,6 @@ contract NonUpgradeableMockUpgradeable is Initializable {
     function increment() external {
         ++_counter;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }
 
 contract UUPSUpgradeableMockUpgradeable is Initializable, NonUpgradeableMockUpgradeable, UUPSUpgradeable {
@@ -38,13 +31,6 @@ contract UUPSUpgradeableMockUpgradeable is Initializable, NonUpgradeableMockUpgr
     }
     // Not having any checks in this function is dangerous! Do not do this outside tests!
     function _authorizeUpgrade(address) internal override {}
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
@@ -56,13 +42,6 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable override {
         ERC1967UtilsUpgradeable.upgradeToAndCall(newImplementation, data);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 contract UUPSUnsupportedProxiableUUIDUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
@@ -74,11 +53,4 @@ contract UUPSUnsupportedProxiableUUIDUpgradeable is Initializable, UUPSUpgradeab
     function proxiableUUID() external pure override returns (bytes32) {
         return keccak256("invalid UUID");
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

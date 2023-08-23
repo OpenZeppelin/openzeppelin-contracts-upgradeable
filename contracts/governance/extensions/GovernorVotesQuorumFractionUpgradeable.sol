@@ -15,7 +15,19 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
 
-    CheckpointsUpgradeable.Trace224 private _quorumNumeratorHistory;
+    /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotesQuorumFraction
+    struct GovernorVotesQuorumFractionStorage {
+        CheckpointsUpgradeable.Trace224 _quorumNumeratorHistory;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesQuorumFraction")) - 1))
+    bytes32 private constant GovernorVotesQuorumFractionStorageLocation = 0xe770710421fd2cad75ad828c61aa98f2d77d423a440b67872d0f65554148e0b1;
+
+    function _getGovernorVotesQuorumFractionStorage() private pure returns (GovernorVotesQuorumFractionStorage storage $) {
+        assembly {
+            $.slot := GovernorVotesQuorumFractionStorageLocation
+        }
+    }
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
@@ -43,24 +55,26 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the current quorum numerator. See {quorumDenominator}.
      */
     function quorumNumerator() public view virtual returns (uint256) {
-        return _quorumNumeratorHistory.latest();
+        GovernorVotesQuorumFractionStorage storage $ = _getGovernorVotesQuorumFractionStorage();
+        return $._quorumNumeratorHistory.latest();
     }
 
     /**
      * @dev Returns the quorum numerator at a specific timepoint. See {quorumDenominator}.
      */
     function quorumNumerator(uint256 timepoint) public view virtual returns (uint256) {
+        GovernorVotesQuorumFractionStorage storage $ = _getGovernorVotesQuorumFractionStorage();
         // If history is empty, fallback to old storage
-        uint256 length = _quorumNumeratorHistory._checkpoints.length;
+        uint256 length = $._quorumNumeratorHistory._checkpoints.length;
 
         // Optimistic search, check the latest checkpoint
-        CheckpointsUpgradeable.Checkpoint224 memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
+        CheckpointsUpgradeable.Checkpoint224 memory latest = $._quorumNumeratorHistory._checkpoints[length - 1];
         if (latest._key <= timepoint) {
             return latest._value;
         }
 
         // Otherwise, do the binary search
-        return _quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
+        return $._quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
     }
 
     /**
@@ -74,7 +88,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the quorum for a timepoint, in terms of number of votes: `supply * numerator / denominator`.
      */
     function quorum(uint256 timepoint) public view virtual override returns (uint256) {
-        return (token.getPastTotalSupply(timepoint) * quorumNumerator(timepoint)) / quorumDenominator();
+        return (token().getPastTotalSupply(timepoint) * quorumNumerator(timepoint)) / quorumDenominator();
     }
 
     /**
@@ -101,21 +115,15 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * - New numerator must be smaller or equal to the denominator.
      */
     function _updateQuorumNumerator(uint256 newQuorumNumerator) internal virtual {
+        GovernorVotesQuorumFractionStorage storage $ = _getGovernorVotesQuorumFractionStorage();
         uint256 denominator = quorumDenominator();
         if (newQuorumNumerator > denominator) {
             revert GovernorInvalidQuorumFraction(newQuorumNumerator, denominator);
         }
 
         uint256 oldQuorumNumerator = quorumNumerator();
-        _quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));
+        $._quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

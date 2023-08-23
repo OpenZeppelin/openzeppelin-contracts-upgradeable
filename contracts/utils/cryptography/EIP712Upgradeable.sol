@@ -33,13 +33,25 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
     bytes32 private constant _TYPE_HASH =
         keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
 
-    /// @custom:oz-renamed-from _HASHED_NAME
-    bytes32 private _hashedName;
-    /// @custom:oz-renamed-from _HASHED_VERSION
-    bytes32 private _hashedVersion;
+    /// @custom:storage-location erc7201:openzeppelin.storage.EIP712
+    struct EIP712Storage {
+        /// @custom:oz-renamed-from _HASHED_NAME
+        bytes32 _hashedName;
+        /// @custom:oz-renamed-from _HASHED_VERSION
+        bytes32 _hashedVersion;
 
-    string private _name;
-    string private _version;
+        string _name;
+        string _version;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.EIP712")) - 1))
+    bytes32 private constant EIP712StorageLocation = 0xa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d171;
+
+    function _getEIP712Storage() private pure returns (EIP712Storage storage $) {
+        assembly {
+            $.slot := EIP712StorageLocation
+        }
+    }
 
     /**
      * @dev Initializes the domain separator and parameter caches.
@@ -58,12 +70,13 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
     }
 
     function __EIP712_init_unchained(string memory name, string memory version) internal onlyInitializing {
-        _name = name;
-        _version = version;
+        EIP712Storage storage $ = _getEIP712Storage();
+        $._name = name;
+        $._version = version;
 
         // Reset prior values in storage if upgrading
-        _hashedName = 0;
-        _hashedVersion = 0;
+        $._hashedName = 0;
+        $._hashedVersion = 0;
     }
 
     /**
@@ -113,9 +126,10 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
             uint256[] memory extensions
         )
     {
+        EIP712Storage storage $ = _getEIP712Storage();
         // If the hashed name and version in storage are non-zero, the contract hasn't been properly initialized
         // and the EIP712 domain is not reliable, as it will be missing name and version.
-        require(_hashedName == 0 && _hashedVersion == 0, "EIP712: Uninitialized");
+        require($._hashedName == 0 && $._hashedVersion == 0, "EIP712: Uninitialized");
 
         return (
             hex"0f", // 01111
@@ -135,7 +149,8 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * are a concern.
      */
     function _EIP712Name() internal view virtual returns (string memory) {
-        return _name;
+        EIP712Storage storage $ = _getEIP712Storage();
+        return $._name;
     }
 
     /**
@@ -145,7 +160,8 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * are a concern.
      */
     function _EIP712Version() internal view virtual returns (string memory) {
-        return _version;
+        EIP712Storage storage $ = _getEIP712Storage();
+        return $._version;
     }
 
     /**
@@ -154,13 +170,14 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Name` instead.
      */
     function _EIP712NameHash() internal view returns (bytes32) {
+        EIP712Storage storage $ = _getEIP712Storage();
         string memory name = _EIP712Name();
         if (bytes(name).length > 0) {
             return keccak256(bytes(name));
         } else {
             // If the name is empty, the contract may have been upgraded without initializing the new storage.
             // We return the name hash in storage if non-zero, otherwise we assume the name is empty by design.
-            bytes32 hashedName = _hashedName;
+            bytes32 hashedName = $._hashedName;
             if (hashedName != 0) {
                 return hashedName;
             } else {
@@ -175,13 +192,14 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Version` instead.
      */
     function _EIP712VersionHash() internal view returns (bytes32) {
+        EIP712Storage storage $ = _getEIP712Storage();
         string memory version = _EIP712Version();
         if (bytes(version).length > 0) {
             return keccak256(bytes(version));
         } else {
             // If the version is empty, the contract may have been upgraded without initializing the new storage.
             // We return the version hash in storage if non-zero, otherwise we assume the version is empty by design.
-            bytes32 hashedVersion = _hashedVersion;
+            bytes32 hashedVersion = $._hashedVersion;
             if (hashedVersion != 0) {
                 return hashedVersion;
             } else {
@@ -189,11 +207,4 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
             }
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[46] private __gap;
 }

@@ -37,10 +37,22 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      */
     error VestingWalletInvalidBeneficiary(address beneficiary);
 
-    uint256 private _released;
-    mapping(address token => uint256) private _erc20Released;
-    uint64 private _start;
-    uint64 private _duration;
+    /// @custom:storage-location erc7201:openzeppelin.storage.VestingWallet
+    struct VestingWalletStorage {
+        uint256 _released;
+        mapping(address token => uint256) _erc20Released;
+        uint64 _start;
+        uint64 _duration;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.VestingWallet")) - 1))
+    bytes32 private constant VestingWalletStorageLocation = 0xa1eac494560f7591e4da38ed031587f09556afdfc4399dd2e205b935fdfa390a;
+
+    function _getVestingWalletStorage() private pure returns (VestingWalletStorage storage $) {
+        assembly {
+            $.slot := VestingWalletStorageLocation
+        }
+    }
 
     /**
      * @dev Sets the sender as the initial owner, the beneficiary as the pending owner, the start timestamp and the
@@ -52,12 +64,13 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
     }
 
     function __VestingWallet_init_unchained(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
         if (beneficiary == address(0)) {
             revert VestingWalletInvalidBeneficiary(address(0));
         }
 
-        _start = startTimestamp;
-        _duration = durationSeconds;
+        $._start = startTimestamp;
+        $._duration = durationSeconds;
     }
 
     /**
@@ -69,14 +82,16 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * @dev Getter for the start timestamp.
      */
     function start() public view virtual returns (uint256) {
-        return _start;
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
+        return $._start;
     }
 
     /**
      * @dev Getter for the vesting duration.
      */
     function duration() public view virtual returns (uint256) {
-        return _duration;
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
+        return $._duration;
     }
 
     /**
@@ -90,14 +105,16 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * @dev Amount of eth already released
      */
     function released() public view virtual returns (uint256) {
-        return _released;
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
+        return $._released;
     }
 
     /**
      * @dev Amount of token already released
      */
     function released(address token) public view virtual returns (uint256) {
-        return _erc20Released[token];
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
+        return $._erc20Released[token];
     }
 
     /**
@@ -121,8 +138,9 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * Emits a {EtherReleased} event.
      */
     function release() public virtual {
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
         uint256 amount = releasable();
-        _released += amount;
+        $._released += amount;
         emit EtherReleased(amount);
         AddressUpgradeable.sendValue(payable(owner()), amount);
     }
@@ -133,8 +151,9 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * Emits a {ERC20Released} event.
      */
     function release(address token) public virtual {
+        VestingWalletStorage storage $ = _getVestingWalletStorage();
         uint256 amount = releasable(token);
-        _erc20Released[token] += amount;
+        $._erc20Released[token] += amount;
         emit ERC20Released(token, amount);
         SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), owner(), amount);
     }
@@ -166,11 +185,4 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
             return (totalAllocation * (timestamp - start())) / duration();
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[47] private __gap;
 }

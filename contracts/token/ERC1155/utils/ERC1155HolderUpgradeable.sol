@@ -45,11 +45,4 @@ abstract contract ERC1155HolderUpgradeable is Initializable, ERC165Upgradeable, 
     ) public virtual override returns (bytes4) {
         return this.onERC1155BatchReceived.selector;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

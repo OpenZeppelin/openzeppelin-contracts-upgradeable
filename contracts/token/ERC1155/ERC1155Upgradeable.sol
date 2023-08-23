@@ -21,12 +21,24 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
     using ArraysUpgradeable for uint256[];
     using ArraysUpgradeable for address[];
 
-    mapping(uint256 id => mapping(address account => uint256)) private _balances;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155
+    struct ERC1155Storage {
+        mapping(uint256 id => mapping(address account => uint256)) _balances;
 
-    mapping(address account => mapping(address operator => bool)) private _operatorApprovals;
+        mapping(address account => mapping(address operator => bool)) _operatorApprovals;
 
-    // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
-    string private _uri;
+        // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
+        string _uri;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC1155")) - 1))
+    bytes32 private constant ERC1155StorageLocation = 0x88be536d5240c274a3b1d3a1be54482fd9caa294f08c62a7cde569f49a3c45fc;
+
+    function _getERC1155Storage() private pure returns (ERC1155Storage storage $) {
+        assembly {
+            $.slot := ERC1155StorageLocation
+        }
+    }
 
     /**
      * @dev See {_setURI}.
@@ -60,14 +72,16 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * actual token type ID.
      */
     function uri(uint256 /* id */) public view virtual returns (string memory) {
-        return _uri;
+        ERC1155Storage storage $ = _getERC1155Storage();
+        return $._uri;
     }
 
     /**
      * @dev See {IERC1155-balanceOf}.
      */
     function balanceOf(address account, uint256 id) public view virtual returns (uint256) {
-        return _balances[id][account];
+        ERC1155Storage storage $ = _getERC1155Storage();
+        return $._balances[id][account];
     }
 
     /**
@@ -105,7 +119,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * @dev See {IERC1155-isApprovedForAll}.
      */
     function isApprovedForAll(address account, address operator) public view virtual returns (bool) {
-        return _operatorApprovals[account][operator];
+        ERC1155Storage storage $ = _getERC1155Storage();
+        return $._operatorApprovals[account][operator];
     }
 
     /**
@@ -150,6 +165,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * NOTE: The ERC-1155 acceptance check is not performed in this function. See {_updateWithAcceptanceCheck} instead.
      */
     function _update(address from, address to, uint256[] memory ids, uint256[] memory values) internal virtual {
+        ERC1155Storage storage $ = _getERC1155Storage();
         if (ids.length != values.length) {
             revert ERC1155InvalidArrayLength(ids.length, values.length);
         }
@@ -161,18 +177,18 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
             uint256 value = values.unsafeMemoryAccess(i);
 
             if (from != address(0)) {
-                uint256 fromBalance = _balances[id][from];
+                uint256 fromBalance = $._balances[id][from];
                 if (fromBalance < value) {
                     revert ERC1155InsufficientBalance(from, fromBalance, value, id);
                 }
                 unchecked {
                     // Overflow not possible: value <= fromBalance
-                    _balances[id][from] = fromBalance - value;
+                    $._balances[id][from] = fromBalance - value;
                 }
             }
 
             if (to != address(0)) {
-                _balances[id][to] += value;
+                $._balances[id][to] += value;
             }
         }
 
@@ -284,7 +300,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * this function emits no events.
      */
     function _setURI(string memory newuri) internal virtual {
-        _uri = newuri;
+        ERC1155Storage storage $ = _getERC1155Storage();
+        $._uri = newuri;
     }
 
     /**
@@ -371,10 +388,11 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * - `operator` cannot be the zero address.
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
+        ERC1155Storage storage $ = _getERC1155Storage();
         if (operator == address(0)) {
             revert ERC1155InvalidOperator(address(0));
         }
-        _operatorApprovals[owner][operator] = approved;
+        $._operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }
 
@@ -469,11 +487,4 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
             mstore(0x40, add(array2, 0x40))
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[47] private __gap;
 }

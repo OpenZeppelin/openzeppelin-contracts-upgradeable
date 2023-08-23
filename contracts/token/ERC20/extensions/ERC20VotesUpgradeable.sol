@@ -79,11 +79,4 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20Upgradeable, Vote
     function checkpoints(address account, uint32 pos) public view virtual returns (CheckpointsUpgradeable.Checkpoint224 memory) {
         return _checkpoints(account, pos);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

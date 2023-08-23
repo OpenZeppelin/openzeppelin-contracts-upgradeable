@@ -25,21 +25,35 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
 
     function __ERC1155Supply_init_unchained() internal onlyInitializing {
     }
-    mapping(uint256 id => uint256) private _totalSupply;
-    uint256 private _totalSupplyAll;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155Supply
+    struct ERC1155SupplyStorage {
+        mapping(uint256 id => uint256) _totalSupply;
+        uint256 _totalSupplyAll;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC1155Supply")) - 1))
+    bytes32 private constant ERC1155SupplyStorageLocation = 0x4a593662ee04d27b6a00ebb31be7fe0c102c2ade82a7c5d764f2df05dc4e2851;
+
+    function _getERC1155SupplyStorage() private pure returns (ERC1155SupplyStorage storage $) {
+        assembly {
+            $.slot := ERC1155SupplyStorageLocation
+        }
+    }
 
     /**
      * @dev Total value of tokens in with a given id.
      */
     function totalSupply(uint256 id) public view virtual returns (uint256) {
-        return _totalSupply[id];
+        ERC1155SupplyStorage storage $ = _getERC1155SupplyStorage();
+        return $._totalSupply[id];
     }
 
     /**
      * @dev Total value of tokens.
      */
     function totalSupply() public view virtual returns (uint256) {
-        return _totalSupplyAll;
+        ERC1155SupplyStorage storage $ = _getERC1155SupplyStorage();
+        return $._totalSupplyAll;
     }
 
     /**
@@ -58,6 +72,7 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
         uint256[] memory ids,
         uint256[] memory values
     ) internal virtual override {
+        ERC1155SupplyStorage storage $ = _getERC1155SupplyStorage();
         super._update(from, to, ids, values);
 
         if (from == address(0)) {
@@ -65,11 +80,11 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
             for (uint256 i = 0; i < ids.length; ++i) {
                 uint256 value = values[i];
                 // Overflow check required: The rest of the code assumes that totalSupply never overflows
-                _totalSupply[ids[i]] += value;
+                $._totalSupply[ids[i]] += value;
                 totalMintValue += value;
             }
             // Overflow check required: The rest of the code assumes that totalSupplyAll never overflows
-            _totalSupplyAll += totalMintValue;
+            $._totalSupplyAll += totalMintValue;
         }
 
         if (to == address(0)) {
@@ -79,22 +94,15 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
 
                 unchecked {
                     // Overflow not possible: values[i] <= balanceOf(from, ids[i]) <= totalSupply(ids[i])
-                    _totalSupply[ids[i]] -= value;
+                    $._totalSupply[ids[i]] -= value;
                     // Overflow not possible: sum_i(values[i]) <= sum_i(totalSupply(ids[i])) <= totalSupplyAll
                     totalBurnValue += value;
                 }
             }
             unchecked {
                 // Overflow not possible: totalBurnValue = sum_i(values[i]) <= sum_i(totalSupply(ids[i])) <= totalSupplyAll
-                _totalSupplyAll -= totalBurnValue;
+                $._totalSupplyAll -= totalBurnValue;
             }
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

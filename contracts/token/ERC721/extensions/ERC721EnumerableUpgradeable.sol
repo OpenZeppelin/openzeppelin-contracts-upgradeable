@@ -21,11 +21,23 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
 
     function __ERC721Enumerable_init_unchained() internal onlyInitializing {
     }
-    mapping(address owner => mapping(uint256 index => uint256)) private _ownedTokens;
-    mapping(uint256 tokenId => uint256) private _ownedTokensIndex;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Enumerable
+    struct ERC721EnumerableStorage {
+        mapping(address owner => mapping(uint256 index => uint256)) _ownedTokens;
+        mapping(uint256 tokenId => uint256) _ownedTokensIndex;
 
-    uint256[] private _allTokens;
-    mapping(uint256 tokenId => uint256) private _allTokensIndex;
+        uint256[] _allTokens;
+        mapping(uint256 tokenId => uint256) _allTokensIndex;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Enumerable")) - 1))
+    bytes32 private constant ERC721EnumerableStorageLocation = 0x645e039705490088daad89bae25049a34f4a9072d398537b1ab2425f24cbedfc;
+
+    function _getERC721EnumerableStorage() private pure returns (ERC721EnumerableStorage storage $) {
+        assembly {
+            $.slot := ERC721EnumerableStorageLocation
+        }
+    }
 
     /**
      * @dev An `owner`'s token query was out of bounds for `index`.
@@ -50,27 +62,30 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @dev See {IERC721Enumerable-tokenOfOwnerByIndex}.
      */
     function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual returns (uint256) {
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
         if (index >= balanceOf(owner)) {
             revert ERC721OutOfBoundsIndex(owner, index);
         }
-        return _ownedTokens[owner][index];
+        return $._ownedTokens[owner][index];
     }
 
     /**
      * @dev See {IERC721Enumerable-totalSupply}.
      */
     function totalSupply() public view virtual returns (uint256) {
-        return _allTokens.length;
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
+        return $._allTokens.length;
     }
 
     /**
      * @dev See {IERC721Enumerable-tokenByIndex}.
      */
     function tokenByIndex(uint256 index) public view virtual returns (uint256) {
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
         if (index >= totalSupply()) {
             revert ERC721OutOfBoundsIndex(address(0), index);
         }
-        return _allTokens[index];
+        return $._allTokens[index];
     }
 
     /**
@@ -99,9 +114,10 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
      */
     function _addTokenToOwnerEnumeration(address to, uint256 tokenId) private {
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
         uint256 length = balanceOf(to) - 1;
-        _ownedTokens[to][length] = tokenId;
-        _ownedTokensIndex[tokenId] = length;
+        $._ownedTokens[to][length] = tokenId;
+        $._ownedTokensIndex[tokenId] = length;
     }
 
     /**
@@ -109,8 +125,9 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @param tokenId uint256 ID of the token to be added to the tokens list
      */
     function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
-        _allTokensIndex[tokenId] = _allTokens.length;
-        _allTokens.push(tokenId);
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
+        $._allTokensIndex[tokenId] = $._allTokens.length;
+        $._allTokens.push(tokenId);
     }
 
     /**
@@ -122,23 +139,24 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
     function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
         uint256 lastTokenIndex = balanceOf(from);
-        uint256 tokenIndex = _ownedTokensIndex[tokenId];
+        uint256 tokenIndex = $._ownedTokensIndex[tokenId];
 
         // When the token to delete is the last token, the swap operation is unnecessary
         if (tokenIndex != lastTokenIndex) {
-            uint256 lastTokenId = _ownedTokens[from][lastTokenIndex];
+            uint256 lastTokenId = $._ownedTokens[from][lastTokenIndex];
 
-            _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+            $._ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+            $._ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
         }
 
         // This also deletes the contents at the last position of the array
-        delete _ownedTokensIndex[tokenId];
-        delete _ownedTokens[from][lastTokenIndex];
+        delete $._ownedTokensIndex[tokenId];
+        delete $._ownedTokens[from][lastTokenIndex];
     }
 
     /**
@@ -147,23 +165,24 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      * @param tokenId uint256 ID of the token to be removed from the tokens list
      */
     function _removeTokenFromAllTokensEnumeration(uint256 tokenId) private {
+        ERC721EnumerableStorage storage $ = _getERC721EnumerableStorage();
         // To prevent a gap in the tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
-        uint256 lastTokenIndex = _allTokens.length - 1;
-        uint256 tokenIndex = _allTokensIndex[tokenId];
+        uint256 lastTokenIndex = $._allTokens.length - 1;
+        uint256 tokenIndex = $._allTokensIndex[tokenId];
 
         // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
         // rarely (when the last minted token is burnt) that we still do the swap here to avoid the gas cost of adding
         // an 'if' statement (like in _removeTokenFromOwnerEnumeration)
-        uint256 lastTokenId = _allTokens[lastTokenIndex];
+        uint256 lastTokenId = $._allTokens[lastTokenIndex];
 
-        _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+        $._allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+        $._allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
 
         // This also deletes the contents at the last position of the array
-        delete _allTokensIndex[tokenId];
-        _allTokens.pop();
+        delete $._allTokensIndex[tokenId];
+        $._allTokens.pop();
     }
 
     /**
@@ -175,11 +194,4 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
         }
         super._increaseBalance(account, amount);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[46] private __gap;
 }

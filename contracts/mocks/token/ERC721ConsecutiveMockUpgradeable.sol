@@ -67,13 +67,6 @@ contract ERC721ConsecutiveMockUpgradeable is Initializable, ERC721ConsecutiveUpg
     function _increaseBalance(address account, uint128 amount) internal virtual override(ERC721Upgradeable, ERC721VotesUpgradeable) {
         super._increaseBalance(account, amount);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }
 
 contract ERC721ConsecutiveNoConstructorMintMockUpgradeable is Initializable, ERC721ConsecutiveUpgradeable {
@@ -85,11 +78,4 @@ contract ERC721ConsecutiveNoConstructorMintMockUpgradeable is Initializable, ERC
     function __ERC721ConsecutiveNoConstructorMintMock_init_unchained(string memory, string memory) internal onlyInitializing {
         _mint(msg.sender, 0);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
