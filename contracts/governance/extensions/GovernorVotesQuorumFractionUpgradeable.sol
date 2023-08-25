@@ -54,9 +54,11 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         uint256 length = _quorumNumeratorHistory._checkpoints.length;
 
         // Optimistic search, check the latest checkpoint
-        CheckpointsUpgradeable.Checkpoint224 memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
-        if (latest._key <= timepoint) {
-            return latest._value;
+        CheckpointsUpgradeable.Checkpoint224 storage latest = _quorumNumeratorHistory._checkpoints[length - 1];
+        uint32 latestKey = latest._key;
+        uint224 latestValue = latest._value;
+        if (latestKey <= timepoint) {
+            return latestValue;
         }
 
         // Otherwise, do the binary search
