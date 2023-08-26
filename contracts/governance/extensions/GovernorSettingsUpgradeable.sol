@@ -20,8 +20,8 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
         uint32 _votingPeriod;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorSettings")) - 1))
-    bytes32 private constant GovernorSettingsStorageLocation = 0x00d7616c8fe29c6c2fbe1d0c5bc8f2faa4c35b43746e70b24b4d532752affda8;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorSettings")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorSettingsStorageLocation = 0x00d7616c8fe29c6c2fbe1d0c5bc8f2faa4c35b43746e70b24b4d532752affd00;
 
     function _getGovernorSettingsStorage() private pure returns (GovernorSettingsStorage storage $) {
         assembly {

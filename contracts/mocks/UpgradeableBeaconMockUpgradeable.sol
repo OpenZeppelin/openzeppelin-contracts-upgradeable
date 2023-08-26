@@ -22,13 +22,13 @@ interface IProxyExposedUpgradeable {
 }
 
 contract UpgradeableBeaconReentrantMockUpgradeable is Initializable, IBeaconUpgradeable {
+    error BeaconProxyBeaconSlotAddress(address beacon);
+
     function __UpgradeableBeaconReentrantMock_init() internal onlyInitializing {
     }
 
     function __UpgradeableBeaconReentrantMock_init_unchained() internal onlyInitializing {
     }
-    error BeaconProxyBeaconSlotAddress(address beacon);
-
     function implementation() external view override returns (address) {
         // Revert with the beacon seen in the proxy at the moment of calling to check if it's
         // set before the call.

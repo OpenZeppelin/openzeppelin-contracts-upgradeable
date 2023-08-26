@@ -22,16 +22,16 @@ import "../../../proxy/utils/Initializable.sol";
  * requires users to delegate to themselves in order to activate checkpoints and have their voting power tracked.
  */
 abstract contract ERC20VotesUpgradeable is Initializable, ERC20Upgradeable, VotesUpgradeable {
-    function __ERC20Votes_init() internal onlyInitializing {
-    }
-
-    function __ERC20Votes_init_unchained() internal onlyInitializing {
-    }
     /**
      * @dev Total supply cap has been exceeded, introducing a risk of votes overflowing.
      */
     error ERC20ExceededSafeSupply(uint256 increasedSupply, uint256 cap);
 
+    function __ERC20Votes_init() internal onlyInitializing {
+    }
+
+    function __ERC20Votes_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Maximum token supply. Defaults to `type(uint224).max` (2^224^ - 1).
      */

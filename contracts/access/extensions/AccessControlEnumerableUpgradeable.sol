@@ -12,11 +12,6 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
  */
 abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerableUpgradeable, AccessControlUpgradeable {
-    function __AccessControlEnumerable_init() internal onlyInitializing {
-    }
-
-    function __AccessControlEnumerable_init_unchained() internal onlyInitializing {
-    }
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlEnumerable
@@ -24,8 +19,8 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
         mapping(bytes32 role => EnumerableSetUpgradeable.AddressSet) _roleMembers;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlEnumerable")) - 1))
-    bytes32 private constant AccessControlEnumerableStorageLocation = 0xc1f6fe24621ce81ec5827caf0253cadb74709b061630e6b55e82371705932071;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlEnumerable")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant AccessControlEnumerableStorageLocation = 0xc1f6fe24621ce81ec5827caf0253cadb74709b061630e6b55e82371705932000;
 
     function _getAccessControlEnumerableStorage() private pure returns (AccessControlEnumerableStorage storage $) {
         assembly {
@@ -33,6 +28,11 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
         }
     }
 
+    function __AccessControlEnumerable_init() internal onlyInitializing {
+    }
+
+    function __AccessControlEnumerable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

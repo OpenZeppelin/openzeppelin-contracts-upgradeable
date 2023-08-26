@@ -7,13 +7,13 @@ import { ERC1967UtilsUpgradeable } from "../../proxy/ERC1967/ERC1967UtilsUpgrade
 import "../../proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
+    uint256 internal _counter;
+
     function __NonUpgradeableMock_init() internal onlyInitializing {
     }
 
     function __NonUpgradeableMock_init_unchained() internal onlyInitializing {
     }
-    uint256 internal _counter;
-
     function current() external view returns (uint256) {
         return _counter;
     }

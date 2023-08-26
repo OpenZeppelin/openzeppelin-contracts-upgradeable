@@ -14,11 +14,6 @@ import "../../proxy/utils/Initializable.sol";
  * - Using only the proposalId as an argument in the {Governor-queue} and {Governor-execute} functions for L2 chains where storage is cheap compared to calldata.
  */
 abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorStorage_init() internal onlyInitializing {
-    }
-
-    function __GovernorStorage_init_unchained() internal onlyInitializing {
-    }
     struct ProposalDetails {
         address[] targets;
         uint256[] values;
@@ -32,8 +27,8 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         mapping(uint256 proposalId => ProposalDetails) _proposalDetails;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorStorage")) - 1))
-    bytes32 private constant GovernorStorageStorageLocation = 0x7fd223d3380145bd26132714391e777c488a0df7ac2dd4b66419d8549fb3a609;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorStorage")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorStorageStorageLocation = 0x7fd223d3380145bd26132714391e777c488a0df7ac2dd4b66419d8549fb3a600;
 
     function _getGovernorStorageStorage() private pure returns (GovernorStorageStorage storage $) {
         assembly {
@@ -41,6 +36,11 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         }
     }
 
+    function __GovernorStorage_init() internal onlyInitializing {
+    }
+
+    function __GovernorStorage_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Hook into the proposing mechanism
      */

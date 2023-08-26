@@ -13,11 +13,6 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev ERC721 token with storage based token URI management.
  */
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, ERC721Upgradeable {
-    function __ERC721URIStorage_init() internal onlyInitializing {
-    }
-
-    function __ERC721URIStorage_init_unchained() internal onlyInitializing {
-    }
     using StringsUpgradeable for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721URIStorage
@@ -26,8 +21,8 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
         mapping(uint256 tokenId => string) _tokenURIs;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721URIStorage")) - 1))
-    bytes32 private constant ERC721URIStorageStorageLocation = 0x0542a41881ee128a365a727b282c86fa859579490b9bb45aab8503648c8e79ee;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721URIStorage")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC721URIStorageStorageLocation = 0x0542a41881ee128a365a727b282c86fa859579490b9bb45aab8503648c8e7900;
 
     function _getERC721URIStorageStorage() private pure returns (ERC721URIStorageStorage storage $) {
         assembly {
@@ -35,6 +30,11 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
         }
     }
 
+    function __ERC721URIStorage_init() internal onlyInitializing {
+    }
+
+    function __ERC721URIStorage_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}
      */

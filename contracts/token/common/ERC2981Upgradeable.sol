@@ -21,11 +21,6 @@ import "../../proxy/utils/Initializable.sol";
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
-    function __ERC2981_init() internal onlyInitializing {
-    }
-
-    function __ERC2981_init_unchained() internal onlyInitializing {
-    }
     struct RoyaltyInfo {
         address receiver;
         uint96 royaltyFraction;
@@ -37,8 +32,8 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
         mapping(uint256 tokenId => RoyaltyInfo) _tokenRoyaltyInfo;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC2981")) - 1))
-    bytes32 private constant ERC2981StorageLocation = 0xdaedc9ab023613a7caf35e703657e986ccfad7e3eb0af93a2853f8d65dd86b82;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC2981")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC2981StorageLocation = 0xdaedc9ab023613a7caf35e703657e986ccfad7e3eb0af93a2853f8d65dd86b00;
 
     function _getERC2981Storage() private pure returns (ERC2981Storage storage $) {
         assembly {
@@ -66,6 +61,11 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      */
     error ERC2981InvalidTokenRoyaltyReceiver(uint256 tokenId, address receiver);
 
+    function __ERC2981_init() internal onlyInitializing {
+    }
+
+    function __ERC2981_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

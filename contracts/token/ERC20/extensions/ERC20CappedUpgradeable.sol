@@ -15,8 +15,8 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
         uint256 _cap;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Capped")) - 1))
-    bytes32 private constant ERC20CappedStorageLocation = 0x0f070392f17d5f958cc1ac31867dabecfc5c9758b4a419a200803226d7155d28;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Capped")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC20CappedStorageLocation = 0x0f070392f17d5f958cc1ac31867dabecfc5c9758b4a419a200803226d7155d00;
 
     function _getERC20CappedStorage() private pure returns (ERC20CappedStorage storage $) {
         assembly {

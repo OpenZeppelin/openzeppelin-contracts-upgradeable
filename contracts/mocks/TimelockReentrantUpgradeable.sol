@@ -5,15 +5,15 @@ import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract TimelockReentrantUpgradeable is Initializable {
+    address private _reenterTarget;
+    bytes private _reenterData;
+    bool _reentered;
+
     function __TimelockReentrant_init() internal onlyInitializing {
     }
 
     function __TimelockReentrant_init_unchained() internal onlyInitializing {
     }
-    address private _reenterTarget;
-    bytes private _reenterData;
-    bool _reentered;
-
     function disableReentrancy() external {
         _reentered = true;
     }

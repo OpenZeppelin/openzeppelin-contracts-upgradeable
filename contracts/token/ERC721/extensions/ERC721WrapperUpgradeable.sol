@@ -20,8 +20,8 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
         IERC721Upgradeable _underlying;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Wrapper")) - 1))
-    bytes32 private constant ERC721WrapperStorageLocation = 0xa27ade666fc2e768f0cfbad659dfd6a7039cae52f9274d2ab808f70dce3644a8;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Wrapper")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC721WrapperStorageLocation = 0xa27ade666fc2e768f0cfbad659dfd6a7039cae52f9274d2ab808f70dce364400;
 
     function _getERC721WrapperStorage() private pure returns (ERC721WrapperStorage storage $) {
         assembly {

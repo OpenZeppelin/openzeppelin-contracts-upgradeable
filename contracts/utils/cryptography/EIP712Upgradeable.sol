@@ -44,8 +44,8 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
         string _version;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.EIP712")) - 1))
-    bytes32 private constant EIP712StorageLocation = 0xa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d171;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.EIP712")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant EIP712StorageLocation = 0xa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d100;
 
     function _getEIP712Storage() private pure returns (EIP712Storage storage $) {
         assembly {

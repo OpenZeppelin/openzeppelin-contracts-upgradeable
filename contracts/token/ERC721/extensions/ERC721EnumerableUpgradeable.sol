@@ -16,11 +16,6 @@ import "../../../proxy/utils/Initializable.sol";
  * interfere with enumerability and should not be used together with `ERC721Enumerable`.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721EnumerableUpgradeable {
-    function __ERC721Enumerable_init() internal onlyInitializing {
-    }
-
-    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
-    }
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Enumerable
     struct ERC721EnumerableStorage {
         mapping(address owner => mapping(uint256 index => uint256)) _ownedTokens;
@@ -30,8 +25,8 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
         mapping(uint256 tokenId => uint256) _allTokensIndex;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Enumerable")) - 1))
-    bytes32 private constant ERC721EnumerableStorageLocation = 0x645e039705490088daad89bae25049a34f4a9072d398537b1ab2425f24cbedfc;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Enumerable")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC721EnumerableStorageLocation = 0x645e039705490088daad89bae25049a34f4a9072d398537b1ab2425f24cbed00;
 
     function _getERC721EnumerableStorage() private pure returns (ERC721EnumerableStorage storage $) {
         assembly {
@@ -51,6 +46,11 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      */
     error ERC721EnumerableForbiddenBatchMint();
 
+    function __ERC721Enumerable_init() internal onlyInitializing {
+    }
+
+    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

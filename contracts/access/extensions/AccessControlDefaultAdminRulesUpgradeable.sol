@@ -52,8 +52,8 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         uint48 _pendingDelaySchedule; // 0 == unset
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlDefaultAdminRules")) - 1))
-    bytes32 private constant AccessControlDefaultAdminRulesStorageLocation = 0xeef3dac4538c82c8ace4063ab0acd2d15cdb5883aa1dff7c2673abb3d86984d8;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlDefaultAdminRules")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant AccessControlDefaultAdminRulesStorageLocation = 0xeef3dac4538c82c8ace4063ab0acd2d15cdb5883aa1dff7c2673abb3d8698400;
 
     function _getAccessControlDefaultAdminRulesStorage() private pure returns (AccessControlDefaultAdminRulesStorage storage $) {
         assembly {

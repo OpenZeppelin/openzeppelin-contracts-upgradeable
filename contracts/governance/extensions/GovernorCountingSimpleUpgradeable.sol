@@ -10,11 +10,6 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Extension of {Governor} for simple, 3 options, vote counting.
  */
 abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorCountingSimple_init() internal onlyInitializing {
-    }
-
-    function __GovernorCountingSimple_init_unchained() internal onlyInitializing {
-    }
     /**
      * @dev Supported vote types. Matches Governor Bravo ordering.
      */
@@ -36,8 +31,8 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
         mapping(uint256 proposalId => ProposalVote) _proposalVotes;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorCountingSimple")) - 1))
-    bytes32 private constant GovernorCountingSimpleStorageLocation = 0xa1cefa0f43667ef127a258e673c94202a79b656e62899531c4376d87a7f39818;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorCountingSimple")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorCountingSimpleStorageLocation = 0xa1cefa0f43667ef127a258e673c94202a79b656e62899531c4376d87a7f39800;
 
     function _getGovernorCountingSimpleStorage() private pure returns (GovernorCountingSimpleStorage storage $) {
         assembly {
@@ -45,6 +40,11 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
         }
     }
 
+    function __GovernorCountingSimple_init() internal onlyInitializing {
+    }
+
+    function __GovernorCountingSimple_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IGovernor-COUNTING_MODE}.
      */

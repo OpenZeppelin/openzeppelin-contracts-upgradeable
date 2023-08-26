@@ -18,18 +18,13 @@ import "../proxy/utils/Initializable.sol";
  * from parent (Ownable).
  */
 abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
-    function __Ownable2Step_init() internal onlyInitializing {
-    }
-
-    function __Ownable2Step_init_unchained() internal onlyInitializing {
-    }
     /// @custom:storage-location erc7201:openzeppelin.storage.Ownable2Step
     struct Ownable2StepStorage {
         address _pendingOwner;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Ownable2Step")) - 1))
-    bytes32 private constant Ownable2StepStorageLocation = 0x237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c4d;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Ownable2Step")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant Ownable2StepStorageLocation = 0x237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c00;
 
     function _getOwnable2StepStorage() private pure returns (Ownable2StepStorage storage $) {
         assembly {
@@ -39,6 +34,11 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
 
     event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
 
+    function __Ownable2Step_init() internal onlyInitializing {
+    }
+
+    function __Ownable2Step_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns the address of the pending owner.
      */

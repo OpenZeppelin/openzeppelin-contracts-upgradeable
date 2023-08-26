@@ -34,8 +34,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         uint256 _minDelay;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TimelockController")) - 1))
-    bytes32 private constant TimelockControllerStorageLocation = 0x9a37c2aa9d186a0969ff8a8267bf4e07e864c2f2768f5040949e28a624fb3674;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TimelockController")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant TimelockControllerStorageLocation = 0x9a37c2aa9d186a0969ff8a8267bf4e07e864c2f2768f5040949e28a624fb3600;
 
     function _getTimelockControllerStorage() private pure returns (TimelockControllerStorage storage $) {
         assembly {

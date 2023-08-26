@@ -29,11 +29,6 @@ import "../../../proxy/utils/Initializable.sol";
  * super call before your custom logic.
  */
 abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgradeable, ERC721Upgradeable {
-    function __ERC721Consecutive_init() internal onlyInitializing {
-    }
-
-    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
-    }
     using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
 
@@ -43,8 +38,8 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
         BitMapsUpgradeable.BitMap _sequentialBurn;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Consecutive")) - 1))
-    bytes32 private constant ERC721ConsecutiveStorageLocation = 0x24de1071a22e1e6f709b09cc0dadb696f919b85b456665cd36195df4bc89ffe3;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Consecutive")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC721ConsecutiveStorageLocation = 0x24de1071a22e1e6f709b09cc0dadb696f919b85b456665cd36195df4bc89ff00;
 
     function _getERC721ConsecutiveStorage() private pure returns (ERC721ConsecutiveStorage storage $) {
         assembly {
@@ -74,6 +69,11 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      */
     error ERC721ForbiddenBatchBurn();
 
+    function __ERC721Consecutive_init() internal onlyInitializing {
+    }
+
+    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Maximum size of a batch of consecutive tokens. This is designed to limit stress on off-chain indexing
      * services that have to record one entry per token, and have protections against "unreasonably large" batches of

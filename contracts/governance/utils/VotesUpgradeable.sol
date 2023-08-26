@@ -30,11 +30,6 @@ import "../../proxy/utils/Initializable.sol";
  * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
  */
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805Upgradeable {
-    function __Votes_init() internal onlyInitializing {
-    }
-
-    function __Votes_init_unchained() internal onlyInitializing {
-    }
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
 
     bytes32 private constant _DELEGATION_TYPEHASH =
@@ -49,8 +44,8 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         CheckpointsUpgradeable.Trace224 _totalCheckpoints;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Votes")) - 1))
-    bytes32 private constant VotesStorageLocation = 0xe8b26c30fad74198956032a3533d903385d56dd795af560196f9c78d4af40deb;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Votes")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant VotesStorageLocation = 0xe8b26c30fad74198956032a3533d903385d56dd795af560196f9c78d4af40d00;
 
     function _getVotesStorage() private pure returns (VotesStorage storage $) {
         assembly {
@@ -68,6 +63,11 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     error ERC5805FutureLookup(uint256 timepoint, uint48 clock);
 
+    function __Votes_init() internal onlyInitializing {
+    }
+
+    function __Votes_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.

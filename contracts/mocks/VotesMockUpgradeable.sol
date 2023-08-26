@@ -6,13 +6,13 @@ import { VotesUpgradeable } from "../governance/utils/VotesUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 abstract contract VotesMockUpgradeable is Initializable, VotesUpgradeable {
+    mapping(address voter => uint256) private _votingUnits;
+
     function __VotesMock_init() internal onlyInitializing {
     }
 
     function __VotesMock_init_unchained() internal onlyInitializing {
     }
-    mapping(address voter => uint256) private _votingUnits;
-
     function getTotalSupply() public view returns (uint256) {
         return _getTotalSupply();
     }

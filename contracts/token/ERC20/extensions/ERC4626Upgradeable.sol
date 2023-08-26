@@ -55,8 +55,8 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         uint8 _underlyingDecimals;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC4626")) - 1))
-    bytes32 private constant ERC4626StorageLocation = 0x0773e532dfede91f04b12a73d3d2acd361424f41f76b4fb79f090161e36b4eec;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC4626")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC4626StorageLocation = 0x0773e532dfede91f04b12a73d3d2acd361424f41f76b4fb79f090161e36b4e00;
 
     function _getERC4626Storage() private pure returns (ERC4626Storage storage $) {
         assembly {

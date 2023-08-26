@@ -58,8 +58,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         DoubleEndedQueueUpgradeable.Bytes32Deque _governanceCall;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Governor")) - 1))
-    bytes32 private constant GovernorStorageLocation = 0x7c712897014dbe49c045ef1299aa2d5f9e67e48eea4403efa21f1e0f3ac0cbf6;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Governor")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorStorageLocation = 0x7c712897014dbe49c045ef1299aa2d5f9e67e48eea4403efa21f1e0f3ac0cb00;
 
     function _getGovernorStorage() private pure returns (GovernorStorage storage $) {
         assembly {

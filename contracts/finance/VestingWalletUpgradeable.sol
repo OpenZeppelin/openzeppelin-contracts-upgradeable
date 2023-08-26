@@ -45,8 +45,8 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         uint64 _duration;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.VestingWallet")) - 1))
-    bytes32 private constant VestingWalletStorageLocation = 0xa1eac494560f7591e4da38ed031587f09556afdfc4399dd2e205b935fdfa390a;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.VestingWallet")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant VestingWalletStorageLocation = 0xa1eac494560f7591e4da38ed031587f09556afdfc4399dd2e205b935fdfa3900;
 
     function _getVestingWalletStorage() private pure returns (VestingWalletStorage storage $) {
         assembly {

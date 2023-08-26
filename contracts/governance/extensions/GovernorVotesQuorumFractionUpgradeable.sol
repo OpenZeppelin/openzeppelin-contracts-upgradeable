@@ -20,8 +20,8 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         CheckpointsUpgradeable.Trace224 _quorumNumeratorHistory;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesQuorumFraction")) - 1))
-    bytes32 private constant GovernorVotesQuorumFractionStorageLocation = 0xe770710421fd2cad75ad828c61aa98f2d77d423a440b67872d0f65554148e0b1;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesQuorumFraction")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorVotesQuorumFractionStorageLocation = 0xe770710421fd2cad75ad828c61aa98f2d77d423a440b67872d0f65554148e000;
 
     function _getGovernorVotesQuorumFractionStorage() private pure returns (GovernorVotesQuorumFractionStorage storage $) {
         assembly {

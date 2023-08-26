@@ -12,14 +12,6 @@ import "../../../proxy/utils/Initializable.sol";
  * Inspired by the ERC721URIStorage extension
  */
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
-    function __ERC1155URIStorage_init() internal onlyInitializing {
-        __ERC1155URIStorage_init_unchained();
-    }
-
-    function __ERC1155URIStorage_init_unchained() internal onlyInitializing {
-        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
-        $._baseURI = "";
-    }
     using StringsUpgradeable for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155URIStorage
@@ -31,8 +23,8 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
         mapping(uint256 tokenId => string) _tokenURIs;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC1155URIStorage")) - 1))
-    bytes32 private constant ERC1155URIStorageStorageLocation = 0x89fc852226e759c7c636cf34d732f0198fc56a54876b2374a52beb7b0c5586eb;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC1155URIStorage")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC1155URIStorageStorageLocation = 0x89fc852226e759c7c636cf34d732f0198fc56a54876b2374a52beb7b0c558600;
 
     function _getERC1155URIStorageStorage() private pure returns (ERC1155URIStorageStorage storage $) {
         assembly {
@@ -40,6 +32,14 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
         }
     }
 
+    function __ERC1155URIStorage_init() internal onlyInitializing {
+        __ERC1155URIStorage_init_unchained();
+    }
+
+    function __ERC1155URIStorage_init_unchained() internal onlyInitializing {
+        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
+        $._baseURI = "";
+    }
     /**
      * @dev See {IERC1155MetadataURI-uri}.
      *

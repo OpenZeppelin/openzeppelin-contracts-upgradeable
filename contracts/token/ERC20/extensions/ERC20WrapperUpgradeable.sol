@@ -20,8 +20,8 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
         IERC20Upgradeable _underlying;
     }
 
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Wrapper")) - 1))
-    bytes32 private constant ERC20WrapperStorageLocation = 0x3b5a617e0d4c238430871a64fe18212794b0c8d05a4eac064a8c9039fb5e07e8;
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Wrapper")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC20WrapperStorageLocation = 0x3b5a617e0d4c238430871a64fe18212794b0c8d05a4eac064a8c9039fb5e0700;
 
     function _getERC20WrapperStorage() private pure returns (ERC20WrapperStorage storage $) {
         assembly {

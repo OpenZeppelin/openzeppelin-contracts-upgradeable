@@ -6,13 +6,13 @@ import { ERC721URIStorageUpgradeable } from "../../token/ERC721/extensions/ERC72
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC721URIStorageMockUpgradeable is Initializable, ERC721URIStorageUpgradeable {
+    string private _baseTokenURI;
+
     function __ERC721URIStorageMock_init() internal onlyInitializing {
     }
 
     function __ERC721URIStorageMock_init_unchained() internal onlyInitializing {
     }
-    string private _baseTokenURI;
-
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
     }
