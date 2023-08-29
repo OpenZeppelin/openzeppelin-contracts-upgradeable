@@ -18,11 +18,6 @@ import "./Initializable.sol";
  * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
  */
 abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable {
-    function __UUPSUpgradeable_init() internal onlyInitializing {
-    }
-
-    function __UUPSUpgradeable_init_unchained() internal onlyInitializing {
-    }
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     address private immutable __self = address(this);
 
@@ -67,6 +62,11 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
         _;
     }
 
+    function __UUPSUpgradeable_init() internal onlyInitializing {
+    }
+
+    function __UUPSUpgradeable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the
      * implementation. It is used to validate the implementation's compatibility when performing an upgrade.

@@ -4,13 +4,13 @@ pragma solidity ^0.8.20;
 import "../proxy/utils/Initializable.sol";
 
 contract EtherReceiverMockUpgradeable is Initializable {
+    bool private _acceptEther;
+
     function __EtherReceiverMock_init() internal onlyInitializing {
     }
 
     function __EtherReceiverMock_init_unchained() internal onlyInitializing {
     }
-    bool private _acceptEther;
-
     function setAcceptEther(bool acceptEther) public {
         _acceptEther = acceptEther;
     }

@@ -29,11 +29,6 @@ import "../../../proxy/utils/Initializable.sol";
  * super call before your custom logic.
  */
 abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgradeable, ERC721Upgradeable {
-    function __ERC721Consecutive_init() internal onlyInitializing {
-    }
-
-    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
-    }
     using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
 
@@ -62,6 +57,11 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgrade
      */
     error ERC721ForbiddenBatchBurn();
 
+    function __ERC721Consecutive_init() internal onlyInitializing {
+    }
+
+    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Maximum size of a batch of consecutive tokens. This is designed to limit stress on off-chain indexing
      * services that have to record one entry per token, and have protections against "unreasonably large" batches of

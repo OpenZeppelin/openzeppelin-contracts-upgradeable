@@ -12,13 +12,6 @@ import "../../../proxy/utils/Initializable.sol";
  * Inspired by the ERC721URIStorage extension
  */
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
-    function __ERC1155URIStorage_init() internal onlyInitializing {
-        __ERC1155URIStorage_init_unchained();
-    }
-
-    function __ERC1155URIStorage_init_unchained() internal onlyInitializing {
-        _baseURI = "";
-    }
     using StringsUpgradeable for uint256;
 
     // Optional base URI
@@ -27,6 +20,13 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
     // Optional mapping for token URIs
     mapping(uint256 tokenId => string) private _tokenURIs;
 
+    function __ERC1155URIStorage_init() internal onlyInitializing {
+        __ERC1155URIStorage_init_unchained();
+    }
+
+    function __ERC1155URIStorage_init_unchained() internal onlyInitializing {
+        _baseURI = "";
+    }
     /**
      * @dev See {IERC1155MetadataURI-uri}.
      *

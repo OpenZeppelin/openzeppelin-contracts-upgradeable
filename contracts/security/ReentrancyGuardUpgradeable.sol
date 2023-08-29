@@ -32,8 +32,8 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     // amount. Since refunds are capped to a percentage of the total
     // transaction's gas, it is best to keep them low in cases like this one, to
     // increase the likelihood of the full refund coming into effect.
-    uint256 private constant _NOT_ENTERED = 1;
-    uint256 private constant _ENTERED = 2;
+    uint256 private constant NOT_ENTERED = 1;
+    uint256 private constant ENTERED = 2;
 
     uint256 private _status;
 
@@ -47,7 +47,7 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     }
 
     function __ReentrancyGuard_init_unchained() internal onlyInitializing {
-        _status = _NOT_ENTERED;
+        _status = NOT_ENTERED;
     }
 
     /**
@@ -64,19 +64,19 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     }
 
     function _nonReentrantBefore() private {
-        // On the first call to nonReentrant, _status will be _NOT_ENTERED
-        if (_status == _ENTERED) {
+        // On the first call to nonReentrant, _status will be NOT_ENTERED
+        if (_status == ENTERED) {
             revert ReentrancyGuardReentrantCall();
         }
 
         // Any calls to nonReentrant after this point will fail
-        _status = _ENTERED;
+        _status = ENTERED;
     }
 
     function _nonReentrantAfter() private {
         // By storing the original value once again, a refund is triggered (see
         // https://eips.ethereum.org/EIPS/eip-2200)
-        _status = _NOT_ENTERED;
+        _status = NOT_ENTERED;
     }
 
     /**
@@ -84,7 +84,7 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
      * `nonReentrant` function in the call stack.
      */
     function _reentrancyGuardEntered() internal view returns (bool) {
-        return _status == _ENTERED;
+        return _status == ENTERED;
     }
 
     /**

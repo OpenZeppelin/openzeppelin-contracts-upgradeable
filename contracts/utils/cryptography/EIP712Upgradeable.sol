@@ -30,7 +30,7 @@ import "../../proxy/utils/Initializable.sol";
  * separator from the immutable values, which is cheaper than accessing a cached version in cold storage.
  */
 abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
-    bytes32 private constant _TYPE_HASH =
+    bytes32 private constant TYPE_HASH =
         keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
 
     /// @custom:oz-renamed-from _HASHED_NAME
@@ -74,7 +74,7 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
     }
 
     function _buildDomainSeparator() private view returns (bytes32) {
-        return keccak256(abi.encode(_TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash(), block.chainid, address(this)));
+        return keccak256(abi.encode(TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash(), block.chainid, address(this)));
     }
 
     /**

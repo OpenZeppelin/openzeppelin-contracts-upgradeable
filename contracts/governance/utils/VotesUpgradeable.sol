@@ -30,14 +30,9 @@ import "../../proxy/utils/Initializable.sol";
  * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
  */
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805Upgradeable {
-    function __Votes_init() internal onlyInitializing {
-    }
-
-    function __Votes_init_unchained() internal onlyInitializing {
-    }
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
 
-    bytes32 private constant _DELEGATION_TYPEHASH =
+    bytes32 private constant DELEGATION_TYPEHASH =
         keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
 
     mapping(address account => address) private _delegatee;
@@ -56,6 +51,11 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     error ERC5805FutureLookup(uint256 timepoint, uint48 clock);
 
+    function __Votes_init() internal onlyInitializing {
+    }
+
+    function __Votes_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.
@@ -156,7 +156,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
             revert VotesExpiredSignature(expiry);
         }
         address signer = ECDSAUpgradeable.recover(
-            _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
+            _hashTypedDataV4(keccak256(abi.encode(DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
             v,
             r,
             s

@@ -18,15 +18,15 @@ import "../proxy/utils/Initializable.sol";
  * from parent (Ownable).
  */
 abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
+    address private _pendingOwner;
+
+    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
+
     function __Ownable2Step_init() internal onlyInitializing {
     }
 
     function __Ownable2Step_init_unchained() internal onlyInitializing {
     }
-    address private _pendingOwner;
-
-    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
-
     /**
      * @dev Returns the address of the pending owner.
      */

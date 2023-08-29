@@ -6,11 +6,6 @@ import "../proxy/utils/Initializable.sol";
  * @dev Provides tracking nonces for addresses. Nonces will only increment.
  */
 abstract contract NoncesUpgradeable is Initializable {
-    function __Nonces_init() internal onlyInitializing {
-    }
-
-    function __Nonces_init_unchained() internal onlyInitializing {
-    }
     /**
      * @dev The nonce used for an `account` is not the expected current nonce.
      */
@@ -18,6 +13,11 @@ abstract contract NoncesUpgradeable is Initializable {
 
     mapping(address account => uint256) private _nonces;
 
+    function __Nonces_init() internal onlyInitializing {
+    }
+
+    function __Nonces_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns an the next unused nonce for an address.
      */

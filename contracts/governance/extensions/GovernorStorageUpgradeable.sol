@@ -14,11 +14,6 @@ import "../../proxy/utils/Initializable.sol";
  * - Using only the proposalId as an argument in the {Governor-queue} and {Governor-execute} functions for L2 chains where storage is cheap compared to calldata.
  */
 abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorStorage_init() internal onlyInitializing {
-    }
-
-    function __GovernorStorage_init_unchained() internal onlyInitializing {
-    }
     struct ProposalDetails {
         address[] targets;
         uint256[] values;
@@ -29,6 +24,11 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
     uint256[] private _proposalIds;
     mapping(uint256 proposalId => ProposalDetails) private _proposalDetails;
 
+    function __GovernorStorage_init() internal onlyInitializing {
+    }
+
+    function __GovernorStorage_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Hook into the proposing mechanism
      */

@@ -8,13 +8,13 @@ import "../../proxy/utils/Initializable.sol";
  * TransparentUpgradeableProxy's to test correct functioning of the Transparent Proxy feature.
  */
 contract ClashingImplementationUpgradeable is Initializable {
+    event ClashingImplementationCall();
+
     function __ClashingImplementation_init() internal onlyInitializing {
     }
 
     function __ClashingImplementation_init_unchained() internal onlyInitializing {
     }
-    event ClashingImplementationCall();
-
     function upgradeToAndCall(address, bytes calldata) external payable {
         emit ClashingImplementationCall();
     }

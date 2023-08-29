@@ -23,15 +23,15 @@ abstract contract ImplUpgradeable is Initializable {
 }
 
 contract DummyImplementationUpgradeable is Initializable {
+    uint256 public value;
+    string public text;
+    uint256[] public values;
+
     function __DummyImplementation_init() internal onlyInitializing {
     }
 
     function __DummyImplementation_init_unchained() internal onlyInitializing {
     }
-    uint256 public value;
-    string public text;
-    uint256[] public values;
-
     function initializeNonPayable() public {
         value = 10;
     }

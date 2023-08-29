@@ -20,14 +20,14 @@ import "../../../proxy/utils/Initializable.sol";
  * CAUTION: This extension should not be added in an upgrade to an already deployed contract.
  */
 abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable {
+    mapping(uint256 id => uint256) private _totalSupply;
+    uint256 private _totalSupplyAll;
+
     function __ERC1155Supply_init() internal onlyInitializing {
     }
 
     function __ERC1155Supply_init_unchained() internal onlyInitializing {
     }
-    mapping(uint256 id => uint256) private _totalSupply;
-    uint256 private _totalSupplyAll;
-
     /**
      * @dev Total value of tokens in with a given id.
      */

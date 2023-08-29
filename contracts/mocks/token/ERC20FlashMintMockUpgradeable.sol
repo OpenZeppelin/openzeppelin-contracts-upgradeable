@@ -6,14 +6,14 @@ import { ERC20FlashMintUpgradeable } from "../../token/ERC20/extensions/ERC20Fla
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeable {
+    uint256 _flashFeeAmount;
+    address _flashFeeReceiverAddress;
+
     function __ERC20FlashMintMock_init() internal onlyInitializing {
     }
 
     function __ERC20FlashMintMock_init_unchained() internal onlyInitializing {
     }
-    uint256 _flashFeeAmount;
-    address _flashFeeReceiverAddress;
-
     function setFlashFee(uint256 amount) public {
         _flashFeeAmount = amount;
     }

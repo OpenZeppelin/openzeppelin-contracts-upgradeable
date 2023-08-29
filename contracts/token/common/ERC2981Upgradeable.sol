@@ -21,11 +21,6 @@ import "../../proxy/utils/Initializable.sol";
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
-    function __ERC2981_init() internal onlyInitializing {
-    }
-
-    function __ERC2981_init_unchained() internal onlyInitializing {
-    }
     struct RoyaltyInfo {
         address receiver;
         uint96 royaltyFraction;
@@ -54,6 +49,11 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      */
     error ERC2981InvalidTokenRoyaltyReceiver(uint256 tokenId, address receiver);
 
+    function __ERC2981_init() internal onlyInitializing {
+    }
+
+    function __ERC2981_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

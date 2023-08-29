@@ -20,12 +20,7 @@ import "../../../proxy/utils/Initializable.sol";
  * overriding {maxFlashLoan} so that it correctly reflects the supply cap.
  */
 abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLenderUpgradeable {
-    function __ERC20FlashMint_init() internal onlyInitializing {
-    }
-
-    function __ERC20FlashMint_init_unchained() internal onlyInitializing {
-    }
-    bytes32 private constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 private constant RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     /**
      * @dev The loan token is not valid.
@@ -42,6 +37,11 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
      */
     error ERC3156InvalidReceiver(address receiver);
 
+    function __ERC20FlashMint_init() internal onlyInitializing {
+    }
+
+    function __ERC20FlashMint_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns the maximum amount of tokens available for loan.
      * @param token The address of the token that is requested.
@@ -124,7 +124,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
         }
         uint256 fee = flashFee(token, value);
         _mint(address(receiver), value);
-        if (receiver.onFlashLoan(_msgSender(), token, value, fee, data) != _RETURN_VALUE) {
+        if (receiver.onFlashLoan(_msgSender(), token, value, fee, data) != RETURN_VALUE) {
             revert ERC3156InvalidReceiver(address(receiver));
         }
         address flashFeeReceiver = _flashFeeReceiver();

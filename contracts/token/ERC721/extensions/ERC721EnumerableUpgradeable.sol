@@ -16,11 +16,6 @@ import "../../../proxy/utils/Initializable.sol";
  * interfere with enumerability and should not be used together with `ERC721Enumerable`.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721EnumerableUpgradeable {
-    function __ERC721Enumerable_init() internal onlyInitializing {
-    }
-
-    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
-    }
     mapping(address owner => mapping(uint256 index => uint256)) private _ownedTokens;
     mapping(uint256 tokenId => uint256) private _ownedTokensIndex;
 
@@ -39,6 +34,11 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
      */
     error ERC721EnumerableForbiddenBatchMint();
 
+    function __ERC721Enumerable_init() internal onlyInitializing {
+    }
+
+    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */
