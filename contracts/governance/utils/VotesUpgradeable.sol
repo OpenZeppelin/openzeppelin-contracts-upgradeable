@@ -30,16 +30,16 @@ import "../../proxy/utils/Initializable.sol";
  * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
  */
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805Upgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
+    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
 
     bytes32 private constant DELEGATION_TYPEHASH =
         keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
 
     mapping(address account => address) private _delegatee;
 
-    mapping(address delegatee => CheckpointsUpgradeable.Trace224) private _delegateCheckpoints;
+    mapping(address delegatee => CheckpointsUpgradeable.Trace208) private _delegateCheckpoints;
 
-    CheckpointsUpgradeable.Trace224 private _totalCheckpoints;
+    CheckpointsUpgradeable.Trace208 private _totalCheckpoints;
 
     /**
      * @dev The clock was incorrectly modified.
@@ -96,7 +96,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return _delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
+        return _delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
     }
 
     /**
@@ -116,7 +116,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return _totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
+        return _totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
     }
 
     /**
@@ -184,10 +184,10 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function _transferVotingUnits(address from, address to, uint256 amount) internal virtual {
         if (from == address(0)) {
-            _push(_totalCheckpoints, _add, SafeCastUpgradeable.toUint224(amount));
+            _push(_totalCheckpoints, _add, SafeCastUpgradeable.toUint208(amount));
         }
         if (to == address(0)) {
-            _push(_totalCheckpoints, _subtract, SafeCastUpgradeable.toUint224(amount));
+            _push(_totalCheckpoints, _subtract, SafeCastUpgradeable.toUint208(amount));
         }
         _moveDelegateVotes(delegates(from), delegates(to), amount);
     }
@@ -201,7 +201,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
                 (uint256 oldValue, uint256 newValue) = _push(
                     _delegateCheckpoints[from],
                     _subtract,
-                    SafeCastUpgradeable.toUint224(amount)
+                    SafeCastUpgradeable.toUint208(amount)
                 );
                 emit DelegateVotesChanged(from, oldValue, newValue);
             }
@@ -209,7 +209,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
                 (uint256 oldValue, uint256 newValue) = _push(
                     _delegateCheckpoints[to],
                     _add,
-                    SafeCastUpgradeable.toUint224(amount)
+                    SafeCastUpgradeable.toUint208(amount)
                 );
                 emit DelegateVotesChanged(to, oldValue, newValue);
             }
@@ -229,23 +229,23 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     function _checkpoints(
         address account,
         uint32 pos
-    ) internal view virtual returns (CheckpointsUpgradeable.Checkpoint224 memory) {
+    ) internal view virtual returns (CheckpointsUpgradeable.Checkpoint208 memory) {
         return _delegateCheckpoints[account].at(pos);
     }
 
     function _push(
-        CheckpointsUpgradeable.Trace224 storage store,
-        function(uint224, uint224) view returns (uint224) op,
-        uint224 delta
-    ) private returns (uint224, uint224) {
-        return store.push(SafeCastUpgradeable.toUint32(clock()), op(store.latest(), delta));
+        CheckpointsUpgradeable.Trace208 storage store,
+        function(uint208, uint208) view returns (uint208) op,
+        uint208 delta
+    ) private returns (uint208, uint208) {
+        return store.push(clock(), op(store.latest(), delta));
     }
 
-    function _add(uint224 a, uint224 b) private pure returns (uint224) {
+    function _add(uint208 a, uint208 b) private pure returns (uint208) {
         return a + b;
     }
 
-    function _subtract(uint224 a, uint224 b) private pure returns (uint224) {
+    function _subtract(uint208 a, uint208 b) private pure returns (uint208) {
         return a - b;
     }
 

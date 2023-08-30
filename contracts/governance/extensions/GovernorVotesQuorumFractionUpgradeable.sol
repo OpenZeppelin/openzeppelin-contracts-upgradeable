@@ -13,9 +13,9 @@ import "../../proxy/utils/Initializable.sol";
  * fraction of the total supply.
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
+    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
 
-    CheckpointsUpgradeable.Trace224 private _quorumNumeratorHistory;
+    CheckpointsUpgradeable.Trace208 private _quorumNumeratorHistory;
 
     event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
 
@@ -54,15 +54,15 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         uint256 length = _quorumNumeratorHistory._checkpoints.length;
 
         // Optimistic search, check the latest checkpoint
-        CheckpointsUpgradeable.Checkpoint224 storage latest = _quorumNumeratorHistory._checkpoints[length - 1];
-        uint32 latestKey = latest._key;
-        uint224 latestValue = latest._value;
+        CheckpointsUpgradeable.Checkpoint208 memory latest = _quorumNumeratorHistory._checkpoints[length - 1];
+        uint48 latestKey = latest._key;
+        uint208 latestValue = latest._value;
         if (latestKey <= timepoint) {
             return latestValue;
         }
 
         // Otherwise, do the binary search
-        return _quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint32(timepoint));
+        return _quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
     }
 
     /**
@@ -109,7 +109,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         }
 
         uint256 oldQuorumNumerator = quorumNumerator();
-        _quorumNumeratorHistory.push(SafeCastUpgradeable.toUint32(clock()), SafeCastUpgradeable.toUint224(newQuorumNumerator));
+        _quorumNumeratorHistory.push(clock(), SafeCastUpgradeable.toUint208(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }
