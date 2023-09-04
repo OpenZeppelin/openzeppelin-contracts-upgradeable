@@ -41,6 +41,9 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function __Ownable_init_unchained(address initialOwner) internal onlyInitializing {
+        if (initialOwner == address(0)) {
+            revert OwnableInvalidOwner(address(0));
+        }
         _transferOwnership(initialOwner);
     }
 
