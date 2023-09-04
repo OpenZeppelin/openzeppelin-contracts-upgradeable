@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import { PausableUpgradeable } from "../security/PausableUpgradeable.sol";
+import { PausableUpgradeable } from "../utils/PausableUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract PausableMockUpgradeable is Initializable, PausableUpgradeable {

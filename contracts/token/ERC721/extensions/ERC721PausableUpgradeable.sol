@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
-import { PausableUpgradeable } from "../../../security/PausableUpgradeable.sol";
+import { PausableUpgradeable } from "../../../utils/PausableUpgradeable.sol";
 import "../../../proxy/utils/Initializable.sol";
 
 /**

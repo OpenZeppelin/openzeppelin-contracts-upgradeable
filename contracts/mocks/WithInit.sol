@@ -612,20 +612,6 @@ contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable 
         __VotesTimestampMock_init();
     }
 }
-import "../security/PausableUpgradeable.sol";
-
-contract PausableUpgradeableWithInit is PausableUpgradeable {
-    constructor() payable initializer {
-        __Pausable_init();
-    }
-}
-import "../security/ReentrancyGuardUpgradeable.sol";
-
-contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyGuard_init();
-    }
-}
 import "../token/common/ERC2981Upgradeable.sol";
 
 contract ERC2981UpgradeableWithInit is ERC2981Upgradeable {
@@ -841,5 +827,19 @@ import "../utils/NoncesUpgradeable.sol";
 contract NoncesUpgradeableWithInit is NoncesUpgradeable {
     constructor() payable initializer {
         __Nonces_init();
+    }
+}
+import "../utils/PausableUpgradeable.sol";
+
+contract PausableUpgradeableWithInit is PausableUpgradeable {
+    constructor() payable initializer {
+        __Pausable_init();
+    }
+}
+import "../utils/ReentrancyGuardUpgradeable.sol";
+
+contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyGuard_init();
     }
 }

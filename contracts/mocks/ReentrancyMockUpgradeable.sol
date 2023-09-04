@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import { ReentrancyGuardUpgradeable } from "../security/ReentrancyGuardUpgradeable.sol";
+import { ReentrancyGuardUpgradeable } from "../utils/ReentrancyGuardUpgradeable.sol";
 import { ReentrancyAttackUpgradeable } from "./ReentrancyAttackUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
