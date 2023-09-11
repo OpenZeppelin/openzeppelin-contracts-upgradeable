@@ -462,13 +462,6 @@ contract ERC20NoReturnMockUpgradeableWithInit is ERC20NoReturnMockUpgradeable {
         __ERC20NoReturnMock_init();
     }
 }
-import "./token/ERC20PermitNoRevertMockUpgradeable.sol";
-
-contract ERC20PermitNoRevertMockUpgradeableWithInit is ERC20PermitNoRevertMockUpgradeable {
-    constructor() payable initializer {
-        __ERC20PermitNoRevertMock_init();
-    }
-}
 import "./token/ERC20ReentrantUpgradeable.sol";
 
 contract ERC20ReentrantUpgradeableWithInit is ERC20ReentrantUpgradeable {
