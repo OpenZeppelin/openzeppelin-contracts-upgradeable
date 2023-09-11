@@ -18,7 +18,19 @@ import "../proxy/utils/Initializable.sol";
  * from parent (Ownable).
  */
 abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
-    address private _pendingOwner;
+    /// @custom:storage-location erc7201:openzeppelin.storage.Ownable2Step
+    struct Ownable2StepStorage {
+        address _pendingOwner;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Ownable2Step")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant Ownable2StepStorageLocation = 0x237e158222e3e6968b72b9db0d8043aacf074ad9f650f0d1606b4d82ee432c00;
+
+    function _getOwnable2StepStorage() private pure returns (Ownable2StepStorage storage $) {
+        assembly {
+            $.slot := Ownable2StepStorageLocation
+        }
+    }
 
     event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
 
@@ -31,7 +43,8 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
      * @dev Returns the address of the pending owner.
      */
     function pendingOwner() public view virtual returns (address) {
-        return _pendingOwner;
+        Ownable2StepStorage storage $ = _getOwnable2StepStorage();
+        return $._pendingOwner;
     }
 
     /**
@@ -39,7 +52,8 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
      * Can only be called by the current owner.
      */
     function transferOwnership(address newOwner) public virtual override onlyOwner {
-        _pendingOwner = newOwner;
+        Ownable2StepStorage storage $ = _getOwnable2StepStorage();
+        $._pendingOwner = newOwner;
         emit OwnershipTransferStarted(owner(), newOwner);
     }
 
@@ -48,7 +62,8 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
      * Internal function without access restriction.
      */
     function _transferOwnership(address newOwner) internal virtual override {
-        delete _pendingOwner;
+        Ownable2StepStorage storage $ = _getOwnable2StepStorage();
+        delete $._pendingOwner;
         super._transferOwnership(newOwner);
     }
 
@@ -62,11 +77,4 @@ abstract contract Ownable2StepUpgradeable is Initializable, OwnableUpgradeable {
         }
         _transferOwnership(sender);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

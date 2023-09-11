@@ -15,8 +15,20 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, ERC721Upgradeable {
     using StringsUpgradeable for uint256;
 
-    // Optional mapping for token URIs
-    mapping(uint256 tokenId => string) private _tokenURIs;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC721URIStorage
+    struct ERC721URIStorageStorage {
+        // Optional mapping for token URIs
+        mapping(uint256 tokenId => string) _tokenURIs;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721URIStorage")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC721URIStorageStorageLocation = 0x0542a41881ee128a365a727b282c86fa859579490b9bb45aab8503648c8e7900;
+
+    function _getERC721URIStorageStorage() private pure returns (ERC721URIStorageStorage storage $) {
+        assembly {
+            $.slot := ERC721URIStorageStorageLocation
+        }
+    }
 
     function __ERC721URIStorage_init() internal onlyInitializing {
     }
@@ -34,9 +46,10 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * @dev See {IERC721Metadata-tokenURI}.
      */
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
         _requireMinted(tokenId);
 
-        string memory _tokenURI = _tokenURIs[tokenId];
+        string memory _tokenURI = $._tokenURIs[tokenId];
         string memory base = _baseURI();
 
         // If there is no base URI, return the token URI.
@@ -61,10 +74,11 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * - `tokenId` must exist.
      */
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
+        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
         if (_ownerOf(tokenId) == address(0)) {
             revert ERC721NonexistentToken(tokenId);
         }
-        _tokenURIs[tokenId] = _tokenURI;
+        $._tokenURIs[tokenId] = _tokenURI;
 
         emit MetadataUpdate(tokenId);
     }
@@ -75,19 +89,13 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * the storage mapping.
      */
     function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
+        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
         address previousOwner = super._update(to, tokenId, auth);
 
-        if (to == address(0) && bytes(_tokenURIs[tokenId]).length != 0) {
-            delete _tokenURIs[tokenId];
+        if (to == address(0) && bytes($._tokenURIs[tokenId]).length != 0) {
+            delete $._tokenURIs[tokenId];
         }
 
         return previousOwner;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

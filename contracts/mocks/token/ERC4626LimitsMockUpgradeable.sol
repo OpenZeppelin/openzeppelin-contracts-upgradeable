@@ -25,11 +25,4 @@ abstract contract ERC4626LimitsMockUpgradeable is Initializable, ERC4626Upgradea
     function maxMint(address) public view override returns (uint256) {
         return _maxMint;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

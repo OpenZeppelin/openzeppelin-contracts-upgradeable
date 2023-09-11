@@ -16,7 +16,19 @@ import "../proxy/utils/Initializable.sol";
  * simply including this module, only once the modifiers are put in place.
  */
 abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
-    bool private _paused;
+    /// @custom:storage-location erc7201:openzeppelin.storage.Pausable
+    struct PausableStorage {
+        bool _paused;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Pausable")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant PausableStorageLocation = 0xcd5ed15c6e187e77e9aee88184c21f4f2182ab5827cb3b7e07fbedcd63f03300;
+
+    function _getPausableStorage() private pure returns (PausableStorage storage $) {
+        assembly {
+            $.slot := PausableStorageLocation
+        }
+    }
 
     /**
      * @dev Emitted when the pause is triggered by `account`.
@@ -46,7 +58,8 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     }
 
     function __Pausable_init_unchained() internal onlyInitializing {
-        _paused = false;
+        PausableStorage storage $ = _getPausableStorage();
+        $._paused = false;
     }
 
     /**
@@ -77,7 +90,8 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * @dev Returns true if the contract is paused, and false otherwise.
      */
     function paused() public view virtual returns (bool) {
-        return _paused;
+        PausableStorage storage $ = _getPausableStorage();
+        return $._paused;
     }
 
     /**
@@ -106,7 +120,8 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must not be paused.
      */
     function _pause() internal virtual whenNotPaused {
-        _paused = true;
+        PausableStorage storage $ = _getPausableStorage();
+        $._paused = true;
         emit Paused(_msgSender());
     }
 
@@ -118,14 +133,8 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
      * - The contract must be paused.
      */
     function _unpause() internal virtual whenPaused {
-        _paused = false;
+        PausableStorage storage $ = _getPausableStorage();
+        $._paused = false;
         emit Unpaused(_msgSender());
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

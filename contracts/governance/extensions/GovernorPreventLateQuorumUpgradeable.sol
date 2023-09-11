@@ -17,9 +17,21 @@ import "../../proxy/utils/Initializable.sol";
  * proposal.
  */
 abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, GovernorUpgradeable {
-    uint48 private _voteExtension;
+    /// @custom:storage-location erc7201:openzeppelin.storage.GovernorPreventLateQuorum
+    struct GovernorPreventLateQuorumStorage {
+        uint48 _voteExtension;
 
-    mapping(uint256 proposalId => uint48) private _extendedDeadlines;
+        mapping(uint256 proposalId => uint48) _extendedDeadlines;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorPreventLateQuorum")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant GovernorPreventLateQuorumStorageLocation = 0x042f525fd47e44d02e065dd7bb464f47b4f926fbd05b5e087891ebd756adf100;
+
+    function _getGovernorPreventLateQuorumStorage() private pure returns (GovernorPreventLateQuorumStorage storage $) {
+        assembly {
+            $.slot := GovernorPreventLateQuorumStorageLocation
+        }
+    }
 
     /// @dev Emitted when a proposal deadline is pushed back due to reaching quorum late in its voting period.
     event ProposalExtended(uint256 indexed proposalId, uint64 extendedDeadline);
@@ -45,7 +57,8 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      * proposal reached quorum late in the voting period. See {Governor-proposalDeadline}.
      */
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
-        return MathUpgradeable.max(super.proposalDeadline(proposalId), _extendedDeadlines[proposalId]);
+        GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
+        return MathUpgradeable.max(super.proposalDeadline(proposalId), $._extendedDeadlines[proposalId]);
     }
 
     /**
@@ -61,16 +74,17 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
         string memory reason,
         bytes memory params
     ) internal virtual override returns (uint256) {
+        GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
         uint256 result = super._castVote(proposalId, account, support, reason, params);
 
-        if (_extendedDeadlines[proposalId] == 0 && _quorumReached(proposalId)) {
+        if ($._extendedDeadlines[proposalId] == 0 && _quorumReached(proposalId)) {
             uint48 extendedDeadline = clock() + lateQuorumVoteExtension();
 
             if (extendedDeadline > proposalDeadline(proposalId)) {
                 emit ProposalExtended(proposalId, extendedDeadline);
             }
 
-            _extendedDeadlines[proposalId] = extendedDeadline;
+            $._extendedDeadlines[proposalId] = extendedDeadline;
         }
 
         return result;
@@ -81,7 +95,8 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      * from the time a proposal reaches quorum until its voting period ends.
      */
     function lateQuorumVoteExtension() public view virtual returns (uint48) {
-        return _voteExtension;
+        GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
+        return $._voteExtension;
     }
 
     /**
@@ -101,14 +116,8 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      * Emits a {LateQuorumVoteExtensionSet} event.
      */
     function _setLateQuorumVoteExtension(uint48 newVoteExtension) internal virtual {
-        emit LateQuorumVoteExtensionSet(_voteExtension, newVoteExtension);
-        _voteExtension = newVoteExtension;
+        GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
+        emit LateQuorumVoteExtensionSet($._voteExtension, newVoteExtension);
+        $._voteExtension = newVoteExtension;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

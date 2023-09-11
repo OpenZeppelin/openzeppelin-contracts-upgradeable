@@ -14,7 +14,19 @@ import "../../proxy/utils/Initializable.sol";
 abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerableUpgradeable, AccessControlUpgradeable {
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
 
-    mapping(bytes32 role => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
+    /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlEnumerable
+    struct AccessControlEnumerableStorage {
+        mapping(bytes32 role => EnumerableSetUpgradeable.AddressSet) _roleMembers;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlEnumerable")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant AccessControlEnumerableStorageLocation = 0xc1f6fe24621ce81ec5827caf0253cadb74709b061630e6b55e82371705932000;
+
+    function _getAccessControlEnumerableStorage() private pure returns (AccessControlEnumerableStorage storage $) {
+        assembly {
+            $.slot := AccessControlEnumerableStorageLocation
+        }
+    }
 
     function __AccessControlEnumerable_init() internal onlyInitializing {
     }
@@ -41,7 +53,8 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
      * for more information.
      */
     function getRoleMember(bytes32 role, uint256 index) public view virtual returns (address) {
-        return _roleMembers[role].at(index);
+        AccessControlEnumerableStorage storage $ = _getAccessControlEnumerableStorage();
+        return $._roleMembers[role].at(index);
     }
 
     /**
@@ -49,16 +62,18 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
      * together with {getRoleMember} to enumerate all bearers of a role.
      */
     function getRoleMemberCount(bytes32 role) public view virtual returns (uint256) {
-        return _roleMembers[role].length();
+        AccessControlEnumerableStorage storage $ = _getAccessControlEnumerableStorage();
+        return $._roleMembers[role].length();
     }
 
     /**
      * @dev Overload {AccessControl-_grantRole} to track enumerable memberships
      */
     function _grantRole(bytes32 role, address account) internal virtual override returns (bool) {
+        AccessControlEnumerableStorage storage $ = _getAccessControlEnumerableStorage();
         bool granted = super._grantRole(role, account);
         if (granted) {
-            _roleMembers[role].add(account);
+            $._roleMembers[role].add(account);
         }
         return granted;
     }
@@ -67,17 +82,11 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
      * @dev Overload {AccessControl-_revokeRole} to track enumerable memberships
      */
     function _revokeRole(bytes32 role, address account) internal virtual override returns (bool) {
+        AccessControlEnumerableStorage storage $ = _getAccessControlEnumerableStorage();
         bool revoked = super._revokeRole(role, account);
         if (revoked) {
-            _roleMembers[role].remove(account);
+            $._roleMembers[role].remove(account);
         }
         return revoked;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

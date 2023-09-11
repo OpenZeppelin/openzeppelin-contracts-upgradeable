@@ -28,13 +28,6 @@ contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
     function msgDataShort() public {
         emit DataShort(_msgData());
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 contract ContextMockCallerUpgradeable is Initializable {
@@ -50,11 +43,4 @@ contract ContextMockCallerUpgradeable is Initializable {
     function callData(ContextMockUpgradeable context, uint256 integerValue, string memory stringValue) public {
         context.msgData(integerValue, stringValue);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

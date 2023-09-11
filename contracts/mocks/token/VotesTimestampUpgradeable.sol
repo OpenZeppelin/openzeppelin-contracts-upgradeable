@@ -21,13 +21,6 @@ abstract contract ERC20VotesTimestampMockUpgradeable is Initializable, ERC20Vote
     function CLOCK_MODE() public view virtual override returns (string memory) {
         return "mode=timestamp";
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 abstract contract ERC721VotesTimestampMockUpgradeable is Initializable, ERC721VotesUpgradeable {
@@ -44,11 +37,4 @@ abstract contract ERC721VotesTimestampMockUpgradeable is Initializable, ERC721Vo
     function CLOCK_MODE() public view virtual override returns (string memory) {
         return "mode=timestamp";
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

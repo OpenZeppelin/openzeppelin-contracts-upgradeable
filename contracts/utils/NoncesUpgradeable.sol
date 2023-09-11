@@ -11,7 +11,19 @@ abstract contract NoncesUpgradeable is Initializable {
      */
     error InvalidAccountNonce(address account, uint256 currentNonce);
 
-    mapping(address account => uint256) private _nonces;
+    /// @custom:storage-location erc7201:openzeppelin.storage.Nonces
+    struct NoncesStorage {
+        mapping(address account => uint256) _nonces;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Nonces")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant NoncesStorageLocation = 0x5ab42ced628888259c08ac98db1eb0cf702fc1501344311d8b100cd1bfe4bb00;
+
+    function _getNoncesStorage() private pure returns (NoncesStorage storage $) {
+        assembly {
+            $.slot := NoncesStorageLocation
+        }
+    }
 
     function __Nonces_init() internal onlyInitializing {
     }
@@ -22,7 +34,8 @@ abstract contract NoncesUpgradeable is Initializable {
      * @dev Returns an the next unused nonce for an address.
      */
     function nonces(address owner) public view virtual returns (uint256) {
-        return _nonces[owner];
+        NoncesStorage storage $ = _getNoncesStorage();
+        return $._nonces[owner];
     }
 
     /**
@@ -31,11 +44,12 @@ abstract contract NoncesUpgradeable is Initializable {
      * Returns the current value and increments nonce.
      */
     function _useNonce(address owner) internal virtual returns (uint256) {
+        NoncesStorage storage $ = _getNoncesStorage();
         // For each account, the nonce has an initial value of 0, can only be incremented by one, and cannot be
         // decremented or reset. This guarantees that the nonce never overflows.
         unchecked {
             // It is important to do x++ and not ++x here.
-            return _nonces[owner]++;
+            return $._nonces[owner]++;
         }
     }
 
@@ -49,11 +63,4 @@ abstract contract NoncesUpgradeable is Initializable {
         }
         return current;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

@@ -53,9 +53,22 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
         bytes32 adminRole;
     }
 
-    mapping(bytes32 role => RoleData) private _roles;
-
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
+
+
+    /// @custom:storage-location erc7201:openzeppelin.storage.AccessControl
+    struct AccessControlStorage {
+        mapping(bytes32 role => RoleData) _roles;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControl")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant AccessControlStorageLocation = 0x02dd7bc7dec4dceedda775e58dd541e08a116c6c53815c0bd028192f7b626800;
+
+    function _getAccessControlStorage() private pure returns (AccessControlStorage storage $) {
+        assembly {
+            $.slot := AccessControlStorageLocation
+        }
+    }
 
     /**
      * @dev Modifier that checks that an account has a specific role. Reverts
@@ -82,7 +95,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev Returns `true` if `account` has been granted `role`.
      */
     function hasRole(bytes32 role, address account) public view virtual returns (bool) {
-        return _roles[role].hasRole[account];
+        AccessControlStorage storage $ = _getAccessControlStorage();
+        return $._roles[role].hasRole[account];
     }
 
     /**
@@ -110,7 +124,8 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * To change a role's admin, use {_setRoleAdmin}.
      */
     function getRoleAdmin(bytes32 role) public view virtual returns (bytes32) {
-        return _roles[role].adminRole;
+        AccessControlStorage storage $ = _getAccessControlStorage();
+        return $._roles[role].adminRole;
     }
 
     /**
@@ -174,8 +189,9 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * Emits a {RoleAdminChanged} event.
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
+        AccessControlStorage storage $ = _getAccessControlStorage();
         bytes32 previousAdminRole = getRoleAdmin(role);
-        _roles[role].adminRole = adminRole;
+        $._roles[role].adminRole = adminRole;
         emit RoleAdminChanged(role, previousAdminRole, adminRole);
     }
 
@@ -187,8 +203,9 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * May emit a {RoleGranted} event.
      */
     function _grantRole(bytes32 role, address account) internal virtual returns (bool) {
+        AccessControlStorage storage $ = _getAccessControlStorage();
         if (!hasRole(role, account)) {
-            _roles[role].hasRole[account] = true;
+            $._roles[role].hasRole[account] = true;
             emit RoleGranted(role, account, _msgSender());
             return true;
         } else {
@@ -204,19 +221,13 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * May emit a {RoleRevoked} event.
      */
     function _revokeRole(bytes32 role, address account) internal virtual returns (bool) {
+        AccessControlStorage storage $ = _getAccessControlStorage();
         if (hasRole(role, account)) {
-            _roles[role].hasRole[account] = false;
+            $._roles[role].hasRole[account] = false;
             emit RoleRevoked(role, account, _msgSender());
             return true;
         } else {
             return false;
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

@@ -23,11 +23,4 @@ abstract contract GovernorVoteMocksUpgradeable is Initializable, GovernorVotesUp
     function votingPeriod() public pure override returns (uint256) {
         return 16;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

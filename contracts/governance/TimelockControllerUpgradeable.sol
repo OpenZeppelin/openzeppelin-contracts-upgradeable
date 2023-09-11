@@ -28,8 +28,20 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
     uint256 internal constant _DONE_TIMESTAMP = uint256(1);
 
-    mapping(bytes32 id => uint256) private _timestamps;
-    uint256 private _minDelay;
+    /// @custom:storage-location erc7201:openzeppelin.storage.TimelockController
+    struct TimelockControllerStorage {
+        mapping(bytes32 id => uint256) _timestamps;
+        uint256 _minDelay;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TimelockController")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant TimelockControllerStorageLocation = 0x9a37c2aa9d186a0969ff8a8267bf4e07e864c2f2768f5040949e28a624fb3600;
+
+    function _getTimelockControllerStorage() private pure returns (TimelockControllerStorage storage $) {
+        assembly {
+            $.slot := TimelockControllerStorageLocation
+        }
+    }
 
     enum OperationState {
         Unset,
@@ -118,6 +130,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     }
 
     function __TimelockController_init_unchained(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) internal onlyInitializing {
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         // self administration
         _grantRole(DEFAULT_ADMIN_ROLE, address(this));
 
@@ -137,7 +150,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
             _grantRole(EXECUTOR_ROLE, executors[i]);
         }
 
-        _minDelay = minDelay;
+        $._minDelay = minDelay;
         emit MinDelayChange(0, minDelay);
     }
 
@@ -203,7 +216,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * unset operations, 1 for done operations).
      */
     function getTimestamp(bytes32 id) public view virtual returns (uint256) {
-        return _timestamps[id];
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
+        return $._timestamps[id];
     }
 
     /**
@@ -228,7 +242,8 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * This value can be changed by executing an operation that calls `updateDelay`.
      */
     function getMinDelay() public view virtual returns (uint256) {
-        return _minDelay;
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
+        return $._minDelay;
     }
 
     /**
@@ -319,6 +334,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Schedule an operation that is to become valid after a given delay.
      */
     function _schedule(bytes32 id, uint256 delay) private {
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         if (isOperation(id)) {
             revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Unset));
         }
@@ -326,7 +342,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         if (delay < minDelay) {
             revert TimelockInsufficientDelay(delay, minDelay);
         }
-        _timestamps[id] = block.timestamp + delay;
+        $._timestamps[id] = block.timestamp + delay;
     }
 
     /**
@@ -337,13 +353,14 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * - the caller must have the 'canceller' role.
      */
     function cancel(bytes32 id) public virtual onlyRole(CANCELLER_ROLE) {
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         if (!isOperationPending(id)) {
             revert TimelockUnexpectedOperationState(
                 id,
                 _encodeStateBitmap(OperationState.Waiting) | _encodeStateBitmap(OperationState.Ready)
             );
         }
-        delete _timestamps[id];
+        delete $._timestamps[id];
 
         emit Cancelled(id);
     }
@@ -435,10 +452,11 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * @dev Checks after execution of an operation's calls.
      */
     function _afterCall(bytes32 id) private {
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         if (!isOperationReady(id)) {
             revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
         }
-        _timestamps[id] = _DONE_TIMESTAMP;
+        $._timestamps[id] = _DONE_TIMESTAMP;
     }
 
     /**
@@ -452,12 +470,13 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
      */
     function updateDelay(uint256 newDelay) external virtual {
+        TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         address sender = _msgSender();
         if (sender != address(this)) {
             revert TimelockUnauthorizedCaller(sender);
         }
-        emit MinDelayChange(_minDelay, newDelay);
-        _minDelay = newDelay;
+        emit MinDelayChange($._minDelay, newDelay);
+        $._minDelay = newDelay;
     }
 
     /**
@@ -474,11 +493,4 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     function _encodeStateBitmap(OperationState operationState) internal pure returns (bytes32) {
         return bytes32(1 << uint8(operationState));
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

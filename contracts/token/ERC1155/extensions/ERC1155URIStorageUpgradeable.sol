@@ -14,18 +14,31 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
     using StringsUpgradeable for uint256;
 
-    // Optional base URI
-    string private _baseURI;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155URIStorage
+    struct ERC1155URIStorageStorage {
+        // Optional base URI
+        string _baseURI;
 
-    // Optional mapping for token URIs
-    mapping(uint256 tokenId => string) private _tokenURIs;
+        // Optional mapping for token URIs
+        mapping(uint256 tokenId => string) _tokenURIs;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC1155URIStorage")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC1155URIStorageStorageLocation = 0x89fc852226e759c7c636cf34d732f0198fc56a54876b2374a52beb7b0c558600;
+
+    function _getERC1155URIStorageStorage() private pure returns (ERC1155URIStorageStorage storage $) {
+        assembly {
+            $.slot := ERC1155URIStorageStorageLocation
+        }
+    }
 
     function __ERC1155URIStorage_init() internal onlyInitializing {
         __ERC1155URIStorage_init_unchained();
     }
 
     function __ERC1155URIStorage_init_unchained() internal onlyInitializing {
-        _baseURI = "";
+        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
+        $._baseURI = "";
     }
     /**
      * @dev See {IERC1155MetadataURI-uri}.
@@ -46,17 +59,19 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
      *   uri value set, then the result is empty.
      */
     function uri(uint256 tokenId) public view virtual override returns (string memory) {
-        string memory tokenURI = _tokenURIs[tokenId];
+        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
+        string memory tokenURI = $._tokenURIs[tokenId];
 
         // If token URI is set, concatenate base URI and tokenURI (via string.concat).
-        return bytes(tokenURI).length > 0 ? string.concat(_baseURI, tokenURI) : super.uri(tokenId);
+        return bytes(tokenURI).length > 0 ? string.concat($._baseURI, tokenURI) : super.uri(tokenId);
     }
 
     /**
      * @dev Sets `tokenURI` as the tokenURI of `tokenId`.
      */
     function _setURI(uint256 tokenId, string memory tokenURI) internal virtual {
-        _tokenURIs[tokenId] = tokenURI;
+        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
+        $._tokenURIs[tokenId] = tokenURI;
         emit URI(uri(tokenId), tokenId);
     }
 
@@ -64,13 +79,7 @@ abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradea
      * @dev Sets `baseURI` as the `_baseURI` for all tokens
      */
     function _setBaseURI(string memory baseURI) internal virtual {
-        _baseURI = baseURI;
+        ERC1155URIStorageStorage storage $ = _getERC1155URIStorageStorage();
+        $._baseURI = baseURI;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

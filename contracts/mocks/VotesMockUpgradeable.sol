@@ -34,13 +34,6 @@ abstract contract VotesMockUpgradeable is Initializable, VotesUpgradeable {
         _votingUnits[account] += votes;
         _transferVotingUnits(account, address(0), votes);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }
 
 abstract contract VotesTimestampMockUpgradeable is Initializable, VotesMockUpgradeable {
@@ -57,11 +50,4 @@ abstract contract VotesTimestampMockUpgradeable is Initializable, VotesMockUpgra
     function CLOCK_MODE() public view virtual override returns (string memory) {
         return "mode=timestamp";
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

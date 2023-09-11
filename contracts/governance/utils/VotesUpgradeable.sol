@@ -35,11 +35,23 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     bytes32 private constant DELEGATION_TYPEHASH =
         keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
 
-    mapping(address account => address) private _delegatee;
+    /// @custom:storage-location erc7201:openzeppelin.storage.Votes
+    struct VotesStorage {
+        mapping(address account => address) _delegatee;
 
-    mapping(address delegatee => CheckpointsUpgradeable.Trace208) private _delegateCheckpoints;
+        mapping(address delegatee => CheckpointsUpgradeable.Trace208) _delegateCheckpoints;
 
-    CheckpointsUpgradeable.Trace208 private _totalCheckpoints;
+        CheckpointsUpgradeable.Trace208 _totalCheckpoints;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Votes")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant VotesStorageLocation = 0xe8b26c30fad74198956032a3533d903385d56dd795af560196f9c78d4af40d00;
+
+    function _getVotesStorage() private pure returns (VotesStorage storage $) {
+        assembly {
+            $.slot := VotesStorageLocation
+        }
+    }
 
     /**
      * @dev The clock was incorrectly modified.
@@ -80,7 +92,8 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Returns the current amount of votes that `account` has.
      */
     function getVotes(address account) public view virtual returns (uint256) {
-        return _delegateCheckpoints[account].latest();
+        VotesStorage storage $ = _getVotesStorage();
+        return $._delegateCheckpoints[account].latest();
     }
 
     /**
@@ -92,11 +105,12 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
     function getPastVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
+        VotesStorage storage $ = _getVotesStorage();
         uint48 currentTimepoint = clock();
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return _delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return $._delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
     }
 
     /**
@@ -112,25 +126,28 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * - `timepoint` must be in the past. If operating using block numbers, the block must be already mined.
      */
     function getPastTotalSupply(uint256 timepoint) public view virtual returns (uint256) {
+        VotesStorage storage $ = _getVotesStorage();
         uint48 currentTimepoint = clock();
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return _totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return $._totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
     }
 
     /**
      * @dev Returns the current total supply of votes.
      */
     function _getTotalSupply() internal view virtual returns (uint256) {
-        return _totalCheckpoints.latest();
+        VotesStorage storage $ = _getVotesStorage();
+        return $._totalCheckpoints.latest();
     }
 
     /**
      * @dev Returns the delegate that `account` has chosen.
      */
     function delegates(address account) public view virtual returns (address) {
-        return _delegatee[account];
+        VotesStorage storage $ = _getVotesStorage();
+        return $._delegatee[account];
     }
 
     /**
@@ -171,8 +188,9 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * Emits events {IVotes-DelegateChanged} and {IVotes-DelegateVotesChanged}.
      */
     function _delegate(address account, address delegatee) internal virtual {
+        VotesStorage storage $ = _getVotesStorage();
         address oldDelegate = delegates(account);
-        _delegatee[account] = delegatee;
+        $._delegatee[account] = delegatee;
 
         emit DelegateChanged(account, oldDelegate, delegatee);
         _moveDelegateVotes(oldDelegate, delegatee, _getVotingUnits(account));
@@ -183,11 +201,12 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * should be zero. Total supply of voting units will be adjusted with mints and burns.
      */
     function _transferVotingUnits(address from, address to, uint256 amount) internal virtual {
+        VotesStorage storage $ = _getVotesStorage();
         if (from == address(0)) {
-            _push(_totalCheckpoints, _add, SafeCastUpgradeable.toUint208(amount));
+            _push($._totalCheckpoints, _add, SafeCastUpgradeable.toUint208(amount));
         }
         if (to == address(0)) {
-            _push(_totalCheckpoints, _subtract, SafeCastUpgradeable.toUint208(amount));
+            _push($._totalCheckpoints, _subtract, SafeCastUpgradeable.toUint208(amount));
         }
         _moveDelegateVotes(delegates(from), delegates(to), amount);
     }
@@ -196,10 +215,11 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Moves delegated votes from one delegate to another.
      */
     function _moveDelegateVotes(address from, address to, uint256 amount) private {
+        VotesStorage storage $ = _getVotesStorage();
         if (from != to && amount > 0) {
             if (from != address(0)) {
                 (uint256 oldValue, uint256 newValue) = _push(
-                    _delegateCheckpoints[from],
+                    $._delegateCheckpoints[from],
                     _subtract,
                     SafeCastUpgradeable.toUint208(amount)
                 );
@@ -207,7 +227,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
             }
             if (to != address(0)) {
                 (uint256 oldValue, uint256 newValue) = _push(
-                    _delegateCheckpoints[to],
+                    $._delegateCheckpoints[to],
                     _add,
                     SafeCastUpgradeable.toUint208(amount)
                 );
@@ -220,7 +240,8 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Get number of checkpoints for `account`.
      */
     function _numCheckpoints(address account) internal view virtual returns (uint32) {
-        return SafeCastUpgradeable.toUint32(_delegateCheckpoints[account].length());
+        VotesStorage storage $ = _getVotesStorage();
+        return SafeCastUpgradeable.toUint32($._delegateCheckpoints[account].length());
     }
 
     /**
@@ -230,7 +251,8 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         address account,
         uint32 pos
     ) internal view virtual returns (CheckpointsUpgradeable.Checkpoint208 memory) {
-        return _delegateCheckpoints[account].at(pos);
+        VotesStorage storage $ = _getVotesStorage();
+        return $._delegateCheckpoints[account].at(pos);
     }
 
     function _push(
@@ -253,11 +275,4 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * @dev Must return the voting units held by an account.
      */
     function _getVotingUnits(address) internal view virtual returns (uint256);
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[47] private __gap;
 }

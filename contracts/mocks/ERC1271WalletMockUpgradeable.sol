@@ -17,13 +17,6 @@ contract ERC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, IERC
     function isValidSignature(bytes32 hash, bytes memory signature) public view returns (bytes4 magicValue) {
         return ECDSAUpgradeable.recover(hash, signature) == owner() ? this.isValidSignature.selector : bytes4(0);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }
 
 contract ERC1271MaliciousMockUpgradeable is Initializable, IERC1271Upgradeable {
@@ -38,11 +31,4 @@ contract ERC1271MaliciousMockUpgradeable is Initializable, IERC1271Upgradeable {
             return(0, 32)
         }
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[50] private __gap;
 }

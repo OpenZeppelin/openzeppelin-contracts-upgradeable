@@ -25,13 +25,6 @@ contract Uint256ArraysMockUpgradeable is Initializable {
     function unsafeAccess(uint256 pos) external view returns (uint256) {
         return _array.unsafeAccess(pos).value;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }
 
 contract AddressArraysMockUpgradeable is Initializable {
@@ -50,13 +43,6 @@ contract AddressArraysMockUpgradeable is Initializable {
     function unsafeAccess(uint256 pos) external view returns (address) {
         return _array.unsafeAccess(pos).value;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }
 
 contract Bytes32ArraysMockUpgradeable is Initializable {
@@ -75,11 +61,4 @@ contract Bytes32ArraysMockUpgradeable is Initializable {
     function unsafeAccess(uint256 pos) external view returns (bytes32) {
         return _array.unsafeAccess(pos).value;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

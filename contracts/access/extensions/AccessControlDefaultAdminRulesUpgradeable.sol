@@ -38,16 +38,28 @@ import "../../proxy/utils/Initializable.sol";
  * ```
  */
 abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRulesUpgradeable, IERC5313Upgradeable, AccessControlUpgradeable {
-    // pending admin pair read/written together frequently
-    address private _pendingDefaultAdmin;
-    uint48 private _pendingDefaultAdminSchedule; // 0 == unset
+    /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlDefaultAdminRules
+    struct AccessControlDefaultAdminRulesStorage {
+        // pending admin pair read/written together frequently
+        address _pendingDefaultAdmin;
+        uint48 _pendingDefaultAdminSchedule; // 0 == unset
 
-    uint48 private _currentDelay;
-    address private _currentDefaultAdmin;
+        uint48 _currentDelay;
+        address _currentDefaultAdmin;
 
-    // pending delay pair read/written together frequently
-    uint48 private _pendingDelay;
-    uint48 private _pendingDelaySchedule; // 0 == unset
+        // pending delay pair read/written together frequently
+        uint48 _pendingDelay;
+        uint48 _pendingDelaySchedule; // 0 == unset
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlDefaultAdminRules")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant AccessControlDefaultAdminRulesStorageLocation = 0xeef3dac4538c82c8ace4063ab0acd2d15cdb5883aa1dff7c2673abb3d8698400;
+
+    function _getAccessControlDefaultAdminRulesStorage() private pure returns (AccessControlDefaultAdminRulesStorage storage $) {
+        assembly {
+            $.slot := AccessControlDefaultAdminRulesStorageLocation
+        }
+    }
 
     /**
      * @dev Sets the initial values for {defaultAdminDelay} and {defaultAdmin} address.
@@ -57,10 +69,11 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     }
 
     function __AccessControlDefaultAdminRules_init_unchained(uint48 initialDelay, address initialDefaultAdmin) internal onlyInitializing {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (initialDefaultAdmin == address(0)) {
             revert AccessControlInvalidDefaultAdmin(address(0));
         }
-        _currentDelay = initialDelay;
+        $._currentDelay = initialDelay;
         _grantRole(DEFAULT_ADMIN_ROLE, initialDefaultAdmin);
     }
 
@@ -116,12 +129,13 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * non-administrated role.
      */
     function renounceRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE && account == defaultAdmin()) {
             (address newDefaultAdmin, uint48 schedule) = pendingDefaultAdmin();
             if (newDefaultAdmin != address(0) || !_isScheduleSet(schedule) || !_hasSchedulePassed(schedule)) {
                 revert AccessControlEnforcedDefaultAdminDelay(schedule);
             }
-            delete _pendingDefaultAdminSchedule;
+            delete $._pendingDefaultAdminSchedule;
         }
         super.renounceRole(role, account);
     }
@@ -136,11 +150,12 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * assignable again. Make sure to guarantee this is the expected behavior in your implementation.
      */
     function _grantRole(bytes32 role, address account) internal virtual override returns (bool) {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE) {
             if (defaultAdmin() != address(0)) {
                 revert AccessControlEnforcedDefaultAdminRules();
             }
-            _currentDefaultAdmin = account;
+            $._currentDefaultAdmin = account;
         }
         return super._grantRole(role, account);
     }
@@ -149,8 +164,9 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * @dev See {AccessControl-_revokeRole}.
      */
     function _revokeRole(bytes32 role, address account) internal virtual override returns (bool) {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE && account == defaultAdmin()) {
-            delete _currentDefaultAdmin;
+            delete $._currentDefaultAdmin;
         }
         return super._revokeRole(role, account);
     }
@@ -173,30 +189,34 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
      */
     function defaultAdmin() public view virtual returns (address) {
-        return _currentDefaultAdmin;
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
+        return $._currentDefaultAdmin;
     }
 
     /**
      * @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
      */
     function pendingDefaultAdmin() public view virtual returns (address newAdmin, uint48 schedule) {
-        return (_pendingDefaultAdmin, _pendingDefaultAdminSchedule);
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
+        return ($._pendingDefaultAdmin, $._pendingDefaultAdminSchedule);
     }
 
     /**
      * @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
      */
     function defaultAdminDelay() public view virtual returns (uint48) {
-        uint48 schedule = _pendingDelaySchedule;
-        return (_isScheduleSet(schedule) && _hasSchedulePassed(schedule)) ? _pendingDelay : _currentDelay;
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
+        uint48 schedule = $._pendingDelaySchedule;
+        return (_isScheduleSet(schedule) && _hasSchedulePassed(schedule)) ? $._pendingDelay : $._currentDelay;
     }
 
     /**
      * @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
      */
     function pendingDefaultAdminDelay() public view virtual returns (uint48 newDelay, uint48 schedule) {
-        schedule = _pendingDelaySchedule;
-        return (_isScheduleSet(schedule) && !_hasSchedulePassed(schedule)) ? (_pendingDelay, schedule) : (0, 0);
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
+        schedule = $._pendingDelaySchedule;
+        return (_isScheduleSet(schedule) && !_hasSchedulePassed(schedule)) ? ($._pendingDelay, schedule) : (0, 0);
     }
 
     /**
@@ -262,14 +282,15 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * Internal function without access restriction.
      */
     function _acceptDefaultAdminTransfer() internal virtual {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         (address newAdmin, uint48 schedule) = pendingDefaultAdmin();
         if (!_isScheduleSet(schedule) || !_hasSchedulePassed(schedule)) {
             revert AccessControlEnforcedDefaultAdminDelay(schedule);
         }
         _revokeRole(DEFAULT_ADMIN_ROLE, defaultAdmin());
         _grantRole(DEFAULT_ADMIN_ROLE, newAdmin);
-        delete _pendingDefaultAdmin;
-        delete _pendingDefaultAdminSchedule;
+        delete $._pendingDefaultAdmin;
+        delete $._pendingDefaultAdminSchedule;
     }
 
     ///
@@ -347,10 +368,11 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * May emit a DefaultAdminTransferCanceled event.
      */
     function _setPendingDefaultAdmin(address newAdmin, uint48 newSchedule) private {
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         (, uint48 oldSchedule) = pendingDefaultAdmin();
 
-        _pendingDefaultAdmin = newAdmin;
-        _pendingDefaultAdminSchedule = newSchedule;
+        $._pendingDefaultAdmin = newAdmin;
+        $._pendingDefaultAdminSchedule = newSchedule;
 
         // An `oldSchedule` from `pendingDefaultAdmin()` is only set if it hasn't been accepted.
         if (_isScheduleSet(oldSchedule)) {
@@ -365,20 +387,21 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * May emit a DefaultAdminDelayChangeCanceled event.
      */
     function _setPendingDelay(uint48 newDelay, uint48 newSchedule) private {
-        uint48 oldSchedule = _pendingDelaySchedule;
+        AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
+        uint48 oldSchedule = $._pendingDelaySchedule;
 
         if (_isScheduleSet(oldSchedule)) {
             if (_hasSchedulePassed(oldSchedule)) {
                 // Materialize a virtual delay
-                _currentDelay = _pendingDelay;
+                $._currentDelay = $._pendingDelay;
             } else {
                 // Emit for implicit cancellations when another delay was scheduled.
                 emit DefaultAdminDelayChangeCanceled();
             }
         }
 
-        _pendingDelay = newDelay;
-        _pendingDelaySchedule = newSchedule;
+        $._pendingDelay = newDelay;
+        $._pendingDelaySchedule = newSchedule;
     }
 
     ///
@@ -398,11 +421,4 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     function _hasSchedulePassed(uint48 schedule) private view returns (bool) {
         return schedule < block.timestamp;
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }

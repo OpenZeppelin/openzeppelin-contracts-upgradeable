@@ -26,8 +26,20 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
         uint96 royaltyFraction;
     }
 
-    RoyaltyInfo private _defaultRoyaltyInfo;
-    mapping(uint256 tokenId => RoyaltyInfo) private _tokenRoyaltyInfo;
+    /// @custom:storage-location erc7201:openzeppelin.storage.ERC2981
+    struct ERC2981Storage {
+        RoyaltyInfo _defaultRoyaltyInfo;
+        mapping(uint256 tokenId => RoyaltyInfo) _tokenRoyaltyInfo;
+    }
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC2981")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant ERC2981StorageLocation = 0xdaedc9ab023613a7caf35e703657e986ccfad7e3eb0af93a2853f8d65dd86b00;
+
+    function _getERC2981Storage() private pure returns (ERC2981Storage storage $) {
+        assembly {
+            $.slot := ERC2981StorageLocation
+        }
+    }
 
     /**
      * @dev The default royalty set is invalid (eg. (numerator / denominator) >= 1).
@@ -65,10 +77,11 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      * @inheritdoc IERC2981Upgradeable
      */
     function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual returns (address, uint256) {
-        RoyaltyInfo memory royalty = _tokenRoyaltyInfo[tokenId];
+        ERC2981Storage storage $ = _getERC2981Storage();
+        RoyaltyInfo memory royalty = $._tokenRoyaltyInfo[tokenId];
 
         if (royalty.receiver == address(0)) {
-            royalty = _defaultRoyaltyInfo;
+            royalty = $._defaultRoyaltyInfo;
         }
 
         uint256 royaltyAmount = (salePrice * royalty.royaltyFraction) / _feeDenominator();
@@ -94,6 +107,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      * - `feeNumerator` cannot be greater than the fee denominator.
      */
     function _setDefaultRoyalty(address receiver, uint96 feeNumerator) internal virtual {
+        ERC2981Storage storage $ = _getERC2981Storage();
         uint256 denominator = _feeDenominator();
         if (feeNumerator > denominator) {
             // Royalty fee will exceed the sale price
@@ -103,14 +117,15 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
             revert ERC2981InvalidDefaultRoyaltyReceiver(address(0));
         }
 
-        _defaultRoyaltyInfo = RoyaltyInfo(receiver, feeNumerator);
+        $._defaultRoyaltyInfo = RoyaltyInfo(receiver, feeNumerator);
     }
 
     /**
      * @dev Removes default royalty information.
      */
     function _deleteDefaultRoyalty() internal virtual {
-        delete _defaultRoyaltyInfo;
+        ERC2981Storage storage $ = _getERC2981Storage();
+        delete $._defaultRoyaltyInfo;
     }
 
     /**
@@ -122,6 +137,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
      * - `feeNumerator` cannot be greater than the fee denominator.
      */
     function _setTokenRoyalty(uint256 tokenId, address receiver, uint96 feeNumerator) internal virtual {
+        ERC2981Storage storage $ = _getERC2981Storage();
         uint256 denominator = _feeDenominator();
         if (feeNumerator > denominator) {
             // Royalty fee will exceed the sale price
@@ -131,20 +147,14 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
             revert ERC2981InvalidTokenRoyaltyReceiver(tokenId, address(0));
         }
 
-        _tokenRoyaltyInfo[tokenId] = RoyaltyInfo(receiver, feeNumerator);
+        $._tokenRoyaltyInfo[tokenId] = RoyaltyInfo(receiver, feeNumerator);
     }
 
     /**
      * @dev Resets royalty information for the token id back to the global default.
      */
     function _resetTokenRoyalty(uint256 tokenId) internal virtual {
-        delete _tokenRoyaltyInfo[tokenId];
+        ERC2981Storage storage $ = _getERC2981Storage();
+        delete $._tokenRoyaltyInfo[tokenId];
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[48] private __gap;
 }
