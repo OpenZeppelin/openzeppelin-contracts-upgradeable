@@ -36,9 +36,6 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
     ERC721BurnableUpgradeable,
     ERC721PausableUpgradeable
 {
-    function initialize(string memory name, string memory symbol, string memory baseTokenURI) public virtual initializer {
-        __ERC721PresetMinterPauserAutoId_init(name, symbol, baseTokenURI);
-    }
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -48,6 +45,9 @@ contract ERC721PresetMinterPauserAutoIdUpgradeable is
 
     string private _baseTokenURI;
 
+    function initialize(string memory name, string memory symbol, string memory baseTokenURI) public virtual initializer {
+        __ERC721PresetMinterPauserAutoId_init(name, symbol, baseTokenURI);
+    }
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE` and `PAUSER_ROLE` to the
      * account that deploys the contract.

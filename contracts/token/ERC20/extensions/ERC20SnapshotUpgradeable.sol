@@ -41,11 +41,6 @@ import "../../../proxy/utils/Initializable.sol";
  */
 
 abstract contract ERC20SnapshotUpgradeable is Initializable, ERC20Upgradeable {
-    function __ERC20Snapshot_init() internal onlyInitializing {
-    }
-
-    function __ERC20Snapshot_init_unchained() internal onlyInitializing {
-    }
     // Inspired by Jordi Baylina's MiniMeToken to record historical balances:
     // https://github.com/Giveth/minime/blob/ea04d950eea153a04c51fa510b068b9dded390cb/contracts/MiniMeToken.sol
 
@@ -70,6 +65,11 @@ abstract contract ERC20SnapshotUpgradeable is Initializable, ERC20Upgradeable {
      */
     event Snapshot(uint256 id);
 
+    function __ERC20Snapshot_init() internal onlyInitializing {
+    }
+
+    function __ERC20Snapshot_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Creates a new snapshot and returns its snapshot id.
      *

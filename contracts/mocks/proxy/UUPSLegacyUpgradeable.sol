@@ -8,14 +8,14 @@ import "../../proxy/utils/Initializable.sol";
 // This contract implements the pre-4.5 UUPS upgrade function with a rollback test.
 // It's used to test that newer UUPS contracts are considered valid upgrades by older UUPS contracts.
 contract UUPSUpgradeableLegacyMockUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
+    // Inlined from ERC1967Upgrade
+    bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
+
     function __UUPSUpgradeableLegacyMock_init() internal onlyInitializing {
     }
 
     function __UUPSUpgradeableLegacyMock_init_unchained() internal onlyInitializing {
     }
-    // Inlined from ERC1967Upgrade
-    bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
-
     // ERC1967Upgrade._setImplementation is private so we reproduce it here.
     // An extra underscore prevents a name clash error.
     function __setImplementation(address newImplementation) private {

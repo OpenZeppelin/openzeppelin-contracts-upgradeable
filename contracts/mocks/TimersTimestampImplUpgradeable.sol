@@ -6,15 +6,15 @@ import "../utils/TimersUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract TimersTimestampImplUpgradeable is Initializable {
+    using TimersUpgradeable for TimersUpgradeable.Timestamp;
+
+    TimersUpgradeable.Timestamp private _timer;
+
     function __TimersTimestampImpl_init() internal onlyInitializing {
     }
 
     function __TimersTimestampImpl_init_unchained() internal onlyInitializing {
     }
-    using TimersUpgradeable for TimersUpgradeable.Timestamp;
-
-    TimersUpgradeable.Timestamp private _timer;
-
     function getDeadline() public view returns (uint64) {
         return _timer.getDeadline();
     }

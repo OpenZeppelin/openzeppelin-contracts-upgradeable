@@ -21,6 +21,13 @@ import "../../proxy/utils/Initializable.sol";
  * to the escrow's deposit and withdraw.
  */
 contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
+    using AddressUpgradeable for address payable;
+
+    event Deposited(address indexed payee, uint256 weiAmount);
+    event Withdrawn(address indexed payee, uint256 weiAmount);
+
+    mapping(address => uint256) private _deposits;
+
     function __Escrow_init() internal onlyInitializing {
         __Ownable_init_unchained();
     }
@@ -30,13 +37,6 @@ contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
     function initialize() public virtual initializer {
         __Escrow_init();
     }
-    using AddressUpgradeable for address payable;
-
-    event Deposited(address indexed payee, uint256 weiAmount);
-    event Withdrawn(address indexed payee, uint256 weiAmount);
-
-    mapping(address => uint256) private _deposits;
-
     function depositsOf(address payee) public view returns (uint256) {
         return _deposits[payee];
     }

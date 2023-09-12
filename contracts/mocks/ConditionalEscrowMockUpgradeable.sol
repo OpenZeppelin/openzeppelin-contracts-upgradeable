@@ -7,14 +7,14 @@ import "../proxy/utils/Initializable.sol";
 
 // mock class using ConditionalEscrow
 contract ConditionalEscrowMockUpgradeable is Initializable, ConditionalEscrowUpgradeable {
+    mapping(address => bool) private _allowed;
+
     function __ConditionalEscrowMock_init() internal onlyInitializing {
         __Ownable_init_unchained();
     }
 
     function __ConditionalEscrowMock_init_unchained() internal onlyInitializing {
     }
-    mapping(address => bool) private _allowed;
-
     function setAllowed(address payee, bool allowed) public {
         _allowed[payee] = allowed;
     }

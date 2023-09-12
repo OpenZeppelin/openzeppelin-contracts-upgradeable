@@ -27,12 +27,12 @@ import "../../../proxy/utils/Initializable.sol";
  * _Deprecated in favor of https://wizard.openzeppelin.com/[Contracts Wizard]._
  */
 contract ERC20PresetMinterPauserUpgradeable is Initializable, ContextUpgradeable, AccessControlEnumerableUpgradeable, ERC20BurnableUpgradeable, ERC20PausableUpgradeable {
-    function initialize(string memory name, string memory symbol) public virtual initializer {
-        __ERC20PresetMinterPauser_init(name, symbol);
-    }
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
+    function initialize(string memory name, string memory symbol) public virtual initializer {
+        __ERC20PresetMinterPauser_init(name, symbol);
+    }
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE` and `PAUSER_ROLE` to the
      * account that deploys the contract.

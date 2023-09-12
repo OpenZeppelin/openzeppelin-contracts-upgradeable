@@ -13,16 +13,16 @@ import "../../proxy/utils/Initializable.sol";
  * their support of an interface.
  */
 abstract contract ERC165StorageUpgradeable is Initializable, ERC165Upgradeable {
-    function __ERC165Storage_init() internal onlyInitializing {
-    }
-
-    function __ERC165Storage_init_unchained() internal onlyInitializing {
-    }
     /**
      * @dev Mapping of interface ids to whether or not it's supported.
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
+    function __ERC165Storage_init() internal onlyInitializing {
+    }
+
+    function __ERC165Storage_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

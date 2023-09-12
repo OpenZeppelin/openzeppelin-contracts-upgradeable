@@ -11,16 +11,16 @@ import "../../../proxy/utils/Initializable.sol";
  * @dev ERC721 token with storage based token URI management.
  */
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, ERC721Upgradeable {
-    function __ERC721URIStorage_init() internal onlyInitializing {
-    }
-
-    function __ERC721URIStorage_init_unchained() internal onlyInitializing {
-    }
     using StringsUpgradeable for uint256;
 
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
 
+    function __ERC721URIStorage_init() internal onlyInitializing {
+    }
+
+    function __ERC721URIStorage_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}
      */

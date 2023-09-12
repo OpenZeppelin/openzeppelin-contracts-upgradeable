@@ -13,11 +13,6 @@ import "../../proxy/utils/Initializable.sol";
  * @dev Copied from the master branch at commit 86de1e8b6c3fa6b4efa4a5435869d2521be0f5f5
  */
 abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgradeable, ERC20PermitUpgradeable {
-    function __ERC20VotesLegacyMock_init() internal onlyInitializing {
-    }
-
-    function __ERC20VotesLegacyMock_init_unchained() internal onlyInitializing {
-    }
     struct Checkpoint {
         uint32 fromBlock;
         uint224 votes;
@@ -30,6 +25,11 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
     mapping(address => Checkpoint[]) private _checkpoints;
     Checkpoint[] private _totalSupplyCheckpoints;
 
+    function __ERC20VotesLegacyMock_init() internal onlyInitializing {
+    }
+
+    function __ERC20VotesLegacyMock_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
      */

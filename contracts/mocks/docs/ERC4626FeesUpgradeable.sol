@@ -6,13 +6,13 @@ import "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
+    using MathUpgradeable for uint256;
+
     function __ERC4626Fees_init() internal onlyInitializing {
     }
 
     function __ERC4626Fees_init_unchained() internal onlyInitializing {
     }
-    using MathUpgradeable for uint256;
-
     /** @dev See {IERC4626-previewDeposit}. */
     function previewDeposit(uint256 assets) public view virtual override returns (uint256) {
         uint256 fee = _feeOnTotal(assets, _entryFeeBasePoint());

@@ -17,11 +17,6 @@ import "../utils/Initializable.sol";
  * _Available since v4.1._
  */
 abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeable {
-    function __ERC1967Upgrade_init() internal onlyInitializing {
-    }
-
-    function __ERC1967Upgrade_init_unchained() internal onlyInitializing {
-    }
     // This is the keccak-256 hash of "eip1967.proxy.rollback" subtracted by 1
     bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
 
@@ -32,6 +27,11 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeabl
      */
     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
+    function __ERC1967Upgrade_init() internal onlyInitializing {
+    }
+
+    function __ERC1967Upgrade_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns the current implementation address.
      */

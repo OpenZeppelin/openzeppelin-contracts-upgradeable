@@ -17,15 +17,15 @@ import "../../proxy/utils/Initializable.sol";
  * CAUTION: This file is deprecated as of v4.9 and will be removed in the next major release.
  */
 contract ERC1820ImplementerUpgradeable is Initializable, IERC1820ImplementerUpgradeable {
+    bytes32 private constant _ERC1820_ACCEPT_MAGIC = keccak256("ERC1820_ACCEPT_MAGIC");
+
+    mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
+
     function __ERC1820Implementer_init() internal onlyInitializing {
     }
 
     function __ERC1820Implementer_init_unchained() internal onlyInitializing {
     }
-    bytes32 private constant _ERC1820_ACCEPT_MAGIC = keccak256("ERC1820_ACCEPT_MAGIC");
-
-    mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
-
     /**
      * @dev See {IERC1820Implementer-canImplementInterfaceForAddress}.
      */

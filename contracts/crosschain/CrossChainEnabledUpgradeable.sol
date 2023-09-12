@@ -19,11 +19,6 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v4.6._
  */
 abstract contract CrossChainEnabledUpgradeable is Initializable {
-    function __CrossChainEnabled_init() internal onlyInitializing {
-    }
-
-    function __CrossChainEnabled_init_unchained() internal onlyInitializing {
-    }
     /**
      * @dev Throws if the current function call is not the result of a
      * cross-chain execution.
@@ -43,6 +38,11 @@ abstract contract CrossChainEnabledUpgradeable is Initializable {
         _;
     }
 
+    function __CrossChainEnabled_init() internal onlyInitializing {
+    }
+
+    function __CrossChainEnabled_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns whether the current function call is the result of a
      * cross-chain message.

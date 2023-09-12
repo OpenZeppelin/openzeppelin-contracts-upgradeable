@@ -13,11 +13,6 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IERC6372Upgradeable {
-    function __IGovernor_init() internal onlyInitializing {
-    }
-
-    function __IGovernor_init_unchained() internal onlyInitializing {
-    }
     enum ProposalState {
         Pending,
         Active,
@@ -76,6 +71,11 @@ abstract contract IGovernorUpgradeable is Initializable, IERC165Upgradeable, IER
         bytes params
     );
 
+    function __IGovernor_init() internal onlyInitializing {
+    }
+
+    function __IGovernor_init_unchained() internal onlyInitializing {
+    }
     /**
      * @notice module:core
      * @dev Name of the governor instance (used in building the ERC712 domain separator).

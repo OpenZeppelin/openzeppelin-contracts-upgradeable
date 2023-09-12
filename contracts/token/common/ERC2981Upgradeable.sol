@@ -23,11 +23,6 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.5._
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
-    function __ERC2981_init() internal onlyInitializing {
-    }
-
-    function __ERC2981_init_unchained() internal onlyInitializing {
-    }
     struct RoyaltyInfo {
         address receiver;
         uint96 royaltyFraction;
@@ -36,6 +31,11 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     RoyaltyInfo private _defaultRoyaltyInfo;
     mapping(uint256 => RoyaltyInfo) private _tokenRoyaltyInfo;
 
+    function __ERC2981_init() internal onlyInitializing {
+    }
+
+    function __ERC2981_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

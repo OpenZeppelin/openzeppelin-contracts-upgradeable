@@ -7,13 +7,13 @@ import "../../utils/CountersUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
+    CountersUpgradeable.Counter internal _counter;
+
     function __NonUpgradeableMock_init() internal onlyInitializing {
     }
 
     function __NonUpgradeableMock_init_unchained() internal onlyInitializing {
     }
-    CountersUpgradeable.Counter internal _counter;
-
     function current() external view returns (uint256) {
         return CountersUpgradeable.current(_counter);
     }

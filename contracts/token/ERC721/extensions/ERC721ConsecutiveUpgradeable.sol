@@ -31,17 +31,17 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v4.8._
  */
 abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309Upgradeable, ERC721Upgradeable {
-    function __ERC721Consecutive_init() internal onlyInitializing {
-    }
-
-    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
-    }
     using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
 
     CheckpointsUpgradeable.Trace160 private _sequentialOwnership;
     BitMapsUpgradeable.BitMap private _sequentialBurn;
 
+    function __ERC721Consecutive_init() internal onlyInitializing {
+    }
+
+    function __ERC721Consecutive_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Maximum size of a batch of consecutive tokens. This is designed to limit stress on off-chain indexing
      * services that have to record one entry per token, and have protections against "unreasonably large" batches of

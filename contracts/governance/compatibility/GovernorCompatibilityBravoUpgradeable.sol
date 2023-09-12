@@ -20,11 +20,6 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.3._
  */
 abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGovernorTimelockUpgradeable, IGovernorCompatibilityBravoUpgradeable, GovernorUpgradeable {
-    function __GovernorCompatibilityBravo_init() internal onlyInitializing {
-    }
-
-    function __GovernorCompatibilityBravo_init_unchained() internal onlyInitializing {
-    }
     enum VoteType {
         Against,
         For,
@@ -46,6 +41,11 @@ abstract contract GovernorCompatibilityBravoUpgradeable is Initializable, IGover
 
     mapping(uint256 => ProposalDetails) private _proposalDetails;
 
+    function __GovernorCompatibilityBravo_init() internal onlyInitializing {
+    }
+
+    function __GovernorCompatibilityBravo_init_unchained() internal onlyInitializing {
+    }
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo&quorum=bravo";

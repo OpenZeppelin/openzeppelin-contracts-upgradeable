@@ -13,11 +13,6 @@ import "../../../proxy/utils/Initializable.sol";
  * account.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721EnumerableUpgradeable {
-    function __ERC721Enumerable_init() internal onlyInitializing {
-    }
-
-    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
-    }
     // Mapping from owner to list of owned token IDs
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
 
@@ -30,6 +25,11 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
     // Mapping from token id to position in the allTokens array
     mapping(uint256 => uint256) private _allTokensIndex;
 
+    function __ERC721Enumerable_init() internal onlyInitializing {
+    }
+
+    function __ERC721Enumerable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

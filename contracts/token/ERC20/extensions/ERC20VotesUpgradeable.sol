@@ -26,11 +26,6 @@ import "../../../proxy/utils/Initializable.sol";
  * _Available since v4.2._
  */
 abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable, IERC5805Upgradeable {
-    function __ERC20Votes_init() internal onlyInitializing {
-    }
-
-    function __ERC20Votes_init_unchained() internal onlyInitializing {
-    }
     struct Checkpoint {
         uint32 fromBlock;
         uint224 votes;
@@ -43,6 +38,11 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20PermitUpgradeable
     mapping(address => Checkpoint[]) private _checkpoints;
     Checkpoint[] private _totalSupplyCheckpoints;
 
+    function __ERC20Votes_init() internal onlyInitializing {
+    }
+
+    function __ERC20Votes_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based checkpoints (and voting).
      */

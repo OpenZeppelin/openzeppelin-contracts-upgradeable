@@ -11,13 +11,6 @@ import "../../utils/introspection/ERC1820ImplementerUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeable, IERC777SenderUpgradeable, IERC777RecipientUpgradeable, ERC1820ImplementerUpgradeable {
-    function __ERC777SenderRecipientMock_init() internal onlyInitializing {
-        __ERC777SenderRecipientMock_init_unchained();
-    }
-
-    function __ERC777SenderRecipientMock_init_unchained() internal onlyInitializing {
-        _erc1820 = IERC1820RegistryUpgradeable(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
-    }
     event TokensToSendCalled(
         address operator,
         address from,
@@ -53,6 +46,13 @@ contract ERC777SenderRecipientMockUpgradeable is Initializable, ContextUpgradeab
     bytes32 private constant _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
     bytes32 private constant _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
 
+    function __ERC777SenderRecipientMock_init() internal onlyInitializing {
+        __ERC777SenderRecipientMock_init_unchained();
+    }
+
+    function __ERC777SenderRecipientMock_init_unchained() internal onlyInitializing {
+        _erc1820 = IERC1820RegistryUpgradeable(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    }
     function tokensToSend(
         address operator,
         address from,

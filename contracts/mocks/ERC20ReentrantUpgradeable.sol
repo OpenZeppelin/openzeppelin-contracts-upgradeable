@@ -6,12 +6,6 @@ import "../token/ERC20/extensions/ERC4626Upgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
-    function __ERC20Reentrant_init() internal onlyInitializing {
-        __ERC20_init_unchained("TEST", "TST");
-    }
-
-    function __ERC20Reentrant_init_unchained() internal onlyInitializing {
-    }
     enum Type {
         No,
         Before,
@@ -22,6 +16,12 @@ contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
     address private _reenterTarget;
     bytes private _reenterData;
 
+    function __ERC20Reentrant_init() internal onlyInitializing {
+        __ERC20_init_unchained("TEST", "TST");
+    }
+
+    function __ERC20Reentrant_init_unchained() internal onlyInitializing {
+    }
     function scheduleReenter(Type when, address target, bytes calldata data) external {
         _reenterType = when;
         _reenterTarget = target;

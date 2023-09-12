@@ -7,17 +7,17 @@ import "../../vendor/polygon/IFxMessageProcessorUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 abstract contract BaseRelayMockUpgradeable is Initializable {
-    function __BaseRelayMock_init() internal onlyInitializing {
-    }
-
-    function __BaseRelayMock_init_unchained() internal onlyInitializing {
-    }
     // needed to parse custom errors
     error NotCrossChainCall();
     error InvalidCrossChainSender(address sender, address expected);
 
     address internal _currentSender;
 
+    function __BaseRelayMock_init() internal onlyInitializing {
+    }
+
+    function __BaseRelayMock_init_unchained() internal onlyInitializing {
+    }
     function relayAs(address target, bytes calldata data, address sender) external virtual {
         address previousSender = _currentSender;
 
@@ -62,16 +62,16 @@ contract BridgeAMBMockUpgradeable is Initializable, BaseRelayMockUpgradeable {
  * Arbitrum
  */
 contract BridgeArbitrumL1MockUpgradeable is Initializable, BaseRelayMockUpgradeable {
-    function __BridgeArbitrumL1Mock_init() internal onlyInitializing {
-    }
-
-    function __BridgeArbitrumL1Mock_init_unchained() internal onlyInitializing {
-    }
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
     address public immutable inbox = address(new BridgeArbitrumL1InboxUpgradeable());
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
     address public immutable outbox = address(new BridgeArbitrumL1OutboxUpgradeable());
 
+    function __BridgeArbitrumL1Mock_init() internal onlyInitializing {
+    }
+
+    function __BridgeArbitrumL1Mock_init_unchained() internal onlyInitializing {
+    }
     function activeOutbox() public view returns (address) {
         return outbox;
     }
@@ -106,14 +106,14 @@ contract BridgeArbitrumL1InboxUpgradeable is Initializable {
 }
 
 contract BridgeArbitrumL1OutboxUpgradeable is Initializable {
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
+    address public immutable bridge = msg.sender;
+
     function __BridgeArbitrumL1Outbox_init() internal onlyInitializing {
     }
 
     function __BridgeArbitrumL1Outbox_init_unchained() internal onlyInitializing {
     }
-    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
-    address public immutable bridge = msg.sender;
-
     function l2ToL1Sender() public view returns (address) {
         return BridgeArbitrumL1MockUpgradeable(bridge).currentSender();
     }

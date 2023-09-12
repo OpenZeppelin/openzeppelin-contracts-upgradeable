@@ -4,16 +4,16 @@ pragma solidity ^0.8.0;
 import "../proxy/utils/Initializable.sol";
 
 contract CallReceiverMockUpgradeable is Initializable {
-    function __CallReceiverMock_init() internal onlyInitializing {
-    }
-
-    function __CallReceiverMock_init_unchained() internal onlyInitializing {
-    }
     event MockFunctionCalled();
     event MockFunctionCalledWithArgs(uint256 a, uint256 b);
 
     uint256[] private _array;
 
+    function __CallReceiverMock_init() internal onlyInitializing {
+    }
+
+    function __CallReceiverMock_init_unchained() internal onlyInitializing {
+    }
     function mockFunction() public payable returns (string memory) {
         emit MockFunctionCalled();
 

@@ -6,13 +6,13 @@ import "../utils/ContextUpgradeable.sol";
 import "../proxy/utils/Initializable.sol";
 
 contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
+    event Sender(address sender);
+
     function __ContextMock_init() internal onlyInitializing {
     }
 
     function __ContextMock_init_unchained() internal onlyInitializing {
     }
-    event Sender(address sender);
-
     function msgSender() public {
         emit Sender(_msgSender());
     }

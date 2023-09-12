@@ -15,13 +15,13 @@ import "../../../proxy/utils/Initializable.sol";
  * same id are not going to be minted.
  */
 abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable {
+    mapping(uint256 => uint256) private _totalSupply;
+
     function __ERC1155Supply_init() internal onlyInitializing {
     }
 
     function __ERC1155Supply_init_unchained() internal onlyInitializing {
     }
-    mapping(uint256 => uint256) private _totalSupply;
-
     /**
      * @dev Total amount of tokens in with a given id.
      */

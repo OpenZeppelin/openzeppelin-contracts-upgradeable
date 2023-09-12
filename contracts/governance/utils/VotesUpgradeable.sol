@@ -30,11 +30,6 @@ import "../../proxy/utils/Initializable.sol";
  * _Available since v4.5._
  */
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, IERC5805Upgradeable {
-    function __Votes_init() internal onlyInitializing {
-    }
-
-    function __Votes_init_unchained() internal onlyInitializing {
-    }
     using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace224;
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
@@ -51,6 +46,11 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
 
     mapping(address => CountersUpgradeable.Counter) private _nonces;
 
+    function __Votes_init() internal onlyInitializing {
+    }
+
+    function __Votes_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.

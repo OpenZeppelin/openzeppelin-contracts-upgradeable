@@ -24,13 +24,13 @@ import "../proxy/utils/Initializable.sol";
  * _Available since v4.6._
  */
 abstract contract AccessControlCrossChainUpgradeable is Initializable, AccessControlUpgradeable, CrossChainEnabledUpgradeable {
+    bytes32 public constant CROSSCHAIN_ALIAS = keccak256("CROSSCHAIN_ALIAS");
+
     function __AccessControlCrossChain_init() internal onlyInitializing {
     }
 
     function __AccessControlCrossChain_init_unchained() internal onlyInitializing {
     }
-    bytes32 public constant CROSSCHAIN_ALIAS = keccak256("CROSSCHAIN_ALIAS");
-
     /**
      * @dev See {AccessControl-_checkRole}.
      */
