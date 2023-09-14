@@ -55,11 +55,6 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20U
     }
 
     /**
-     * @dev Indicates a failed `decreaseAllowance` request.
-     */
-    error ERC20FailedDecreaseAllowance(address spender, uint256 currentAllowance, uint256 requestedDecrease);
-
-    /**
      * @dev Sets the values for {name} and {symbol}.
      *
      * All two of these values are immutable: they can only be set once during
