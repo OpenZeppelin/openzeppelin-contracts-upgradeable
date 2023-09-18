@@ -31,7 +31,7 @@ abstract contract NoncesUpgradeable is Initializable {
     function __Nonces_init_unchained() internal onlyInitializing {
     }
     /**
-     * @dev Returns an the next unused nonce for an address.
+     * @dev Returns the next unused nonce for an address.
      */
     function nonces(address owner) public view virtual returns (uint256) {
         NoncesStorage storage $ = _getNoncesStorage();
