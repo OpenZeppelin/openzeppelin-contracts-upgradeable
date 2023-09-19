@@ -23,6 +23,20 @@ contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUp
         __AccessControlEnumerable_init();
     }
 }
+import "../access/manager/AccessManagedUpgradeable.sol";
+
+contract AccessManagedUpgradeableWithInit is AccessManagedUpgradeable {
+    constructor(address initialAuthority) payable initializer {
+        __AccessManaged_init(initialAuthority);
+    }
+}
+import "../access/manager/AccessManagerUpgradeable.sol";
+
+contract AccessManagerUpgradeableWithInit is AccessManagerUpgradeable {
+    constructor(address initialAdmin) payable initializer {
+        __AccessManager_init(initialAdmin);
+    }
+}
 import "../access/OwnableUpgradeable.sol";
 
 contract OwnableUpgradeableWithInit is OwnableUpgradeable {
@@ -63,6 +77,13 @@ import "../metatx/ERC2771ForwarderUpgradeable.sol";
 contract ERC2771ForwarderUpgradeableWithInit is ERC2771ForwarderUpgradeable {
     constructor(string memory name) payable initializer {
         __ERC2771Forwarder_init(name);
+    }
+}
+import "./AccessManagedTargetUpgradeable.sol";
+
+contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeable {
+    constructor() payable initializer {
+        __AccessManagedTarget_init();
     }
 }
 import "./ArraysMockUpgradeable.sol";
@@ -278,6 +299,13 @@ import "./governance/GovernorStorageMockUpgradeable.sol";
 contract GovernorStorageMockUpgradeableWithInit is GovernorStorageMockUpgradeable {
     constructor() payable initializer {
         __GovernorStorageMock_init();
+    }
+}
+import "./governance/GovernorTimelockAccessMockUpgradeable.sol";
+
+contract GovernorTimelockAccessMockUpgradeableWithInit is GovernorTimelockAccessMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorTimelockAccessMock_init();
     }
 }
 import "./governance/GovernorTimelockCompoundMockUpgradeable.sol";

@@ -17,7 +17,7 @@ import { IGovernorUpgradeable, IERC6372Upgradeable } from "./IGovernorUpgradeabl
 import "../proxy/utils/Initializable.sol";
 
 /**
- * @dev Core of the governance system, designed to be extended though various modules.
+ * @dev Core of the governance system, designed to be extended through various modules.
  *
  * This contract is abstract and requires several functions to be implemented in various modules:
  *
@@ -41,7 +41,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint32 voteDuration;
         bool executed;
         bool canceled;
-        uint48 eta;
+        uint48 etaSeconds;
     }
 
     bytes32 private constant ALL_PROPOSAL_STATES_BITMAP = bytes32((2 ** (uint8(type(ProposalState).max) + 1)) - 1);
@@ -51,9 +51,9 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
 
         mapping(uint256 proposalId => ProposalCore) _proposals;
 
-        // This queue keeps track of the governor operating on itself. Calls to functions protected by the
-        // {onlyGovernance} modifier needs to be whitelisted in this queue. Whitelisting is set in {_beforeExecute},
-        // consumed by the {onlyGovernance} modifier and eventually reset in {_afterExecute}. This ensures that the
+        // This queue keeps track of the governor operating on itself. Calls to functions protected by the {onlyGovernance}
+        // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
+        // {onlyGovernance} modifier and eventually reset after {_executeOperations} completes. This ensures that the
         // execution of {onlyGovernance} protected calls can only be achieved through successful proposals.
         DoubleEndedQueueUpgradeable.Bytes32Deque _governanceCall;
     }
@@ -117,7 +117,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-name}.
      */
-    function name() public view virtual override returns (string memory) {
+    function name() public view virtual returns (string memory) {
         GovernorStorage storage $ = _getGovernorStorage();
         return $._name;
     }
@@ -125,7 +125,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-version}.
      */
-    function version() public view virtual override returns (string memory) {
+    function version() public view virtual returns (string memory) {
         return "1";
     }
 
@@ -147,16 +147,16 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) public pure virtual override returns (uint256) {
+    ) public pure virtual returns (uint256) {
         return uint256(keccak256(abi.encode(targets, values, calldatas, descriptionHash)));
     }
 
     /**
      * @dev See {IGovernor-state}.
      */
-    function state(uint256 proposalId) public view virtual override returns (ProposalState) {
+    function state(uint256 proposalId) public view virtual returns (ProposalState) {
         GovernorStorage storage $ = _getGovernorStorage();
-        // ProposalCore is just one slot. We can load it from storage to stack with a single sload
+        // We read the struct fields into the stack at once so Solidity emits a single SLOAD
         ProposalCore storage proposal = $._proposals[proposalId];
         bool proposalExecuted = proposal.executed;
         bool proposalCanceled = proposal.canceled;
@@ -197,14 +197,14 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-proposalThreshold}.
      */
-    function proposalThreshold() public view virtual override returns (uint256) {
+    function proposalThreshold() public view virtual returns (uint256) {
         return 0;
     }
 
     /**
      * @dev See {IGovernor-proposalSnapshot}.
      */
-    function proposalSnapshot(uint256 proposalId) public view virtual override returns (uint256) {
+    function proposalSnapshot(uint256 proposalId) public view virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         return $._proposals[proposalId].voteStart;
     }
@@ -212,7 +212,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-proposalDeadline}.
      */
-    function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
+    function proposalDeadline(uint256 proposalId) public view virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         return $._proposals[proposalId].voteStart + $._proposals[proposalId].voteDuration;
     }
@@ -220,7 +220,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-proposalProposer}.
      */
-    function proposalProposer(uint256 proposalId) public view virtual override returns (address) {
+    function proposalProposer(uint256 proposalId) public view virtual returns (address) {
         GovernorStorage storage $ = _getGovernorStorage();
         return $._proposals[proposalId].proposer;
     }
@@ -228,9 +228,16 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-proposalEta}.
      */
-    function proposalEta(uint256 proposalId) public view virtual override returns (uint256) {
+    function proposalEta(uint256 proposalId) public view virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
-        return $._proposals[proposalId].eta;
+        return $._proposals[proposalId].etaSeconds;
+    }
+
+    /**
+     * @dev See {IGovernor-proposalNeedsQueuing}.
+     */
+    function proposalNeedsQueuing(uint256) public view virtual returns (bool) {
+        return false;
     }
 
     /**
@@ -296,7 +303,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         address proposer = _msgSender();
 
         // check description restriction
@@ -367,17 +374,17 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         uint256 proposalId = hashProposal(targets, values, calldatas, descriptionHash);
 
         _validateStateBitmap(proposalId, _encodeStateBitmap(ProposalState.Succeeded));
 
-        uint48 eta = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+        uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
 
-        if (eta != 0) {
-            $._proposals[proposalId].eta = eta;
-            emit ProposalQueued(proposalId, eta);
+        if (etaSeconds != 0) {
+            $._proposals[proposalId].etaSeconds = etaSeconds;
+            emit ProposalQueued(proposalId, etaSeconds);
         } else {
             revert GovernorQueueNotImplemented();
         }
@@ -391,12 +398,12 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      *
      * This is empty by default, and must be overridden to implement queuing.
      *
-     * This function returns a timestamp that describes the expected eta for execution. If the returned value is 0
+     * This function returns a timestamp that describes the expected ETA for execution. If the returned value is 0
      * (which is the default value), the core will consider queueing did not succeed, and the public {queue} function
      * will revert.
      *
      * NOTE: Calling this function directly will NOT check the current state of the proposal, or emit the
-     * `ProposalQueued` event. Queuing a proposal should be done using {queue} or {_queue}.
+     * `ProposalQueued` event. Queuing a proposal should be done using {queue}.
      */
     function _queueOperations(
         uint256 /*proposalId*/,
@@ -416,7 +423,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) public payable virtual override returns (uint256) {
+    ) public payable virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         uint256 proposalId = hashProposal(targets, values, calldatas, descriptionHash);
 
@@ -477,7 +484,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         // The proposalId will be recomputed in the `_cancel` call further down. However we need the value before we
         // do the internal call, because we need to check the proposal state BEFORE the internal `_cancel` call
         // changes it. The `hashProposal` duplication has a cost that is limited, and that we accept.
@@ -524,7 +531,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IGovernor-getVotes}.
      */
-    function getVotes(address account, uint256 timepoint) public view virtual override returns (uint256) {
+    function getVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
         return _getVotes(account, timepoint, _defaultParams());
     }
 
@@ -535,14 +542,14 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address account,
         uint256 timepoint,
         bytes memory params
-    ) public view virtual override returns (uint256) {
+    ) public view virtual returns (uint256) {
         return _getVotes(account, timepoint, params);
     }
 
     /**
      * @dev See {IGovernor-castVote}.
      */
-    function castVote(uint256 proposalId, uint8 support) public virtual override returns (uint256) {
+    function castVote(uint256 proposalId, uint8 support) public virtual returns (uint256) {
         address voter = _msgSender();
         return _castVote(proposalId, voter, support, "");
     }
@@ -554,7 +561,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint256 proposalId,
         uint8 support,
         string calldata reason
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         address voter = _msgSender();
         return _castVote(proposalId, voter, support, reason);
     }
@@ -567,7 +574,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint8 support,
         string calldata reason,
         bytes memory params
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         address voter = _msgSender();
         return _castVote(proposalId, voter, support, reason, params);
     }
@@ -580,7 +587,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         uint8 support,
         address voter,
         bytes memory signature
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
             voter,
             _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support, voter, _useNonce(voter)))),
@@ -604,7 +611,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         string calldata reason,
         bytes memory params,
         bytes memory signature
-    ) public virtual override returns (uint256) {
+    ) public virtual returns (uint256) {
         bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
             voter,
             _hashTypedDataV4(
@@ -658,10 +665,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         string memory reason,
         bytes memory params
     ) internal virtual returns (uint256) {
-        ProposalState currentState = state(proposalId);
-        if (currentState != ProposalState.Active) {
-            revert GovernorUnexpectedProposalState(proposalId, currentState, _encodeStateBitmap(ProposalState.Active));
-        }
+        _validateStateBitmap(proposalId, _encodeStateBitmap(ProposalState.Active));
 
         uint256 weight = _getVotes(account, proposalSnapshot(proposalId), params);
         _countVote(proposalId, account, support, weight, params);

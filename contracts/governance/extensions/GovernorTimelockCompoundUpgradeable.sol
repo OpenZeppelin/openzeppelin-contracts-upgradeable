@@ -5,7 +5,6 @@ pragma solidity ^0.8.20;
 
 import { IGovernorUpgradeable, GovernorUpgradeable } from "../GovernorUpgradeable.sol";
 import { ICompoundTimelockUpgradeable } from "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
-import { IERC165Upgradeable } from "../../interfaces/IERC165Upgradeable.sol";
 import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
 import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
@@ -74,6 +73,13 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
     }
 
     /**
+     * @dev See {IGovernor-proposalNeedsQueuing}.
+     */
+    function proposalNeedsQueuing(uint256) public view virtual override returns (bool) {
+        return true;
+    }
+
+    /**
      * @dev Function to queue a proposal to the timelock.
      */
     function _queueOperations(
@@ -84,21 +90,23 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         bytes32 /*descriptionHash*/
     ) internal virtual override returns (uint48) {
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
-        uint48 eta = SafeCastUpgradeable.toUint48(block.timestamp + $._timelock.delay());
+        uint48 etaSeconds = SafeCastUpgradeable.toUint48(block.timestamp + $._timelock.delay());
 
         for (uint256 i = 0; i < targets.length; ++i) {
-            if ($._timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], eta)))) {
+            if (
+                $._timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds)))
+            ) {
                 revert GovernorAlreadyQueuedProposal(proposalId);
             }
-            $._timelock.queueTransaction(targets[i], values[i], "", calldatas[i], eta);
+            $._timelock.queueTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
         }
 
-        return eta;
+        return etaSeconds;
     }
 
     /**
-     * @dev Overridden version of the {Governor-_executeOperations} function that run the already queued proposal through
-     * the timelock.
+     * @dev Overridden version of the {Governor-_executeOperations} function that run the already queued proposal
+     * through the timelock.
      */
     function _executeOperations(
         uint256 proposalId,
@@ -108,18 +116,18 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         bytes32 /*descriptionHash*/
     ) internal virtual override {
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
-        uint256 eta = proposalEta(proposalId);
-        if (eta == 0) {
+        uint256 etaSeconds = proposalEta(proposalId);
+        if (etaSeconds == 0) {
             revert GovernorNotQueuedProposal(proposalId);
         }
         AddressUpgradeable.sendValue(payable($._timelock), msg.value);
         for (uint256 i = 0; i < targets.length; ++i) {
-            $._timelock.executeTransaction(targets[i], values[i], "", calldatas[i], eta);
+            $._timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
         }
     }
 
     /**
-     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it as already
+     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it has already
      * been queued.
      */
     function _cancel(
@@ -131,11 +139,11 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
         uint256 proposalId = super._cancel(targets, values, calldatas, descriptionHash);
 
-        uint256 eta = proposalEta(proposalId);
-        if (eta > 0) {
+        uint256 etaSeconds = proposalEta(proposalId);
+        if (etaSeconds > 0) {
             // do external call later
             for (uint256 i = 0; i < targets.length; ++i) {
-                $._timelock.cancelTransaction(targets[i], values[i], "", calldatas[i], eta);
+                $._timelock.cancelTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
             }
         }
 

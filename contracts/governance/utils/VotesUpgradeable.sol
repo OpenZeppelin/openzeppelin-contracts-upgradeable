@@ -9,6 +9,7 @@ import { EIP712Upgradeable } from "../../utils/cryptography/EIP712Upgradeable.so
 import { CheckpointsUpgradeable } from "../../utils/structs/CheckpointsUpgradeable.sol";
 import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
 import { ECDSAUpgradeable } from "../../utils/cryptography/ECDSAUpgradeable.sol";
+import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
@@ -73,7 +74,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.
      */
     function clock() public view virtual returns (uint48) {
-        return SafeCastUpgradeable.toUint48(block.number);
+        return TimeUpgradeable.blockNumber();
     }
 
     /**
@@ -82,7 +83,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     // solhint-disable-next-line func-name-mixedcase
     function CLOCK_MODE() public view virtual returns (string memory) {
         // Check that the clock was not modified
-        if (clock() != block.number) {
+        if (clock() != TimeUpgradeable.blockNumber()) {
             revert ERC6372InconsistentClock();
         }
         return "mode=blocknumber&from=default";

@@ -115,7 +115,6 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      */
     function _setVotingPeriod(uint32 newVotingPeriod) internal virtual {
         GovernorSettingsStorage storage $ = _getGovernorSettingsStorage();
-        // voting period must be at least one block long
         if (newVotingPeriod == 0) {
             revert GovernorInvalidVotingPeriod(0);
         }

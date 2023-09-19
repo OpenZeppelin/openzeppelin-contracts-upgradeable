@@ -7,10 +7,12 @@ import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
 import { IVotesUpgradeable } from "../utils/IVotesUpgradeable.sol";
 import { IERC5805Upgradeable } from "../../interfaces/IERC5805Upgradeable.sol";
 import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
+import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token, or since v4.5 an {ERC721Votes} token.
+ * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token, or since v4.5 an {ERC721Votes}
+ * token.
  */
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotes
@@ -52,7 +54,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
         try token().clock() returns (uint48 timepoint) {
             return timepoint;
         } catch {
-            return SafeCastUpgradeable.toUint48(block.number);
+            return TimeUpgradeable.blockNumber();
         }
     }
 

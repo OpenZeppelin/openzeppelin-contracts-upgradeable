@@ -202,8 +202,9 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20U
     }
 
     /**
-     * @dev Transfers a `value` amount of tokens from `from` to `to`, or alternatively mints (or burns) if `from` (or `to`) is
-     * the zero address. All customizations to transfers, mints, and burns should be done by overriding this function.
+     * @dev Transfers a `value` amount of tokens from `from` to `to`, or alternatively mints (or burns) if `from`
+     * (or `to`) is the zero address. All customizations to transfers, mints, and burns should be done by overriding
+     * this function.
      *
      * Emits a {Transfer} event.
      */
@@ -294,8 +295,8 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20U
      * `_spendAllowance` during the `transferFrom` operation set the flag to false. This saves gas by not emitting any
      * `Approval` event during `transferFrom` operations.
      *
-     * Anyone who wishes to continue emitting `Approval` events on the`transferFrom` operation can force the flag to true
-     * using the following override:
+     * Anyone who wishes to continue emitting `Approval` events on the`transferFrom` operation can force the flag to
+     * true using the following override:
      * ```
      * function _approve(address owner, address spender, uint256 value, bool) internal virtual override {
      *     super._approve(owner, spender, value, true);

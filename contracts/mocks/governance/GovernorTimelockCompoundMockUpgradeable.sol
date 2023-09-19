@@ -34,6 +34,12 @@ abstract contract GovernorTimelockCompoundMockUpgradeable is
         return super.proposalThreshold();
     }
 
+    function proposalNeedsQueuing(
+        uint256 proposalId
+    ) public view virtual override(GovernorUpgradeable, GovernorTimelockCompoundUpgradeable) returns (bool) {
+        return super.proposalNeedsQueuing(proposalId);
+    }
+
     function _queueOperations(
         uint256 proposalId,
         address[] memory targets,

@@ -40,9 +40,9 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
     event LateQuorumVoteExtensionSet(uint64 oldVoteExtension, uint64 newVoteExtension);
 
     /**
-     * @dev Initializes the vote extension parameter: the time in either number of blocks or seconds (depending on the governor
-     * clock mode) that is required to pass since the moment a proposal reaches quorum until its voting period ends. If
-     * necessary the voting period will be extended beyond the one set during proposal creation.
+     * @dev Initializes the vote extension parameter: the time in either number of blocks or seconds (depending on the
+     * governor clock mode) that is required to pass since the moment a proposal reaches quorum until its voting period
+     * ends. If necessary the voting period will be extended beyond the one set during proposal creation.
      */
     function __GovernorPreventLateQuorum_init(uint48 initialVoteExtension) internal onlyInitializing {
         __GovernorPreventLateQuorum_init_unchained(initialVoteExtension);

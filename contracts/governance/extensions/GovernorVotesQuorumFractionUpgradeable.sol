@@ -64,7 +64,6 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      */
     function quorumNumerator(uint256 timepoint) public view virtual returns (uint256) {
         GovernorVotesQuorumFractionStorage storage $ = _getGovernorVotesQuorumFractionStorage();
-        // If history is empty, fallback to old storage
         uint256 length = $._quorumNumeratorHistory._checkpoints.length;
 
         // Optimistic search, check the latest checkpoint

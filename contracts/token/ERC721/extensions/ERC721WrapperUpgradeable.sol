@@ -10,9 +10,9 @@ import "../../../proxy/utils/Initializable.sol";
 /**
  * @dev Extension of the ERC721 token contract to support token wrapping.
  *
- * Users can deposit and withdraw an "underlying token" and receive a "wrapped token" with a matching tokenId. This is useful
- * in conjunction with other modules. For example, combining this wrapping mechanism with {ERC721Votes} will allow the
- * wrapping of an existing "basic" ERC721 into a governance token.
+ * Users can deposit and withdraw an "underlying token" and receive a "wrapped token" with a matching tokenId. This is
+ * useful in conjunction with other modules. For example, combining this wrapping mechanism with {ERC721Votes} will allow
+ * the wrapping of an existing "basic" ERC721 into a governance token.
  */
 abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721ReceiverUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Wrapper

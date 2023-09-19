@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
 import "../../proxy/utils/Initializable.sol";
@@ -11,7 +11,8 @@ import "../../proxy/utils/Initializable.sol";
  *
  * Use cases for this module include:
  * - UIs that explore the proposal state without relying on event indexing.
- * - Using only the proposalId as an argument in the {Governor-queue} and {Governor-execute} functions for L2 chains where storage is cheap compared to calldata.
+ * - Using only the proposalId as an argument in the {Governor-queue} and {Governor-execute} functions for L2 chains
+ *   where storage is cheap compared to calldata.
  */
 abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeable {
     struct ProposalDetails {

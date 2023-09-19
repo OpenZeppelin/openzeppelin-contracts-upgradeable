@@ -15,6 +15,10 @@ import "../../../proxy/utils/Initializable.sol";
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, ERC721Upgradeable {
     using StringsUpgradeable for uint256;
 
+    // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
+    // defines events and does not include any external function.
+    bytes4 private constant ERC4906_INTERFACE_ID = bytes4(0x49064906);
+
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721URIStorage
     struct ERC721URIStorageStorage {
         // Optional mapping for token URIs
@@ -39,7 +43,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * @dev See {IERC165-supportsInterface}
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == bytes4(0x49064906) || super.supportsInterface(interfaceId);
+        return interfaceId == ERC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -47,7 +51,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      */
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
-        _requireMinted(tokenId);
+        _requireOwned(tokenId);
 
         string memory _tokenURI = $._tokenURIs[tokenId];
         string memory base = _baseURI();
@@ -68,34 +72,10 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
      * @dev Sets `_tokenURI` as the tokenURI of `tokenId`.
      *
      * Emits {MetadataUpdate}.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
      */
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
         ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
-        if (_ownerOf(tokenId) == address(0)) {
-            revert ERC721NonexistentToken(tokenId);
-        }
         $._tokenURIs[tokenId] = _tokenURI;
-
         emit MetadataUpdate(tokenId);
-    }
-
-    /**
-     * @dev See {ERC721-_update}. When burning, this override will additionally check if a
-     * token-specific URI was set for the token, and if so, it deletes the token URI from
-     * the storage mapping.
-     */
-    function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
-        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
-        address previousOwner = super._update(to, tokenId, auth);
-
-        if (to == address(0) && bytes($._tokenURIs[tokenId]).length != 0) {
-            delete $._tokenURIs[tokenId];
-        }
-
-        return previousOwner;
     }
 }
