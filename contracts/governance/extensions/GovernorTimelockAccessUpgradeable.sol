@@ -217,6 +217,9 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         plan.length = SafeCastUpgradeable.toUint16(targets.length);
 
         for (uint256 i = 0; i < targets.length; ++i) {
+            if (calldatas[i].length < 4) {
+                continue;
+            }
             address target = targets[i];
             bytes4 selector = bytes4(calldatas[i]);
             (bool immediate, uint32 delay) = AuthorityUtilsUpgradeable.canCallWithDelay(

@@ -8,6 +8,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
 abstract contract AccessManagedTargetUpgradeable is Initializable, AccessManagedUpgradeable {
     event CalledRestricted(address caller);
     event CalledUnrestricted(address caller);
+    event CalledFallback(address caller);
 
     function __AccessManagedTarget_init() internal onlyInitializing {
     }
@@ -20,5 +21,9 @@ abstract contract AccessManagedTargetUpgradeable is Initializable, AccessManaged
 
     function fnUnrestricted() public {
         emit CalledUnrestricted(msg.sender);
+    }
+
+    fallback() external {
+        emit CalledFallback(msg.sender);
     }
 }
