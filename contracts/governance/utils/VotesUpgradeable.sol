@@ -2,15 +2,15 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/utils/Votes.sol)
 pragma solidity ^0.8.20;
 
-import { IERC5805Upgradeable } from "../../interfaces/IERC5805Upgradeable.sol";
-import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
-import { NoncesUpgradeable } from "../../utils/NoncesUpgradeable.sol";
-import { EIP712Upgradeable } from "../../utils/cryptography/EIP712Upgradeable.sol";
-import { CheckpointsUpgradeable } from "../../utils/structs/CheckpointsUpgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import { ECDSAUpgradeable } from "../../utils/cryptography/ECDSAUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IERC5805Upgradeable} from "../../interfaces/IERC5805Upgradeable.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
+import {EIP712Upgradeable} from "../../utils/cryptography/EIP712Upgradeable.sol";
+import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {ECDSAUpgradeable} from "../../utils/cryptography/ECDSAUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This is a base abstract contract that tracks voting units, which are a measure of voting power that can be

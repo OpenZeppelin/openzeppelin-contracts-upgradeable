@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import { IGovernorUpgradeable, GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import { TimelockControllerUpgradeable } from "../TimelockControllerUpgradeable.sol";
-import { IERC165Upgradeable } from "../../interfaces/IERC165Upgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {TimelockControllerUpgradeable} from "../TimelockControllerUpgradeable.sol";
+import {IERC165Upgradeable} from "../../interfaces/IERC165Upgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a

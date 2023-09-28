@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC1155ReceiverUpgradeable } from "../../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import { ERC165Upgradeable } from "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IERC1155ReceiverUpgradeable} from "../../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
+import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IERC1155ReceiverUpgradeable {
     enum RevertType {

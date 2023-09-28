@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { IAccessManagedUpgradeable } from "./IAccessManagedUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
+import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
 
 interface IAccessManagerUpgradeable {
     /**

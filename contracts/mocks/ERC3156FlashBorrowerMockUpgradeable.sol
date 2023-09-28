@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
-import { IERC3156FlashBorrowerUpgradeable } from "../interfaces/IERC3156Upgradeable.sol";
-import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {IERC20Upgradeable} from "../token/ERC20/IERC20Upgradeable.sol";
+import {IERC3156FlashBorrowerUpgradeable} from "../interfaces/IERC3156Upgradeable.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev WARNING: this IERC3156FlashBorrower mock implementation is for testing purposes ONLY.

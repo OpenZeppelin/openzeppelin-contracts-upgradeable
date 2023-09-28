@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.20;
 
-import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import { IVotesUpgradeable } from "../utils/IVotesUpgradeable.sol";
-import { IERC5805Upgradeable } from "../../interfaces/IERC5805Upgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {IVotesUpgradeable} from "../utils/IVotesUpgradeable.sol";
+import {IERC5805Upgradeable} from "../../interfaces/IERC5805Upgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token, or since v4.5 an {ERC721Votes}

@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import { StorageSlotUpgradeable } from "./StorageSlotUpgradeable.sol";
-import { MathUpgradeable } from "./math/MathUpgradeable.sol";
+import {StorageSlotUpgradeable} from "./StorageSlotUpgradeable.sol";
+import {MathUpgradeable} from "./math/MathUpgradeable.sol";
 
 /**
  * @dev Collection of functions related to array types.

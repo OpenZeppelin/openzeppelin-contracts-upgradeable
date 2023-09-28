@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import { IAuthorityUpgradeable } from "./IAuthorityUpgradeable.sol";
+import {IAuthorityUpgradeable} from "./IAuthorityUpgradeable.sol";
 
 library AuthorityUtilsUpgradeable {
     /**

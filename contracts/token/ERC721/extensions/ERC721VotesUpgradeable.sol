@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
-import { VotesUpgradeable } from "../../../governance/utils/VotesUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
+import {VotesUpgradeable} from "../../../governance/utils/VotesUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of ERC721 to support voting and delegation as implemented by {Votes}, where each individual NFT counts

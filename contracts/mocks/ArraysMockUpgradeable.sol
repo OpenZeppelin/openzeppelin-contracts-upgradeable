@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { ArraysUpgradeable } from "../utils/ArraysUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {ArraysUpgradeable} from "../utils/ArraysUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract Uint256ArraysMockUpgradeable is Initializable {
     using ArraysUpgradeable for uint256[];

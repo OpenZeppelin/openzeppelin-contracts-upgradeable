@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.20;
 
-import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import { AuthorityUtilsUpgradeable } from "../../access/manager/AuthorityUtilsUpgradeable.sol";
-import { IAccessManagerUpgradeable } from "../../access/manager/IAccessManagerUpgradeable.sol";
-import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
-import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {AuthorityUtilsUpgradeable} from "../../access/manager/AuthorityUtilsUpgradeable.sol";
+import {IAccessManagerUpgradeable} from "../../access/manager/IAccessManagerUpgradeable.sol";
+import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This module connects a {Governor} instance to an {AccessManager} instance, allowing the governor to make calls

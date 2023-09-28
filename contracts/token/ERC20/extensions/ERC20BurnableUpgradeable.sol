@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC20Upgradeable } from "../ERC20Upgradeable.sol";
-import { ContextUpgradeable } from "../../../utils/ContextUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
+import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own

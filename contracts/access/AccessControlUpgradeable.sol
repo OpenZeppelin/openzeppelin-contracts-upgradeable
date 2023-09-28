@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import { IAccessControlUpgradeable } from "./IAccessControlUpgradeable.sol";
-import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
-import { ERC165Upgradeable } from "../utils/introspection/ERC165Upgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {IAccessControlUpgradeable} from "./IAccessControlUpgradeable.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access

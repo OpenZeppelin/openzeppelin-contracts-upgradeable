@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
-import { ContextUpgradeable } from "../../../utils/ContextUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
+import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC721 Burnable Token

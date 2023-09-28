@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC721Upgradeable, ERC721Upgradeable } from "../ERC721Upgradeable.sol";
-import { IERC721ReceiverUpgradeable } from "../IERC721ReceiverUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {IERC721Upgradeable, ERC721Upgradeable} from "../ERC721Upgradeable.sol";
+import {IERC721ReceiverUpgradeable} from "../IERC721ReceiverUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the ERC721 token contract to support token wrapping.

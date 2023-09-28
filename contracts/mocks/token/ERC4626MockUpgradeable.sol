@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable, ERC20Upgradeable } from "../../token/ERC20/ERC20Upgradeable.sol";
-import { ERC4626Upgradeable } from "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IERC20Upgradeable, ERC20Upgradeable} from "../../token/ERC20/ERC20Upgradeable.sol";
+import {ERC4626Upgradeable} from "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC4626MockUpgradeable is Initializable, ERC4626Upgradeable {
     function __ERC4626Mock_init(address underlying) internal onlyInitializing {

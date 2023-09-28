@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import { StringsUpgradeable } from "../StringsUpgradeable.sol";
+import {StringsUpgradeable} from "../StringsUpgradeable.sol";
 
 /**
  * @dev Signature message hash utilities for producing digests to be consumed by {ECDSA} recovery or signing.

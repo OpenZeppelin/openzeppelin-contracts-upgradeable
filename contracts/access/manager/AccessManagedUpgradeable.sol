@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.20;
 
-import { IAuthorityUpgradeable } from "./IAuthorityUpgradeable.sol";
-import { AuthorityUtilsUpgradeable } from "./AuthorityUtilsUpgradeable.sol";
-import { IAccessManagerUpgradeable } from "./IAccessManagerUpgradeable.sol";
-import { IAccessManagedUpgradeable } from "./IAccessManagedUpgradeable.sol";
-import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IAuthorityUpgradeable} from "./IAuthorityUpgradeable.sol";
+import {AuthorityUtilsUpgradeable} from "./AuthorityUtilsUpgradeable.sol";
+import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
+import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This contract module makes available a {restricted} modifier. Functions decorated with this modifier will be

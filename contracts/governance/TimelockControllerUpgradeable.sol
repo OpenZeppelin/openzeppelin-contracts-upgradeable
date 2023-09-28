@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import { AccessControlUpgradeable } from "../access/AccessControlUpgradeable.sol";
-import { ERC721HolderUpgradeable } from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
-import { ERC1155HolderUpgradeable } from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
-import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
+import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
+import {ERC1155HolderUpgradeable} from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the

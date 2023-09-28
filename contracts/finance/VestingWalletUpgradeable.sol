@@ -2,12 +2,12 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (finance/VestingWallet.sol)
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable } from "../token/ERC20/IERC20Upgradeable.sol";
-import { SafeERC20Upgradeable } from "../token/ERC20/utils/SafeERC20Upgradeable.sol";
-import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
-import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
-import { OwnableUpgradeable } from "../access/OwnableUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {IERC20Upgradeable} from "../token/ERC20/IERC20Upgradeable.sol";
+import {SafeERC20Upgradeable} from "../token/ERC20/utils/SafeERC20Upgradeable.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev A vesting wallet is an ownable contract that can receive native currency and ERC20 tokens, and release these

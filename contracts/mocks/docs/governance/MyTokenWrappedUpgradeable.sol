@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable, ERC20Upgradeable } from "../../../token/ERC20/ERC20Upgradeable.sol";
-import { ERC20PermitUpgradeable } from "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import { ERC20VotesUpgradeable } from "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
-import { ERC20WrapperUpgradeable } from "../../../token/ERC20/extensions/ERC20WrapperUpgradeable.sol";
-import { NoncesUpgradeable } from "../../../utils/NoncesUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {IERC20Upgradeable, ERC20Upgradeable} from "../../../token/ERC20/ERC20Upgradeable.sol";
+import {ERC20PermitUpgradeable} from "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import {ERC20VotesUpgradeable} from "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import {ERC20WrapperUpgradeable} from "../../../token/ERC20/extensions/ERC20WrapperUpgradeable.sol";
+import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 contract MyTokenWrappedUpgradeable is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, ERC20VotesUpgradeable, ERC20WrapperUpgradeable {
     function __MyTokenWrapped_init(

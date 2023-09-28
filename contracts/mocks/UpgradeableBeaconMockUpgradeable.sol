@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { IBeaconUpgradeable } from "../proxy/beacon/IBeaconUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {IBeaconUpgradeable} from "../proxy/beacon/IBeaconUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract UpgradeableBeaconMockUpgradeable is Initializable, IBeaconUpgradeable {
     address public implementation;

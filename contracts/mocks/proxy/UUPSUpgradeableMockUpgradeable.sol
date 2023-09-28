@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import { UUPSUpgradeable } from "../../proxy/utils/UUPSUpgradeable.sol";
-import { ERC1967UtilsUpgradeable } from "../../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "../../proxy/utils/UUPSUpgradeable.sol";
+import {ERC1967UtilsUpgradeable} from "../../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
     uint256 internal _counter;

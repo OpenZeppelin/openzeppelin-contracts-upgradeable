@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { MathUpgradeable } from "../math/MathUpgradeable.sol";
-import { SafeCastUpgradeable } from "../math/SafeCastUpgradeable.sol";
+import {MathUpgradeable} from "../math/MathUpgradeable.sol";
+import {SafeCastUpgradeable} from "../math/SafeCastUpgradeable.sol";
 
 /**
  * @dev This library provides helpers for manipulating time-related objects.

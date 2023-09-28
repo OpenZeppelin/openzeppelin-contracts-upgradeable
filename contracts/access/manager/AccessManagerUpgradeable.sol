@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.20;
 
-import { IAccessManagerUpgradeable } from "./IAccessManagerUpgradeable.sol";
-import { IAccessManagedUpgradeable } from "./IAccessManagedUpgradeable.sol";
-import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
-import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
-import { MulticallUpgradeable } from "../../utils/MulticallUpgradeable.sol";
-import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
+import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
+import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
+import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev AccessManager is a central contract to store the permissions of a system.

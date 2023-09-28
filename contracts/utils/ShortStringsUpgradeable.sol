@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import { StorageSlotUpgradeable } from "./StorageSlotUpgradeable.sol";
+import {StorageSlotUpgradeable} from "./StorageSlotUpgradeable.sol";
 
 // | string  | 0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   |
 // | length  | 0x                                                              BB |

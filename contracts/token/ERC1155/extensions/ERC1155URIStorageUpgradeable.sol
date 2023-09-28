@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { StringsUpgradeable } from "../../../utils/StringsUpgradeable.sol";
-import { ERC1155Upgradeable } from "../ERC1155Upgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {StringsUpgradeable} from "../../../utils/StringsUpgradeable.sol";
+import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC1155 token with storage based token URI management.

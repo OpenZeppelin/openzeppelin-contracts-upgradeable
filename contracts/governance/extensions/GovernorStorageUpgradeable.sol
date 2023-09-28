@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that implements storage of proposal details. This modules also provides primitives for

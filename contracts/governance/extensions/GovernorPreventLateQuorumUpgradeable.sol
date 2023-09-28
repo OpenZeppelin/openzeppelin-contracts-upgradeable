@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev A module that ensures there is a minimum voting period after quorum is reached. This prevents a large voter from

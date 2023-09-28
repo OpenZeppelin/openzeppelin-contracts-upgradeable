@@ -3,18 +3,18 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC721ReceiverUpgradeable } from "../token/ERC721/IERC721ReceiverUpgradeable.sol";
-import { IERC1155ReceiverUpgradeable } from "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import { EIP712Upgradeable } from "../utils/cryptography/EIP712Upgradeable.sol";
-import { SignatureCheckerUpgradeable } from "../utils/cryptography/SignatureCheckerUpgradeable.sol";
-import { IERC165Upgradeable, ERC165Upgradeable } from "../utils/introspection/ERC165Upgradeable.sol";
-import { SafeCastUpgradeable } from "../utils/math/SafeCastUpgradeable.sol";
-import { DoubleEndedQueueUpgradeable } from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
-import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
-import { ContextUpgradeable } from "../utils/ContextUpgradeable.sol";
-import { NoncesUpgradeable } from "../utils/NoncesUpgradeable.sol";
-import { IGovernorUpgradeable, IERC6372Upgradeable } from "./IGovernorUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {IERC721ReceiverUpgradeable} from "../token/ERC721/IERC721ReceiverUpgradeable.sol";
+import {IERC1155ReceiverUpgradeable} from "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
+import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
+import {SignatureCheckerUpgradeable} from "../utils/cryptography/SignatureCheckerUpgradeable.sol";
+import {IERC165Upgradeable, ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
+import {SafeCastUpgradeable} from "../utils/math/SafeCastUpgradeable.sol";
+import {DoubleEndedQueueUpgradeable} from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
+import {IGovernorUpgradeable, IERC6372Upgradeable} from "./IGovernorUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Core of the governance system, designed to be extended through various modules.

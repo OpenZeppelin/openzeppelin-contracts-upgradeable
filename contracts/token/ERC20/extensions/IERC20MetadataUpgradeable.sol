@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable } from "../IERC20Upgradeable.sol";
+import {IERC20Upgradeable} from "../IERC20Upgradeable.sol";
 
 /**
  * @dev Interface for the optional metadata functions from the ERC20 standard.

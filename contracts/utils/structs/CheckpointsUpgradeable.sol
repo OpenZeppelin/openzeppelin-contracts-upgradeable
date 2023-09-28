@@ -4,7 +4,7 @@
 
 pragma solidity ^0.8.20;
 
-import { MathUpgradeable } from "../math/MathUpgradeable.sol";
+import {MathUpgradeable} from "../math/MathUpgradeable.sol";
 
 /**
  * @dev This library defines the `Trace*` struct, for checkpointing values as they change at different points in

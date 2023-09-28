@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { ERC20Upgradeable } from "../../../token/ERC20/ERC20Upgradeable.sol";
-import { ERC20PermitUpgradeable } from "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import { ERC20VotesUpgradeable } from "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
-import { NoncesUpgradeable } from "../../../utils/NoncesUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {ERC20Upgradeable} from "../../../token/ERC20/ERC20Upgradeable.sol";
+import {ERC20PermitUpgradeable} from "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import {ERC20VotesUpgradeable} from "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 contract MyTokenUpgradeable is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, ERC20VotesUpgradeable {
     function __MyToken_init() internal onlyInitializing {

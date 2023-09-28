@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC4626FeesUpgradeable } from "../docs/ERC4626FeesUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {ERC4626FeesUpgradeable} from "../docs/ERC4626FeesUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC4626FeesMockUpgradeable is Initializable, ERC4626FeesUpgradeable {
     uint256 private _entryFeeBasisPointValue;
