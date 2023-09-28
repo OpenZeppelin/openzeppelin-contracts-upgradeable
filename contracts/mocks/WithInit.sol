@@ -153,7 +153,7 @@ import "./docs/governance/MyGovernorUpgradeable.sol";
 
 contract MyGovernorUpgradeableWithInit is MyGovernorUpgradeable {
     constructor(
-        IVotesUpgradeable _token,
+        IVotes _token,
         TimelockControllerUpgradeable _timelock
     ) payable initializer {
         __MyGovernor_init(_token, _timelock);
@@ -177,7 +177,7 @@ import "./docs/governance/MyTokenWrappedUpgradeable.sol";
 
 contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
     constructor(
-        IERC20Upgradeable wrappedToken
+        IERC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
     }
@@ -411,6 +411,13 @@ import "./ReentrancyMockUpgradeable.sol";
 contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
     constructor() payable initializer {
         __ReentrancyMock_init();
+    }
+}
+import "./StatelessUpgradeable.sol";
+
+contract Dummy1234UpgradeableWithInit is Dummy1234Upgradeable {
+    constructor() payable initializer {
+        __Dummy1234_init();
     }
 }
 import "./StorageSlotMockUpgradeable.sol";
@@ -675,13 +682,6 @@ contract ERC1155URIStorageUpgradeableWithInit is ERC1155URIStorageUpgradeable {
         __ERC1155URIStorage_init();
     }
 }
-import "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
-
-contract ERC1155HolderUpgradeableWithInit is ERC1155HolderUpgradeable {
-    constructor() payable initializer {
-        __ERC1155Holder_init();
-    }
-}
 import "../token/ERC20/ERC20Upgradeable.sol";
 
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
@@ -734,14 +734,14 @@ contract ERC20VotesUpgradeableWithInit is ERC20VotesUpgradeable {
 import "../token/ERC20/extensions/ERC20WrapperUpgradeable.sol";
 
 contract ERC20WrapperUpgradeableWithInit is ERC20WrapperUpgradeable {
-    constructor(IERC20Upgradeable underlyingToken) payable initializer {
+    constructor(IERC20 underlyingToken) payable initializer {
         __ERC20Wrapper_init(underlyingToken);
     }
 }
 import "../token/ERC20/extensions/ERC4626Upgradeable.sol";
 
 contract ERC4626UpgradeableWithInit is ERC4626Upgradeable {
-    constructor(IERC20Upgradeable asset_) payable initializer {
+    constructor(IERC20 asset_) payable initializer {
         __ERC4626_init(asset_);
     }
 }
@@ -804,22 +804,8 @@ contract ERC721VotesUpgradeableWithInit is ERC721VotesUpgradeable {
 import "../token/ERC721/extensions/ERC721WrapperUpgradeable.sol";
 
 contract ERC721WrapperUpgradeableWithInit is ERC721WrapperUpgradeable {
-    constructor(IERC721Upgradeable underlyingToken) payable initializer {
+    constructor(IERC721 underlyingToken) payable initializer {
         __ERC721Wrapper_init(underlyingToken);
-    }
-}
-import "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
-
-contract ERC721HolderUpgradeableWithInit is ERC721HolderUpgradeable {
-    constructor() payable initializer {
-        __ERC721Holder_init();
-    }
-}
-import "../utils/ContextUpgradeable.sol";
-
-contract ContextUpgradeableWithInit is ContextUpgradeable {
-    constructor() payable initializer {
-        __Context_init();
     }
 }
 import "../utils/cryptography/EIP712Upgradeable.sol";
@@ -827,20 +813,6 @@ import "../utils/cryptography/EIP712Upgradeable.sol";
 contract EIP712UpgradeableWithInit is EIP712Upgradeable {
     constructor(string memory name, string memory version) payable initializer {
         __EIP712_init(name, version);
-    }
-}
-import "../utils/introspection/ERC165Upgradeable.sol";
-
-contract ERC165UpgradeableWithInit is ERC165Upgradeable {
-    constructor() payable initializer {
-        __ERC165_init();
-    }
-}
-import "../utils/MulticallUpgradeable.sol";
-
-contract MulticallUpgradeableWithInit is MulticallUpgradeable {
-    constructor() payable initializer {
-        __Multicall_init();
     }
 }
 import "../utils/NoncesUpgradeable.sol";

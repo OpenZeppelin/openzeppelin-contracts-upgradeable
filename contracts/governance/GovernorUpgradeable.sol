@@ -3,17 +3,19 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC721ReceiverUpgradeable} from "../token/ERC721/IERC721ReceiverUpgradeable.sol";
-import {IERC1155ReceiverUpgradeable} from "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
+import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import {IERC1155Receiver} from "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
-import {SignatureCheckerUpgradeable} from "../utils/cryptography/SignatureCheckerUpgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
-import {SafeCastUpgradeable} from "../utils/math/SafeCastUpgradeable.sol";
-import {DoubleEndedQueueUpgradeable} from "../utils/structs/DoubleEndedQueueUpgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {DoubleEndedQueue} from "@openzeppelin/contracts/utils/structs/DoubleEndedQueue.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
-import {IGovernorUpgradeable, IERC6372Upgradeable} from "./IGovernorUpgradeable.sol";
+import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
+import {IERC6372} from "@openzeppelin/contracts/interfaces/IERC6372.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -25,8 +27,8 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * - A voting module must implement {_getVotes}
  * - Additionally, {votingPeriod} must also be implemented
  */
-abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, NoncesUpgradeable, IGovernorUpgradeable, IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable {
-    using DoubleEndedQueueUpgradeable for DoubleEndedQueueUpgradeable.Bytes32Deque;
+abstract contract GovernorUpgradeable is Initializable, Context, ERC165, EIP712Upgradeable, NoncesUpgradeable, IGovernor, IERC721Receiver, IERC1155Receiver {
+    using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;
 
     bytes32 public constant BALLOT_TYPEHASH =
         keccak256("Ballot(uint256 proposalId,uint8 support,address voter,uint256 nonce)");
@@ -55,7 +57,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
         // {onlyGovernance} modifier and eventually reset after {_executeOperations} completes. This ensures that the
         // execution of {onlyGovernance} protected calls can only be achieved through successful proposals.
-        DoubleEndedQueueUpgradeable.Bytes32Deque _governanceCall;
+        DoubleEndedQueue.Bytes32Deque _governanceCall;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Governor")) - 1)) & ~bytes32(uint256(0xff))
@@ -107,10 +109,10 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, ERC165Upgradeable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC165) returns (bool) {
         return
-            interfaceId == type(IGovernorUpgradeable).interfaceId ||
-            interfaceId == type(IERC1155ReceiverUpgradeable).interfaceId ||
+            interfaceId == type(IGovernor).interfaceId ||
+            interfaceId == type(IERC1155Receiver).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
@@ -348,8 +350,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
 
         ProposalCore storage proposal = $._proposals[proposalId];
         proposal.proposer = proposer;
-        proposal.voteStart = SafeCastUpgradeable.toUint48(snapshot);
-        proposal.voteDuration = SafeCastUpgradeable.toUint32(duration);
+        proposal.voteStart = SafeCast.toUint48(snapshot);
+        proposal.voteDuration = SafeCast.toUint32(duration);
 
         emit ProposalCreated(
             proposalId,
@@ -472,7 +474,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     ) internal virtual {
         for (uint256 i = 0; i < targets.length; ++i) {
             (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
-            AddressUpgradeable.verifyCallResult(success, returndata);
+            Address.verifyCallResult(success, returndata);
         }
     }
 
@@ -588,7 +590,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         address voter,
         bytes memory signature
     ) public virtual returns (uint256) {
-        bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
+        bool valid = SignatureChecker.isValidSignatureNow(
             voter,
             _hashTypedDataV4(keccak256(abi.encode(BALLOT_TYPEHASH, proposalId, support, voter, _useNonce(voter)))),
             signature
@@ -612,7 +614,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
         bytes memory params,
         bytes memory signature
     ) public virtual returns (uint256) {
-        bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
+        bool valid = SignatureChecker.isValidSignatureNow(
             voter,
             _hashTypedDataV4(
                 keccak256(
@@ -687,7 +689,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      */
     function relay(address target, uint256 value, bytes calldata data) external payable virtual onlyGovernance {
         (bool success, bytes memory returndata) = target.call{value: value}(data);
-        AddressUpgradeable.verifyCallResult(success, returndata);
+        Address.verifyCallResult(success, returndata);
     }
 
     /**
@@ -853,28 +855,28 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     }
 
     /**
-     * @inheritdoc IERC6372Upgradeable
+     * @inheritdoc IERC6372
      */
     function clock() public view virtual returns (uint48);
 
     /**
-     * @inheritdoc IERC6372Upgradeable
+     * @inheritdoc IERC6372
      */
     // solhint-disable-next-line func-name-mixedcase
     function CLOCK_MODE() public view virtual returns (string memory);
 
     /**
-     * @inheritdoc IGovernorUpgradeable
+     * @inheritdoc IGovernor
      */
     function votingDelay() public view virtual returns (uint256);
 
     /**
-     * @inheritdoc IGovernorUpgradeable
+     * @inheritdoc IGovernor
      */
     function votingPeriod() public view virtual returns (uint256);
 
     /**
-     * @inheritdoc IGovernorUpgradeable
+     * @inheritdoc IGovernor
      */
     function quorum(uint256 timepoint) public view virtual returns (uint256);
 }

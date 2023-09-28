@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -18,7 +18,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract OwnableUpgradeable is Initializable, Context {
     /// @custom:storage-location erc7201:openzeppelin.storage.Ownable
     struct OwnableStorage {
         address _owner;

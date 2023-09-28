@@ -3,8 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC721Upgradeable, ERC721Upgradeable} from "../ERC721Upgradeable.sol";
-import {IERC721ReceiverUpgradeable} from "../IERC721ReceiverUpgradeable.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
+import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -14,10 +15,10 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * useful in conjunction with other modules. For example, combining this wrapping mechanism with {ERC721Votes} will allow
  * the wrapping of an existing "basic" ERC721 into a governance token.
  */
-abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721ReceiverUpgradeable {
+abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721Receiver {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Wrapper
     struct ERC721WrapperStorage {
-        IERC721Upgradeable _underlying;
+        IERC721 _underlying;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC721Wrapper")) - 1)) & ~bytes32(uint256(0xff))
@@ -34,11 +35,11 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
      */
     error ERC721UnsupportedToken(address token);
 
-    function __ERC721Wrapper_init(IERC721Upgradeable underlyingToken) internal onlyInitializing {
+    function __ERC721Wrapper_init(IERC721 underlyingToken) internal onlyInitializing {
         __ERC721Wrapper_init_unchained(underlyingToken);
     }
 
-    function __ERC721Wrapper_init_unchained(IERC721Upgradeable underlyingToken) internal onlyInitializing {
+    function __ERC721Wrapper_init_unchained(IERC721 underlyingToken) internal onlyInitializing {
         ERC721WrapperStorage storage $ = _getERC721WrapperStorage();
         $._underlying = underlyingToken;
     }
@@ -95,7 +96,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
             revert ERC721UnsupportedToken(_msgSender());
         }
         _safeMint(from, tokenId);
-        return IERC721ReceiverUpgradeable.onERC721Received.selector;
+        return IERC721Receiver.onERC721Received.selector;
     }
 
     /**
@@ -114,7 +115,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
     /**
      * @dev Returns the underlying token.
      */
-    function underlying() public view virtual returns (IERC721Upgradeable) {
+    function underlying() public view virtual returns (IERC721) {
         ERC721WrapperStorage storage $ = _getERC721WrapperStorage();
         return $._underlying;
     }

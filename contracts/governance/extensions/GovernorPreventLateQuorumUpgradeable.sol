@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -58,7 +58,7 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      */
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
         GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
-        return MathUpgradeable.max(super.proposalDeadline(proposalId), $._extendedDeadlines[proposalId]);
+        return Math.max(super.proposalDeadline(proposalId), $._extendedDeadlines[proposalId]);
     }
 
     /**

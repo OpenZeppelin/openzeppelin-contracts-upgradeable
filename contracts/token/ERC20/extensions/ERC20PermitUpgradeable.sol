@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20PermitUpgradeable} from "./IERC20PermitUpgradeable.sol";
+import {IERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol";
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {ECDSAUpgradeable} from "../../../utils/cryptography/ECDSAUpgradeable.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../../../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
@@ -18,7 +18,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * presenting a message signed by the account. By not relying on `{IERC20-approve}`, the token holder account doesn't
  * need to send a transaction, and thus is not required to hold Ether at all.
  */
-abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IERC20PermitUpgradeable, EIP712Upgradeable, NoncesUpgradeable {
+abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IERC20Permit, EIP712Upgradeable, NoncesUpgradeable {
     bytes32 private constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
@@ -44,7 +44,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
     function __ERC20Permit_init_unchained(string memory) internal onlyInitializing {}
 
     /**
-     * @inheritdoc IERC20PermitUpgradeable
+     * @inheritdoc IERC20Permit
      */
     function permit(
         address owner,
@@ -63,7 +63,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
 
         bytes32 hash = _hashTypedDataV4(structHash);
 
-        address signer = ECDSAUpgradeable.recover(hash, v, r, s);
+        address signer = ECDSA.recover(hash, v, r, s);
         if (signer != owner) {
             revert ERC2612InvalidSigner(signer, owner);
         }
@@ -72,14 +72,14 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
     }
 
     /**
-     * @inheritdoc IERC20PermitUpgradeable
+     * @inheritdoc IERC20Permit
      */
-    function nonces(address owner) public view virtual override(IERC20PermitUpgradeable, NoncesUpgradeable) returns (uint256) {
+    function nonces(address owner) public view virtual override(IERC20Permit, NoncesUpgradeable) returns (uint256) {
         return super.nonces(owner);
     }
 
     /**
-     * @inheritdoc IERC20PermitUpgradeable
+     * @inheritdoc IERC20Permit
      */
     // solhint-disable-next-line func-name-mixedcase
     function DOMAIN_SEPARATOR() external view virtual returns (bytes32) {

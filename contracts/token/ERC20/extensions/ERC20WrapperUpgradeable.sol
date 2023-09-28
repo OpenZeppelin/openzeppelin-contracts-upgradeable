@@ -3,8 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {SafeERC20Upgradeable} from "../utils/SafeERC20Upgradeable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -17,7 +19,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
 abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC20Wrapper
     struct ERC20WrapperStorage {
-        IERC20Upgradeable _underlying;
+        IERC20 _underlying;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ERC20Wrapper")) - 1)) & ~bytes32(uint256(0xff))
@@ -34,11 +36,11 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      */
     error ERC20InvalidUnderlying(address token);
 
-    function __ERC20Wrapper_init(IERC20Upgradeable underlyingToken) internal onlyInitializing {
+    function __ERC20Wrapper_init(IERC20 underlyingToken) internal onlyInitializing {
         __ERC20Wrapper_init_unchained(underlyingToken);
     }
 
-    function __ERC20Wrapper_init_unchained(IERC20Upgradeable underlyingToken) internal onlyInitializing {
+    function __ERC20Wrapper_init_unchained(IERC20 underlyingToken) internal onlyInitializing {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
         if (underlyingToken == this) {
             revert ERC20InvalidUnderlying(address(this));
@@ -51,7 +53,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      */
     function decimals() public view virtual override returns (uint8) {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
-        try IERC20MetadataUpgradeable(address($._underlying)).decimals() returns (uint8 value) {
+        try IERC20Metadata(address($._underlying)).decimals() returns (uint8 value) {
             return value;
         } catch {
             return super.decimals();
@@ -61,7 +63,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     /**
      * @dev Returns the address of the underlying ERC-20 token that is being wrapped.
      */
-    function underlying() public view returns (IERC20Upgradeable) {
+    function underlying() public view returns (IERC20) {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
         return $._underlying;
     }
@@ -78,7 +80,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
         if (account == address(this)) {
             revert ERC20InvalidReceiver(account);
         }
-        SafeERC20Upgradeable.safeTransferFrom($._underlying, sender, address(this), value);
+        SafeERC20.safeTransferFrom($._underlying, sender, address(this), value);
         _mint(account, value);
         return true;
     }
@@ -92,7 +94,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
             revert ERC20InvalidReceiver(account);
         }
         _burn(_msgSender(), value);
-        SafeERC20Upgradeable.safeTransfer($._underlying, account, value);
+        SafeERC20.safeTransfer($._underlying, account, value);
         return true;
     }
 

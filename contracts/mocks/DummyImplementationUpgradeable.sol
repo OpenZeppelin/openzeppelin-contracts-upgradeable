@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import {ERC1967UtilsUpgradeable} from "../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
-import {StorageSlotUpgradeable} from "../utils/StorageSlotUpgradeable.sol";
+import {ERC1967Utils} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol";
+import {StorageSlot} from "@openzeppelin/contracts/utils/StorageSlot.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 abstract contract ImplUpgradeable is Initializable {
@@ -61,7 +61,7 @@ contract DummyImplementationUpgradeable is Initializable {
 
     // Use for forcing an unsafe TransparentUpgradeableProxy admin override
     function unsafeOverrideAdmin(address newAdmin) public {
-        StorageSlotUpgradeable.getAddressSlot(ERC1967UtilsUpgradeable.ADMIN_SLOT).value = newAdmin;
+        StorageSlot.getAddressSlot(ERC1967Utils.ADMIN_SLOT).value = newAdmin;
     }
 }
 

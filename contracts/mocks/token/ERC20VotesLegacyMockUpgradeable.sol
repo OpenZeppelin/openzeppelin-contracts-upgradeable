@@ -3,16 +3,16 @@
 pragma solidity ^0.8.20;
 
 import {ERC20PermitUpgradeable} from "../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {IVotesUpgradeable} from "../../governance/utils/IVotesUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {ECDSAUpgradeable} from "../../utils/cryptography/ECDSAUpgradeable.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Copied from the master branch at commit 86de1e8b6c3fa6b4efa4a5435869d2521be0f5f5
  */
-abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgradeable, ERC20PermitUpgradeable {
+abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotes, ERC20PermitUpgradeable {
     struct Checkpoint {
         uint32 fromBlock;
         uint224 votes;
@@ -41,7 +41,7 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
      * @dev Get number of checkpoints for `account`.
      */
     function numCheckpoints(address account) public view virtual returns (uint32) {
-        return SafeCastUpgradeable.toUint32(_checkpoints[account].length);
+        return SafeCast.toUint32(_checkpoints[account].length);
     }
 
     /**
@@ -109,7 +109,7 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
         uint256 high = length;
 
         if (length > 5) {
-            uint256 mid = length - MathUpgradeable.sqrt(length);
+            uint256 mid = length - Math.sqrt(length);
             if (_unsafeAccess(ckpts, mid).fromBlock > blockNumber) {
                 high = mid;
             } else {
@@ -118,7 +118,7 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
         }
 
         while (low < high) {
-            uint256 mid = MathUpgradeable.average(low, high);
+            uint256 mid = Math.average(low, high);
             if (_unsafeAccess(ckpts, mid).fromBlock > blockNumber) {
                 high = mid;
             } else {
@@ -150,7 +150,7 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
         bytes32 s
     ) public virtual {
         require(block.timestamp <= expiry, "ERC20Votes: signature expired");
-        address signer = ECDSAUpgradeable.recover(
+        address signer = ECDSA.recover(
             _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
             v,
             r,
@@ -230,10 +230,10 @@ abstract contract ERC20VotesLegacyMockUpgradeable is Initializable, IVotesUpgrad
             newWeight = op(oldWeight, delta);
 
             if (pos > 0 && oldCkpt.fromBlock == block.number) {
-                _unsafeAccess(ckpts, pos - 1).votes = SafeCastUpgradeable.toUint224(newWeight);
+                _unsafeAccess(ckpts, pos - 1).votes = SafeCast.toUint224(newWeight);
             } else {
                 ckpts.push(
-                    Checkpoint({fromBlock: SafeCastUpgradeable.toUint32(block.number), votes: SafeCastUpgradeable.toUint224(newWeight)})
+                    Checkpoint({fromBlock: SafeCast.toUint32(block.number), votes: SafeCast.toUint224(newWeight)})
                 );
             }
         }

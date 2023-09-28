@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -12,7 +12,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable, ERC20Upgradeable {
+abstract contract ERC20BurnableUpgradeable is Initializable, Context, ERC20Upgradeable {
     function __ERC20Burnable_init() internal onlyInitializing {
     }
 
