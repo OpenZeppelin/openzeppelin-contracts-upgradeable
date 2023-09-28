@@ -2,14 +2,14 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (governance/utils/Votes.sol)
 pragma solidity ^0.8.20;
 
-import {IERC5805Upgradeable} from "../../interfaces/IERC5805Upgradeable.sol";
-import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {IERC5805} from "@openzeppelin/contracts/interfaces/IERC5805.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {EIP712Upgradeable} from "../../utils/cryptography/EIP712Upgradeable.sol";
-import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {ECDSAUpgradeable} from "../../utils/cryptography/ECDSAUpgradeable.sol";
-import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -30,8 +30,8 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * {ERC721-balanceOf}), and can use {_transferVotingUnits} to track a change in the distribution of those units (in the
  * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
  */
-abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805Upgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
+abstract contract VotesUpgradeable is Initializable, Context, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
+    using Checkpoints for Checkpoints.Trace208;
 
     bytes32 private constant DELEGATION_TYPEHASH =
         keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
@@ -40,9 +40,9 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     struct VotesStorage {
         mapping(address account => address) _delegatee;
 
-        mapping(address delegatee => CheckpointsUpgradeable.Trace208) _delegateCheckpoints;
+        mapping(address delegatee => Checkpoints.Trace208) _delegateCheckpoints;
 
-        CheckpointsUpgradeable.Trace208 _totalCheckpoints;
+        Checkpoints.Trace208 _totalCheckpoints;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Votes")) - 1)) & ~bytes32(uint256(0xff))
@@ -74,7 +74,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.
      */
     function clock() public view virtual returns (uint48) {
-        return TimeUpgradeable.blockNumber();
+        return Time.blockNumber();
     }
 
     /**
@@ -83,7 +83,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     // solhint-disable-next-line func-name-mixedcase
     function CLOCK_MODE() public view virtual returns (string memory) {
         // Check that the clock was not modified
-        if (clock() != TimeUpgradeable.blockNumber()) {
+        if (clock() != Time.blockNumber()) {
             revert ERC6372InconsistentClock();
         }
         return "mode=blocknumber&from=default";
@@ -111,7 +111,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return $._delegateCheckpoints[account].upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return $._delegateCheckpoints[account].upperLookupRecent(SafeCast.toUint48(timepoint));
     }
 
     /**
@@ -132,7 +132,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         if (timepoint >= currentTimepoint) {
             revert ERC5805FutureLookup(timepoint, currentTimepoint);
         }
-        return $._totalCheckpoints.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return $._totalCheckpoints.upperLookupRecent(SafeCast.toUint48(timepoint));
     }
 
     /**
@@ -173,7 +173,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
         if (block.timestamp > expiry) {
             revert VotesExpiredSignature(expiry);
         }
-        address signer = ECDSAUpgradeable.recover(
+        address signer = ECDSA.recover(
             _hashTypedDataV4(keccak256(abi.encode(DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
             v,
             r,
@@ -204,10 +204,10 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     function _transferVotingUnits(address from, address to, uint256 amount) internal virtual {
         VotesStorage storage $ = _getVotesStorage();
         if (from == address(0)) {
-            _push($._totalCheckpoints, _add, SafeCastUpgradeable.toUint208(amount));
+            _push($._totalCheckpoints, _add, SafeCast.toUint208(amount));
         }
         if (to == address(0)) {
-            _push($._totalCheckpoints, _subtract, SafeCastUpgradeable.toUint208(amount));
+            _push($._totalCheckpoints, _subtract, SafeCast.toUint208(amount));
         }
         _moveDelegateVotes(delegates(from), delegates(to), amount);
     }
@@ -222,7 +222,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
                 (uint256 oldValue, uint256 newValue) = _push(
                     $._delegateCheckpoints[from],
                     _subtract,
-                    SafeCastUpgradeable.toUint208(amount)
+                    SafeCast.toUint208(amount)
                 );
                 emit DelegateVotesChanged(from, oldValue, newValue);
             }
@@ -230,7 +230,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
                 (uint256 oldValue, uint256 newValue) = _push(
                     $._delegateCheckpoints[to],
                     _add,
-                    SafeCastUpgradeable.toUint208(amount)
+                    SafeCast.toUint208(amount)
                 );
                 emit DelegateVotesChanged(to, oldValue, newValue);
             }
@@ -242,7 +242,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function _numCheckpoints(address account) internal view virtual returns (uint32) {
         VotesStorage storage $ = _getVotesStorage();
-        return SafeCastUpgradeable.toUint32($._delegateCheckpoints[account].length());
+        return SafeCast.toUint32($._delegateCheckpoints[account].length());
     }
 
     /**
@@ -251,13 +251,13 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     function _checkpoints(
         address account,
         uint32 pos
-    ) internal view virtual returns (CheckpointsUpgradeable.Checkpoint208 memory) {
+    ) internal view virtual returns (Checkpoints.Checkpoint208 memory) {
         VotesStorage storage $ = _getVotesStorage();
         return $._delegateCheckpoints[account].at(pos);
     }
 
     function _push(
-        CheckpointsUpgradeable.Trace208 storage store,
+        Checkpoints.Trace208 storage store,
         function(uint208, uint208) view returns (uint208) op,
         uint208 delta
     ) private returns (uint208, uint208) {

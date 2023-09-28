@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {IAuthorityUpgradeable} from "./IAuthorityUpgradeable.sol";
-import {AuthorityUtilsUpgradeable} from "./AuthorityUtilsUpgradeable.sol";
-import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
-import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
-import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {IAuthority} from "@openzeppelin/contracts/access/manager/IAuthority.sol";
+import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUtils.sol";
+import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
+import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -17,7 +17,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * IMPORTANT: The `restricted` modifier should never be used on `internal` functions, judiciously used in `public`
  * functions, and ideally only used in `external` functions. See {restricted}.
  */
-abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable, IAccessManagedUpgradeable {
+abstract contract AccessManagedUpgradeable is Initializable, Context, IAccessManaged {
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessManaged
     struct AccessManagedStorage {
         address _authority;
@@ -122,7 +122,7 @@ abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable,
      */
     function _checkCanCall(address caller, bytes calldata data) internal virtual {
         AccessManagedStorage storage $ = _getAccessManagedStorage();
-        (bool immediate, uint32 delay) = AuthorityUtilsUpgradeable.canCallWithDelay(
+        (bool immediate, uint32 delay) = AuthorityUtils.canCallWithDelay(
             authority(),
             caller,
             address(this),
@@ -131,7 +131,7 @@ abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable,
         if (!immediate) {
             if (delay > 0) {
                 $._consumingSchedule = true;
-                IAccessManagerUpgradeable(authority()).consumeScheduledOp(caller, data);
+                IAccessManager(authority()).consumeScheduledOp(caller, data);
                 $._consumingSchedule = false;
             } else {
                 revert AccessManagedUnauthorized(caller);

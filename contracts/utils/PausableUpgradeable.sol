@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -15,7 +15,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
  */
-abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract PausableUpgradeable is Initializable, Context {
     /// @custom:storage-location erc7201:openzeppelin.storage.Pausable
     struct PausableStorage {
         bool _paused;

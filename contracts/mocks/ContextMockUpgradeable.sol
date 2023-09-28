@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
-contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
+contract ContextMockUpgradeable is Initializable, Context {
     event Sender(address sender);
 
     function __ContextMock_init() internal onlyInitializing {

@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
-import {IERC721EnumerableUpgradeable} from "./IERC721EnumerableUpgradeable.sol";
-import {IERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
+import {IERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -15,7 +15,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * CAUTION: `ERC721` extensions that implement custom `balanceOf` logic, such as `ERC721Consecutive`,
  * interfere with enumerability and should not be used together with `ERC721Enumerable`.
  */
-abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721EnumerableUpgradeable {
+abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721Enumerable {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Enumerable
     struct ERC721EnumerableStorage {
         mapping(address owner => mapping(uint256 index => uint256)) _ownedTokens;
@@ -54,8 +54,8 @@ abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeabl
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, ERC721Upgradeable) returns (bool) {
-        return interfaceId == type(IERC721EnumerableUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721Upgradeable) returns (bool) {
+        return interfaceId == type(IERC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

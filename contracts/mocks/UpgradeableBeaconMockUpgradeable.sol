@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {IBeaconUpgradeable} from "../proxy/beacon/IBeaconUpgradeable.sol";
+import {IBeacon} from "@openzeppelin/contracts/proxy/beacon/IBeacon.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
-contract UpgradeableBeaconMockUpgradeable is Initializable, IBeaconUpgradeable {
+contract UpgradeableBeaconMockUpgradeable is Initializable, IBeacon {
     address public implementation;
 
     function __UpgradeableBeaconMock_init(address impl) internal onlyInitializing {
@@ -16,12 +16,9 @@ contract UpgradeableBeaconMockUpgradeable is Initializable, IBeaconUpgradeable {
     }
 }
 
-interface IProxyExposedUpgradeable {
-    // solhint-disable-next-line func-name-mixedcase
-    function $getBeacon() external view returns (address);
-}
+import { IProxyExposed } from "@openzeppelin/contracts/mocks/UpgradeableBeaconMock.sol";
 
-contract UpgradeableBeaconReentrantMockUpgradeable is Initializable, IBeaconUpgradeable {
+contract UpgradeableBeaconReentrantMockUpgradeable is Initializable, IBeacon {
     error BeaconProxyBeaconSlotAddress(address beacon);
 
     function __UpgradeableBeaconReentrantMock_init() internal onlyInitializing {
@@ -32,6 +29,6 @@ contract UpgradeableBeaconReentrantMockUpgradeable is Initializable, IBeaconUpgr
     function implementation() external view override returns (address) {
         // Revert with the beacon seen in the proxy at the moment of calling to check if it's
         // set before the call.
-        revert BeaconProxyBeaconSlotAddress(IProxyExposedUpgradeable(msg.sender).$getBeacon());
+        revert BeaconProxyBeaconSlotAddress(IProxyExposed(msg.sender).$getBeacon());
     }
 }

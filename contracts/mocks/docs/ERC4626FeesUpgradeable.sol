@@ -2,15 +2,15 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20Upgradeable} from "../../token/ERC20/IERC20Upgradeable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ERC4626Upgradeable} from "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
-import {SafeERC20Upgradeable} from "../../token/ERC20/utils/SafeERC20Upgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /// @dev ERC4626 vault with entry/exit fees expressed in https://en.wikipedia.org/wiki/Basis_point[basis point (bp)].
 abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
-    using MathUpgradeable for uint256;
+    using Math for uint256;
 
     uint256 private constant _BASIS_POINT_SCALE = 1e4;
 
@@ -53,7 +53,7 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
         super._deposit(caller, receiver, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(asset()), recipient, fee);
+            SafeERC20.safeTransfer(IERC20(asset()), recipient, fee);
         }
     }
 
@@ -71,7 +71,7 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
         super._withdraw(caller, receiver, owner, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(asset()), recipient, fee);
+            SafeERC20.safeTransfer(IERC20(asset()), recipient, fee);
         }
     }
 
@@ -98,12 +98,12 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
     /// @dev Calculates the fees that should be added to an amount `assets` that does not already include fees.
     /// Used in {IERC4626-mint} and {IERC4626-withdraw} operations.
     function _feeOnRaw(uint256 assets, uint256 feeBasisPoints) private pure returns (uint256) {
-        return assets.mulDiv(feeBasisPoints, _BASIS_POINT_SCALE, MathUpgradeable.Rounding.Ceil);
+        return assets.mulDiv(feeBasisPoints, _BASIS_POINT_SCALE, Math.Rounding.Ceil);
     }
 
     /// @dev Calculates the fee part of an amount `assets` that already includes fees.
     /// Used in {IERC4626-deposit} and {IERC4626-redeem} operations.
     function _feeOnTotal(uint256 assets, uint256 feeBasisPoints) private pure returns (uint256) {
-        return assets.mulDiv(feeBasisPoints, feeBasisPoints + _BASIS_POINT_SCALE, MathUpgradeable.Rounding.Ceil);
+        return assets.mulDiv(feeBasisPoints, feeBasisPoints + _BASIS_POINT_SCALE, Math.Rounding.Ceil);
     }
 }

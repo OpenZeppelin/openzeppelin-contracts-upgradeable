@@ -3,13 +3,14 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC1155Upgradeable} from "./IERC1155Upgradeable.sol";
-import {IERC1155ReceiverUpgradeable} from "./IERC1155ReceiverUpgradeable.sol";
-import {IERC1155MetadataURIUpgradeable} from "./extensions/IERC1155MetadataURIUpgradeable.sol";
-import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {ArraysUpgradeable} from "../../utils/ArraysUpgradeable.sol";
-import {IERC1155ErrorsUpgradeable} from "../../interfaces/draft-IERC6093Upgradeable.sol";
+import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+import {IERC1155Receiver} from "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
+import {IERC1155MetadataURI} from "@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
+import {IERC1155Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -17,9 +18,9 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * See https://eips.ethereum.org/EIPS/eip-1155
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
  */
-abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC1155Upgradeable, IERC1155MetadataURIUpgradeable, IERC1155ErrorsUpgradeable {
-    using ArraysUpgradeable for uint256[];
-    using ArraysUpgradeable for address[];
+abstract contract ERC1155Upgradeable is Initializable, Context, ERC165, IERC1155, IERC1155MetadataURI, IERC1155Errors {
+    using Arrays for uint256[];
+    using Arrays for address[];
 
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155
     struct ERC1155Storage {
@@ -54,10 +55,10 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
         return
-            interfaceId == type(IERC1155Upgradeable).interfaceId ||
-            interfaceId == type(IERC1155MetadataURIUpgradeable).interfaceId ||
+            interfaceId == type(IERC1155).interfaceId ||
+            interfaceId == type(IERC1155MetadataURI).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
@@ -410,8 +411,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         bytes memory data
     ) private {
         if (to.code.length > 0) {
-            try IERC1155ReceiverUpgradeable(to).onERC1155Received(operator, from, id, value, data) returns (bytes4 response) {
-                if (response != IERC1155ReceiverUpgradeable.onERC1155Received.selector) {
+            try IERC1155Receiver(to).onERC1155Received(operator, from, id, value, data) returns (bytes4 response) {
+                if (response != IERC1155Receiver.onERC1155Received.selector) {
                     // Tokens rejected
                     revert ERC1155InvalidReceiver(to);
                 }
@@ -442,10 +443,10 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         bytes memory data
     ) private {
         if (to.code.length > 0) {
-            try IERC1155ReceiverUpgradeable(to).onERC1155BatchReceived(operator, from, ids, values, data) returns (
+            try IERC1155Receiver(to).onERC1155BatchReceived(operator, from, ids, values, data) returns (
                 bytes4 response
             ) {
-                if (response != IERC1155ReceiverUpgradeable.onERC1155BatchReceived.selector) {
+                if (response != IERC1155Receiver.onERC1155BatchReceived.selector) {
                     // Tokens rejected
                     revert ERC1155InvalidReceiver(to);
                 }

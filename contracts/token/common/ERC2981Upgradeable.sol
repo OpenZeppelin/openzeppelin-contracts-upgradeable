@@ -3,8 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC2981Upgradeable} from "../../interfaces/IERC2981Upgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -20,7 +21,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments[Rationale] in the EIP. Marketplaces are expected to
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
-abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
+abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165 {
     struct RoyaltyInfo {
         address receiver;
         uint96 royaltyFraction;
@@ -69,12 +70,12 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, ERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC2981Upgradeable).interfaceId || super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC165) returns (bool) {
+        return interfaceId == type(IERC2981).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**
-     * @inheritdoc IERC2981Upgradeable
+     * @inheritdoc IERC2981
      */
     function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual returns (address, uint256) {
         ERC2981Storage storage $ = _getERC2981Storage();

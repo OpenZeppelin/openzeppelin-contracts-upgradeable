@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC20Upgradeable} from "../../token/ERC20/ERC20Upgradeable.sol";
-import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
@@ -29,7 +29,7 @@ contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
     }
 
     function functionCall(address target, bytes memory data) public returns (bytes memory) {
-        return AddressUpgradeable.functionCall(target, data);
+        return Address.functionCall(target, data);
     }
 
     function _update(address from, address to, uint256 amount) internal override {

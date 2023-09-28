@@ -2,10 +2,10 @@
 // OpenZeppelin Contracts (last updated v4.9.0) (finance/VestingWallet.sol)
 pragma solidity ^0.8.20;
 
-import {IERC20Upgradeable} from "../token/ERC20/IERC20Upgradeable.sol";
-import {SafeERC20Upgradeable} from "../token/ERC20/utils/SafeERC20Upgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
@@ -28,7 +28,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * NOTE: When using this contract with any token whose balance is adjusted automatically (i.e. a rebase token), make
  * sure to account the supply/balance adjustment in the vesting schedule to ensure the vested amount is as intended.
  */
-contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableUpgradeable {
+contract VestingWalletUpgradeable is Initializable, Context, OwnableUpgradeable {
     event EtherReleased(uint256 amount);
     event ERC20Released(address indexed token, uint256 amount);
 
@@ -133,7 +133,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         uint256 amount = releasable();
         $._released += amount;
         emit EtherReleased(amount);
-        AddressUpgradeable.sendValue(payable(owner()), amount);
+        Address.sendValue(payable(owner()), amount);
     }
 
     /**
@@ -146,7 +146,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         uint256 amount = releasable(token);
         $._erc20Released[token] += amount;
         emit ERC20Released(token, amount);
-        SafeERC20Upgradeable.safeTransfer(IERC20Upgradeable(token), owner(), amount);
+        SafeERC20.safeTransfer(IERC20(token), owner(), amount);
     }
 
     /**
@@ -160,7 +160,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * @dev Calculates the amount of tokens that has already vested. Default implementation is a linear vesting curve.
      */
     function vestedAmount(address token, uint64 timestamp) public view virtual returns (uint256) {
-        return _vestingSchedule(IERC20Upgradeable(token).balanceOf(address(this)) + released(token), timestamp);
+        return _vestingSchedule(IERC20(token).balanceOf(address(this)) + released(token), timestamp);
     }
 
     /**
