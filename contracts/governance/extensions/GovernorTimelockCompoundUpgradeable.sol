@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import { IGovernorUpgradeable, GovernorUpgradeable } from "../GovernorUpgradeable.sol";
-import { ICompoundTimelockUpgradeable } from "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
-import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {ICompoundTimelockUpgradeable} from "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
+import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by

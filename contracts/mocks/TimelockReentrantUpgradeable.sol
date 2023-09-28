@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { AddressUpgradeable } from "../utils/AddressUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract TimelockReentrantUpgradeable is Initializable {
     address private _reenterTarget;

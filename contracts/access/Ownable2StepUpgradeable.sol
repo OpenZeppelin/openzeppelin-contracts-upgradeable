@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import { OwnableUpgradeable } from "./OwnableUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {OwnableUpgradeable} from "./OwnableUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which provides access control mechanism, where

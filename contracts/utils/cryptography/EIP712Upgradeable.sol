@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { MessageHashUtilsUpgradeable } from "./MessageHashUtilsUpgradeable.sol";
-import { IERC5267Upgradeable } from "../../interfaces/IERC5267Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {MessageHashUtilsUpgradeable} from "./MessageHashUtilsUpgradeable.sol";
+import {IERC5267Upgradeable} from "../../interfaces/IERC5267Upgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev https://eips.ethereum.org/EIPS/eip-712[EIP 712] is a standard for hashing and signing of typed structured data.

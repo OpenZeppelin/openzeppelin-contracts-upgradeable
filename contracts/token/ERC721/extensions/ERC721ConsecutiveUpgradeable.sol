@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC721Upgradeable } from "../ERC721Upgradeable.sol";
-import { IERC2309Upgradeable } from "../../../interfaces/IERC2309Upgradeable.sol";
-import { BitMapsUpgradeable } from "../../../utils/structs/BitMapsUpgradeable.sol";
-import { CheckpointsUpgradeable } from "../../../utils/structs/CheckpointsUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
+import {IERC2309Upgradeable} from "../../../interfaces/IERC2309Upgradeable.sol";
+import {BitMapsUpgradeable} from "../../../utils/structs/BitMapsUpgradeable.sol";
+import {CheckpointsUpgradeable} from "../../../utils/structs/CheckpointsUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC2309 "Consecutive Transfer Extension" as defined in

@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable } from "../ERC20Upgradeable.sol";
-import { SafeERC20Upgradeable } from "../utils/SafeERC20Upgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable} from "../ERC20Upgradeable.sol";
+import {SafeERC20Upgradeable} from "../utils/SafeERC20Upgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the ERC20 token contract to support token wrapping.

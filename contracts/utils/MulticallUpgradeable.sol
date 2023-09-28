@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import { AddressUpgradeable } from "./AddressUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {AddressUpgradeable} from "./AddressUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Provides a function to batch together multiple calls in a single external call.

@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC20FlashMintUpgradeable } from "../../token/ERC20/extensions/ERC20FlashMintUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {ERC20FlashMintUpgradeable} from "../../token/ERC20/extensions/ERC20FlashMintUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20FlashMintMockUpgradeable is Initializable, ERC20FlashMintUpgradeable {
     uint256 _flashFeeAmount;

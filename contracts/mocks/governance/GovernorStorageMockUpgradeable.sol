@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.19;
 
-import { IGovernorUpgradeable, GovernorUpgradeable } from "../../governance/GovernorUpgradeable.sol";
-import { GovernorTimelockControlUpgradeable } from "../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
-import { GovernorSettingsUpgradeable } from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
-import { GovernorCountingSimpleUpgradeable } from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
-import { GovernorVotesQuorumFractionUpgradeable } from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import { GovernorStorageUpgradeable } from "../../governance/extensions/GovernorStorageUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IGovernorUpgradeable, GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
+import {GovernorTimelockControlUpgradeable} from "../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
+import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
+import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
+import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
+import {GovernorStorageUpgradeable} from "../../governance/extensions/GovernorStorageUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorStorageMockUpgradeable is
     Initializable, GovernorSettingsUpgradeable,

@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import { GovernorVotesUpgradeable } from "./GovernorVotesUpgradeable.sol";
-import { SafeCastUpgradeable } from "../../utils/math/SafeCastUpgradeable.sol";
-import { CheckpointsUpgradeable } from "../../utils/structs/CheckpointsUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token and a quorum expressed as a

@@ -3,14 +3,14 @@
 
 pragma solidity ^0.8.20;
 
-import { IAccessManagerUpgradeable } from "./IAccessManagerUpgradeable.sol";
-import { IAccessManagedUpgradeable } from "./IAccessManagedUpgradeable.sol";
-import { AddressUpgradeable } from "../../utils/AddressUpgradeable.sol";
-import { ContextUpgradeable } from "../../utils/ContextUpgradeable.sol";
-import { MulticallUpgradeable } from "../../utils/MulticallUpgradeable.sol";
-import { MathUpgradeable } from "../../utils/math/MathUpgradeable.sol";
-import { TimeUpgradeable } from "../../utils/types/TimeUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
+import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
+import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
+import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev AccessManager is a central contract to store the permissions of a system.
@@ -148,7 +148,11 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * is backward compatible. Some contracts may thus ignore the second return argument. In that case they will fail
      * to identify the indirect workflow, and will consider calls that require a delay to be forbidden.
      */
-    function canCall(address caller, address target, bytes4 selector) public view virtual returns (bool, uint32) {
+    function canCall(
+        address caller,
+        address target,
+        bytes4 selector
+    ) public view virtual returns (bool immediate, uint32 delay) {
         if (isTargetClosed(target)) {
             return (false, 0);
         } else if (caller == address(this)) {
@@ -244,12 +248,15 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * [2] Pending execution delay for the account.
      * [3] Timestamp at which the pending execution delay will become active. 0 means no delay update is scheduled.
      */
-    function getAccess(uint64 roleId, address account) public view virtual returns (uint48, uint32, uint32, uint48) {
+    function getAccess(
+        uint64 roleId,
+        address account
+    ) public view virtual returns (uint48 since, uint32 currentDelay, uint32 pendingDelay, uint48 effect) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         Access storage access = $._roles[roleId].members[account];
 
-        uint48 since = access.since;
-        (uint32 currentDelay, uint32 pendingDelay, uint48 effect) = access.delay.getFull();
+        since = access.since;
+        (currentDelay, pendingDelay, effect) = access.delay.getFull();
 
         return (since, currentDelay, pendingDelay, effect);
     }
@@ -258,7 +265,10 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * @dev Check if a given account currently had the permission level corresponding to a given role. Note that this
      * permission might be associated with a delay. {getAccess} can provide more details.
      */
-    function hasRole(uint64 roleId, address account) public view virtual returns (bool, uint32) {
+    function hasRole(
+        uint64 roleId,
+        address account
+    ) public view virtual returns (bool isMember, uint32 executionDelay) {
         if (roleId == PUBLIC_ROLE) {
             return (true, 0);
         } else {
@@ -614,7 +624,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
         // if call is not authorized, or if requested timing is too soon
         if ((!immediate && setback == 0) || (when > 0 && when < minWhen)) {
-            revert AccessManagerUnauthorizedCall(caller, target, bytes4(data[0:4]));
+            revert AccessManagerUnauthorizedCall(caller, target, _checkSelector(data));
         }
 
         // Reuse variable due to stack too deep
@@ -669,7 +679,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
         // If caller is not authorised, revert
         if (!immediate && setback == 0) {
-            revert AccessManagerUnauthorizedCall(caller, target, bytes4(data));
+            revert AccessManagerUnauthorizedCall(caller, target, _checkSelector(data));
         }
 
         // If caller is authorised, check operation was scheduled early enough
@@ -682,7 +692,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
         // Mark the target and selector as authorised
         bytes32 executionIdBefore = $._executionId;
-        $._executionId = _hashExecutionId(target, bytes4(data));
+        $._executionId = _hashExecutionId(target, _checkSelector(data));
 
         // Perform call
         AddressUpgradeable.functionCallWithValue(target, data, msg.value);
@@ -747,7 +757,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     function cancel(address caller, address target, bytes calldata data) public virtual returns (uint32) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         address msgsender = _msgSender();
-        bytes4 selector = bytes4(data[0:4]);
+        bytes4 selector = _checkSelector(data);
 
         bytes32 operationId = hashOperation(caller, target, data);
         if ($._schedules[operationId].timepoint == 0) {
@@ -819,12 +829,14 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * - uint64: which role is this operation restricted to
      * - uint32: minimum delay to enforce for that operation (on top of the admin's execution delay)
      */
-    function _getAdminRestrictions(bytes calldata data) private view returns (bool, uint64, uint32) {
-        bytes4 selector = bytes4(data);
-
+    function _getAdminRestrictions(
+        bytes calldata data
+    ) private view returns (bool restricted, uint64 roleAdminId, uint32 executionDelay) {
         if (data.length < 4) {
             return (false, 0, 0);
         }
+
+        bytes4 selector = _checkSelector(data);
 
         // Restricted to ADMIN with no delay beside any execution delay the caller may have
         if (
@@ -853,8 +865,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         if (selector == this.grantRole.selector || selector == this.revokeRole.selector) {
             // First argument is a roleId.
             uint64 roleId = abi.decode(data[0x04:0x24], (uint64));
-            uint64 roleAdminId = getRoleAdmin(roleId);
-            return (true, roleAdminId, 0);
+            return (true, getRoleAdmin(roleId), 0);
         }
 
         return (false, 0, 0);
@@ -871,12 +882,15 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * If immediate is true, the delay can be disregarded and the operation can be immediately executed.
      * If immediate is false, the operation can be executed if and only if delay is greater than 0.
      */
-    function _canCallExtended(address caller, address target, bytes calldata data) private view returns (bool, uint32) {
+    function _canCallExtended(
+        address caller,
+        address target,
+        bytes calldata data
+    ) private view returns (bool immediate, uint32 delay) {
         if (target == address(this)) {
             return _canCallSelf(caller, data);
         } else {
-            bytes4 selector = bytes4(data);
-            return canCall(caller, target, selector);
+            return data.length < 4 ? (false, 0) : canCall(caller, target, _checkSelector(data));
         }
     }
 
@@ -884,10 +898,14 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * @dev A version of {canCall} that checks for admin restrictions in this contract.
      */
     function _canCallSelf(address caller, bytes calldata data) private view returns (bool immediate, uint32 delay) {
+        if (data.length < 4) {
+            return (false, 0);
+        }
+
         if (caller == address(this)) {
             // Caller is AccessManager, this means the call was sent through {execute} and it already checked
             // permissions. We verify that the call "identifier", which is set during {execute}, is correct.
-            return (_isExecuting(address(this), bytes4(data)), 0);
+            return (_isExecuting(address(this), _checkSelector(data)), 0);
         }
 
         (bool enabled, uint64 roleId, uint32 operationDelay) = _getAdminRestrictions(data);
@@ -918,5 +936,12 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _isExpired(uint48 timepoint) private view returns (bool) {
         return timepoint + expiration() <= TimeUpgradeable.timestamp();
+    }
+
+    /**
+     * @dev Extracts the selector from calldata. Panics if data is not at least 4 bytes
+     */
+    function _checkSelector(bytes calldata data) private pure returns (bytes4) {
+        return bytes4(data[0:4]);
     }
 }

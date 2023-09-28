@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import { IERC165Upgradeable, ERC165Upgradeable } from "../../../utils/introspection/ERC165Upgradeable.sol";
-import { IERC1155ReceiverUpgradeable } from "../IERC1155ReceiverUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {IERC165Upgradeable, ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
+import {IERC1155ReceiverUpgradeable} from "../IERC1155ReceiverUpgradeable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Simple implementation of `IERC1155Receiver` that will allow a contract to hold ERC1155 tokens.

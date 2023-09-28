@@ -1,5 +1,6 @@
-> **Warning**
-> Version 5.0 is under active development. The code in this branch is not recommended for use.
+> [!NOTE]
+> Version 5.0 is currently in release candidate period. Bug bounty rewards are boosted 50% until the release.  
+> [See more details on Immunefi.](https://immunefi.com/bounty/openzeppelin/)
 
 # <img src="logo.svg" alt="OpenZeppelin" height="40px">
 
@@ -19,9 +20,12 @@
 
 :building_construction: **Want to scale your decentralized application?** Check out [OpenZeppelin Defender](https://openzeppelin.com/defender) — a secure platform for automating and monitoring your operations.
 
-> **Note**
-> You are looking at the upgradeable variant of OpenZeppelin Contracts. Be sure to review the documentation on [Using OpenZeppelin Contracts with Upgrades](https://docs.openzeppelin.com/contracts/4.x/upgradeable).
+> [!IMPORTANT]
+> OpenZeppelin Contracts uses semantic versioning to communicate backwards compatibility of its API and storage layout. For upgradeable contracts, the storage layout of different major versions should be assumed incompatible, for example, it is unsafe to upgrade from 4.9.3 to 5.0.0. Learn more at [Backwards Compatibility](https://docs.openzeppelin.com/contracts/backwards-compatibility).
 
++> [!NOTE]
++> You are looking at the upgradeable variant of OpenZeppelin Contracts. Be sure to review the documentation on [Using OpenZeppelin Contracts with Upgrades](https://docs.openzeppelin.com/contracts/upgradeable).
++
 ## Overview
 
 ### Installation
@@ -32,13 +36,13 @@
 $ npm install @openzeppelin/contracts-upgradeable
 ```
 
-OpenZeppelin Contracts features a [stable API](https://docs.openzeppelin.com/contracts/releases-stability#api-stability), which means that your contracts won't break unexpectedly when upgrading to a newer minor version.
-
 #### Foundry (git)
 
-> **Warning** When installing via git, it is a common error to use the `master` branch. This is a development branch that should be avoided in favor of tagged releases. The release process involves security measures that the `master` branch does not guarantee.
+> [!WARNING]
+> When installing via git, it is a common error to use the `master` branch. This is a development branch that should be avoided in favor of tagged releases. The release process involves security measures that the `master` branch does not guarantee.
 
-> **Warning** Foundry installs the latest version initially, but subsequent `forge update` commands will use the `master` branch.
+> [!WARNING]
+> Foundry installs the latest version initially, but subsequent `forge update` commands will use the `master` branch.
 
 ```
 $ forge install OpenZeppelin/openzeppelin-contracts-upgradeable

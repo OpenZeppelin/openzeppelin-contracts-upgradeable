@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import { ERC1967UtilsUpgradeable } from "../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
-import { StorageSlotUpgradeable } from "../utils/StorageSlotUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {ERC1967UtilsUpgradeable} from "../proxy/ERC1967/ERC1967UtilsUpgradeable.sol";
+import {StorageSlotUpgradeable} from "../utils/StorageSlotUpgradeable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 abstract contract ImplUpgradeable is Initializable {
     function __Impl_init() internal onlyInitializing {
