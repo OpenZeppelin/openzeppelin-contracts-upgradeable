@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {StorageSlot} from "@openzeppelin/contracts/utils/StorageSlot.sol";
+import {StorageSlotUpgradeable} from "../utils/StorageSlotUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract StorageSlotMockUpgradeable is Initializable {
-    using StorageSlot for *;
+    using StorageSlotUpgradeable for *;
 
     function __StorageSlotMock_init() internal onlyInitializing {
     }

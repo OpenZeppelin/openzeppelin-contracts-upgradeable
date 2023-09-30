@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
-import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
-import {Address} from "@openzeppelin/contracts/utils/Address.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
-import {Multicall} from "@openzeppelin/contracts/utils/Multicall.sol";
-import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
-import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
+import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
+import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
+import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
+import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
+import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -49,13 +49,13 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * mindful of the danger associated with functions such as {{Ownable-renounceOwnership}} or
  * {{AccessControl-renounceRole}}.
  */
-contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessManager {
-    using Time for *;
+contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManagerUpgradeable {
+    using TimeUpgradeable for *;
 
     // Structure that stores the details for a target contract.
     struct TargetConfig {
         mapping(bytes4 selector => uint64 roleId) allowedRoles;
-        Time.Delay adminDelay;
+        TimeUpgradeable.Delay adminDelay;
         bool closed;
     }
 
@@ -65,7 +65,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         // permission is not available.
         uint48 since;
         // Delay for execution. Only applies to restricted() / execute() calls.
-        Time.Delay delay;
+        TimeUpgradeable.Delay delay;
     }
 
     // Structure that stores the details of a role, including:
@@ -77,7 +77,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         mapping(address user => Access access) members;
         uint64 admin;
         uint64 guardian;
-        Time.Delay grantDelay;
+        TimeUpgradeable.Delay grantDelay;
     }
 
     // Structure that stores the details for a scheduled operation. This structure fits into a single slot.
@@ -272,7 +272,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
             return (true, 0);
         } else {
             (uint48 hasRoleSince, uint32 currentDelay, , ) = getAccess(roleId, account);
-            return (hasRoleSince != 0 && hasRoleSince <= Time.timestamp(), currentDelay);
+            return (hasRoleSince != 0 && hasRoleSince <= TimeUpgradeable.timestamp(), currentDelay);
         }
     }
 
@@ -402,7 +402,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         uint48 since;
 
         if (newMember) {
-            since = Time.timestamp() + grantDelay;
+            since = TimeUpgradeable.timestamp() + grantDelay;
             $._roles[roleId].members[account] = Access({since: since, delay: executionDelay.toDelay()});
         } else {
             // No setback here. Value can be reset by doing revoke + grant, effectively allowing the admin to perform
@@ -619,7 +619,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         // Fetch restrictions that apply to the caller on the targeted function
         (bool immediate, uint32 setback) = _canCallExtended(caller, target, data);
 
-        uint48 minWhen = Time.timestamp() + setback;
+        uint48 minWhen = TimeUpgradeable.timestamp() + setback;
 
         // if call is not authorized, or if requested timing is too soon
         if ((!immediate && setback == 0) || (when > 0 && when < minWhen)) {
@@ -627,7 +627,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         }
 
         // Reuse variable due to stack too deep
-        when = uint48(Math.max(when, minWhen)); // cast is safe: both inputs are uint48
+        when = uint48(MathUpgradeable.max(when, minWhen)); // cast is safe: both inputs are uint48
 
         // If caller is authorised, schedule operation
         operationId = hashOperation(caller, target, data);
@@ -694,7 +694,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         $._executionId = _hashExecutionId(target, _checkSelector(data));
 
         // Perform call
-        Address.functionCallWithValue(target, data, msg.value);
+        AddressUpgradeable.functionCallWithValue(target, data, msg.value);
 
         // Reset execute identifier
         $._executionId = executionIdBefore;
@@ -713,7 +713,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
      */
     function consumeScheduledOp(address caller, bytes calldata data) public virtual {
         address target = _msgSender();
-        if (IAccessManaged(target).isConsumingScheduledOp() != IAccessManaged.isConsumingScheduledOp.selector) {
+        if (IAccessManagedUpgradeable(target).isConsumingScheduledOp() != IAccessManagedUpgradeable.isConsumingScheduledOp.selector) {
             revert AccessManagerUnauthorizedConsume(target);
         }
         _consumeScheduledOp(hashOperation(caller, target, data));
@@ -731,7 +731,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
 
         if (timepoint == 0) {
             revert AccessManagerNotScheduled(operationId);
-        } else if (timepoint > Time.timestamp()) {
+        } else if (timepoint > TimeUpgradeable.timestamp()) {
             revert AccessManagerNotReady(operationId);
         } else if (_isExpired(timepoint)) {
             revert AccessManagerExpired(operationId);
@@ -800,7 +800,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
      * - the caller must be a global admin
      */
     function updateAuthority(address target, address newAuthority) public virtual onlyAuthorized {
-        IAccessManaged(target).setAuthority(newAuthority);
+        IAccessManagedUpgradeable(target).setAuthority(newAuthority);
     }
 
     // ================================================= ADMIN LOGIC ==================================================
@@ -918,7 +918,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         }
 
         // downcast is safe because both options are uint32
-        delay = uint32(Math.max(operationDelay, executionDelay));
+        delay = uint32(MathUpgradeable.max(operationDelay, executionDelay));
         return (delay == 0, delay);
     }
 
@@ -934,7 +934,7 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
      * @dev Returns true if a schedule timepoint is past its expiration deadline.
      */
     function _isExpired(uint48 timepoint) private view returns (bool) {
-        return timepoint + expiration() <= Time.timestamp();
+        return timepoint + expiration() <= TimeUpgradeable.timestamp();
     }
 
     /**

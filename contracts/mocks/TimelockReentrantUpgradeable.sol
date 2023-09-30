@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract TimelockReentrantUpgradeable is Initializable {
@@ -26,7 +26,7 @@ contract TimelockReentrantUpgradeable is Initializable {
     function reenter() external {
         if (!_reentered) {
             _reentered = true;
-            Address.functionCall(_reenterTarget, _reenterData);
+            AddressUpgradeable.functionCall(_reenterTarget, _reenterData);
         }
     }
 }

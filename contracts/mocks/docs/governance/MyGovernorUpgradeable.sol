@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
-import {GovernorUpgradeable} from "../../../governance/GovernorUpgradeable.sol";
+import {IGovernorUpgradeable, GovernorUpgradeable} from "../../../governance/GovernorUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "../../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "../../../governance/extensions/GovernorVotesUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "../../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorTimelockControlUpgradeable} from "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../../../governance/TimelockControllerUpgradeable.sol";
-import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
-import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {IVotesUpgradeable} from "../../../governance/utils/IVotesUpgradeable.sol";
+import {IERC165Upgradeable} from "../../../interfaces/IERC165Upgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 contract MyGovernorUpgradeable is
@@ -20,7 +19,7 @@ contract MyGovernorUpgradeable is
     GovernorTimelockControlUpgradeable
 {
     function __MyGovernor_init(
-        IVotes _token,
+        IVotesUpgradeable _token,
         TimelockControllerUpgradeable _timelock
     ) internal onlyInitializing {
         __EIP712_init_unchained("MyGovernor", version());
@@ -31,7 +30,7 @@ contract MyGovernorUpgradeable is
     }
 
     function __MyGovernor_init_unchained(
-        IVotes,
+        IVotesUpgradeable,
         TimelockControllerUpgradeable
     ) internal onlyInitializing {}
 

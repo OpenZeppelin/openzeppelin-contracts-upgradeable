@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import {IERC721ReceiverUpgradeable} from "../../token/ERC721/IERC721ReceiverUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
-contract ERC721ReceiverMockUpgradeable is Initializable, IERC721Receiver {
+contract ERC721ReceiverMockUpgradeable is Initializable, IERC721ReceiverUpgradeable {
     enum RevertType {
         None,
         RevertWithoutMessage,

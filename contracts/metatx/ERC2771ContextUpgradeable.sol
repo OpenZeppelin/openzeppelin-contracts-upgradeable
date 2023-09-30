@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -15,7 +15,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * behavior could be an unintended fallback (or another function) invocation while trying to invoke the `receive`
  * function only accessible if `msg.data.length == 0`.
  */
-abstract contract ERC2771ContextUpgradeable is Initializable, Context {
+abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     address private immutable _trustedForwarder;
 

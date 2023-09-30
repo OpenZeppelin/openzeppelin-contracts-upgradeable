@@ -3,11 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
-import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../TimelockControllerUpgradeable.sol";
-import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {IERC165Upgradeable} from "../../interfaces/IERC165Upgradeable.sol";
+import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -114,7 +113,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorU
         $._timelockIds[proposalId] = $._timelock.hashOperationBatch(targets, values, calldatas, 0, salt);
         $._timelock.scheduleBatch(targets, values, calldatas, 0, salt, delay);
 
-        return SafeCast.toUint48(block.timestamp + delay);
+        return SafeCastUpgradeable.toUint48(block.timestamp + delay);
     }
 
     /**

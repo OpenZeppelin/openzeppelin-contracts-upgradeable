@@ -153,7 +153,7 @@ import "./docs/governance/MyGovernorUpgradeable.sol";
 
 contract MyGovernorUpgradeableWithInit is MyGovernorUpgradeable {
     constructor(
-        IVotes _token,
+        IVotesUpgradeable _token,
         TimelockControllerUpgradeable _timelock
     ) payable initializer {
         __MyGovernor_init(_token, _timelock);
@@ -177,7 +177,7 @@ import "./docs/governance/MyTokenWrappedUpgradeable.sol";
 
 contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
     constructor(
-        IERC20 wrappedToken
+        IERC20Upgradeable wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
     }
@@ -734,14 +734,14 @@ contract ERC20VotesUpgradeableWithInit is ERC20VotesUpgradeable {
 import "../token/ERC20/extensions/ERC20WrapperUpgradeable.sol";
 
 contract ERC20WrapperUpgradeableWithInit is ERC20WrapperUpgradeable {
-    constructor(IERC20 underlyingToken) payable initializer {
+    constructor(IERC20Upgradeable underlyingToken) payable initializer {
         __ERC20Wrapper_init(underlyingToken);
     }
 }
 import "../token/ERC20/extensions/ERC4626Upgradeable.sol";
 
 contract ERC4626UpgradeableWithInit is ERC4626Upgradeable {
-    constructor(IERC20 asset_) payable initializer {
+    constructor(IERC20Upgradeable asset_) payable initializer {
         __ERC4626_init(asset_);
     }
 }
@@ -804,7 +804,7 @@ contract ERC721VotesUpgradeableWithInit is ERC721VotesUpgradeable {
 import "../token/ERC721/extensions/ERC721WrapperUpgradeable.sol";
 
 contract ERC721WrapperUpgradeableWithInit is ERC721WrapperUpgradeable {
-    constructor(IERC721 underlyingToken) payable initializer {
+    constructor(IERC721Upgradeable underlyingToken) payable initializer {
         __ERC721Wrapper_init(underlyingToken);
     }
 }
