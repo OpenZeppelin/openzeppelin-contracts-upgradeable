@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {IERC20Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
@@ -32,7 +32,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * by listening to said events. Other implementations of the EIP may not emit
  * these events, as it isn't required by the specification.
  */
-abstract contract ERC20Upgradeable is Initializable, Context, IERC20, IERC20Metadata, IERC20Errors {
+abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20, IERC20Metadata, IERC20Errors {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC20
     struct ERC20Storage {
         mapping(address account => uint256) _balances;

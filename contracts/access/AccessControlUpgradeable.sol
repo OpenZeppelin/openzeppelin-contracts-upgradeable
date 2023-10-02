@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
-import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -47,7 +47,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * accounts that have been granted it. We recommend using {AccessControlDefaultAdminRules}
  * to enforce additional security measures for this role.
  */
-abstract contract AccessControlUpgradeable is Initializable, Context, IAccessControl, ERC165 {
+abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControl, ERC165Upgradeable {
     struct RoleData {
         mapping(address account => bool) hasRole;
         bytes32 adminRole;

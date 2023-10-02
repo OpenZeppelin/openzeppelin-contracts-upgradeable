@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
-import {ERC721Holder} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
-import {ERC1155Holder} from "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
+import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
+import {ERC1155HolderUpgradeable} from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
@@ -22,7 +22,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * to position this {TimelockController} as the owner of a smart contract, with
  * a multisig or a DAO as the sole proposer.
  */
-contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, ERC721Holder, ERC1155Holder {
+contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
@@ -177,7 +177,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function supportsInterface(
         bytes4 interfaceId
-    ) public view virtual override(AccessControlUpgradeable, ERC1155Holder) returns (bool) {
+    ) public view virtual override(AccessControlUpgradeable, ERC1155HolderUpgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 

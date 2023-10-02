@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {ContextMockUpgradeable} from "./ContextMockUpgradeable.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {ERC2771ContextUpgradeable} from "../metatx/ERC2771ContextUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
@@ -14,11 +14,11 @@ contract ERC2771ContextMockUpgradeable is Initializable, ContextMockUpgradeable,
         emit Sender(_msgSender()); // _msgSender() should be accessible during construction
     }
 
-    function _msgSender() internal view override(Context, ERC2771ContextUpgradeable) returns (address) {
+    function _msgSender() internal view override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (address) {
         return ERC2771ContextUpgradeable._msgSender();
     }
 
-    function _msgData() internal view override(Context, ERC2771ContextUpgradeable) returns (bytes calldata) {
+    function _msgData() internal view override(ContextUpgradeable, ERC2771ContextUpgradeable) returns (bytes calldata) {
         return ERC2771ContextUpgradeable._msgData();
     }
 }

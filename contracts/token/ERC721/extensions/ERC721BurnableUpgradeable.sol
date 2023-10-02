@@ -4,14 +4,14 @@
 pragma solidity ^0.8.20;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be burned (destroyed).
  */
-abstract contract ERC721BurnableUpgradeable is Initializable, Context, ERC721Upgradeable {
+abstract contract ERC721BurnableUpgradeable is Initializable, ContextUpgradeable, ERC721Upgradeable {
     function __ERC721Burnable_init() internal onlyInitializing {
     }
 

@@ -6,8 +6,8 @@ pragma solidity ^0.8.20;
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
 import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
-import {Multicall} from "@openzeppelin/contracts/utils/Multicall.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
@@ -50,7 +50,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * mindful of the danger associated with functions such as {{Ownable-renounceOwnership}} or
  * {{AccessControl-renounceRole}}.
  */
-contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessManager {
+contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManager {
     using Time for *;
 
     // Structure that stores the details for a target contract.
@@ -618,12 +618,12 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
         address caller = _msgSender();
 
         // Fetch restrictions that apply to the caller on the targeted function
-        (bool immediate, uint32 setback) = _canCallExtended(caller, target, data);
+        (, uint32 setback) = _canCallExtended(caller, target, data);
 
         uint48 minWhen = Time.timestamp() + setback;
 
-        // if call is not authorized, or if requested timing is too soon
-        if ((!immediate && setback == 0) || (when > 0 && when < minWhen)) {
+        // if call with delay is not authorized, or if requested timing is too soon
+        if (setback == 0 || (when > 0 && when < minWhen)) {
             revert AccessManagerUnauthorizedCall(caller, target, _checkSelector(data));
         }
 
@@ -682,11 +682,12 @@ contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessM
             revert AccessManagerUnauthorizedCall(caller, target, _checkSelector(data));
         }
 
-        // If caller is authorised, check operation was scheduled early enough
         bytes32 operationId = hashOperation(caller, target, data);
         uint32 nonce;
 
-        if (setback != 0) {
+        // If caller is authorised, check operation was scheduled early enough
+        // Consume an available schedule even if there is no currently enforced delay
+        if (setback != 0 || getSchedule(operationId) != 0) {
             nonce = _consumeScheduledOp(operationId);
         }
 

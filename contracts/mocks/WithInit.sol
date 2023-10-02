@@ -682,6 +682,13 @@ contract ERC1155URIStorageUpgradeableWithInit is ERC1155URIStorageUpgradeable {
         __ERC1155URIStorage_init();
     }
 }
+import "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
+
+contract ERC1155HolderUpgradeableWithInit is ERC1155HolderUpgradeable {
+    constructor() payable initializer {
+        __ERC1155Holder_init();
+    }
+}
 import "../token/ERC20/ERC20Upgradeable.sol";
 
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
@@ -808,11 +815,39 @@ contract ERC721WrapperUpgradeableWithInit is ERC721WrapperUpgradeable {
         __ERC721Wrapper_init(underlyingToken);
     }
 }
+import "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
+
+contract ERC721HolderUpgradeableWithInit is ERC721HolderUpgradeable {
+    constructor() payable initializer {
+        __ERC721Holder_init();
+    }
+}
+import "../utils/ContextUpgradeable.sol";
+
+contract ContextUpgradeableWithInit is ContextUpgradeable {
+    constructor() payable initializer {
+        __Context_init();
+    }
+}
 import "../utils/cryptography/EIP712Upgradeable.sol";
 
 contract EIP712UpgradeableWithInit is EIP712Upgradeable {
     constructor(string memory name, string memory version) payable initializer {
         __EIP712_init(name, version);
+    }
+}
+import "../utils/introspection/ERC165Upgradeable.sol";
+
+contract ERC165UpgradeableWithInit is ERC165Upgradeable {
+    constructor() payable initializer {
+        __ERC165_init();
+    }
+}
+import "../utils/MulticallUpgradeable.sol";
+
+contract MulticallUpgradeableWithInit is MulticallUpgradeable {
+    constructor() payable initializer {
+        __Multicall_init();
     }
 }
 import "../utils/NoncesUpgradeable.sol";
