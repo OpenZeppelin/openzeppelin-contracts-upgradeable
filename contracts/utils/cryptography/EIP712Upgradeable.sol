@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import {MessageHashUtilsUpgradeable} from "./MessageHashUtilsUpgradeable.sol";
-import {IERC5267Upgradeable} from "../../interfaces/IERC5267Upgradeable.sol";
+import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IERC5267} from "@openzeppelin/contracts/interfaces/IERC5267.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -29,7 +29,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * separator of the implementation contract. This will cause the {_domainSeparatorV4} function to always rebuild the
  * separator from the immutable values, which is cheaper than accessing a cached version in cold storage.
  */
-abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
+abstract contract EIP712Upgradeable is Initializable, IERC5267 {
     bytes32 private constant TYPE_HASH =
         keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
 
@@ -106,7 +106,7 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * ```
      */
     function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {
-        return MessageHashUtilsUpgradeable.toTypedDataHash(_domainSeparatorV4(), structHash);
+        return MessageHashUtils.toTypedDataHash(_domainSeparatorV4(), structHash);
     }
 
     /**

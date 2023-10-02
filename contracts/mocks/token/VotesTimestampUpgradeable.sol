@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import {ERC20VotesUpgradeable} from "../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
 import {ERC721VotesUpgradeable} from "../../token/ERC721/extensions/ERC721VotesUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20VotesTimestampMockUpgradeable is Initializable, ERC20VotesUpgradeable {
@@ -14,7 +14,7 @@ abstract contract ERC20VotesTimestampMockUpgradeable is Initializable, ERC20Vote
     function __ERC20VotesTimestampMock_init_unchained() internal onlyInitializing {
     }
     function clock() public view virtual override returns (uint48) {
-        return SafeCastUpgradeable.toUint48(block.timestamp);
+        return SafeCast.toUint48(block.timestamp);
     }
 
     // solhint-disable-next-line func-name-mixedcase
@@ -30,7 +30,7 @@ abstract contract ERC721VotesTimestampMockUpgradeable is Initializable, ERC721Vo
     function __ERC721VotesTimestampMock_init_unchained() internal onlyInitializing {
     }
     function clock() public view virtual override returns (uint48) {
-        return SafeCastUpgradeable.toUint48(block.timestamp);
+        return SafeCast.toUint48(block.timestamp);
     }
 
     // solhint-disable-next-line func-name-mixedcase

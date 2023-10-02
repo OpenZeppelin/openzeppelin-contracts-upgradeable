@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessControlUpgradeable} from "./IAccessControlUpgradeable.sol";
+import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
@@ -47,7 +47,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * accounts that have been granted it. We recommend using {AccessControlDefaultAdminRules}
  * to enforce additional security measures for this role.
  */
-abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControlUpgradeable, ERC165Upgradeable {
+abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControl, ERC165Upgradeable {
     struct RoleData {
         mapping(address account => bool) hasRole;
         bytes32 adminRole;
@@ -88,7 +88,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IAccessControlUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IAccessControl).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

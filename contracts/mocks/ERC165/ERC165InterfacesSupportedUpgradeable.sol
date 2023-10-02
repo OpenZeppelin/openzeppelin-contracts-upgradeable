@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC165Upgradeable} from "../../utils/introspection/IERC165Upgradeable.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -15,7 +15,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * therefore, because this contract is staticcall'd we need to not emit events (which is how solidity-coverage works)
  * solidity-coverage ignores the /mocks folder, so we duplicate its implementation here to avoid instrumenting it
  */
-contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165Upgradeable {
+contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165 {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */

@@ -4,16 +4,16 @@
 pragma solidity ^0.8.20;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
-import {StringsUpgradeable} from "../../../utils/StringsUpgradeable.sol";
-import {IERC4906Upgradeable} from "../../../interfaces/IERC4906Upgradeable.sol";
-import {IERC165Upgradeable} from "../../../interfaces/IERC165Upgradeable.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {IERC4906} from "@openzeppelin/contracts/interfaces/IERC4906.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC721 token with storage based token URI management.
  */
-abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, ERC721Upgradeable {
-    using StringsUpgradeable for uint256;
+abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906, ERC721Upgradeable {
+    using Strings for uint256;
 
     // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
     // defines events and does not include any external function.
@@ -42,7 +42,7 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
     /**
      * @dev See {IERC165-supportsInterface}
      */
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Upgradeable, IERC165Upgradeable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Upgradeable, IERC165) returns (bool) {
         return interfaceId == ERC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
     }
 

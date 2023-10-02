@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ArraysUpgradeable} from "../utils/ArraysUpgradeable.sol";
+import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract Uint256ArraysMockUpgradeable is Initializable {
-    using ArraysUpgradeable for uint256[];
+    using Arrays for uint256[];
 
     uint256[] private _array;
 
@@ -28,7 +28,7 @@ contract Uint256ArraysMockUpgradeable is Initializable {
 }
 
 contract AddressArraysMockUpgradeable is Initializable {
-    using ArraysUpgradeable for address[];
+    using Arrays for address[];
 
     address[] private _array;
 
@@ -46,7 +46,7 @@ contract AddressArraysMockUpgradeable is Initializable {
 }
 
 contract Bytes32ArraysMockUpgradeable is Initializable {
-    using ArraysUpgradeable for bytes32[];
+    using Arrays for bytes32[];
 
     bytes32[] private _array;
 

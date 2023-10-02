@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -13,11 +13,11 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * fraction of the total supply.
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
+    using Checkpoints for Checkpoints.Trace208;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotesQuorumFraction
     struct GovernorVotesQuorumFractionStorage {
-        CheckpointsUpgradeable.Trace208 _quorumNumeratorHistory;
+        Checkpoints.Trace208 _quorumNumeratorHistory;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesQuorumFraction")) - 1)) & ~bytes32(uint256(0xff))
@@ -67,7 +67,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         uint256 length = $._quorumNumeratorHistory._checkpoints.length;
 
         // Optimistic search, check the latest checkpoint
-        CheckpointsUpgradeable.Checkpoint208 storage latest = $._quorumNumeratorHistory._checkpoints[length - 1];
+        Checkpoints.Checkpoint208 storage latest = $._quorumNumeratorHistory._checkpoints[length - 1];
         uint48 latestKey = latest._key;
         uint208 latestValue = latest._value;
         if (latestKey <= timepoint) {
@@ -75,7 +75,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         }
 
         // Otherwise, do the binary search
-        return $._quorumNumeratorHistory.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return $._quorumNumeratorHistory.upperLookupRecent(SafeCast.toUint48(timepoint));
     }
 
     /**
@@ -123,7 +123,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         }
 
         uint256 oldQuorumNumerator = quorumNumerator();
-        $._quorumNumeratorHistory.push(clock(), SafeCastUpgradeable.toUint208(newQuorumNumerator));
+        $._quorumNumeratorHistory.push(clock(), SafeCast.toUint208(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }

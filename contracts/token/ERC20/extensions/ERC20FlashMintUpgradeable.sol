@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC3156FlashBorrowerUpgradeable} from "../../../interfaces/IERC3156FlashBorrowerUpgradeable.sol";
-import {IERC3156FlashLenderUpgradeable} from "../../../interfaces/IERC3156FlashLenderUpgradeable.sol";
+import {IERC3156FlashBorrower} from "@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol";
+import {IERC3156FlashLender} from "@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol";
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
@@ -19,7 +19,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * {maxFlashLoan} will not correctly reflect the maximum that can be flash minted. We recommend
  * overriding {maxFlashLoan} so that it correctly reflects the supply cap.
  */
-abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLenderUpgradeable {
+abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, IERC3156FlashLender {
     bytes32 private constant RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     /**
@@ -113,7 +113,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     // minted at the beginning is always recovered and burned at the end, or else the entire function will revert.
     // slither-disable-next-line reentrancy-no-eth
     function flashLoan(
-        IERC3156FlashBorrowerUpgradeable receiver,
+        IERC3156FlashBorrower receiver,
         address token,
         uint256 value,
         bytes calldata data

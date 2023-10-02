@@ -3,12 +3,12 @@
 pragma solidity ^0.8.20;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {AuthorityUtilsUpgradeable} from "../../access/manager/AuthorityUtilsUpgradeable.sol";
-import {IAccessManagerUpgradeable} from "../../access/manager/IAccessManagerUpgradeable.sol";
-import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
+import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUtils.sol";
+import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -61,7 +61,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
 
         uint32 _baseDelay;
 
-        IAccessManagerUpgradeable _manager;
+        IAccessManager _manager;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorTimelockAccess")) - 1)) & ~bytes32(uint256(0xff))
@@ -89,14 +89,14 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
 
     function __GovernorTimelockAccess_init_unchained(address manager, uint32 initialBaseDelay) internal onlyInitializing {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
-        $._manager = IAccessManagerUpgradeable(manager);
+        $._manager = IAccessManager(manager);
         _setBaseDelaySeconds(initialBaseDelay);
     }
 
     /**
      * @dev Returns the {AccessManager} instance associated to this governor.
      */
-    function accessManager() public view virtual returns (IAccessManagerUpgradeable) {
+    function accessManager() public view virtual returns (IAccessManager) {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
         return $._manager;
     }
@@ -214,7 +214,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         uint32 neededDelay = baseDelaySeconds();
 
         ExecutionPlan storage plan = $._executionPlan[proposalId];
-        plan.length = SafeCastUpgradeable.toUint16(targets.length);
+        plan.length = SafeCast.toUint16(targets.length);
 
         for (uint256 i = 0; i < targets.length; ++i) {
             if (calldatas[i].length < 4) {
@@ -222,7 +222,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
             }
             address target = targets[i];
             bytes4 selector = bytes4(calldatas[i]);
-            (bool immediate, uint32 delay) = AuthorityUtilsUpgradeable.canCallWithDelay(
+            (bool immediate, uint32 delay) = AuthorityUtils.canCallWithDelay(
                 address($._manager),
                 address(this),
                 target,
@@ -231,7 +231,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
             if ((immediate || delay > 0) && !isAccessManagerIgnored(target, selector)) {
                 _setManagerData(plan, i, !immediate, 0);
                 // downcast is safe because both arguments are uint32
-                neededDelay = uint32(MathUpgradeable.max(delay, neededDelay));
+                neededDelay = uint32(Math.max(delay, neededDelay));
             }
         }
 
@@ -255,7 +255,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
     ) internal virtual override returns (uint48) {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
         ExecutionPlan storage plan = $._executionPlan[proposalId];
-        uint48 etaSeconds = TimeUpgradeable.timestamp() + plan.delay;
+        uint48 etaSeconds = Time.timestamp() + plan.delay;
 
         for (uint256 i = 0; i < targets.length; ++i) {
             (, bool withDelay, ) = _getManagerData(plan, i);
@@ -279,7 +279,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         bytes32 /* descriptionHash */
     ) internal virtual override {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
-        uint48 etaSeconds = SafeCastUpgradeable.toUint48(proposalEta(proposalId));
+        uint48 etaSeconds = SafeCast.toUint48(proposalEta(proposalId));
         if (block.timestamp < etaSeconds) {
             revert GovernorUnmetDelay(proposalId, etaSeconds);
         }
@@ -295,7 +295,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
                 }
             } else {
                 (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
-                AddressUpgradeable.verifyCallResult(success, returndata);
+                Address.verifyCallResult(success, returndata);
             }
         }
     }
@@ -312,7 +312,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
         uint256 proposalId = super._cancel(targets, values, calldatas, descriptionHash);
 
-        uint48 etaSeconds = SafeCastUpgradeable.toUint48(proposalEta(proposalId));
+        uint48 etaSeconds = SafeCast.toUint48(proposalEta(proposalId));
 
         ExecutionPlan storage plan = $._executionPlan[proposalId];
 

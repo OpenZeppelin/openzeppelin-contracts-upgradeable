@@ -6,7 +6,7 @@ pragma solidity ^0.8.20;
 import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
 import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import {ERC1155HolderUpgradeable} from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -433,7 +433,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function _execute(address target, uint256 value, bytes calldata data) internal virtual {
         (bool success, bytes memory returndata) = target.call{value: value}(data);
-        AddressUpgradeable.verifyCallResult(success, returndata);
+        Address.verifyCallResult(success, returndata);
     }
 
     /**

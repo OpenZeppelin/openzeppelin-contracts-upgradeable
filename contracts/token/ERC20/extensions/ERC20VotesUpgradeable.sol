@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {VotesUpgradeable} from "../../../governance/utils/VotesUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../../utils/structs/CheckpointsUpgradeable.sol";
+import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -83,7 +83,7 @@ abstract contract ERC20VotesUpgradeable is Initializable, ERC20Upgradeable, Vote
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
      */
-    function checkpoints(address account, uint32 pos) public view virtual returns (CheckpointsUpgradeable.Checkpoint208 memory) {
+    function checkpoints(address account, uint32 pos) public view virtual returns (Checkpoints.Checkpoint208 memory) {
         return _checkpoints(account, pos);
     }
 }

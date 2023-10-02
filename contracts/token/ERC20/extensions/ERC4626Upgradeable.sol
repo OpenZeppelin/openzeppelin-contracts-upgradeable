@@ -3,10 +3,12 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20Upgradeable, IERC20MetadataUpgradeable, ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {SafeERC20Upgradeable} from "../utils/SafeERC20Upgradeable.sol";
-import {IERC4626Upgradeable} from "../../../interfaces/IERC4626Upgradeable.sol";
-import {MathUpgradeable} from "../../../utils/math/MathUpgradeable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -46,12 +48,12 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * To learn more, check out our xref:ROOT:erc4626.adoc[ERC-4626 guide].
  * ====
  */
-abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC4626Upgradeable {
-    using MathUpgradeable for uint256;
+abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC4626 {
+    using Math for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC4626
     struct ERC4626Storage {
-        IERC20Upgradeable _asset;
+        IERC20 _asset;
         uint8 _underlyingDecimals;
     }
 
@@ -87,11 +89,11 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     /**
      * @dev Set the underlying asset contract. This must be an ERC20-compatible contract (ERC20 or ERC777).
      */
-    function __ERC4626_init(IERC20Upgradeable asset_) internal onlyInitializing {
+    function __ERC4626_init(IERC20 asset_) internal onlyInitializing {
         __ERC4626_init_unchained(asset_);
     }
 
-    function __ERC4626_init_unchained(IERC20Upgradeable asset_) internal onlyInitializing {
+    function __ERC4626_init_unchained(IERC20 asset_) internal onlyInitializing {
         ERC4626Storage storage $ = _getERC4626Storage();
         (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
         $._underlyingDecimals = success ? assetDecimals : 18;
@@ -101,9 +103,9 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     /**
      * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
      */
-    function _tryGetAssetDecimals(IERC20Upgradeable asset_) private view returns (bool, uint8) {
+    function _tryGetAssetDecimals(IERC20 asset_) private view returns (bool, uint8) {
         (bool success, bytes memory encodedDecimals) = address(asset_).staticcall(
-            abi.encodeCall(IERC20MetadataUpgradeable.decimals, ())
+            abi.encodeCall(IERC20Metadata.decimals, ())
         );
         if (success && encodedDecimals.length >= 32) {
             uint256 returnedDecimals = abi.decode(encodedDecimals, (uint256));
@@ -121,7 +123,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
      *
      * See {IERC20Metadata-decimals}.
      */
-    function decimals() public view virtual override(IERC20MetadataUpgradeable, ERC20Upgradeable) returns (uint8) {
+    function decimals() public view virtual override(IERC20Metadata, ERC20Upgradeable) returns (uint8) {
         ERC4626Storage storage $ = _getERC4626Storage();
         return $._underlyingDecimals + _decimalsOffset();
     }
@@ -140,12 +142,12 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-convertToShares}. */
     function convertToShares(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
+        return _convertToShares(assets, Math.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-convertToAssets}. */
     function convertToAssets(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
+        return _convertToAssets(shares, Math.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-maxDeposit}. */
@@ -160,7 +162,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-maxWithdraw}. */
     function maxWithdraw(address owner) public view virtual returns (uint256) {
-        return _convertToAssets(balanceOf(owner), MathUpgradeable.Rounding.Floor);
+        return _convertToAssets(balanceOf(owner), Math.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-maxRedeem}. */
@@ -170,22 +172,22 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
 
     /** @dev See {IERC4626-previewDeposit}. */
     function previewDeposit(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
+        return _convertToShares(assets, Math.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-previewMint}. */
     function previewMint(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Ceil);
+        return _convertToAssets(shares, Math.Rounding.Ceil);
     }
 
     /** @dev See {IERC4626-previewWithdraw}. */
     function previewWithdraw(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Ceil);
+        return _convertToShares(assets, Math.Rounding.Ceil);
     }
 
     /** @dev See {IERC4626-previewRedeem}. */
     function previewRedeem(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
+        return _convertToAssets(shares, Math.Rounding.Floor);
     }
 
     /** @dev See {IERC4626-deposit}. */
@@ -247,14 +249,14 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     /**
      * @dev Internal conversion function (from assets to shares) with support for rounding direction.
      */
-    function _convertToShares(uint256 assets, MathUpgradeable.Rounding rounding) internal view virtual returns (uint256) {
+    function _convertToShares(uint256 assets, Math.Rounding rounding) internal view virtual returns (uint256) {
         return assets.mulDiv(totalSupply() + 10 ** _decimalsOffset(), totalAssets() + 1, rounding);
     }
 
     /**
      * @dev Internal conversion function (from shares to assets) with support for rounding direction.
      */
-    function _convertToAssets(uint256 shares, MathUpgradeable.Rounding rounding) internal view virtual returns (uint256) {
+    function _convertToAssets(uint256 shares, Math.Rounding rounding) internal view virtual returns (uint256) {
         return shares.mulDiv(totalAssets() + 1, totalSupply() + 10 ** _decimalsOffset(), rounding);
     }
 
@@ -270,7 +272,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         // Conclusion: we need to do the transfer before we mint so that any reentrancy would happen before the
         // assets are transferred and before the shares are minted, which is a valid state.
         // slither-disable-next-line reentrancy-no-eth
-        SafeERC20Upgradeable.safeTransferFrom($._asset, caller, address(this), assets);
+        SafeERC20.safeTransferFrom($._asset, caller, address(this), assets);
         _mint(receiver, shares);
 
         emit Deposit(caller, receiver, assets, shares);
@@ -298,7 +300,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
         // Conclusion: we need to do the transfer after the burn so that any reentrancy would happen after the
         // shares are burned and after the assets are transferred, which is a valid state.
         _burn(owner, shares);
-        SafeERC20Upgradeable.safeTransfer($._asset, receiver, assets);
+        SafeERC20.safeTransfer($._asset, receiver, assets);
 
         emit Withdraw(caller, receiver, owner, assets, shares);
     }
