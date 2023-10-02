@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {IERC5805} from "@openzeppelin/contracts/interfaces/IERC5805.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {EIP712Upgradeable} from "../../utils/cryptography/EIP712Upgradeable.sol";
 import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
@@ -30,7 +30,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * {ERC721-balanceOf}), and can use {_transferVotingUnits} to track a change in the distribution of those units (in the
  * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
  */
-abstract contract VotesUpgradeable is Initializable, Context, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
+abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
     using Checkpoints for Checkpoints.Trace208;
 
     bytes32 private constant DELEGATION_TYPEHASH =

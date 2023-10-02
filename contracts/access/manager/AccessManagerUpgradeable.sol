@@ -5,8 +5,8 @@ pragma solidity ^0.8.20;
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
 import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
-import {Multicall} from "@openzeppelin/contracts/utils/Multicall.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
+import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
@@ -49,7 +49,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * mindful of the danger associated with functions such as {{Ownable-renounceOwnership}} or
  * {{AccessControl-renounceRole}}.
  */
-contract AccessManagerUpgradeable is Initializable, Context, Multicall, IAccessManager {
+contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManager {
     using Time for *;
 
     // Structure that stores the details for a target contract.

@@ -6,7 +6,7 @@ import {IAuthority} from "@openzeppelin/contracts/access/manager/IAuthority.sol"
 import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUtils.sol";
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
 import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -17,7 +17,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * IMPORTANT: The `restricted` modifier should never be used on `internal` functions, judiciously used in `public`
  * functions, and ideally only used in `external` functions. See {restricted}.
  */
-abstract contract AccessManagedUpgradeable is Initializable, Context, IAccessManaged {
+abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable, IAccessManaged {
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessManaged
     struct AccessManagedStorage {
         address _authority;
