@@ -107,6 +107,41 @@ contract Bytes32ArraysMockUpgradeableWithInit is Bytes32ArraysMockUpgradeable {
         __Bytes32ArraysMock_init(array);
     }
 }
+import "./AuthorityMockUpgradeable.sol";
+
+contract NotAuthorityMockUpgradeableWithInit is NotAuthorityMockUpgradeable {
+    constructor() payable initializer {
+        __NotAuthorityMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityNoDelayMockUpgradeableWithInit is AuthorityNoDelayMockUpgradeable {
+    constructor() payable initializer {
+        __AuthorityNoDelayMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityDelayMockUpgradeableWithInit is AuthorityDelayMockUpgradeable {
+    constructor() payable initializer {
+        __AuthorityDelayMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityNoResponseUpgradeableWithInit is AuthorityNoResponseUpgradeable {
+    constructor() payable initializer {
+        __AuthorityNoResponse_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthoritiyObserveIsConsumingUpgradeableWithInit is AuthoritiyObserveIsConsumingUpgradeable {
+    constructor() payable initializer {
+        __AuthoritiyObserveIsConsuming_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
