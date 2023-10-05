@@ -177,6 +177,13 @@ contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
         __ContextMockCaller_init();
     }
 }
+import "./docs/ERC20WithAutoMinerRewardUpgradeable.sol";
+
+contract ERC20WithAutoMinerRewardUpgradeableWithInit is ERC20WithAutoMinerRewardUpgradeable {
+    constructor() payable initializer {
+        __ERC20WithAutoMinerReward_init();
+    }
+}
 import "./docs/ERC4626FeesUpgradeable.sol";
 
 contract ERC4626FeesUpgradeableWithInit is ERC4626FeesUpgradeable {
@@ -215,6 +222,13 @@ contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
         IERC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
+    }
+}
+import "./docs/MyContractOwnableUpgradeable.sol";
+
+contract MyContractUpgradeableWithInit is MyContractUpgradeable {
+    constructor(address initialOwner) payable initializer {
+        __MyContract_init(initialOwner);
     }
 }
 import "./DummyImplementationUpgradeable.sol";
