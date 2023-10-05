@@ -107,6 +107,41 @@ contract Bytes32ArraysMockUpgradeableWithInit is Bytes32ArraysMockUpgradeable {
         __Bytes32ArraysMock_init(array);
     }
 }
+import "./AuthorityMockUpgradeable.sol";
+
+contract NotAuthorityMockUpgradeableWithInit is NotAuthorityMockUpgradeable {
+    constructor() payable initializer {
+        __NotAuthorityMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityNoDelayMockUpgradeableWithInit is AuthorityNoDelayMockUpgradeable {
+    constructor() payable initializer {
+        __AuthorityNoDelayMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityDelayMockUpgradeableWithInit is AuthorityDelayMockUpgradeable {
+    constructor() payable initializer {
+        __AuthorityDelayMock_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthorityNoResponseUpgradeableWithInit is AuthorityNoResponseUpgradeable {
+    constructor() payable initializer {
+        __AuthorityNoResponse_init();
+    }
+}
+import "./AuthorityMockUpgradeable.sol";
+
+contract AuthoritiyObserveIsConsumingUpgradeableWithInit is AuthoritiyObserveIsConsumingUpgradeable {
+    constructor() payable initializer {
+        __AuthoritiyObserveIsConsuming_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
@@ -140,6 +175,13 @@ import "./ContextMockUpgradeable.sol";
 contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
     constructor() payable initializer {
         __ContextMockCaller_init();
+    }
+}
+import "./docs/ERC20WithAutoMinerRewardUpgradeable.sol";
+
+contract ERC20WithAutoMinerRewardUpgradeableWithInit is ERC20WithAutoMinerRewardUpgradeable {
+    constructor() payable initializer {
+        __ERC20WithAutoMinerReward_init();
     }
 }
 import "./docs/ERC4626FeesUpgradeable.sol";
@@ -180,6 +222,13 @@ contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
         IERC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
+    }
+}
+import "./docs/MyContractOwnableUpgradeable.sol";
+
+contract MyContractUpgradeableWithInit is MyContractUpgradeable {
+    constructor(address initialOwner) payable initializer {
+        __MyContract_init(initialOwner);
     }
 }
 import "./DummyImplementationUpgradeable.sol";

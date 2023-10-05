@@ -28,7 +28,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  *
  * When using this module the derived contract must implement {_getVotingUnits} (for example, make it return
  * {ERC721-balanceOf}), and can use {_transferVotingUnits} to track a change in the distribution of those units (in the
- * previous example, it would be included in {ERC721-_beforeTokenTransfer}).
+ * previous example, it would be included in {ERC721-_update}).
  */
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
     using Checkpoints for Checkpoints.Trace208;
