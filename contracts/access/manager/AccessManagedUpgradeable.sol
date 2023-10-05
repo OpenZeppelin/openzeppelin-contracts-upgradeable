@@ -74,17 +74,13 @@ abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable,
         _;
     }
 
-    /**
-     * @dev Returns the current authority.
-     */
+    /// @inheritdoc IAccessManaged
     function authority() public view virtual returns (address) {
         AccessManagedStorage storage $ = _getAccessManagedStorage();
         return $._authority;
     }
 
-    /**
-     * @dev Transfers control to a new authority. The caller must be the current authority.
-     */
+    /// @inheritdoc IAccessManaged
     function setAuthority(address newAuthority) public virtual {
         address caller = _msgSender();
         if (caller != authority()) {
@@ -96,11 +92,7 @@ abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable,
         _setAuthority(newAuthority);
     }
 
-    /**
-     * @dev Returns true only in the context of a delayed restricted call, at the moment that the scheduled operation is
-     * being consumed. Prevents denial of service for delayed restricted calls in the case that the contract performs
-     * attacker controlled calls.
-     */
+    /// @inheritdoc IAccessManaged
     function isConsumingScheduledOp() public view returns (bytes4) {
         AccessManagedStorage storage $ = _getAccessManagedStorage();
         return $._consumingSchedule ? this.isConsumingScheduledOp.selector : bytes4(0);
