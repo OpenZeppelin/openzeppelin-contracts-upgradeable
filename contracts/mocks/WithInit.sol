@@ -177,6 +177,41 @@ contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
         __ContextMockCaller_init();
     }
 }
+import "./docs/access-control/AccessControlERC20MintBaseUpgradeable.sol";
+
+contract AccessControlERC20MintBaseUpgradeableWithInit is AccessControlERC20MintBaseUpgradeable {
+    constructor(address minter) payable initializer {
+        __AccessControlERC20MintBase_init(minter);
+    }
+}
+import "./docs/access-control/AccessControlERC20MintMissingUpgradeable.sol";
+
+contract AccessControlERC20MintMissingUpgradeableWithInit is AccessControlERC20MintMissingUpgradeable {
+    constructor() payable initializer {
+        __AccessControlERC20MintMissing_init();
+    }
+}
+import "./docs/access-control/AccessControlERC20MintOnlyRoleUpgradeable.sol";
+
+contract AccessControlERC20MintUpgradeableWithInit is AccessControlERC20MintUpgradeable {
+    constructor(address minter, address burner) payable initializer {
+        __AccessControlERC20Mint_init(minter, burner);
+    }
+}
+import "./docs/access-control/AccessManagedERC20MintBaseUpgradeable.sol";
+
+contract AccessManagedERC20MintUpgradeableWithInit is AccessManagedERC20MintUpgradeable {
+    constructor(address manager) payable initializer {
+        __AccessManagedERC20Mint_init(manager);
+    }
+}
+import "./docs/access-control/MyContractOwnableUpgradeable.sol";
+
+contract MyContractUpgradeableWithInit is MyContractUpgradeable {
+    constructor(address initialOwner) payable initializer {
+        __MyContract_init(initialOwner);
+    }
+}
 import "./docs/ERC20WithAutoMinerRewardUpgradeable.sol";
 
 contract ERC20WithAutoMinerRewardUpgradeableWithInit is ERC20WithAutoMinerRewardUpgradeable {
@@ -222,13 +257,6 @@ contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
         IERC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
-    }
-}
-import "./docs/MyContractOwnableUpgradeable.sol";
-
-contract MyContractUpgradeableWithInit is MyContractUpgradeable {
-    constructor(address initialOwner) payable initializer {
-        __MyContract_init(initialOwner);
     }
 }
 import "./DummyImplementationUpgradeable.sol";
