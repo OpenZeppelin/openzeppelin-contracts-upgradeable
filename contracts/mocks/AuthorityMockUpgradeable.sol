@@ -73,13 +73,13 @@ contract AuthorityNoResponseUpgradeable is Initializable {
     function canCall(address /* caller */, address /* target */, bytes4 /* selector */) external view {}
 }
 
-contract AuthoritiyObserveIsConsumingUpgradeable is Initializable {
+contract AuthorityObserveIsConsumingUpgradeable is Initializable {
     event ConsumeScheduledOpCalled(address caller, bytes data, bytes4 isConsuming);
 
-    function __AuthoritiyObserveIsConsuming_init() internal onlyInitializing {
+    function __AuthorityObserveIsConsuming_init() internal onlyInitializing {
     }
 
-    function __AuthoritiyObserveIsConsuming_init_unchained() internal onlyInitializing {
+    function __AuthorityObserveIsConsuming_init_unchained() internal onlyInitializing {
     }
     function canCall(
         address /* caller */,

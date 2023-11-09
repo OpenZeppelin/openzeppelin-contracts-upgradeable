@@ -137,9 +137,9 @@ contract AuthorityNoResponseUpgradeableWithInit is AuthorityNoResponseUpgradeabl
 }
 import "./AuthorityMockUpgradeable.sol";
 
-contract AuthoritiyObserveIsConsumingUpgradeableWithInit is AuthoritiyObserveIsConsumingUpgradeable {
+contract AuthorityObserveIsConsumingUpgradeableWithInit is AuthorityObserveIsConsumingUpgradeable {
     constructor() payable initializer {
-        __AuthoritiyObserveIsConsuming_init();
+        __AuthorityObserveIsConsuming_init();
     }
 }
 import "./CallReceiverMockUpgradeable.sol";
