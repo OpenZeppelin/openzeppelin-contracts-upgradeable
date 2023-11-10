@@ -595,6 +595,20 @@ contract ERC20VotesLegacyMockUpgradeableWithInit is ERC20VotesLegacyMockUpgradea
         __ERC20VotesLegacyMock_init();
     }
 }
+import "./token/ERC20VotesTimestampMockUpgradeable.sol";
+
+contract ERC20VotesTimestampMockUpgradeableWithInit is ERC20VotesTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __ERC20VotesTimestampMock_init();
+    }
+}
+import "./token/ERC20VotesTimestampMockUpgradeable.sol";
+
+contract ERC721VotesTimestampMockUpgradeableWithInit is ERC721VotesTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __ERC721VotesTimestampMock_init();
+    }
+}
 import "./token/ERC4626LimitsMockUpgradeable.sol";
 
 contract ERC4626LimitsMockUpgradeableWithInit is ERC4626LimitsMockUpgradeable {
@@ -673,20 +687,6 @@ import "./token/ERC721URIStorageMockUpgradeable.sol";
 contract ERC721URIStorageMockUpgradeableWithInit is ERC721URIStorageMockUpgradeable {
     constructor() payable initializer {
         __ERC721URIStorageMock_init();
-    }
-}
-import "./token/VotesTimestampUpgradeable.sol";
-
-contract ERC20VotesTimestampMockUpgradeableWithInit is ERC20VotesTimestampMockUpgradeable {
-    constructor() payable initializer {
-        __ERC20VotesTimestampMock_init();
-    }
-}
-import "./token/VotesTimestampUpgradeable.sol";
-
-contract ERC721VotesTimestampMockUpgradeableWithInit is ERC721VotesTimestampMockUpgradeable {
-    constructor() payable initializer {
-        __ERC721VotesTimestampMock_init();
     }
 }
 import "./UpgradeableBeaconMockUpgradeable.sol";
