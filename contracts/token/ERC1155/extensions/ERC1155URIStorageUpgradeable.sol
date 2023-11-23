@@ -8,8 +8,8 @@ import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev ERC1155 token with storage based token URI management.
- * Inspired by the ERC721URIStorage extension
+ * @dev ERC-1155 token with storage based token URI management.
+ * Inspired by the {ERC721URIStorage} extension
  */
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
     using Strings for uint256;

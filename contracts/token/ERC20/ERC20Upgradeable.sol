@@ -24,12 +24,12 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  *
  * We have followed general OpenZeppelin Contracts guidelines: functions revert
  * instead returning `false` on failure. This behavior is nonetheless
- * conventional and does not conflict with the expectations of ERC20
+ * conventional and does not conflict with the expectations of ERC-20
  * applications.
  *
  * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
  * This allows applications to reconstruct the allowance for all accounts just
- * by listening to said events. Other implementations of the EIP may not emit
+ * by listening to said events. Other implementations of the ERC may not emit
  * these events, as it isn't required by the specification.
  */
 abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20, IERC20Metadata, IERC20Errors {
@@ -162,7 +162,7 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20,
      * @dev See {IERC20-transferFrom}.
      *
      * Emits an {Approval} event indicating the updated allowance. This is not
-     * required by the EIP. See the note at the beginning of {ERC20}.
+     * required by the ERC. See the note at the beginning of {ERC20}.
      *
      * NOTE: Does not update the allowance if the current allowance
      * is the maximum `uint256`.

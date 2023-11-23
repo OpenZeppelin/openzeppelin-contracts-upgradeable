@@ -9,11 +9,11 @@ import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Recei
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of the ERC721 token contract to support token wrapping.
+ * @dev Extension of the ERC-721 token contract to support token wrapping.
  *
  * Users can deposit and withdraw an "underlying token" and receive a "wrapped token" with a matching tokenId. This is
  * useful in conjunction with other modules. For example, combining this wrapping mechanism with {ERC721Votes} will allow
- * the wrapping of an existing "basic" ERC721 into a governance token.
+ * the wrapping of an existing "basic" ERC-721 into a governance token.
  */
 abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, IERC721Receiver {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Wrapper
@@ -31,7 +31,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
     }
 
     /**
-     * @dev The received ERC721 token couldn't be wrapped.
+     * @dev The received ERC-721 token couldn't be wrapped.
      */
     error ERC721UnsupportedToken(address token);
 
@@ -82,7 +82,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
     }
 
     /**
-     * @dev Overrides {IERC721Receiver-onERC721Received} to allow minting on direct ERC721 transfers to
+     * @dev Overrides {IERC721Receiver-onERC721Received} to allow minting on direct ERC-721 transfers to
      * this contract.
      *
      * In case there's data attached, it validates that the operator is this contract, so only trusted data

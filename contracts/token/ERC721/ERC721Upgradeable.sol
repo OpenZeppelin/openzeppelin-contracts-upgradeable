@@ -14,7 +14,7 @@ import {IERC721Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.s
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
+ * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC-721] Non-Fungible Token Standard, including
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
@@ -188,7 +188,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
      *
      * IMPORTANT: Any overrides to this function that add ownership of tokens not tracked by the
-     * core ERC721 logic MUST be matched with the use of {_increaseBalance} to keep balances
+     * core ERC-721 logic MUST be matched with the use of {_increaseBalance} to keep balances
      * consistent with ownership. The invariant to preserve is that for any address `a` the value returned by
      * `balanceOf(a)` must be equal to the number of tokens such that `_ownerOf(tokenId)` is `a`.
      */
@@ -384,7 +384,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
 
     /**
      * @dev Safely transfers `tokenId` token from `from` to `to`, checking that contract recipients
-     * are aware of the ERC721 standard to prevent tokens from being forever locked.
+     * are aware of the ERC-721 standard to prevent tokens from being forever locked.
      *
      * `data` is additional data, it has no specified format and it is sent in call to `to`.
      *

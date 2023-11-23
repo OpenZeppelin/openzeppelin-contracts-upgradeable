@@ -67,7 +67,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      *
      * This implementation returns the same URI for *all* token types. It relies
      * on the token type ID substitution mechanism
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
+     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the ERC].
      *
      * Clients calling this function must replace the `\{id\}` substring with the
      * actual token type ID.
@@ -285,7 +285,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
     /**
      * @dev Sets a new URI for all token types, by relying on the token type ID
      * substitution mechanism
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
+     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the ERC].
      *
      * By this mechanism, any occurrence of the `\{id\}` substring in either the
      * URI or any of the values in the JSON file at said URI will be replaced by
@@ -418,7 +418,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
                 }
             } catch (bytes memory reason) {
                 if (reason.length == 0) {
-                    // non-ERC1155Receiver implementer
+                    // non-IERC1155Receiver implementer
                     revert ERC1155InvalidReceiver(to);
                 } else {
                     /// @solidity memory-safe-assembly
@@ -452,7 +452,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
                 }
             } catch (bytes memory reason) {
                 if (reason.length == 0) {
-                    // non-ERC1155Receiver implementer
+                    // non-IERC1155Receiver implementer
                     revert ERC1155InvalidReceiver(to);
                 } else {
                     /// @solidity memory-safe-assembly

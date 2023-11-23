@@ -28,7 +28,7 @@ contract SupportsInterfaceWithLookupMockUpgradeable is Initializable, IERC165 {
 
     /**
      * @dev A contract implementing SupportsInterfaceWithLookup
-     * implement ERC165 itself.
+     * implement ERC-165 itself.
      */
     function __SupportsInterfaceWithLookupMock_init() internal onlyInitializing {
         __SupportsInterfaceWithLookupMock_init_unchained();

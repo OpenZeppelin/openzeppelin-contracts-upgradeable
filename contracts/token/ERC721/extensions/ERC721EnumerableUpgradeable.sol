@@ -9,11 +9,11 @@ import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev This implements an optional extension of {ERC721} defined in the EIP that adds enumerability
+ * @dev This implements an optional extension of {ERC721} defined in the ERC that adds enumerability
  * of all the token ids in the contract as well as all token ids owned by each account.
  *
- * CAUTION: `ERC721` extensions that implement custom `balanceOf` logic, such as `ERC721Consecutive`,
- * interfere with enumerability and should not be used together with `ERC721Enumerable`.
+ * CAUTION: {ERC721} extensions that implement custom `balanceOf` logic, such as {ERC721Consecutive},
+ * interfere with enumerability and should not be used together with {ERC721Enumerable}.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721Enumerable {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Enumerable

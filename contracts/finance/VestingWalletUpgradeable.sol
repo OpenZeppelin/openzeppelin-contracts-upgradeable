@@ -10,7 +10,7 @@ import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
- * @dev A vesting wallet is an ownable contract that can receive native currency and ERC20 tokens, and release these
+ * @dev A vesting wallet is an ownable contract that can receive native currency and ERC-20 tokens, and release these
  * assets to the wallet owner, also referred to as "beneficiary", according to a vesting schedule.
  *
  * Any assets transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
@@ -117,7 +117,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
 
     /**
      * @dev Getter for the amount of releasable `token` tokens. `token` should be the address of an
-     * IERC20 contract.
+     * {IERC20} contract.
      */
     function releasable(address token) public view virtual returns (uint256) {
         return vestedAmount(token, uint64(block.timestamp)) - released(token);

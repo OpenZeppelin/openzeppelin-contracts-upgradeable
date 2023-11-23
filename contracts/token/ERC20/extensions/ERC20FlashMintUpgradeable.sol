@@ -9,7 +9,7 @@ import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Implementation of the ERC3156 Flash loans extension, as defined in
+ * @dev Implementation of the ERC-3156 Flash loans extension, as defined in
  * https://eips.ethereum.org/EIPS/eip-3156[ERC-3156].
  *
  * Adds the {flashLoan} method, which provides flash loan support at the token

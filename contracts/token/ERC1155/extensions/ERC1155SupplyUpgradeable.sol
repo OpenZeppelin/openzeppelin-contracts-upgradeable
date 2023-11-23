@@ -7,7 +7,7 @@ import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of ERC1155 that adds tracking of total supply per id.
+ * @dev Extension of ERC-1155 that adds tracking of total supply per id.
  *
  * Useful for scenarios where Fungible and Non-fungible tokens have to be
  * clearly identified. Note: While a totalSupply of 1 might mean the

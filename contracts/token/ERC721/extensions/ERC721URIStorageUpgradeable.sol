@@ -10,7 +10,7 @@ import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev ERC721 token with storage based token URI management.
+ * @dev ERC-721 token with storage based token URI management.
  */
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906, ERC721Upgradeable {
     using Strings for uint256;

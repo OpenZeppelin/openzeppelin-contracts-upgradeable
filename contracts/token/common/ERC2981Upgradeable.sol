@@ -18,7 +18,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * fee is specified in basis points by default.
  *
  * IMPORTANT: ERC-2981 only specifies a way to signal royalty information and does not enforce its payment. See
- * https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments[Rationale] in the EIP. Marketplaces are expected to
+ * https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments[Rationale] in the ERC. Marketplaces are expected to
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
 abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeable {

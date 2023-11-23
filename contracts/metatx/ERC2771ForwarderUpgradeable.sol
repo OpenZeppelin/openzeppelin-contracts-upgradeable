@@ -11,7 +11,7 @@ import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
- * @dev A forwarder compatible with ERC2771 contracts. See {ERC2771Context}.
+ * @dev A forwarder compatible with ERC-2771 contracts. See {ERC2771Context}.
  *
  * This forwarder operates on forward requests that include:
  *

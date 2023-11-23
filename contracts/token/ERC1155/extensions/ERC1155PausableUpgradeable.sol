@@ -8,7 +8,7 @@ import {PausableUpgradeable} from "../../../utils/PausableUpgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
- * @dev ERC1155 token with pausable token transfers, minting and burning.
+ * @dev ERC-1155 token with pausable token transfers, minting and burning.
  *
  * Useful for scenarios such as preventing trades until the end of an evaluation
  * period, or having an emergency switch for freezing all token transfers in the
