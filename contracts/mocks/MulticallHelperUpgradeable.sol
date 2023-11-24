@@ -5,11 +5,11 @@ pragma solidity ^0.8.20;
 import {ERC20MulticallMockUpgradeable} from "./token/ERC20MulticallMockUpgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
-contract MulticallTestUpgradeable is Initializable {
-    function __MulticallTest_init() internal onlyInitializing {
+contract MulticallHelperUpgradeable is Initializable {
+    function __MulticallHelper_init() internal onlyInitializing {
     }
 
-    function __MulticallTest_init_unchained() internal onlyInitializing {
+    function __MulticallHelper_init_unchained() internal onlyInitializing {
     }
     function checkReturnValues(
         ERC20MulticallMockUpgradeable multicallToken,

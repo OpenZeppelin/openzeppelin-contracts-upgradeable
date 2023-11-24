@@ -413,11 +413,11 @@ contract GovernorWithParamsMockUpgradeableWithInit is GovernorWithParamsMockUpgr
         __GovernorWithParamsMock_init();
     }
 }
-import "./MulticallTestUpgradeable.sol";
+import "./MulticallHelperUpgradeable.sol";
 
-contract MulticallTestUpgradeableWithInit is MulticallTestUpgradeable {
+contract MulticallHelperUpgradeableWithInit is MulticallHelperUpgradeable {
     constructor() payable initializer {
-        __MulticallTest_init();
+        __MulticallHelper_init();
     }
 }
 import "./PausableMockUpgradeable.sol";
