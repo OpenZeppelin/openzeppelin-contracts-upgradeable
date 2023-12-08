@@ -38,7 +38,6 @@ abstract contract MulticallUpgradeable is Initializable, ContextUpgradeable {
 
         results = new bytes[](data.length);
         for (uint256 i = 0; i < data.length; i++) {
-            results[i] = AddressUpgradeable.functionDelegateCall(address(this), data[i]);
             results[i] = AddressUpgradeable.functionDelegateCall(address(this), bytes.concat(data[i], context));
         }
         return results;
