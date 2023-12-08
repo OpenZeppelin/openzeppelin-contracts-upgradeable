@@ -7,7 +7,7 @@ import "../CrossChainEnabledUpgradeable.sol";
 import "../../security/ReentrancyGuardUpgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../vendor/polygon/IFxMessageProcessorUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 address constant DEFAULT_SENDER = 0x000000000000000000000000000000000000dEaD;
 

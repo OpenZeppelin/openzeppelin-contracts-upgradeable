@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.4;
 
-import { IArbSysUpgradeable as ArbitrumL2_Bridge } from "../../vendor/arbitrum/IArbSysUpgradeable.sol";
+import {IArbSysUpgradeable as ArbitrumL2_Bridge} from "../../vendor/arbitrum/IArbSysUpgradeable.sol";
 import "../errorsUpgradeable.sol";
 
 /**

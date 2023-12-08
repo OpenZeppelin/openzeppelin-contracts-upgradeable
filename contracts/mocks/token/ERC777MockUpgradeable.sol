@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../token/ERC777/ERC777Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC777MockUpgradeable is Initializable, ERC777Upgradeable {
     event BeforeTokenTransfer();

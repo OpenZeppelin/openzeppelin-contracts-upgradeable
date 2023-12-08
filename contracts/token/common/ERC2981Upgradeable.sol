@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../../interfaces/IERC2981Upgradeable.sol";
 import "../../utils/introspection/ERC165Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the NFT Royalty Standard, a standardized way to retrieve royalty payment information.

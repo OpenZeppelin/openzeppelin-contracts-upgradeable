@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../ERC721Upgradeable.sol";
 import "./IERC721EnumerableUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This implements an optional extension of {ERC721} defined in the EIP that adds

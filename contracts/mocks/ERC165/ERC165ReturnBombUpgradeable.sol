@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../utils/introspection/IERC165Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC165ReturnBombMockUpgradeable is Initializable, IERC165Upgradeable {
     function __ERC165ReturnBombMock_init() internal onlyInitializing {

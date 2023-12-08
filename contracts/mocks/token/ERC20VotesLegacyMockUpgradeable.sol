@@ -7,7 +7,7 @@ import "../../utils/math/MathUpgradeable.sol";
 import "../../governance/utils/IVotesUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
 import "../../utils/cryptography/ECDSAUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Copied from the master branch at commit 86de1e8b6c3fa6b4efa4a5435869d2521be0f5f5

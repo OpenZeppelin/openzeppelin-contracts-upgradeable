@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../token/ERC20/ERC20Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 // contract that replicate USDT (0xdac17f958d2ee523a2206206994597c13d831ec7) approval beavior
 abstract contract ERC20ForceApproveMockUpgradeable is Initializable, ERC20Upgradeable {

@@ -7,7 +7,7 @@ import "./AccessControlUpgradeable.sol";
 import "./IAccessControlDefaultAdminRulesUpgradeable.sol";
 import "../utils/math/SafeCastUpgradeable.sol";
 import "../interfaces/IERC5313Upgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows specifying special rules to manage

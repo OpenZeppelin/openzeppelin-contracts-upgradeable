@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../ERC777Upgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC777} token, including:

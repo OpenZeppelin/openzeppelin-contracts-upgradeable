@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../token/ERC721/IERC721ReceiverUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC721ReceiverMockUpgradeable is Initializable, IERC721ReceiverUpgradeable {
     enum Error {

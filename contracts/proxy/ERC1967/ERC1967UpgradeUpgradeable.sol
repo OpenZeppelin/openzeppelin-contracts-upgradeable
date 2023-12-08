@@ -8,7 +8,7 @@ import "../../interfaces/IERC1967Upgradeable.sol";
 import "../../interfaces/draft-IERC1822Upgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/StorageSlotUpgradeable.sol";
-import "../utils/Initializable.sol";
+import {Initializable} from "../utils/Initializable.sol";
 
 /**
  * @dev This abstract contract provides getters and event emitting update functions for

@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "./IGovernorTimelockUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "../TimelockControllerUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a

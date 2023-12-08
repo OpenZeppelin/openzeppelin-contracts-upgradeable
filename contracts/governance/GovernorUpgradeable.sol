@@ -13,7 +13,7 @@ import "../utils/structs/DoubleEndedQueueUpgradeable.sol";
 import "../utils/AddressUpgradeable.sol";
 import "../utils/ContextUpgradeable.sol";
 import "./IGovernorUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Core of the governance system, designed to be extended though various modules.

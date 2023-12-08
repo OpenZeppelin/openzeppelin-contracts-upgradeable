@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 
 import "./AccessControlUpgradeable.sol";
 import "../crosschain/CrossChainEnabledUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev An extension to {AccessControl} with support for cross-chain access management.

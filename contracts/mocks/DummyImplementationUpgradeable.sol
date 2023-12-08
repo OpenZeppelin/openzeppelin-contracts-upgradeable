@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 abstract contract ImplUpgradeable is Initializable {
     function __Impl_init() internal onlyInitializing {

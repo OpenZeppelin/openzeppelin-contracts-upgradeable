@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 
 import "../CrossChainEnabledUpgradeable.sol";
 import "./LibOptimismUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev https://www.optimism.io/[Optimism] specialization or the

@@ -8,7 +8,7 @@ import "../../../interfaces/IERC5805Upgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
 import "../../../utils/math/SafeCastUpgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of ERC20 to support Compound-like voting and delegation. This version is more generic than Compound's,

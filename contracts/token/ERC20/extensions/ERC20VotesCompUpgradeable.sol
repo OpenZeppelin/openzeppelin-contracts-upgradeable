@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC20VotesUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of ERC20 to support Compound's voting and delegation. This version exactly matches Compound's

@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.4;
 
-import { ICrossDomainMessengerUpgradeable as Optimism_Bridge } from "../../vendor/optimism/ICrossDomainMessengerUpgradeable.sol";
+import {ICrossDomainMessengerUpgradeable as Optimism_Bridge} from "../../vendor/optimism/ICrossDomainMessengerUpgradeable.sol";
 import "../errorsUpgradeable.sol";
 
 /**

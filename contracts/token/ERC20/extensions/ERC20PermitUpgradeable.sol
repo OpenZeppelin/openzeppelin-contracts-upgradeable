@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/extensions/ERC20Permit.sol)
+// OpenZeppelin Contracts (last updated v4.9.4) (token/ERC20/extensions/ERC20Permit.sol)
 
 pragma solidity ^0.8.0;
 
@@ -8,7 +8,7 @@ import "../ERC20Upgradeable.sol";
 import "../../../utils/cryptography/ECDSAUpgradeable.sol";
 import "../../../utils/cryptography/EIP712Upgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in

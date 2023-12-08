@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "./ERC1155ReceiverUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens.

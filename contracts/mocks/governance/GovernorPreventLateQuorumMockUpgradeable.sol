@@ -6,7 +6,7 @@ import "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
 import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../../governance/extensions/GovernorVotesUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorPreventLateQuorumMockUpgradeable is
     Initializable, GovernorSettingsUpgradeable,

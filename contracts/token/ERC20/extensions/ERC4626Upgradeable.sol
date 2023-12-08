@@ -7,7 +7,7 @@ import "../ERC20Upgradeable.sol";
 import "../utils/SafeERC20Upgradeable.sol";
 import "../../../interfaces/IERC4626Upgradeable.sol";
 import "../../../utils/math/MathUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC4626 "Tokenized Vault Standard" as defined in

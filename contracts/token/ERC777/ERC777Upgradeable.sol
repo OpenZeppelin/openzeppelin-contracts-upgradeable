@@ -10,7 +10,7 @@ import "../ERC20/IERC20Upgradeable.sol";
 import "../../utils/AddressUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 import "../../utils/introspection/IERC1820RegistryUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.

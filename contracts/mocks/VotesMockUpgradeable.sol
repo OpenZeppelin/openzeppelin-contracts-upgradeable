@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../governance/utils/VotesUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 abstract contract VotesMockUpgradeable is Initializable, VotesUpgradeable {
     mapping(address => uint256) private _balances;

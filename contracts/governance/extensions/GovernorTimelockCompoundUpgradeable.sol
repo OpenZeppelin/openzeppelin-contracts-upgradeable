@@ -7,7 +7,7 @@ import "./IGovernorTimelockUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "../../utils/math/SafeCastUpgradeable.sol";
 import "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by

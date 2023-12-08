@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../utils/TimersUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 contract TimersBlockNumberImplUpgradeable is Initializable {
     using TimersUpgradeable for TimersUpgradeable.BlockNumber;

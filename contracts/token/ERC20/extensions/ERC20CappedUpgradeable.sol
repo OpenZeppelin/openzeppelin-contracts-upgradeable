@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../ERC20Upgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.

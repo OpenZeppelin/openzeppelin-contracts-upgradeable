@@ -6,7 +6,7 @@ import "../../governance/compatibility/GovernorCompatibilityBravoUpgradeable.sol
 import "../../governance/extensions/GovernorTimelockCompoundUpgradeable.sol";
 import "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import "../../governance/extensions/GovernorVotesCompUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorCompatibilityBravoMockUpgradeable is
     Initializable, GovernorCompatibilityBravoUpgradeable,

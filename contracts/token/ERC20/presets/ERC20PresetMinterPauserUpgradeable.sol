@@ -8,7 +8,7 @@ import "../extensions/ERC20BurnableUpgradeable.sol";
 import "../extensions/ERC20PausableUpgradeable.sol";
 import "../../../access/AccessControlEnumerableUpgradeable.sol";
 import "../../../utils/ContextUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev {ERC20} token, including:

@@ -7,7 +7,7 @@ import "../../utils/math/SafeCastUpgradeable.sol";
 import "../extensions/IGovernorTimelockUpgradeable.sol";
 import "../GovernorUpgradeable.sol";
 import "./IGovernorCompatibilityBravoUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Compatibility layer that implements GovernorBravo compatibility on top of {Governor}.

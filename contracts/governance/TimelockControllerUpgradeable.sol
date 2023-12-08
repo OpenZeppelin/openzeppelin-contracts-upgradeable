@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "../access/AccessControlUpgradeable.sol";
 import "../token/ERC721/IERC721ReceiverUpgradeable.sol";
 import "../token/ERC1155/IERC1155ReceiverUpgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the

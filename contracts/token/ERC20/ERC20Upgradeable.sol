@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "./IERC20Upgradeable.sol";
 import "./extensions/IERC20MetadataUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.

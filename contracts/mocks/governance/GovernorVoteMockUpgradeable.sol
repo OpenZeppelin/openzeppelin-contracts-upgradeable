@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../../governance/extensions/GovernorVotesUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorVoteMocksUpgradeable is Initializable, GovernorVotesUpgradeable, GovernorCountingSimpleUpgradeable {
     function __GovernorVoteMocks_init() internal onlyInitializing {

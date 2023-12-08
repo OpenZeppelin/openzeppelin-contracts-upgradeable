@@ -8,7 +8,7 @@ import "../../crosschain/arbitrum/CrossChainEnabledArbitrumL1Upgradeable.sol";
 import "../../crosschain/arbitrum/CrossChainEnabledArbitrumL2Upgradeable.sol";
 import "../../crosschain/optimism/CrossChainEnabledOptimismUpgradeable.sol";
 import "../../crosschain/polygon/CrossChainEnabledPolygonChildUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ReceiverUpgradeable is Initializable, CrossChainEnabledUpgradeable {
     // we don't use Ownable because it messes up testing for the upgradeable contracts

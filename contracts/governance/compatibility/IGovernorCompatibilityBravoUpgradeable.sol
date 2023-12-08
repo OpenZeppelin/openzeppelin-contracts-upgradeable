@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../IGovernorUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface extension that adds missing functions to the {Governor} core to provide `GovernorBravo` compatibility.

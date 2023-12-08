@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../../token/ERC721/extensions/ERC721ConsecutiveUpgradeable.sol";
 import "../../token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 contract ERC721ConsecutiveEnumerableMockUpgradeable is Initializable, ERC721ConsecutiveUpgradeable, ERC721EnumerableUpgradeable {
     function __ERC721ConsecutiveEnumerableMock_init(

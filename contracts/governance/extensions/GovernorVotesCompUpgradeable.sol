@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../GovernorUpgradeable.sol";
 import "../../token/ERC20/extensions/ERC20VotesCompUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from a Comp token.

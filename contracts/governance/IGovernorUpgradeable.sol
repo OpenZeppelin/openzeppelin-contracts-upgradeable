@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../interfaces/IERC165Upgradeable.sol";
 import "../interfaces/IERC6372Upgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Interface of the {Governor} core.

@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "../ERC20Upgradeable.sol";
 import "../../../utils/ArraysUpgradeable.sol";
 import "../../../utils/CountersUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This contract extends an ERC20 token with a snapshot mechanism. When a snapshot is created, the balances and

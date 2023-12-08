@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../../utils/AddressUpgradeable.sol";
 import "../../vendor/polygon/IFxMessageProcessorUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract BaseRelayMockUpgradeable is Initializable {
     // needed to parse custom errors

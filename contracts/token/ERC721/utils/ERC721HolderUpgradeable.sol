@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../IERC721ReceiverUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC721Receiver} interface.

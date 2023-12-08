@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.4;
 
-import { IAMBUpgradeable as AMB_Bridge } from "../../vendor/amb/IAMBUpgradeable.sol";
+import {IAMBUpgradeable as AMB_Bridge} from "../../vendor/amb/IAMBUpgradeable.sol";
 import "../errorsUpgradeable.sol";
 
 /**

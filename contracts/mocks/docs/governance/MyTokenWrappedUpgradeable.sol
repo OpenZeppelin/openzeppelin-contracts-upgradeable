@@ -5,7 +5,7 @@ import "../../../token/ERC20/ERC20Upgradeable.sol";
 import "../../../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import "../../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
 import "../../../token/ERC20/extensions/ERC20WrapperUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 contract MyTokenWrappedUpgradeable is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, ERC20VotesUpgradeable, ERC20WrapperUpgradeable {
     function __MyTokenWrapped_init(

@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../IGovernorUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the {IGovernor} for timelock supporting modules.

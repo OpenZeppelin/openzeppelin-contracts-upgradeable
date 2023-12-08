@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 import "../ERC1155Upgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of ERC1155 that adds tracking of total supply per id.

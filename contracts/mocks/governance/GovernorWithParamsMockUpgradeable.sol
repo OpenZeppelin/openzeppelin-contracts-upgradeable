@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "../../governance/extensions/GovernorVotesUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorWithParamsMockUpgradeable is Initializable, GovernorVotesUpgradeable, GovernorCountingSimpleUpgradeable {
     event CountParams(uint256 uintParam, string strParam);

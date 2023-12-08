@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../../access/OwnableUpgradeable.sol";
 import "../AddressUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @title Escrow

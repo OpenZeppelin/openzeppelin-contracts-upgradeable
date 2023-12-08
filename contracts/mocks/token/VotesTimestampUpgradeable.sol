@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
 import "../../token/ERC20/extensions/ERC20VotesCompUpgradeable.sol";
 import "../../token/ERC721/extensions/ERC721VotesUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC20VotesTimestampMockUpgradeable is Initializable, ERC20VotesUpgradeable {
     function __ERC20VotesTimestampMock_init() internal onlyInitializing {

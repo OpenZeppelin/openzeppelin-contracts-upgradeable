@@ -7,7 +7,7 @@ import "../../utils/ContextUpgradeable.sol";
 import "../../utils/CountersUpgradeable.sol";
 import "../../utils/CheckpointsUpgradeable.sol";
 import "../../utils/cryptography/EIP712Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
  * @dev This is a base abstract contract that tracks voting units, which are a measure of voting power that can be

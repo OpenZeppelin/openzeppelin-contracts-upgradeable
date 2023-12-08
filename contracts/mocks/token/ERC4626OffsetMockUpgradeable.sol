@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../../token/ERC20/extensions/ERC4626Upgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract ERC4626OffsetMockUpgradeable is Initializable, ERC4626Upgradeable {
     uint8 private _offset;

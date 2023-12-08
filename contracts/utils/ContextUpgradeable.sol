@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+// OpenZeppelin Contracts (last updated v4.9.4) (utils/Context.sol)
 
 pragma solidity ^0.8.0;
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Provides information about the current execution context, including the
@@ -26,6 +26,10 @@ abstract contract ContextUpgradeable is Initializable {
 
     function _msgData() internal view virtual returns (bytes calldata) {
         return msg.data;
+    }
+
+    function _contextSuffixLength() internal view virtual returns (uint256) {
+        return 0;
     }
 
     /**

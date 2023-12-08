@@ -7,7 +7,7 @@ import "./IAccessControlUpgradeable.sol";
 import "../utils/ContextUpgradeable.sol";
 import "../utils/StringsUpgradeable.sol";
 import "../utils/introspection/ERC165Upgradeable.sol";
-import "../proxy/utils/Initializable.sol";
+import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access

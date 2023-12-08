@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "../ERC20Upgradeable.sol";
 import "../../../security/PausableUpgradeable.sol";
-import "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC20 token with pausable token transfers, minting and burning.

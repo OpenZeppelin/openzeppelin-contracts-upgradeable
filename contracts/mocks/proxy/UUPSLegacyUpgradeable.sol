@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./UUPSUpgradeableMockUpgradeable.sol";
-import "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 // This contract implements the pre-4.5 UUPS upgrade function with a rollback test.
 // It's used to test that newer UUPS contracts are considered valid upgrades by older UUPS contracts.
