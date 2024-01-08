@@ -18,7 +18,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  *
  * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
  * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
- * inaccessible.
+ * inaccessible from a proposal, unless executed via {Governor-relay}.
  */
 abstract contract GovernorTimelockCompoundUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorTimelockCompound

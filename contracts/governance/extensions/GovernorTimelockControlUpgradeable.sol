@@ -13,7 +13,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
 /**
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a
  * delay, enforced by the {TimelockController} to all successful proposal (in addition to the voting duration). The
- * {Governor} needs the proposer (and ideally the executor) roles for the {Governor} to work properly.
+ * {Governor} needs the proposer (and ideally the executor and canceller) roles for the {Governor} to work properly.
  *
  * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
  * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
@@ -23,9 +23,6 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * risky, as it grants them the ability to: 1) execute operations as the timelock, and thus possibly performing
  * operations or accessing funds that are expected to only be accessible through a vote, and 2) block governance
  * proposals that have been approved by the voters, effectively executing a Denial of Service attack.
- *
- * NOTE: `AccessManager` does not support scheduling more than one operation with the same target and calldata at
- * the same time. See {AccessManager-schedule} for a workaround.
  */
 abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorTimelockControl

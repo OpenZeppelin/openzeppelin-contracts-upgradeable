@@ -36,6 +36,9 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * mitigate this attack vector, the governor is able to ignore the restrictions claimed by the `AccessManager` using
  * {setAccessManagerIgnored}. While permanent denial of service is mitigated, temporary DoS may still be technically
  * possible. All of the governor's own functions (e.g., {setBaseDelaySeconds}) ignore the `AccessManager` by default.
+ *
+ * NOTE: `AccessManager` does not support scheduling more than one operation with the same target and calldata at
+ * the same time. See {AccessManager-schedule} for a workaround.
  */
 abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUpgradeable {
     // An execution plan is produced at the moment a proposal is created, in order to fix at that point the exact

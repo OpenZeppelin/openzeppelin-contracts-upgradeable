@@ -26,7 +26,7 @@
 
 ### Installation
 
-#### Hardhat, Truffle (npm)
+#### Hardhat (npm)
 
 ```
 $ npm install @openzeppelin/contracts-upgradeable
