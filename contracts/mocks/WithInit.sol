@@ -518,6 +518,48 @@ contract ERC1155ReceiverMockUpgradeableWithInit is ERC1155ReceiverMockUpgradeabl
         __ERC1155ReceiverMock_init(recRetval, batRetval, error);
     }
 }
+import "./token/ERC1363ForceApproveMockUpgradeable.sol";
+
+contract ERC1363ForceApproveMockUpgradeableWithInit is ERC1363ForceApproveMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363ForceApproveMock_init();
+    }
+}
+import "./token/ERC1363NoReturnMockUpgradeable.sol";
+
+contract ERC1363NoReturnMockUpgradeableWithInit is ERC1363NoReturnMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363NoReturnMock_init();
+    }
+}
+import "./token/ERC1363ReceiverMockUpgradeable.sol";
+
+contract ERC1363ReceiverMockUpgradeableWithInit is ERC1363ReceiverMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363ReceiverMock_init();
+    }
+}
+import "./token/ERC1363ReturnFalseMockUpgradeable.sol";
+
+contract ERC1363ReturnFalseOnERC20MockUpgradeableWithInit is ERC1363ReturnFalseOnERC20MockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363ReturnFalseOnERC20Mock_init();
+    }
+}
+import "./token/ERC1363ReturnFalseMockUpgradeable.sol";
+
+contract ERC1363ReturnFalseMockUpgradeableWithInit is ERC1363ReturnFalseMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363ReturnFalseMock_init();
+    }
+}
+import "./token/ERC1363SpenderMockUpgradeable.sol";
+
+contract ERC1363SpenderMockUpgradeableWithInit is ERC1363SpenderMockUpgradeable {
+    constructor() payable initializer {
+        __ERC1363SpenderMock_init();
+    }
+}
 import "./token/ERC20ApprovalMockUpgradeable.sol";
 
 contract ERC20ApprovalMockUpgradeableWithInit is ERC20ApprovalMockUpgradeable {
@@ -771,6 +813,13 @@ import "../token/ERC20/ERC20Upgradeable.sol";
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
     constructor(string memory name_, string memory symbol_) payable initializer {
         __ERC20_init(name_, symbol_);
+    }
+}
+import "../token/ERC20/extensions/ERC1363Upgradeable.sol";
+
+contract ERC1363UpgradeableWithInit is ERC1363Upgradeable {
+    constructor() payable initializer {
+        __ERC1363_init();
     }
 }
 import "../token/ERC20/extensions/ERC20BurnableUpgradeable.sol";
