@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import {IERC721Metadata} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
+import {ERC721Utils} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
@@ -181,7 +181,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual {
         transferFrom(from, to, tokenId);
-        _checkOnERC721Received(from, to, tokenId, data);
+        ERC721Utils.checkOnERC721Received(_msgSender(), from, to, tokenId, data);
     }
 
     /**
@@ -338,7 +338,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function _safeMint(address to, uint256 tokenId, bytes memory data) internal virtual {
         _mint(to, tokenId);
-        _checkOnERC721Received(address(0), to, tokenId, data);
+        ERC721Utils.checkOnERC721Received(_msgSender(), address(0), to, tokenId, data);
     }
 
     /**
@@ -411,7 +411,7 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function _safeTransfer(address from, address to, uint256 tokenId, bytes memory data) internal virtual {
         _transfer(from, to, tokenId);
-        _checkOnERC721Received(from, to, tokenId, data);
+        ERC721Utils.checkOnERC721Received(_msgSender(), from, to, tokenId, data);
     }
 
     /**
@@ -480,33 +480,5 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
             revert ERC721NonexistentToken(tokenId);
         }
         return owner;
-    }
-
-    /**
-     * @dev Private function to invoke {IERC721Receiver-onERC721Received} on a target address. This will revert if the
-     * recipient doesn't accept the token transfer. The call is not executed if the target address is not a contract.
-     *
-     * @param from address representing the previous owner of the given token ID
-     * @param to target address that will receive the tokens
-     * @param tokenId uint256 ID of the token to be transferred
-     * @param data bytes optional data to send along with the call
-     */
-    function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory data) private {
-        if (to.code.length > 0) {
-            try IERC721Receiver(to).onERC721Received(_msgSender(), from, tokenId, data) returns (bytes4 retval) {
-                if (retval != IERC721Receiver.onERC721Received.selector) {
-                    revert ERC721InvalidReceiver(to);
-                }
-            } catch (bytes memory reason) {
-                if (reason.length == 0) {
-                    revert ERC721InvalidReceiver(to);
-                } else {
-                    /// @solidity memory-safe-assembly
-                    assembly {
-                        revert(add(32, reason), mload(reason))
-                    }
-                }
-            }
-        }
     }
 }
