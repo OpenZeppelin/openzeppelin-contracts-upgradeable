@@ -79,13 +79,6 @@ contract ERC2771ForwarderUpgradeableWithInit is ERC2771ForwarderUpgradeable {
         __ERC2771Forwarder_init(name);
     }
 }
-import "./_importUpgradeable.sol";
-
-contract ExposeImportsUpgradeableWithInit is ExposeImportsUpgradeable {
-    constructor() payable initializer {
-        __ExposeImports_init();
-    }
-}
 import "./AccessManagedTargetUpgradeable.sol";
 
 contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeable {
