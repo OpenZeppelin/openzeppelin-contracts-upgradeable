@@ -58,6 +58,13 @@ contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
         __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
     }
 }
+import "../finance/VestingWalletCliffUpgradeable.sol";
+
+contract VestingWalletCliffUpgradeableWithInit is VestingWalletCliffUpgradeable {
+    constructor(uint64 cliffSeconds) payable initializer {
+        __VestingWalletCliff_init(cliffSeconds);
+    }
+}
 import "../governance/TimelockControllerUpgradeable.sol";
 
 contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable {
