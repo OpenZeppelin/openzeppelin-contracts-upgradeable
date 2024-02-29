@@ -147,6 +147,13 @@ contract Bytes32ArraysMockUpgradeableWithInit is Bytes32ArraysMockUpgradeable {
         __Bytes32ArraysMock_init(array);
     }
 }
+import "./Base64DirtyUpgradeable.sol";
+
+contract Base64DirtyUpgradeableWithInit is Base64DirtyUpgradeable {
+    constructor() payable initializer {
+        __Base64Dirty_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
