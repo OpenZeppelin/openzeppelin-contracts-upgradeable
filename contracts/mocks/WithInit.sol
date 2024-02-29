@@ -149,6 +149,13 @@ contract AuthorityObserveIsConsumingUpgradeableWithInit is AuthorityObserveIsCon
         __AuthorityObserveIsConsuming_init();
     }
 }
+import "./Base64DirtyUpgradeable.sol";
+
+contract Base64DirtyUpgradeableWithInit is Base64DirtyUpgradeable {
+    constructor() payable initializer {
+        __Base64Dirty_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
