@@ -140,7 +140,7 @@ abstract contract Initializable {
      * are added through upgrades and that require initialization.
      *
      * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`
-     * cannot be nested. If one is invoked in the context of another, execution will revert.
+     * cannot be invoked multiple times in the context of a constructor.
      *
      * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in
      * a contract, executing them in the right order is up to the developer or operator.
