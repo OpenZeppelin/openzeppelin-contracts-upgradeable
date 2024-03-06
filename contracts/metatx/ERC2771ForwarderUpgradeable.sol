@@ -8,6 +8,7 @@ import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {Errors} from "@openzeppelin/contracts/utils/Errors.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -137,7 +138,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
         }
 
         if (!_execute(request, true)) {
-            revert Address.FailedInnerCall();
+            revert Errors.FailedCall();
         }
     }
 

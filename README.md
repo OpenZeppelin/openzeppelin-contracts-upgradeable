@@ -44,7 +44,7 @@ $ npm install @openzeppelin/contracts-upgradeable
 $ forge install OpenZeppelin/openzeppelin-contracts-upgradeable
 ```
 
-Add `@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/` in `remappings.txt.` 
+Add `@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/` in `remappings.txt.`
 
 ### Usage
 
