@@ -53,6 +53,14 @@ contract Uint256ArraysMockUpgradeable is Initializable {
     function _reverse(uint256 a, uint256 b) private pure returns (bool) {
         return a > b;
     }
+
+    function unsafeSetLength(uint256 newLength) external {
+        _array.unsafeSetLength(newLength);
+    }
+
+    function length() external view returns (uint256) {
+        return _array.length;
+    }
 }
 
 contract AddressArraysMockUpgradeable is Initializable {
@@ -83,6 +91,14 @@ contract AddressArraysMockUpgradeable is Initializable {
     function _reverse(address a, address b) private pure returns (bool) {
         return uint160(a) > uint160(b);
     }
+
+    function unsafeSetLength(uint256 newLength) external {
+        _array.unsafeSetLength(newLength);
+    }
+
+    function length() external view returns (uint256) {
+        return _array.length;
+    }
 }
 
 contract Bytes32ArraysMockUpgradeable is Initializable {
@@ -112,5 +128,13 @@ contract Bytes32ArraysMockUpgradeable is Initializable {
 
     function _reverse(bytes32 a, bytes32 b) private pure returns (bool) {
         return uint256(a) > uint256(b);
+    }
+
+    function unsafeSetLength(uint256 newLength) external {
+        _array.unsafeSetLength(newLength);
+    }
+
+    function length() external view returns (uint256) {
+        return _array.length;
     }
 }

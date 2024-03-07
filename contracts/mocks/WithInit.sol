@@ -427,6 +427,13 @@ contract GovernorWithParamsMockUpgradeableWithInit is GovernorWithParamsMockUpgr
         __GovernorWithParamsMock_init();
     }
 }
+import "./MerkleTreeMockUpgradeable.sol";
+
+contract MerkleTreeMockUpgradeableWithInit is MerkleTreeMockUpgradeable {
+    constructor() payable initializer {
+        __MerkleTreeMock_init();
+    }
+}
 import "./MulticallHelperUpgradeable.sol";
 
 contract MulticallHelperUpgradeableWithInit is MulticallHelperUpgradeable {
