@@ -10,6 +10,10 @@ contract MerkleTreeMockUpgradeable is Initializable {
 
     MerkleTree.Bytes32PushTree private _tree;
 
+    // This mock only stored the latest root.
+    // Production contract may want to store historical values.
+    bytes32 public root;
+
     event LeafInserted(bytes32 leaf, uint256 index, bytes32 root);
 
     function __MerkleTreeMock_init() internal onlyInitializing {
@@ -18,16 +22,13 @@ contract MerkleTreeMockUpgradeable is Initializable {
     function __MerkleTreeMock_init_unchained() internal onlyInitializing {
     }
     function setup(uint8 _depth, bytes32 _zero) public {
-        _tree.setup(_depth, _zero);
+        root = _tree.setup(_depth, _zero);
     }
 
     function push(bytes32 leaf) public {
         (uint256 leafIndex, bytes32 currentRoot) = _tree.push(leaf);
         emit LeafInserted(leaf, leafIndex, currentRoot);
-    }
-
-    function root() public view returns (bytes32) {
-        return _tree.root();
+        root = currentRoot;
     }
 
     function depth() public view returns (uint256) {
