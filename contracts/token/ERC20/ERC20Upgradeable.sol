@@ -26,11 +26,6 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * instead returning `false` on failure. This behavior is nonetheless
  * conventional and does not conflict with the expectations of ERC-20
  * applications.
- *
- * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
- * This allows applications to reconstruct the allowance for all accounts just
- * by listening to said events. Other implementations of the ERC may not emit
- * these events, as it isn't required by the specification.
  */
 abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20, IERC20Metadata, IERC20Errors {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC20
