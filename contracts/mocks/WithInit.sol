@@ -212,6 +212,20 @@ contract AccessControlERC20MintUpgradeableWithInit is AccessControlERC20MintUpgr
         __AccessControlERC20Mint_init(minter, burner);
     }
 }
+import "./docs/access-control/AccessControlModifiedUpgradeable.sol";
+
+contract AccessControlModifiedUpgradeableWithInit is AccessControlModifiedUpgradeable {
+    constructor() payable initializer {
+        __AccessControlModified_init();
+    }
+}
+import "./docs/access-control/AccessControlUnrevokableAdminUpgradeable.sol";
+
+contract AccessControlNonRevokableAdminUpgradeableWithInit is AccessControlNonRevokableAdminUpgradeable {
+    constructor() payable initializer {
+        __AccessControlNonRevokableAdmin_init();
+    }
+}
 import "./docs/access-control/AccessManagedERC20MintBaseUpgradeable.sol";
 
 contract AccessManagedERC20MintUpgradeableWithInit is AccessManagedERC20MintUpgradeable {
@@ -271,6 +285,55 @@ contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
         IERC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
+    }
+}
+import "./docs/MyNFTUpgradeable.sol";
+
+contract MyNFTUpgradeableWithInit is MyNFTUpgradeable {
+    constructor() payable initializer {
+        __MyNFT_init();
+    }
+}
+import "./docs/token/ERC1155/GameItemsUpgradeable.sol";
+
+contract GameItemsUpgradeableWithInit is GameItemsUpgradeable {
+    constructor() payable initializer {
+        __GameItems_init();
+    }
+}
+import "./docs/token/ERC1155/MyERC115HolderContractUpgradeable.sol";
+
+contract MyERC115HolderContractUpgradeableWithInit is MyERC115HolderContractUpgradeable {
+    constructor() payable initializer {
+        __MyERC115HolderContract_init();
+    }
+}
+import "./docs/token/ERC20/GLDTokenUpgradeable.sol";
+
+contract GLDTokenUpgradeableWithInit is GLDTokenUpgradeable {
+    constructor(uint256 initialSupply) payable initializer {
+        __GLDToken_init(initialSupply);
+    }
+}
+import "./docs/token/ERC721/GameItemUpgradeable.sol";
+
+contract GameItemUpgradeableWithInit is GameItemUpgradeable {
+    constructor() payable initializer {
+        __GameItem_init();
+    }
+}
+import "./docs/utilities/Base64NFTUpgradeable.sol";
+
+contract Base64NFTUpgradeableWithInit is Base64NFTUpgradeable {
+    constructor() payable initializer {
+        __Base64NFT_init();
+    }
+}
+import "./docs/utilities/MulticallUpgradeable.sol";
+
+contract BoxUpgradeableWithInit is BoxUpgradeable {
+    constructor() payable initializer {
+        __Box_init();
     }
 }
 import "./DummyImplementationUpgradeable.sol";
