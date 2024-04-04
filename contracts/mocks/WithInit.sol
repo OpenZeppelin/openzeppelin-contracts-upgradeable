@@ -574,6 +574,13 @@ contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
         __ReentrancyMock_init();
     }
 }
+import "./ReentrancyTransientMockUpgradeable.sol";
+
+contract ReentrancyTransientMockUpgradeableWithInit is ReentrancyTransientMockUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyTransientMock_init();
+    }
+}
 import "./StatelessUpgradeable.sol";
 
 contract Dummy1234UpgradeableWithInit is Dummy1234Upgradeable {
@@ -1079,5 +1086,12 @@ import "../utils/ReentrancyGuardUpgradeable.sol";
 contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
     constructor() payable initializer {
         __ReentrancyGuard_init();
+    }
+}
+import "../utils/ReentrancyGuardTransientUpgradeable.sol";
+
+contract ReentrancyGuardTransientUpgradeableWithInit is ReentrancyGuardTransientUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyGuardTransient_init();
     }
 }
