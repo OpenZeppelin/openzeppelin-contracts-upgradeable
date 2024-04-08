@@ -56,8 +56,8 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * will be {AccessManager} itself.
  *
  * WARNING: When granting permissions over an {Ownable} or {AccessControl} contract to an {AccessManager}, be very
- * mindful of the danger associated with functions such as {{Ownable-renounceOwnership}} or
- * {{AccessControl-renounceRole}}.
+ * mindful of the danger associated with functions such as {Ownable-renounceOwnership} or
+ * {AccessControl-renounceRole}.
  */
 contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManager {
     using Time for *;
@@ -122,8 +122,8 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     /**
-     * @dev Check that the caller is authorized to perform the operation, following the restrictions encoded in
-     * {_getAdminRestrictions}.
+     * @dev Check that the caller is authorized to perform the operation.
+     * See {AccessManager} description for a detailed breakdown of the authorization logic.
      */
     modifier onlyAuthorized() {
         _checkAuthorized();
@@ -505,7 +505,8 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
     /**
      * @dev Reverts if the operation is currently scheduled and has not expired.
-     * (Note: This function was introduced due to stack too deep errors in schedule.)
+     *
+     * NOTE: This function was introduced due to stack too deep errors in schedule.
      */
     function _checkNotScheduled(bytes32 operationId) private view {
         AccessManagerStorage storage $ = _getAccessManagerStorage();

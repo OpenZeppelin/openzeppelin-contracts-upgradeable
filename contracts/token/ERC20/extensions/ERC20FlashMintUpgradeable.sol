@@ -33,7 +33,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     error ERC3156ExceededMaxLoan(uint256 maxLoan);
 
     /**
-     * @dev The receiver of a flashloan is not a valid {onFlashLoan} implementer.
+     * @dev The receiver of a flashloan is not a valid {IERC3156FlashBorrower-onFlashLoan} implementer.
      */
     error ERC3156InvalidReceiver(address receiver);
 
