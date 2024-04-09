@@ -96,6 +96,9 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
      */
     error ERC2771UntrustfulTarget(address target, address forwarder);
 
+    function initialize(string memory name) public virtual initializer {
+        __ERC2771Forwarder_init(name);
+    }
     /**
      * @dev See {EIP712-constructor}.
      */

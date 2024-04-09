@@ -112,6 +112,9 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     event MinDelayChange(uint256 oldDuration, uint256 newDuration);
 
+    function initialize(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) public virtual initializer {
+        __TimelockController_init(minDelay, proposers, executors, admin);
+    }
     /**
      * @dev Initializes the contract with the following parameters:
      *

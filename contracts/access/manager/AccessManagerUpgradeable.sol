@@ -130,6 +130,9 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         _;
     }
 
+    function initialize(address initialAdmin) public virtual initializer {
+        __AccessManager_init(initialAdmin);
+    }
     function __AccessManager_init(address initialAdmin) internal onlyInitializing {
         __AccessManager_init_unchained(initialAdmin);
     }
