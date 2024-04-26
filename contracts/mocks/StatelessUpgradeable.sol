@@ -10,6 +10,7 @@ import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUt
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
+import {CircularBuffer} from "@openzeppelin/contracts/utils/structs/CircularBuffer.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {Create2} from "@openzeppelin/contracts/utils/Create2.sol";
 import {DoubleEndedQueue} from "@openzeppelin/contracts/utils/structs/DoubleEndedQueue.sol";
@@ -24,6 +25,7 @@ import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgrade
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {Panic} from "@openzeppelin/contracts/utils/Panic.sol";
 import {Packing} from "@openzeppelin/contracts/utils/Packing.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
