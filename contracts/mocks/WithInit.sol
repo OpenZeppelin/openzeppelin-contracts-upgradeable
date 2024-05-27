@@ -184,6 +184,13 @@ contract CompTimelockUpgradeableWithInit is CompTimelockUpgradeable {
         __CompTimelock_init(admin_, delay_);
     }
 }
+import "./ConstructorMockUpgradeable.sol";
+
+contract ConstructorMockUpgradeableWithInit is ConstructorMockUpgradeable {
+    constructor(RevertType error) payable initializer {
+        __ConstructorMock_init(error);
+    }
+}
 import "./ContextMockUpgradeable.sol";
 
 contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
