@@ -93,6 +93,13 @@ contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeabl
         __AccessManagedTarget_init();
     }
 }
+import "./AccessManagerMockUpgradeable.sol";
+
+contract AccessManagerMockUpgradeableWithInit is AccessManagerMockUpgradeable {
+    constructor(address initialAdmin) payable initializer {
+        __AccessManagerMock_init(initialAdmin);
+    }
+}
 import "./ArraysMockUpgradeable.sol";
 
 contract Uint256ArraysMockUpgradeableWithInit is Uint256ArraysMockUpgradeable {
