@@ -47,7 +47,7 @@ abstract contract GovernorWithParamsMockUpgradeable is Initializable, GovernorVo
         uint8 support,
         uint256 weight,
         bytes memory params
-    ) internal override(GovernorUpgradeable, GovernorCountingSimpleUpgradeable) {
+    ) internal override(GovernorUpgradeable, GovernorCountingSimpleUpgradeable) returns (uint256) {
         if (params.length > 0) {
             (uint256 _uintParam, string memory _strParam) = abi.decode(params, (uint256, string));
             emit CountParams(_uintParam, _strParam);

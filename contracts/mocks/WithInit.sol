@@ -448,6 +448,13 @@ contract EtherReceiverMockUpgradeableWithInit is EtherReceiverMockUpgradeable {
         __EtherReceiverMock_init();
     }
 }
+import "./governance/GovernorFractionalMockUpgradeable.sol";
+
+contract GovernorFractionalMockUpgradeableWithInit is GovernorFractionalMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorFractionalMock_init();
+    }
+}
 import "./governance/GovernorMockUpgradeable.sol";
 
 contract GovernorMockUpgradeableWithInit is GovernorMockUpgradeable {
