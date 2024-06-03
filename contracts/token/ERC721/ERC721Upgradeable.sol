@@ -220,8 +220,9 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
 
     /**
      * @dev Checks if `spender` can operate on `tokenId`, assuming the provided `owner` is the actual owner.
-     * Reverts if `spender` does not have approval from the provided `owner` for the given token or for all its assets
-     * the `spender` for the specific `tokenId`.
+     * Reverts if:
+     * - `spender` does not have approval from `owner` for `tokenId`.
+     * - `spender` does not have approval to manage all of `owner`'s assets.
      *
      * WARNING: This function assumes that `owner` is the actual owner of `tokenId` and does not verify this
      * assumption.
