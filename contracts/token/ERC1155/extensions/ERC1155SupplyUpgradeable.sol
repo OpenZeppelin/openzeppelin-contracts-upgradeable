@@ -4,6 +4,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
+import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
@@ -20,6 +21,8 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * CAUTION: This extension should not be added in an upgrade to an already deployed contract.
  */
 abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable {
+    using Arrays for uint256[];
+
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155Supply
     struct ERC1155SupplyStorage {
         mapping(uint256 id => uint256) _totalSupply;
@@ -78,9 +81,9 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
         if (from == address(0)) {
             uint256 totalMintValue = 0;
             for (uint256 i = 0; i < ids.length; ++i) {
-                uint256 value = values[i];
+                uint256 value = values.unsafeMemoryAccess(i);
                 // Overflow check required: The rest of the code assumes that totalSupply never overflows
-                $._totalSupply[ids[i]] += value;
+                $._totalSupply[ids.unsafeMemoryAccess(i)] += value;
                 totalMintValue += value;
             }
             // Overflow check required: The rest of the code assumes that totalSupplyAll never overflows
@@ -90,11 +93,11 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
         if (to == address(0)) {
             uint256 totalBurnValue = 0;
             for (uint256 i = 0; i < ids.length; ++i) {
-                uint256 value = values[i];
+                uint256 value = values.unsafeMemoryAccess(i);
 
                 unchecked {
                     // Overflow not possible: values[i] <= balanceOf(from, ids[i]) <= totalSupply(ids[i])
-                    $._totalSupply[ids[i]] -= value;
+                    $._totalSupply[ids.unsafeMemoryAccess(i)] -= value;
                     // Overflow not possible: sum_i(values[i]) <= sum_i(totalSupply(ids[i])) <= totalSupplyAll
                     totalBurnValue += value;
                 }
