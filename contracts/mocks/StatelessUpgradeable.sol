@@ -25,6 +25,7 @@ import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgrade
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {P256} from "@openzeppelin/contracts/utils/cryptography/P256.sol";
 import {Panic} from "@openzeppelin/contracts/utils/Panic.sol";
 import {Packing} from "@openzeppelin/contracts/utils/Packing.sol";
 import {RSA} from "@openzeppelin/contracts/utils/cryptography/RSA.sol";
