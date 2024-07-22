@@ -163,6 +163,13 @@ contract Base64DirtyUpgradeableWithInit is Base64DirtyUpgradeable {
         __Base64Dirty_init();
     }
 }
+import "./BatchCallerUpgradeable.sol";
+
+contract BatchCallerUpgradeableWithInit is BatchCallerUpgradeable {
+    constructor() payable initializer {
+        __BatchCaller_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
@@ -714,6 +721,13 @@ contract ERC20ForceApproveMockUpgradeableWithInit is ERC20ForceApproveMockUpgrad
         __ERC20ForceApproveMock_init();
     }
 }
+import "./token/ERC20GetterHelperUpgradeable.sol";
+
+contract ERC20GetterHelperUpgradeableWithInit is ERC20GetterHelperUpgradeable {
+    constructor() payable initializer {
+        __ERC20GetterHelper_init();
+    }
+}
 import "./token/ERC20MockUpgradeable.sol";
 
 contract ERC20MockUpgradeableWithInit is ERC20MockUpgradeable {
@@ -932,6 +946,13 @@ import "../token/ERC20/ERC20Upgradeable.sol";
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
     constructor(string memory name_, string memory symbol_) payable initializer {
         __ERC20_init(name_, symbol_);
+    }
+}
+import "../token/ERC20/extensions/draft-ERC20TemporaryApprovalUpgradeable.sol";
+
+contract ERC20TemporaryApprovalUpgradeableWithInit is ERC20TemporaryApprovalUpgradeable {
+    constructor() payable initializer {
+        __ERC20TemporaryApproval_init();
     }
 }
 import "../token/ERC20/extensions/ERC1363Upgradeable.sol";
