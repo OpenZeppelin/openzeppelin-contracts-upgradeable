@@ -737,7 +737,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
         (bool adminRestricted, uint64 roleId, uint32 operationDelay) = _getAdminRestrictions(data);
 
-        // isTragetClosed apply to non-admin-restricted function
+        // isTargetClosed apply to non-admin-restricted function
         if (!adminRestricted && isTargetClosed(address(this))) {
             return (false, 0);
         }
