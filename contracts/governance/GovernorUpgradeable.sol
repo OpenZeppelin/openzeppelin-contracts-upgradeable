@@ -801,7 +801,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
 
         // Extract what would be the `#proposer=0x` marker beginning the suffix
         bytes12 marker;
-        assembly {
+        assembly ("memory-safe") {
             // - Start of the string contents in memory = description + 32
             // - First character of the marker = len - 52
             //   - Length of "#proposer=0x0000000000000000000000000000000000000000" = 52
