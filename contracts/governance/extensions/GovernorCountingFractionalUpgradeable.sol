@@ -46,7 +46,7 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
         /**
          * @dev Mapping from proposal ID to vote tallies for that proposal.
          */
-        mapping(uint256 => ProposalVote) _proposalVotes;
+        mapping(uint256 proposalId => ProposalVote) _proposalVotes;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorCountingFractional")) - 1)) & ~bytes32(uint256(0xff))
