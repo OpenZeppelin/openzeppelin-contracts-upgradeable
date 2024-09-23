@@ -168,7 +168,7 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
         uint256 againstVotes = 0;
         uint256 forVotes = 0;
         uint256 abstainVotes = 0;
-        uint256 usedWeight;
+        uint256 usedWeight = 0;
 
         // For clarity of event indexing, fractional voting must be clearly advertised in the "support" field.
         //
