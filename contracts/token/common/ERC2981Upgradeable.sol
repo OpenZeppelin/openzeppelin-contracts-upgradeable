@@ -77,7 +77,10 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeab
     /**
      * @inheritdoc IERC2981
      */
-    function royaltyInfo(uint256 tokenId, uint256 salePrice) public view virtual returns (address, uint256) {
+    function royaltyInfo(
+        uint256 tokenId,
+        uint256 salePrice
+    ) public view virtual returns (address receiver, uint256 amount) {
         ERC2981Storage storage $ = _getERC2981Storage();
         RoyaltyInfo storage _royaltyInfo = $._tokenRoyaltyInfo[tokenId];
         address royaltyReceiver = _royaltyInfo.receiver;

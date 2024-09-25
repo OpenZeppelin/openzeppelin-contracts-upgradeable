@@ -111,7 +111,12 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      */
     function proposalDetails(
         uint256 proposalId
-    ) public view virtual returns (address[] memory, uint256[] memory, bytes[] memory, bytes32) {
+    )
+        public
+        view
+        virtual
+        returns (address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
+    {
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using memory is more efficient than storage
         ProposalDetails memory details = $._proposalDetails[proposalId];
@@ -126,15 +131,20 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
      */
     function proposalDetailsAt(
         uint256 index
-    ) public view virtual returns (uint256, address[] memory, uint256[] memory, bytes[] memory, bytes32) {
-        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
-        uint256 proposalId = $._proposalIds[index];
-        (
+    )
+        public
+        view
+        virtual
+        returns (
+            uint256 proposalId,
             address[] memory targets,
             uint256[] memory values,
             bytes[] memory calldatas,
             bytes32 descriptionHash
-        ) = proposalDetails(proposalId);
-        return (proposalId, targets, values, calldatas, descriptionHash);
+        )
+    {
+        GovernorStorageStorage storage $ = _getGovernorStorageStorage();
+        proposalId = $._proposalIds[index];
+        (targets, values, calldatas, descriptionHash) = proposalDetails(proposalId);
     }
 }
