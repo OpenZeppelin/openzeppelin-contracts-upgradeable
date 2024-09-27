@@ -53,8 +53,8 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
     }
     /**
-     * @dev Sets the sender as the initial owner, the beneficiary as the pending owner, the start timestamp and the
-     * vesting duration of the vesting wallet.
+     * @dev Sets the beneficiary (owner), the start timestamp and the vesting duration (in seconds) of the vesting
+     * wallet.
      */
     function __VestingWallet_init(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
         __Ownable_init_unchained(beneficiary);
