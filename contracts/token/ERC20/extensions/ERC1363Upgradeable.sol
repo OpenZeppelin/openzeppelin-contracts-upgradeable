@@ -14,6 +14,8 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * @dev Extension of {ERC20} tokens that adds support for code execution after transfers and approvals
  * on recipient contracts. Calls after transfers are enabled through the {ERC1363-transferAndCall} and
  * {ERC1363-transferFromAndCall} methods while calls after approvals can be made with {ERC1363-approveAndCall}
+ *
+ * _Available since v5.1._
  */
 abstract contract ERC1363Upgradeable is Initializable, ERC20Upgradeable, ERC165Upgradeable, IERC1363 {
     /**

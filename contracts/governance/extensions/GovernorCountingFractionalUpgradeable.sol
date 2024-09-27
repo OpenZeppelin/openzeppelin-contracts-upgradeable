@@ -28,6 +28,8 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * * Voting privately from a shielded pool using zero knowledge proofs.
  *
  * Based on ScopeLift's GovernorCountingFractional[https://github.com/ScopeLift/flexible-voting/blob/e5de2efd1368387b840931f19f3c184c85842761/src/GovernorCountingFractional.sol]
+ *
+ * _Available since v5.1._
  */
 abstract contract GovernorCountingFractionalUpgradeable is Initializable, GovernorUpgradeable {
     using Math for *;

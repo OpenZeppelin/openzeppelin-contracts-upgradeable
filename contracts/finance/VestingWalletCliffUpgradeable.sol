@@ -8,6 +8,8 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {VestingWallet} that adds a cliff to the vesting schedule.
+ *
+ * _Available since v5.1._
  */
 abstract contract VestingWalletCliffUpgradeable is Initializable, VestingWalletUpgradeable {
     using SafeCast for *;
