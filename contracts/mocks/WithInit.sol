@@ -864,6 +864,13 @@ contract ERC721URIStorageMockUpgradeableWithInit is ERC721URIStorageMockUpgradea
         __ERC721URIStorageMock_init();
     }
 }
+import "./TransientSlotMockUpgradeable.sol";
+
+contract TransientSlotMockUpgradeableWithInit is TransientSlotMockUpgradeable {
+    constructor() payable initializer {
+        __TransientSlotMock_init();
+    }
+}
 import "./UpgradeableBeaconMockUpgradeable.sol";
 
 contract UpgradeableBeaconMockUpgradeableWithInit is UpgradeableBeaconMockUpgradeable {

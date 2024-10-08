@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.24;
 
-import {StorageSlot} from "@openzeppelin/contracts/utils/StorageSlot.sol";
+import {TransientSlot} from "@openzeppelin/contracts/utils/TransientSlot.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -13,7 +13,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * _Available since v5.1._
  */
 abstract contract ReentrancyGuardTransientUpgradeable is Initializable {
-    using StorageSlot for *;
+    using TransientSlot for *;
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ReentrancyGuard")) - 1)) & ~bytes32(uint256(0xff))
     bytes32 private constant REENTRANCY_GUARD_STORAGE =
