@@ -906,14 +906,14 @@ contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconR
         __UpgradeableBeaconReentrantMock_init();
     }
 }
-import "./VotesAdditionalCheckpointsMockUpgradeable.sol";
+import "./VotesExtendedMockUpgradeable.sol";
 
 contract VotesExtendedMockUpgradeableWithInit is VotesExtendedMockUpgradeable {
     constructor() payable initializer {
         __VotesExtendedMock_init();
     }
 }
-import "./VotesAdditionalCheckpointsMockUpgradeable.sol";
+import "./VotesExtendedMockUpgradeable.sol";
 
 contract VotesExtendedTimestampMockUpgradeableWithInit is VotesExtendedTimestampMockUpgradeable {
     constructor() payable initializer {
