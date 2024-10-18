@@ -39,13 +39,7 @@ abstract contract GovernorPreventLateQuorumMockUpgradeable is
         return super.proposalThreshold();
     }
 
-    function _castVote(
-        uint256 proposalId,
-        address account,
-        uint8 support,
-        string memory reason,
-        bytes memory params
-    ) internal override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) returns (uint256) {
-        return super._castVote(proposalId, account, support, reason, params);
+    function _tallyUpdated(uint256 proposalId) internal override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) {
+        super._tallyUpdated(proposalId);
     }
 }

@@ -455,6 +455,13 @@ contract EtherReceiverMockUpgradeableWithInit is EtherReceiverMockUpgradeable {
         __EtherReceiverMock_init();
     }
 }
+import "./governance/GovernorCountingOverridableMockUpgradeable.sol";
+
+contract GovernorCountingOverridableMockUpgradeableWithInit is GovernorCountingOverridableMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorCountingOverridableMock_init();
+    }
+}
 import "./governance/GovernorFractionalMockUpgradeable.sol";
 
 contract GovernorFractionalMockUpgradeableWithInit is GovernorFractionalMockUpgradeable {
@@ -763,6 +770,20 @@ contract ERC20ReturnFalseMockUpgradeableWithInit is ERC20ReturnFalseMockUpgradea
         __ERC20ReturnFalseMock_init();
     }
 }
+import "./token/ERC20VotesAdditionalCheckpointsMockUpgradeable.sol";
+
+contract ERC20VotesExtendedMockUpgradeableWithInit is ERC20VotesExtendedMockUpgradeable {
+    constructor() payable initializer {
+        __ERC20VotesExtendedMock_init();
+    }
+}
+import "./token/ERC20VotesAdditionalCheckpointsMockUpgradeable.sol";
+
+contract ERC20VotesExtendedTimestampMockUpgradeableWithInit is ERC20VotesExtendedTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __ERC20VotesExtendedTimestampMock_init();
+    }
+}
 import "./token/ERC20VotesLegacyMockUpgradeable.sol";
 
 contract ERC20VotesLegacyMockUpgradeableWithInit is ERC20VotesLegacyMockUpgradeable {
@@ -883,6 +904,20 @@ import "./UpgradeableBeaconMockUpgradeable.sol";
 contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconReentrantMockUpgradeable {
     constructor() payable initializer {
         __UpgradeableBeaconReentrantMock_init();
+    }
+}
+import "./VotesAdditionalCheckpointsMockUpgradeable.sol";
+
+contract VotesExtendedMockUpgradeableWithInit is VotesExtendedMockUpgradeable {
+    constructor() payable initializer {
+        __VotesExtendedMock_init();
+    }
+}
+import "./VotesAdditionalCheckpointsMockUpgradeable.sol";
+
+contract VotesExtendedTimestampMockUpgradeableWithInit is VotesExtendedTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __VotesExtendedTimestampMock_init();
     }
 }
 import "./VotesMockUpgradeable.sol";

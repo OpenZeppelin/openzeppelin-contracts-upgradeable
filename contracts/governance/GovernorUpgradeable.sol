@@ -289,6 +289,13 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     ) internal virtual returns (uint256);
 
     /**
+     * @dev Hook that should be called every time the tally for a proposal is updated.
+     *
+     * Note: This function must run successfully. Reverts will result in the bricking of governance
+     */
+    function _tallyUpdated(uint256 proposalId) internal virtual {}
+
+    /**
      * @dev Default additional encoded parameters used by castVote methods that don't include them
      *
      * Note: Should be overridden by specific implementations to use an appropriate value, the
@@ -681,6 +688,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
             emit VoteCastWithParams(account, proposalId, support, votedWeight, reason, params);
         }
 
+        _tallyUpdated(proposalId);
+
         return votedWeight;
     }
 
@@ -764,7 +773,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      *
      * If requirements are not met, reverts with a {GovernorUnexpectedProposalState} error.
      */
-    function _validateStateBitmap(uint256 proposalId, bytes32 allowedStates) private view returns (ProposalState) {
+    function _validateStateBitmap(uint256 proposalId, bytes32 allowedStates) internal view returns (ProposalState) {
         ProposalState currentState = state(proposalId);
         if (_encodeStateBitmap(currentState) & allowedStates == bytes32(0)) {
             revert GovernorUnexpectedProposalState(proposalId, currentState, allowedStates);
