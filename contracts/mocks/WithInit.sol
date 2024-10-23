@@ -1165,6 +1165,13 @@ contract NoncesUpgradeableWithInit is NoncesUpgradeable {
         __Nonces_init();
     }
 }
+import "../utils/NoncesKeyedUpgradeable.sol";
+
+contract NoncesKeyedUpgradeableWithInit is NoncesKeyedUpgradeable {
+    constructor() payable initializer {
+        __NoncesKeyed_init();
+    }
+}
 import "../utils/PausableUpgradeable.sol";
 
 contract PausableUpgradeableWithInit is PausableUpgradeable {
