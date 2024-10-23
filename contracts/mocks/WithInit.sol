@@ -100,6 +100,13 @@ contract AccessManagerMockUpgradeableWithInit is AccessManagerMockUpgradeable {
         __AccessManagerMock_init(initialAdmin);
     }
 }
+import "./account/utils/ERC7579UtilsMockUpgradeable.sol";
+
+contract ERC7579UtilsGlobalMockUpgradeableWithInit is ERC7579UtilsGlobalMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7579UtilsGlobalMock_init();
+    }
+}
 import "./ArraysMockUpgradeable.sol";
 
 contract Uint256ArraysMockUpgradeableWithInit is Uint256ArraysMockUpgradeable {
