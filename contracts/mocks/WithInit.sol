@@ -247,7 +247,7 @@ contract AccessControlModifiedUpgradeableWithInit is AccessControlModifiedUpgrad
         __AccessControlModified_init();
     }
 }
-import "./docs/access-control/AccessControlUnrevokableAdminUpgradeable.sol";
+import "./docs/access-control/AccessControlNonRevokableAdminUpgradeable.sol";
 
 contract AccessControlNonRevokableAdminUpgradeableWithInit is AccessControlNonRevokableAdminUpgradeable {
     constructor() payable initializer {
