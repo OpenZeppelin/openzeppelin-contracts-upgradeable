@@ -27,6 +27,11 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  *
  * NOTE: When using this contract with any token whose balance is adjusted automatically (i.e. a rebase token), make
  * sure to account the supply/balance adjustment in the vesting schedule to ensure the vested amount is as intended.
+ *
+ * NOTE: Chains with support for native ERC20s may allow the vesting wallet to withdraw the underlying asset as both an
+ * ERC20 and as native currency. For example, if chain C supports token A and the wallet gets deposited 100 A, then
+ * at 50% of the vesting period, the beneficiary can withdraw 50 A as ERC20 and 25 A as native currency (totaling 75 A).
+ * Consider disabling one of the withdrawal methods.
  */
 contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableUpgradeable {
     event EtherReleased(uint256 amount);
