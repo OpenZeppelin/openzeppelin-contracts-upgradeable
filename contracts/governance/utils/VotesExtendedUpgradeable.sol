@@ -7,7 +7,7 @@ import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of {Votes} that adds exposes checkpoints for delegations and balances.
+ * @dev Extension of {Votes} that adds checkpoints for delegations and balances.
  */
 abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
     using SafeCast for uint256;
