@@ -16,7 +16,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
 
     /// @custom:storage-location erc7201:openzeppelin.storage.VotesExtended
     struct VotesExtendedStorage {
-        mapping(address delegatee => Checkpoints.Trace160) _delegateCheckpoints;
+        mapping(address delegator => Checkpoints.Trace160) _delegateCheckpoints;
         mapping(address account => Checkpoints.Trace208) _balanceOfCheckpoints;
     }
 
