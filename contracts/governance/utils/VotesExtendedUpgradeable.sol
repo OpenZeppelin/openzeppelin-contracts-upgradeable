@@ -32,7 +32,6 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * {ERC20Votes} and {ERC721Votes} follow this pattern and are thus safe to use with {VotesExtended}.
  */
 abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
-    using SafeCast for uint256;
     using Checkpoints for Checkpoints.Trace160;
     using Checkpoints for Checkpoints.Trace208;
 
@@ -66,11 +65,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
      */
     function getPastDelegate(address account, uint256 timepoint) public view virtual returns (address) {
         VotesExtendedStorage storage $ = _getVotesExtendedStorage();
-        uint48 currentTimepoint = clock();
-        if (timepoint >= currentTimepoint) {
-            revert ERC5805FutureLookup(timepoint, currentTimepoint);
-        }
-        return address($._delegateCheckpoints[account].upperLookupRecent(timepoint.toUint48()));
+        return address($._delegateCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint)));
     }
 
     /**
@@ -83,11 +78,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
      */
     function getPastBalanceOf(address account, uint256 timepoint) public view virtual returns (uint256) {
         VotesExtendedStorage storage $ = _getVotesExtendedStorage();
-        uint48 currentTimepoint = clock();
-        if (timepoint >= currentTimepoint) {
-            revert ERC5805FutureLookup(timepoint, currentTimepoint);
-        }
-        return $._balanceOfCheckpoints[account].upperLookupRecent(timepoint.toUint48());
+        return $._balanceOfCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint));
     }
 
     /// @inheritdoc VotesUpgradeable
@@ -104,10 +95,10 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
         super._transferVotingUnits(from, to, amount);
         if (from != to) {
             if (from != address(0)) {
-                $._balanceOfCheckpoints[from].push(clock(), _getVotingUnits(from).toUint208());
+                $._balanceOfCheckpoints[from].push(clock(), SafeCast.toUint208(_getVotingUnits(from)));
             }
             if (to != address(0)) {
-                $._balanceOfCheckpoints[to].push(clock(), _getVotingUnits(to).toUint208());
+                $._balanceOfCheckpoints[to].push(clock(), SafeCast.toUint208(_getVotingUnits(to)));
             }
         }
     }

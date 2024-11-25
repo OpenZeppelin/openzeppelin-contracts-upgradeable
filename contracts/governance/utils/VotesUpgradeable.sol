@@ -90,6 +90,15 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     }
 
     /**
+     * @dev Validate that a timepoint is in the past, and return it as a uint48.
+     */
+    function _validateTimepoint(uint256 timepoint) internal view returns (uint48) {
+        uint48 currentTimepoint = clock();
+        if (timepoint >= currentTimepoint) revert ERC5805FutureLookup(timepoint, currentTimepoint);
+        return SafeCast.toUint48(timepoint);
+    }
+
+    /**
      * @dev Returns the current amount of votes that `account` has.
      */
     function getVotes(address account) public view virtual returns (uint256) {
@@ -107,11 +116,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function getPastVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
         VotesStorage storage $ = _getVotesStorage();
-        uint48 currentTimepoint = clock();
-        if (timepoint >= currentTimepoint) {
-            revert ERC5805FutureLookup(timepoint, currentTimepoint);
-        }
-        return $._delegateCheckpoints[account].upperLookupRecent(SafeCast.toUint48(timepoint));
+        return $._delegateCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint));
     }
 
     /**
@@ -128,11 +133,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function getPastTotalSupply(uint256 timepoint) public view virtual returns (uint256) {
         VotesStorage storage $ = _getVotesStorage();
-        uint48 currentTimepoint = clock();
-        if (timepoint >= currentTimepoint) {
-            revert ERC5805FutureLookup(timepoint, currentTimepoint);
-        }
-        return $._totalCheckpoints.upperLookupRecent(SafeCast.toUint48(timepoint));
+        return $._totalCheckpoints.upperLookupRecent(_validateTimepoint(timepoint));
     }
 
     /**
