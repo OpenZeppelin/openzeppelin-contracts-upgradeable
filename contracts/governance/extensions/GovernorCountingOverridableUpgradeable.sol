@@ -36,7 +36,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         mapping(address voter => VoteReceipt) voteReceipt;
     }
 
-    /// @dev The vote was reduced by `weight` after an override over the `delegate` by the original token holder
+    /// @dev The votes casted by `delegate` were reduced by `weight` after an override vote was casted by the original token holder
     event VoteReduced(address indexed delegate, uint256 proposalId, uint8 support, uint256 weight);
 
     /// @dev A delegated vote on `proposalId` was overridden by `weight`
