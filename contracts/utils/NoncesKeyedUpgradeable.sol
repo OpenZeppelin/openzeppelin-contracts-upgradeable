@@ -8,6 +8,10 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * @dev Alternative to {Nonces}, that supports key-ed nonces.
  *
  * Follows the https://eips.ethereum.org/EIPS/eip-4337#semi-abstracted-nonce-support[ERC-4337's semi-abstracted nonce system].
+ *
+ * NOTE: This contract inherits from {Nonces} and reuses its storage for the first nonce key (i.e. `0`). This
+ * makes upgrading from {Nonces} to {NoncesKeyed} safe when using their upgradeable versions (e.g. `NoncesKeyedUpgradeable`).
+ * Doing so will NOT reset the current state of nonces, avoiding replay attacks where a nonce is reused after the upgrade.
  */
 abstract contract NoncesKeyedUpgradeable is Initializable, NoncesUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.NoncesKeyed

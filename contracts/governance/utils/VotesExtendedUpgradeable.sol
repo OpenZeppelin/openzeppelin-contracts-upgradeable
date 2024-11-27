@@ -37,8 +37,8 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
 
     /// @custom:storage-location erc7201:openzeppelin.storage.VotesExtended
     struct VotesExtendedStorage {
-        mapping(address delegator => Checkpoints.Trace160) _delegateCheckpoints;
-        mapping(address account => Checkpoints.Trace208) _balanceOfCheckpoints;
+        mapping(address delegator => Checkpoints.Trace160) _userDelegationCheckpoints;
+        mapping(address account => Checkpoints.Trace208) _userVotingUnitsCheckpoints;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.VotesExtended")) - 1)) & ~bytes32(uint256(0xff))
@@ -65,7 +65,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
      */
     function getPastDelegate(address account, uint256 timepoint) public view virtual returns (address) {
         VotesExtendedStorage storage $ = _getVotesExtendedStorage();
-        return address($._delegateCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint)));
+        return address($._userDelegationCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint)));
     }
 
     /**
@@ -78,7 +78,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
      */
     function getPastBalanceOf(address account, uint256 timepoint) public view virtual returns (uint256) {
         VotesExtendedStorage storage $ = _getVotesExtendedStorage();
-        return $._balanceOfCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint));
+        return $._userVotingUnitsCheckpoints[account].upperLookupRecent(_validateTimepoint(timepoint));
     }
 
     /// @inheritdoc VotesUpgradeable
@@ -86,7 +86,7 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
         VotesExtendedStorage storage $ = _getVotesExtendedStorage();
         super._delegate(account, delegatee);
 
-        $._delegateCheckpoints[account].push(clock(), uint160(delegatee));
+        $._userDelegationCheckpoints[account].push(clock(), uint160(delegatee));
     }
 
     /// @inheritdoc VotesUpgradeable
@@ -95,10 +95,10 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
         super._transferVotingUnits(from, to, amount);
         if (from != to) {
             if (from != address(0)) {
-                $._balanceOfCheckpoints[from].push(clock(), SafeCast.toUint208(_getVotingUnits(from)));
+                $._userVotingUnitsCheckpoints[from].push(clock(), SafeCast.toUint208(_getVotingUnits(from)));
             }
             if (to != address(0)) {
-                $._balanceOfCheckpoints[to].push(clock(), SafeCast.toUint208(_getVotingUnits(to)));
+                $._userVotingUnitsCheckpoints[to].push(clock(), SafeCast.toUint208(_getVotingUnits(to)));
             }
         }
     }
