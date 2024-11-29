@@ -9,7 +9,7 @@ import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of {Governor} which enables delegatees to override the vote of their delegates. This module requires a
+ * @dev Extension of {Governor} which enables delegators to override the vote of their delegates. This module requires a
  * token that inherits {VotesExtended}.
  */
 abstract contract GovernorCountingOverridableUpgradeable is Initializable, GovernorVotesUpgradeable {
@@ -187,7 +187,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         return overridenWeight;
     }
 
-    /// @dev Variant of {Governor-_castVote} that deals with vote overrides.
+    /// @dev Variant of {Governor-_castVote} that deals with vote overrides. Returns the overridden weight.
     function _castOverride(
         uint256 proposalId,
         address account,
@@ -205,7 +205,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         return overridenWeight;
     }
 
-    /// @dev Public function for casting an override vote
+    /// @dev Public function for casting an override vote. Returns the overridden weight.
     function castOverrideVote(
         uint256 proposalId,
         uint8 support,
@@ -215,7 +215,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         return _castOverride(proposalId, voter, support, reason);
     }
 
-    /// @dev Public function for casting an override vote using a voter's signature
+    /// @dev Public function for casting an override vote using a voter's signature. Returns the overridden weight.
     function castOverrideVoteBySig(
         uint256 proposalId,
         uint8 support,
