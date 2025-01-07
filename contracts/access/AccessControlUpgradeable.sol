@@ -214,7 +214,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
     }
 
     /**
-     * @dev Attempts to revoke `role` to `account` and returns a boolean indicating if `role` was revoked.
+     * @dev Attempts to revoke `role` from `account` and returns a boolean indicating if `role` was revoked.
      *
      * Internal function without access restriction.
      *
