@@ -252,7 +252,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
      *
      * Requirements:
      *
-     * - The caller must have provided enough gas to forward with the call.
+     * - The caller must have provided enough gas to proceed with the call.
      * - The request must be valid (see {verify}) if the `requireValidRequest` is true.
      *
      * Emits an {ExecutedForwardRequest} event.
