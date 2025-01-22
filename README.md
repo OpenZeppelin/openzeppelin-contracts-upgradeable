@@ -100,7 +100,7 @@ OpenZeppelin Contracts is made available under the MIT License, which disclaims 
 
 ## Contribute
 
-OpenZeppelin Contracts exists thanks to its contributors. There are many ways you can participate and help build high quality software. Check out the [contribution guide](CONTRIBUTING.md)!
+OpenZeppelin Contracts exists thanks to its contributors. There are many ways you can participate and help build high-quality software. Check out the [contribution guide](CONTRIBUTING.md)!
 
 ## License
 
