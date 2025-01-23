@@ -51,18 +51,6 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
     error ExpectedPause();
 
     /**
-     * @dev Initializes the contract in unpaused state.
-     */
-    function __Pausable_init() internal onlyInitializing {
-        __Pausable_init_unchained();
-    }
-
-    function __Pausable_init_unchained() internal onlyInitializing {
-        PausableStorage storage $ = _getPausableStorage();
-        $._paused = false;
-    }
-
-    /**
      * @dev Modifier to make a function callable only when the contract is not paused.
      *
      * Requirements:
@@ -86,6 +74,11 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
         _;
     }
 
+    function __Pausable_init() internal onlyInitializing {
+    }
+
+    function __Pausable_init_unchained() internal onlyInitializing {
+    }
     /**
      * @dev Returns true if the contract is paused, and false otherwise.
      */

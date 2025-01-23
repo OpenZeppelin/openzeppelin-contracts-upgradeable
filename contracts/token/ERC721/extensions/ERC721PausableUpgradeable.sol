@@ -22,7 +22,6 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  */
 abstract contract ERC721PausableUpgradeable is Initializable, ERC721Upgradeable, PausableUpgradeable {
     function __ERC721Pausable_init() internal onlyInitializing {
-        __Pausable_init_unchained();
     }
 
     function __ERC721Pausable_init_unchained() internal onlyInitializing {

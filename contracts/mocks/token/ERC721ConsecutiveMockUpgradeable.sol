@@ -24,7 +24,6 @@ contract ERC721ConsecutiveMockUpgradeable is Initializable, ERC721ConsecutiveUpg
         uint96[] memory amounts
     ) internal onlyInitializing {
         __ERC721_init_unchained(name, symbol);
-        __Pausable_init_unchained();
         __EIP712_init_unchained(name, "1");
         __ERC721ConsecutiveMock_init_unchained(name, symbol, offset, delegates, receivers, amounts);
     }

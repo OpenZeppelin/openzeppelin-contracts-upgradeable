@@ -10,7 +10,6 @@ contract PausableMockUpgradeable is Initializable, PausableUpgradeable {
     uint256 public count;
 
     function __PausableMock_init() internal onlyInitializing {
-        __Pausable_init_unchained();
         __PausableMock_init_unchained();
     }
 
