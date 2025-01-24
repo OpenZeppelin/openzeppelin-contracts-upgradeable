@@ -486,7 +486,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
      * performed (for example adding a vault/timelock).
      *
      * NOTE: Calling this function directly will NOT check the current state of the proposal, set the executed flag to
-     * true or emit the `ProposalExecuted` event. Executing a proposal should be done using {execute} or {_execute}.
+     * true or emit the `ProposalExecuted` event. Executing a proposal should be done using {execute}.
      */
     function _executeOperations(
         uint256 /* proposalId */,

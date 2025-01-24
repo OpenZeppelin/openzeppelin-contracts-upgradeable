@@ -305,7 +305,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
     }
 
     /**
-     * @dev See {IGovernor-_cancel}
+     * @dev See {Governor-_cancel}
      */
     function _cancel(
         address[] memory targets,

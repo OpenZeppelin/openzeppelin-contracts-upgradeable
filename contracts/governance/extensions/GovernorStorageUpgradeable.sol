@@ -69,7 +69,7 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
     }
 
     /**
-     * @dev Version of {IGovernorTimelock-queue} with only `proposalId` as an argument.
+     * @dev Version of {IGovernor-queue} with only `proposalId` as an argument.
      */
     function queue(uint256 proposalId) public virtual {
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();

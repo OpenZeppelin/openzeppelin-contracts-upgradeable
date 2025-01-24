@@ -180,7 +180,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309, ERC72
     }
 
     /**
-     * @dev Used to offset the first token id in {_nextConsecutiveId}
+     * @dev Used to offset the first token id in `_nextConsecutiveId`
      */
     function _firstConsecutiveId() internal view virtual returns (uint96) {
         return 0;
