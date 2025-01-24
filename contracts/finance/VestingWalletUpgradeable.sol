@@ -17,7 +17,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * Consequently, if the vesting has already started, any amount of tokens sent to this contract will (at least partly)
  * be immediately releasable.
  *
- * By setting the duration to 0, one can configure this contract to behave like an asset timelock that hold tokens for
+ * By setting the duration to 0, one can configure this contract to behave like an asset timelock that holds tokens for
  * a beneficiary until a specified time.
  *
  * NOTE: Since the wallet is {Ownable}, and ownership can be transferred, it is possible to sell unvested tokens.

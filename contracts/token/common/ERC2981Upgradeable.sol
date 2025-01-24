@@ -53,7 +53,7 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeab
     error ERC2981InvalidDefaultRoyaltyReceiver(address receiver);
 
     /**
-     * @dev The royalty set for an specific `tokenId` is invalid (eg. (numerator / denominator) >= 1).
+     * @dev The royalty set for a specific `tokenId` is invalid (eg. (numerator / denominator) >= 1).
      */
     error ERC2981InvalidTokenRoyalty(uint256 tokenId, uint256 numerator, uint256 denominator);
 
