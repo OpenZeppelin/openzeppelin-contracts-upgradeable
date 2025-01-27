@@ -490,6 +490,13 @@ contract GovernorPreventLateQuorumMockUpgradeableWithInit is GovernorPreventLate
         __GovernorPreventLateQuorumMock_init(quorum_);
     }
 }
+import "./governance/GovernorProposalGuardianMockUpgradeable.sol";
+
+contract GovernorProposalGuardianMockUpgradeableWithInit is GovernorProposalGuardianMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorProposalGuardianMock_init();
+    }
+}
 import "./governance/GovernorSequentialProposalIdMockUpgradeable.sol";
 
 contract GovernorSequentialProposalIdMockUpgradeableWithInit is GovernorSequentialProposalIdMockUpgradeable {
