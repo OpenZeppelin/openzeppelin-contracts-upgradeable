@@ -173,7 +173,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /**
      * @dev Contract might receive/hold ETH as part of the maintenance process.
      */
-    receive() external payable {}
+    receive() external payable virtual {}
 
     /**
      * @dev See {IERC165-supportsInterface}.
