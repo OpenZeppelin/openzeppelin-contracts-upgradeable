@@ -518,6 +518,13 @@ contract GovernorStorageMockUpgradeableWithInit is GovernorStorageMockUpgradeabl
         __GovernorStorageMock_init();
     }
 }
+import "./governance/GovernorSuperQuorumMockUpgradeable.sol";
+
+contract GovernorSuperQuorumMockUpgradeableWithInit is GovernorSuperQuorumMockUpgradeable {
+    constructor(uint256 quorum_, uint256 superQuorum_) payable initializer {
+        __GovernorSuperQuorumMock_init(quorum_, superQuorum_);
+    }
+}
 import "./governance/GovernorTimelockAccessMockUpgradeable.sol";
 
 contract GovernorTimelockAccessMockUpgradeableWithInit is GovernorTimelockAccessMockUpgradeable {
@@ -544,6 +551,13 @@ import "./governance/GovernorVoteMockUpgradeable.sol";
 contract GovernorVoteMocksUpgradeableWithInit is GovernorVoteMocksUpgradeable {
     constructor() payable initializer {
         __GovernorVoteMocks_init();
+    }
+}
+import "./governance/GovernorVotesSuperQuorumFractionMockUpgradeable.sol";
+
+contract GovernorVotesSuperQuorumFractionMockUpgradeableWithInit is GovernorVotesSuperQuorumFractionMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorVotesSuperQuorumFractionMock_init();
     }
 }
 import "./governance/GovernorWithParamsMockUpgradeable.sol";
