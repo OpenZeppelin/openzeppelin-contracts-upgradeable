@@ -128,6 +128,20 @@ contract Bytes32ArraysMockUpgradeableWithInit is Bytes32ArraysMockUpgradeable {
         __Bytes32ArraysMock_init(array);
     }
 }
+import "./ArraysMockUpgradeable.sol";
+
+contract BytesArraysMockUpgradeableWithInit is BytesArraysMockUpgradeable {
+    constructor(bytes[] memory array) payable initializer {
+        __BytesArraysMock_init(array);
+    }
+}
+import "./ArraysMockUpgradeable.sol";
+
+contract StringArraysMockUpgradeableWithInit is StringArraysMockUpgradeable {
+    constructor(string[] memory array) payable initializer {
+        __StringArraysMock_init(array);
+    }
+}
 import "./AuthorityMockUpgradeable.sol";
 
 contract NotAuthorityMockUpgradeableWithInit is NotAuthorityMockUpgradeable {

@@ -138,3 +138,55 @@ contract Bytes32ArraysMockUpgradeable is Initializable {
         return _array.length;
     }
 }
+
+contract BytesArraysMockUpgradeable is Initializable {
+    using Arrays for bytes[];
+
+    bytes[] private _array;
+
+    function __BytesArraysMock_init(bytes[] memory array) internal onlyInitializing {
+        __BytesArraysMock_init_unchained(array);
+    }
+
+    function __BytesArraysMock_init_unchained(bytes[] memory array) internal onlyInitializing {
+        _array = array;
+    }
+
+    function unsafeAccess(uint256 pos) external view returns (bytes memory) {
+        return _array.unsafeAccess(pos).value;
+    }
+
+    function unsafeSetLength(uint256 newLength) external {
+        _array.unsafeSetLength(newLength);
+    }
+
+    function length() external view returns (uint256) {
+        return _array.length;
+    }
+}
+
+contract StringArraysMockUpgradeable is Initializable {
+    using Arrays for string[];
+
+    string[] private _array;
+
+    function __StringArraysMock_init(string[] memory array) internal onlyInitializing {
+        __StringArraysMock_init_unchained(array);
+    }
+
+    function __StringArraysMock_init_unchained(string[] memory array) internal onlyInitializing {
+        _array = array;
+    }
+
+    function unsafeAccess(uint256 pos) external view returns (string memory) {
+        return _array.unsafeAccess(pos).value;
+    }
+
+    function unsafeSetLength(uint256 newLength) external {
+        _array.unsafeSetLength(newLength);
+    }
+
+    function length() external view returns (uint256) {
+        return _array.length;
+    }
+}
