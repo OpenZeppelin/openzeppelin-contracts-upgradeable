@@ -46,7 +46,7 @@ contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IER
         }
         if (to == address(0)) {
             unchecked {
-                // amount <= _balances[id][from] <= _totalSupplies[id]
+                // amount <= _balances[from][id] <= _totalSupplies[id]
                 $._totalSupplies[id] -= amount;
             }
         }
