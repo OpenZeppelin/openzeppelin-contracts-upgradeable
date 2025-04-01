@@ -52,8 +52,7 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20,
     /**
      * @dev Sets the values for {name} and {symbol}.
      *
-     * All two of these values are immutable: they can only be set once during
-     * construction.
+     * Both values are immutable: they can only be set once during construction.
      */
     function __ERC20_init(string memory name_, string memory symbol_) internal onlyInitializing {
         __ERC20_init_unchained(name_, symbol_);
