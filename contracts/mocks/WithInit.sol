@@ -261,13 +261,6 @@ contract AccessControlModifiedUpgradeableWithInit is AccessControlModifiedUpgrad
         __AccessControlModified_init();
     }
 }
-import "./docs/access-control/AccessControlNonRevokableAdminUpgradeable.sol";
-
-contract AccessControlNonRevokableAdminUpgradeableWithInit is AccessControlNonRevokableAdminUpgradeable {
-    constructor() payable initializer {
-        __AccessControlNonRevokableAdmin_init();
-    }
-}
 import "./docs/access-control/AccessManagedERC20MintBaseUpgradeable.sol";
 
 contract AccessManagedERC20MintUpgradeableWithInit is AccessManagedERC20MintUpgradeable {

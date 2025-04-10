@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v5.3.0) (token/ERC6909/extensions/draft-ERC6909TokenSupply.sol)
 
 pragma solidity ^0.8.20;
 
@@ -46,7 +47,7 @@ contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IER
         }
         if (to == address(0)) {
             unchecked {
-                // amount <= _balances[id][from] <= _totalSupplies[id]
+                // amount <= _balances[from][id] <= _totalSupplies[id]
                 $._totalSupplies[id] -= amount;
             }
         }
