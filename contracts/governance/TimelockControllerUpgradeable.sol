@@ -7,6 +7,7 @@ import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
 import {ERC721HolderUpgradeable} from "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import {ERC1155HolderUpgradeable} from "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -175,9 +176,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     receive() external payable virtual {}
 
-    /**
-     * @dev See {IERC165-supportsInterface}.
-     */
+    /// @inheritdoc IERC165
     function supportsInterface(
         bytes4 interfaceId
     ) public view virtual override(AccessControlUpgradeable, ERC1155HolderUpgradeable) returns (bool) {

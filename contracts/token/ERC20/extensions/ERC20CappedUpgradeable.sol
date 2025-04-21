@@ -58,9 +58,7 @@ abstract contract ERC20CappedUpgradeable is Initializable, ERC20Upgradeable {
         return $._cap;
     }
 
-    /**
-     * @dev See {ERC20-_update}.
-     */
+    /// @inheritdoc ERC20Upgradeable
     function _update(address from, address to, uint256 value) internal virtual override {
         super._update(from, to, value);
 

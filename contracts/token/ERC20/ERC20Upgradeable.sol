@@ -98,17 +98,13 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20,
         return 18;
     }
 
-    /**
-     * @dev See {IERC20-totalSupply}.
-     */
+    /// @inheritdoc IERC20
     function totalSupply() public view virtual returns (uint256) {
         ERC20Storage storage $ = _getERC20Storage();
         return $._totalSupply;
     }
 
-    /**
-     * @dev See {IERC20-balanceOf}.
-     */
+    /// @inheritdoc IERC20
     function balanceOf(address account) public view virtual returns (uint256) {
         ERC20Storage storage $ = _getERC20Storage();
         return $._balances[account];
@@ -128,9 +124,7 @@ abstract contract ERC20Upgradeable is Initializable, ContextUpgradeable, IERC20,
         return true;
     }
 
-    /**
-     * @dev See {IERC20-allowance}.
-     */
+    /// @inheritdoc IERC20
     function allowance(address owner, address spender) public view virtual returns (uint256) {
         ERC20Storage storage $ = _getERC20Storage();
         return $._allowances[owner][spender];

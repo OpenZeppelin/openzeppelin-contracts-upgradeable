@@ -52,9 +52,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         _setURI(uri_);
     }
 
-    /**
-     * @dev See {IERC165-supportsInterface}.
-     */
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
         return
             interfaceId == type(IERC1155).interfaceId ||
@@ -77,9 +75,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         return $._uri;
     }
 
-    /**
-     * @dev See {IERC1155-balanceOf}.
-     */
+    /// @inheritdoc IERC1155
     function balanceOf(address account, uint256 id) public view virtual returns (uint256) {
         ERC1155Storage storage $ = _getERC1155Storage();
         return $._balances[id][account];
@@ -109,24 +105,18 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         return batchBalances;
     }
 
-    /**
-     * @dev See {IERC1155-setApprovalForAll}.
-     */
+    /// @inheritdoc IERC1155
     function setApprovalForAll(address operator, bool approved) public virtual {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
 
-    /**
-     * @dev See {IERC1155-isApprovedForAll}.
-     */
+    /// @inheritdoc IERC1155
     function isApprovedForAll(address account, address operator) public view virtual returns (bool) {
         ERC1155Storage storage $ = _getERC1155Storage();
         return $._operatorApprovals[account][operator];
     }
 
-    /**
-     * @dev See {IERC1155-safeTransferFrom}.
-     */
+    /// @inheritdoc IERC1155
     function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes memory data) public virtual {
         address sender = _msgSender();
         if (from != sender && !isApprovedForAll(from, sender)) {
@@ -135,9 +125,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         _safeTransferFrom(from, to, id, value, data);
     }
 
-    /**
-     * @dev See {IERC1155-safeBatchTransferFrom}.
-     */
+    /// @inheritdoc IERC1155
     function safeBatchTransferFrom(
         address from,
         address to,

@@ -24,9 +24,7 @@ abstract contract ERC165Upgradeable is Initializable, IERC165 {
 
     function __ERC165_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev See {IERC165-supportsInterface}.
-     */
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {
         return interfaceId == type(IERC165).interfaceId;
     }

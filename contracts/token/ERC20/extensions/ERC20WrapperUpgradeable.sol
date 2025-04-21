@@ -53,9 +53,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
         $._underlying = underlyingToken;
     }
 
-    /**
-     * @dev See {ERC20-decimals}.
-     */
+    /// @inheritdoc IERC20Metadata
     function decimals() public view virtual override returns (uint8) {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
         try IERC20Metadata(address($._underlying)).decimals() returns (uint8 value) {

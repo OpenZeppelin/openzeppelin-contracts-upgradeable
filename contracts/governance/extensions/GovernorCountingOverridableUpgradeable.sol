@@ -7,6 +7,8 @@ import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/Signa
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
+import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
@@ -64,9 +66,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
 
     function __GovernorCountingOverridable_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev See {IGovernor-COUNTING_MODE}.
-     */
+    /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo,override&quorum=for,abstain&overridable=true";
@@ -104,9 +104,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         return (votes[uint8(VoteType.Against)], votes[uint8(VoteType.For)], votes[uint8(VoteType.Abstain)]);
     }
 
-    /**
-     * @dev See {Governor-_quorumReached}.
-     */
+    /// @inheritdoc GovernorUpgradeable
     function _quorumReached(uint256 proposalId) internal view virtual override returns (bool) {
         GovernorCountingOverridableStorage storage $ = _getGovernorCountingOverridableStorage();
         uint256[3] storage votes = $._proposalVotes[proposalId].votes;

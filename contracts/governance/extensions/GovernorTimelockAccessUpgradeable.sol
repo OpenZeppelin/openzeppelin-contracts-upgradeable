@@ -3,6 +3,7 @@
 
 pragma solidity ^0.8.20;
 
+import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUtils.sol";
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
@@ -195,17 +196,13 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         return (delay, indirect, withDelay);
     }
 
-    /**
-     * @dev See {IGovernor-proposalNeedsQueuing}.
-     */
+    /// @inheritdoc IGovernor
     function proposalNeedsQueuing(uint256 proposalId) public view virtual override returns (bool) {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
         return $._executionPlan[proposalId].delay > 0;
     }
 
-    /**
-     * @dev See {IGovernor-propose}
-     */
+    /// @inheritdoc IGovernor
     function propose(
         address[] memory targets,
         uint256[] memory values,
@@ -307,9 +304,7 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         }
     }
 
-    /**
-     * @dev See {Governor-_cancel}
-     */
+    /// @inheritdoc GovernorUpgradeable
     function _cancel(
         address[] memory targets,
         uint256[] memory values,

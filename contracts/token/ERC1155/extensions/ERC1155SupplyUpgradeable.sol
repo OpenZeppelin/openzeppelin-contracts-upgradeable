@@ -66,9 +66,7 @@ abstract contract ERC1155SupplyUpgradeable is Initializable, ERC1155Upgradeable 
         return totalSupply(id) > 0;
     }
 
-    /**
-     * @dev See {ERC1155-_update}.
-     */
+    /// @inheritdoc ERC1155Upgradeable
     function _update(
         address from,
         address to,

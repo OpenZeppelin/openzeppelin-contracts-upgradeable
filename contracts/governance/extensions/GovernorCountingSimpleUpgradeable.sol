@@ -3,6 +3,7 @@
 
 pragma solidity ^0.8.20;
 
+import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
@@ -45,17 +46,13 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
 
     function __GovernorCountingSimple_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev See {IGovernor-COUNTING_MODE}.
-     */
+    /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo&quorum=for,abstain";
     }
 
-    /**
-     * @dev See {IGovernor-hasVoted}.
-     */
+    /// @inheritdoc IGovernor
     function hasVoted(uint256 proposalId, address account) public view virtual override returns (bool) {
         GovernorCountingSimpleStorage storage $ = _getGovernorCountingSimpleStorage();
         return $._proposalVotes[proposalId].hasVoted[account];
@@ -72,9 +69,7 @@ abstract contract GovernorCountingSimpleUpgradeable is Initializable, GovernorUp
         return (proposalVote.againstVotes, proposalVote.forVotes, proposalVote.abstainVotes);
     }
 
-    /**
-     * @dev See {Governor-_quorumReached}.
-     */
+    /// @inheritdoc GovernorUpgradeable
     function _quorumReached(uint256 proposalId) internal view virtual override returns (bool) {
         GovernorCountingSimpleStorage storage $ = _getGovernorCountingSimpleStorage();
         ProposalVote storage proposalVote = $._proposalVotes[proposalId];

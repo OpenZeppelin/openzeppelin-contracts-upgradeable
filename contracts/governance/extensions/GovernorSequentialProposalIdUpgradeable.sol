@@ -3,6 +3,7 @@
 
 pragma solidity ^0.8.20;
 
+import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
@@ -37,9 +38,7 @@ abstract contract GovernorSequentialProposalIdUpgradeable is Initializable, Gove
 
     function __GovernorSequentialProposalId_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev See {IGovernor-getProposalId}.
-     */
+    /// @inheritdoc IGovernor
     function getProposalId(
         address[] memory targets,
         uint256[] memory values,

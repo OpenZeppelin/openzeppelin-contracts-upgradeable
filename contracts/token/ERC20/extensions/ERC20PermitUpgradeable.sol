@@ -43,9 +43,7 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
 
     function __ERC20Permit_init_unchained(string memory) internal onlyInitializing {}
 
-    /**
-     * @inheritdoc IERC20Permit
-     */
+    /// @inheritdoc IERC20Permit
     function permit(
         address owner,
         address spender,
@@ -71,16 +69,12 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
         _approve(owner, spender, value);
     }
 
-    /**
-     * @inheritdoc IERC20Permit
-     */
+    /// @inheritdoc IERC20Permit
     function nonces(address owner) public view virtual override(IERC20Permit, NoncesUpgradeable) returns (uint256) {
         return super.nonces(owner);
     }
 
-    /**
-     * @inheritdoc IERC20Permit
-     */
+    /// @inheritdoc IERC20Permit
     // solhint-disable-next-line func-name-mixedcase
     function DOMAIN_SEPARATOR() external view virtual returns (bytes32) {
         return _domainSeparatorV4();

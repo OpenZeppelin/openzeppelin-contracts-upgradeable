@@ -5,6 +5,7 @@ pragma solidity ^0.8.20;
 
 import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {ERC165Upgradeable} from "../utils/introspection/ERC165Upgradeable.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
@@ -84,9 +85,7 @@ abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable,
 
     function __AccessControl_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev See {IERC165-supportsInterface}.
-     */
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
         return interfaceId == type(IAccessControl).interfaceId || super.supportsInterface(interfaceId);
     }
