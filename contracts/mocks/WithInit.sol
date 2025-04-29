@@ -191,6 +191,13 @@ contract BatchCallerUpgradeableWithInit is BatchCallerUpgradeable {
         __BatchCaller_init();
     }
 }
+import "./BlockhashMockUpgradeable.sol";
+
+contract BlockhashMockUpgradeableWithInit is BlockhashMockUpgradeable {
+    constructor() payable initializer {
+        __BlockhashMock_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
