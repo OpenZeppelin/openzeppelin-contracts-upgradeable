@@ -955,6 +955,13 @@ contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconR
         __UpgradeableBeaconReentrantMock_init();
     }
 }
+import "./utils/cryptography/ERC7739MockUpgradeable.sol";
+
+contract ERC7739ECDSAMockUpgradeableWithInit is ERC7739ECDSAMockUpgradeable {
+    constructor(address signerAddr) payable initializer {
+        __ERC7739ECDSAMock_init(signerAddr);
+    }
+}
 import "./VotesExtendedMockUpgradeable.sol";
 
 contract VotesExtendedMockUpgradeableWithInit is VotesExtendedMockUpgradeable {
