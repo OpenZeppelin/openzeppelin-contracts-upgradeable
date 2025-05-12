@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {ERC20Upgradeable, ERC1363Upgradeable} from "../../token/ERC20/extensions/ERC1363Upgradeable.sol";
+import {ERC1363Upgradeable} from "../../token/ERC20/extensions/ERC1363Upgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 // contract that replicate USDT approval behavior in approveAndCall

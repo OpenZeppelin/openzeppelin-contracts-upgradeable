@@ -6,7 +6,6 @@ pragma solidity ^0.8.20;
 import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../TimelockControllerUpgradeable.sol";
-import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 

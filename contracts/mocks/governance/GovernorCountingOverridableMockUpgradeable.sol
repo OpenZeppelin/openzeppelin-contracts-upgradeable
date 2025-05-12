@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 import {GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import {GovernorCountingOverridableUpgradeable, VotesExtendedUpgradeable} from "../../governance/extensions/GovernorCountingOverridableUpgradeable.sol";
+import {GovernorCountingOverridableUpgradeable} from "../../governance/extensions/GovernorCountingOverridableUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract GovernorCountingOverridableMockUpgradeable is

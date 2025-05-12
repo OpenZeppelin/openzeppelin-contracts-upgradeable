@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.20;
 
-import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
 import {GovernorTimelockAccessUpgradeable} from "../../governance/extensions/GovernorTimelockAccessUpgradeable.sol";
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";

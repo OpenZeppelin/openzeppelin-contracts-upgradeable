@@ -3,8 +3,6 @@
 pragma solidity ^0.8.20;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 /**
