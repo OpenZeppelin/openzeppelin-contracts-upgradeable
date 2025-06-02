@@ -6,6 +6,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
 contract CallReceiverMockUpgradeable is Initializable {
     event MockFunctionCalled();
     event MockFunctionCalledWithArgs(uint256 a, uint256 b);
+    event MockFunctionCalledExtra(address caller, uint256 value);
 
     uint256[] private _array;
 
@@ -63,6 +64,10 @@ contract CallReceiverMockUpgradeable is Initializable {
             sstore(slot, value)
         }
         return "0x1234";
+    }
+
+    function mockFunctionExtra() public payable {
+        emit MockFunctionCalledExtra(msg.sender, msg.value);
     }
 }
 

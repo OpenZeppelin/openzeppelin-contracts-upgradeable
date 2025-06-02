@@ -5,30 +5,40 @@ pragma solidity ^0.8.20;
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../../../utils/cryptography/EIP712Upgradeable.sol";
 import {ERC7739Upgradeable} from "../../../utils/cryptography/ERC7739Upgradeable.sol";
-import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/AbstractSigner.sol";
+import {SignerECDSAUpgradeable} from "../../../utils/cryptography/SignerECDSAUpgradeable.sol";
+import {SignerP256Upgradeable} from "../../../utils/cryptography/SignerP256Upgradeable.sol";
+import {SignerRSAUpgradeable} from "../../../utils/cryptography/SignerRSAUpgradeable.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
-contract ERC7739ECDSAMockUpgradeable is Initializable, AbstractSigner, ERC7739Upgradeable {
-    address private _signer;
-
+contract ERC7739ECDSAMockUpgradeable is Initializable, ERC7739Upgradeable, SignerECDSAUpgradeable {
     function __ERC7739ECDSAMock_init(address signerAddr) internal onlyInitializing {
         __EIP712_init_unchained("ERC7739ECDSA", "1");
         __ERC7739ECDSAMock_init_unchained(signerAddr);
     }
 
     function __ERC7739ECDSAMock_init_unchained(address signerAddr) internal onlyInitializing {
-        _signer = signerAddr;
+        _setSigner(signerAddr);
+    }
+}
+
+contract ERC7739P256MockUpgradeable is Initializable, ERC7739Upgradeable, SignerP256Upgradeable {
+    function __ERC7739P256Mock_init(bytes32 qx, bytes32 qy) internal onlyInitializing {
+        __EIP712_init_unchained("ERC7739P256", "1");
+        __ERC7739P256Mock_init_unchained(qx, qy);
     }
 
-    function signer() public view virtual returns (address) {
-        return _signer;
+    function __ERC7739P256Mock_init_unchained(bytes32 qx, bytes32 qy) internal onlyInitializing {
+        _setSigner(qx, qy);
+    }
+}
+
+contract ERC7739RSAMockUpgradeable is Initializable, ERC7739Upgradeable, SignerRSAUpgradeable {
+    function __ERC7739RSAMock_init(bytes memory e, bytes memory n) internal onlyInitializing {
+        __EIP712_init_unchained("ERC7739RSA", "1");
+        __ERC7739RSAMock_init_unchained(e, n);
     }
 
-    function _rawSignatureValidation(
-        bytes32 hash,
-        bytes calldata signature
-    ) internal view virtual override returns (bool) {
-        (address recovered, ECDSA.RecoverError err, ) = ECDSA.tryRecover(hash, signature);
-        return signer() == recovered && err == ECDSA.RecoverError.NoError;
+    function __ERC7739RSAMock_init_unchained(bytes memory e, bytes memory n) internal onlyInitializing {
+        _setSigner(e, n);
     }
 }
