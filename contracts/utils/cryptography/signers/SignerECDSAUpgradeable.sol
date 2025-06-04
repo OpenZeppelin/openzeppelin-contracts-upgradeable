@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
+import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/AbstractSigner.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using xref:api:utils#ECDSA[ECDSA] signatures.

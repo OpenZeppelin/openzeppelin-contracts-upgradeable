@@ -8,15 +8,15 @@ import {AccountERC7579HookedUpgradeable} from "../../account/extensions/AccountE
 import {ERC721HolderUpgradeable} from "../../token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import {ERC1155HolderUpgradeable} from "../../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {ERC4337Utils} from "@openzeppelin/contracts/account/utils/draft-ERC4337Utils.sol";
-import {ERC7739Upgradeable} from "../../utils/cryptography/ERC7739Upgradeable.sol";
+import {ERC7739Upgradeable} from "../../utils/cryptography/signers/ERC7739Upgradeable.sol";
 import {ERC7821} from "@openzeppelin/contracts/account/extensions/ERC7821.sol";
 import {MODULE_TYPE_VALIDATOR} from "@openzeppelin/contracts/interfaces/draft-IERC7579.sol";
 import {PackedUserOperation} from "@openzeppelin/contracts/interfaces/draft-IERC4337.sol";
-import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/AbstractSigner.sol";
-import {SignerECDSAUpgradeable} from "../../utils/cryptography/SignerECDSAUpgradeable.sol";
-import {SignerP256Upgradeable} from "../../utils/cryptography/SignerP256Upgradeable.sol";
-import {SignerRSAUpgradeable} from "../../utils/cryptography/SignerRSAUpgradeable.sol";
-import {SignerERC7702} from "@openzeppelin/contracts/utils/cryptography/SignerERC7702.sol";
+import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {SignerECDSAUpgradeable} from "../../utils/cryptography/signers/SignerECDSAUpgradeable.sol";
+import {SignerP256Upgradeable} from "../../utils/cryptography/signers/SignerP256Upgradeable.sol";
+import {SignerRSAUpgradeable} from "../../utils/cryptography/signers/SignerRSAUpgradeable.sol";
+import {SignerERC7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerERC7702.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {

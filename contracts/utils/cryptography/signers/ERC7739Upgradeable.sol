@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.20;
 
+import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {EIP712Upgradeable} from "../EIP712Upgradeable.sol";
+import {ERC7739Utils} from "@openzeppelin/contracts/utils/cryptography/ERC7739Utils.sol";
 import {IERC1271} from "@openzeppelin/contracts/interfaces/IERC1271.sol";
-import {EIP712Upgradeable} from "../cryptography/EIP712Upgradeable.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 import {ShortStrings} from "@openzeppelin/contracts/utils/ShortStrings.sol";
-import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/AbstractSigner.sol";
-import {ERC7739Utils} from "@openzeppelin/contracts/utils/cryptography/ERC7739Utils.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
  * @dev Validates signatures wrapping the message hash in a nested EIP712 type. See {ERC7739Utils}.

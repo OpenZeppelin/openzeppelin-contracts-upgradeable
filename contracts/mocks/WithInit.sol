@@ -1340,21 +1340,21 @@ contract EIP712UpgradeableWithInit is EIP712Upgradeable {
         __EIP712_init(name, version);
     }
 }
-import "../utils/cryptography/SignerECDSAUpgradeable.sol";
+import "../utils/cryptography/signers/SignerECDSAUpgradeable.sol";
 
 contract SignerECDSAUpgradeableWithInit is SignerECDSAUpgradeable {
     constructor() payable initializer {
         __SignerECDSA_init();
     }
 }
-import "../utils/cryptography/SignerP256Upgradeable.sol";
+import "../utils/cryptography/signers/SignerP256Upgradeable.sol";
 
 contract SignerP256UpgradeableWithInit is SignerP256Upgradeable {
     constructor() payable initializer {
         __SignerP256_init();
     }
 }
-import "../utils/cryptography/SignerRSAUpgradeable.sol";
+import "../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 
 contract SignerRSAUpgradeableWithInit is SignerRSAUpgradeable {
     constructor() payable initializer {
