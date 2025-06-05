@@ -17,6 +17,8 @@ import {SignerECDSAUpgradeable} from "../../utils/cryptography/signers/SignerECD
 import {SignerP256Upgradeable} from "../../utils/cryptography/signers/SignerP256Upgradeable.sol";
 import {SignerRSAUpgradeable} from "../../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 import {SignerERC7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerERC7702.sol";
+import {SignerERC7913Upgradeable} from "../../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
+import {MultiSignerERC7913Upgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 
 abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
@@ -170,5 +172,44 @@ abstract contract AccountERC7579HookedMockUpgradeable is Initializable, AccountE
 
     function __AccountERC7579HookedMock_init_unchained(address validator, bytes memory initData) internal onlyInitializing {
         _installModule(MODULE_TYPE_VALIDATOR, validator, initData);
+    }
+}
+
+abstract contract AccountMultiSignerMockUpgradeable is Initializable, Account, MultiSignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+    function __AccountMultiSignerMock_init(bytes[] memory signers, uint64 threshold) internal onlyInitializing {
+        __AccountMultiSignerMock_init_unchained(signers, threshold);
+    }
+
+    function __AccountMultiSignerMock_init_unchained(bytes[] memory signers, uint64 threshold) internal onlyInitializing {
+        _addSigners(signers);
+        _setThreshold(threshold);
+    }
+
+    /// @inheritdoc ERC7821
+    function _erc7821AuthorizedExecutor(
+        address caller,
+        bytes32 mode,
+        bytes calldata executionData
+    ) internal view virtual override returns (bool) {
+        return caller == address(entryPoint()) || super._erc7821AuthorizedExecutor(caller, mode, executionData);
+    }
+}
+
+abstract contract AccountERC7913MockUpgradeable is Initializable, Account, SignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+    function __AccountERC7913Mock_init(bytes memory _signer) internal onlyInitializing {
+        __AccountERC7913Mock_init_unchained(_signer);
+    }
+
+    function __AccountERC7913Mock_init_unchained(bytes memory _signer) internal onlyInitializing {
+        _setSigner(_signer);
+    }
+
+    /// @inheritdoc ERC7821
+    function _erc7821AuthorizedExecutor(
+        address caller,
+        bytes32 mode,
+        bytes calldata executionData
+    ) internal view virtual override returns (bool) {
+        return caller == address(entryPoint()) || super._erc7821AuthorizedExecutor(caller, mode, executionData);
     }
 }

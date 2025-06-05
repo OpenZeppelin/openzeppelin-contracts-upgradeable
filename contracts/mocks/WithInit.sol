@@ -170,6 +170,20 @@ contract AccountERC7579HookedMockUpgradeableWithInit is AccountERC7579HookedMock
         __AccountERC7579HookedMock_init(validator, initData);
     }
 }
+import "./account/AccountMockUpgradeable.sol";
+
+contract AccountMultiSignerMockUpgradeableWithInit is AccountMultiSignerMockUpgradeable {
+    constructor(bytes[] memory signers, uint64 threshold) payable initializer {
+        __AccountMultiSignerMock_init(signers, threshold);
+    }
+}
+import "./account/AccountMockUpgradeable.sol";
+
+contract AccountERC7913MockUpgradeableWithInit is AccountERC7913MockUpgradeable {
+    constructor(bytes memory _signer) payable initializer {
+        __AccountERC7913Mock_init(_signer);
+    }
+}
 import "./account/modules/ERC7579MockUpgradeable.sol";
 
 contract ERC7579ModuleMockUpgradeableWithInit is ERC7579ModuleMockUpgradeable {
@@ -1347,11 +1361,25 @@ contract EIP712UpgradeableWithInit is EIP712Upgradeable {
         __EIP712_init(name, version);
     }
 }
+import "../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
+
+contract MultiSignerERC7913UpgradeableWithInit is MultiSignerERC7913Upgradeable {
+    constructor() payable initializer {
+        __MultiSignerERC7913_init();
+    }
+}
 import "../utils/cryptography/signers/SignerECDSAUpgradeable.sol";
 
 contract SignerECDSAUpgradeableWithInit is SignerECDSAUpgradeable {
     constructor() payable initializer {
         __SignerECDSA_init();
+    }
+}
+import "../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
+
+contract SignerERC7913UpgradeableWithInit is SignerERC7913Upgradeable {
+    constructor() payable initializer {
+        __SignerERC7913_init();
     }
 }
 import "../utils/cryptography/signers/SignerP256Upgradeable.sol";
@@ -1366,6 +1394,20 @@ import "../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 contract SignerRSAUpgradeableWithInit is SignerRSAUpgradeable {
     constructor() payable initializer {
         __SignerRSA_init();
+    }
+}
+import "../utils/cryptography/verifiers/ERC7913P256VerifierUpgradeable.sol";
+
+contract ERC7913P256VerifierUpgradeableWithInit is ERC7913P256VerifierUpgradeable {
+    constructor() payable initializer {
+        __ERC7913P256Verifier_init();
+    }
+}
+import "../utils/cryptography/verifiers/ERC7913RSAVerifierUpgradeable.sol";
+
+contract ERC7913RSAVerifierUpgradeableWithInit is ERC7913RSAVerifierUpgradeable {
+    constructor() payable initializer {
+        __ERC7913RSAVerifier_init();
     }
 }
 import "../utils/introspection/ERC165Upgradeable.sol";
