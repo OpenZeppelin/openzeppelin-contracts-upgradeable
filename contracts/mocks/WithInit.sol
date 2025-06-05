@@ -595,6 +595,13 @@ contract GovernorMockUpgradeableWithInit is GovernorMockUpgradeable {
         __GovernorMock_init();
     }
 }
+import "./governance/GovernorNoncesKeyedMockUpgradeable.sol";
+
+contract GovernorNoncesKeyedMockUpgradeableWithInit is GovernorNoncesKeyedMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorNoncesKeyedMock_init();
+    }
+}
 import "./governance/GovernorPreventLateQuorumMockUpgradeable.sol";
 
 contract GovernorPreventLateQuorumMockUpgradeableWithInit is GovernorPreventLateQuorumMockUpgradeable {
