@@ -3,12 +3,12 @@
 pragma solidity ^0.8.27;
 
 import {Account} from "@openzeppelin/contracts/account/Account.sol";
-import {AccountERC7579Upgradeable} from "../../account/extensions/AccountERC7579Upgradeable.sol";
-import {AccountERC7579HookedUpgradeable} from "../../account/extensions/AccountERC7579HookedUpgradeable.sol";
+import {AccountERC7579Upgradeable} from "../../account/extensions/draft-AccountERC7579Upgradeable.sol";
+import {AccountERC7579HookedUpgradeable} from "../../account/extensions/draft-AccountERC7579HookedUpgradeable.sol";
 import {ERC721HolderUpgradeable} from "../../token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import {ERC1155HolderUpgradeable} from "../../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {ERC4337Utils} from "@openzeppelin/contracts/account/utils/draft-ERC4337Utils.sol";
-import {ERC7739Upgradeable} from "../../utils/cryptography/signers/ERC7739Upgradeable.sol";
+import {ERC7739Upgradeable} from "../../utils/cryptography/signers/draft-ERC7739Upgradeable.sol";
 import {ERC7821} from "@openzeppelin/contracts/account/extensions/ERC7821.sol";
 import {MODULE_TYPE_VALIDATOR} from "@openzeppelin/contracts/interfaces/draft-IERC7579.sol";
 import {PackedUserOperation} from "@openzeppelin/contracts/interfaces/draft-IERC4337.sol";

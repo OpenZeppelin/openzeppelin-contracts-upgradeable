@@ -51,14 +51,14 @@ contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
         __Ownable2Step_init();
     }
 }
-import "../account/extensions/AccountERC7579Upgradeable.sol";
+import "../account/extensions/draft-AccountERC7579Upgradeable.sol";
 
 contract AccountERC7579UpgradeableWithInit is AccountERC7579Upgradeable {
     constructor() payable initializer {
         __AccountERC7579_init();
     }
 }
-import "../account/extensions/AccountERC7579HookedUpgradeable.sol";
+import "../account/extensions/draft-AccountERC7579HookedUpgradeable.sol";
 
 contract AccountERC7579HookedUpgradeableWithInit is AccountERC7579HookedUpgradeable {
     constructor() payable initializer {
