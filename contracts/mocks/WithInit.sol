@@ -868,6 +868,13 @@ contract ERC20ApprovalMockUpgradeableWithInit is ERC20ApprovalMockUpgradeable {
         __ERC20ApprovalMock_init();
     }
 }
+import "./token/ERC20BridgeableMockUpgradeable.sol";
+
+contract ERC20BridgeableMockUpgradeableWithInit is ERC20BridgeableMockUpgradeable {
+    constructor(address bridge) payable initializer {
+        __ERC20BridgeableMock_init(bridge);
+    }
+}
 import "./token/ERC20DecimalsMockUpgradeable.sol";
 
 contract ERC20DecimalsMockUpgradeableWithInit is ERC20DecimalsMockUpgradeable {
