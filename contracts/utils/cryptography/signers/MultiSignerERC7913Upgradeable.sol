@@ -19,8 +19,6 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  *
  * ```solidity
  * contract MyMultiSignerAccount is Account, MultiSignerERC7913, Initializable {
- *     constructor() EIP712("MyMultiSignerAccount", "1") {}
- *
  *     function initialize(bytes[] memory signers, uint64 threshold) public initializer {
  *         _addSigners(signers);
  *         _setThreshold(threshold);
@@ -101,6 +99,12 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
     function getSigners(uint64 start, uint64 end) public view virtual returns (bytes[] memory) {
         MultiSignerERC7913Storage storage $ = _getMultiSignerERC7913Storage();
         return $._signers.values(start, end);
+    }
+
+    /// @dev Returns the number of authorized signers
+    function getSignerCount() public view virtual returns (uint256) {
+        MultiSignerERC7913Storage storage $ = _getMultiSignerERC7913Storage();
+        return $._signers.length();
     }
 
     /// @dev Returns whether the `signer` is an authorized signer.
