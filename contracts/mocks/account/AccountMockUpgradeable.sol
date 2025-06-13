@@ -9,7 +9,7 @@ import {ERC721HolderUpgradeable} from "../../token/ERC721/utils/ERC721HolderUpgr
 import {ERC1155HolderUpgradeable} from "../../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {ERC4337Utils} from "@openzeppelin/contracts/account/utils/draft-ERC4337Utils.sol";
 import {ERC7739Upgradeable} from "../../utils/cryptography/signers/draft-ERC7739Upgradeable.sol";
-import {ERC7821} from "@openzeppelin/contracts/account/extensions/ERC7821.sol";
+import {ERC7821} from "@openzeppelin/contracts/account/extensions/draft-ERC7821.sol";
 import {MODULE_TYPE_VALIDATOR} from "@openzeppelin/contracts/interfaces/draft-IERC7579.sol";
 import {PackedUserOperation} from "@openzeppelin/contracts/interfaces/draft-IERC4337.sol";
 import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
