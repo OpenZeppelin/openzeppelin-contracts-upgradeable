@@ -124,22 +124,22 @@ contract AccountMockUpgradeableWithInit is AccountMockUpgradeable {
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountECDSAMockUpgradeableWithInit is AccountECDSAMockUpgradeable {
-    constructor(address signerAddr) payable initializer {
-        __AccountECDSAMock_init(signerAddr);
+    constructor() payable initializer {
+        __AccountECDSAMock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountP256MockUpgradeableWithInit is AccountP256MockUpgradeable {
-    constructor(bytes32 qx, bytes32 qy) payable initializer {
-        __AccountP256Mock_init(qx, qy);
+    constructor() payable initializer {
+        __AccountP256Mock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountRSAMockUpgradeableWithInit is AccountRSAMockUpgradeable {
-    constructor(bytes memory e, bytes memory n) payable initializer {
-        __AccountRSAMock_init(e, n);
+    constructor() payable initializer {
+        __AccountRSAMock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
@@ -173,22 +173,22 @@ contract AccountERC7579HookedMockUpgradeableWithInit is AccountERC7579HookedMock
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountERC7913MockUpgradeableWithInit is AccountERC7913MockUpgradeable {
-    constructor(bytes memory _signer) payable initializer {
-        __AccountERC7913Mock_init(_signer);
+    constructor() payable initializer {
+        __AccountERC7913Mock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountMultiSignerMockUpgradeableWithInit is AccountMultiSignerMockUpgradeable {
-    constructor(bytes[] memory signers, uint64 threshold) payable initializer {
-        __AccountMultiSignerMock_init(signers, threshold);
+    constructor() payable initializer {
+        __AccountMultiSignerMock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
 
 contract AccountMultiSignerWeightedMockUpgradeableWithInit is AccountMultiSignerWeightedMockUpgradeable {
-    constructor(bytes[] memory signers, uint64[] memory weights, uint64 threshold) payable initializer {
-        __AccountMultiSignerWeightedMock_init(signers, weights, threshold);
+    constructor() payable initializer {
+        __AccountMultiSignerWeightedMock_init();
     }
 }
 import "./account/modules/ERC7579MockUpgradeable.sol";
@@ -1091,22 +1091,22 @@ contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconR
 import "./utils/cryptography/ERC7739MockUpgradeable.sol";
 
 contract ERC7739ECDSAMockUpgradeableWithInit is ERC7739ECDSAMockUpgradeable {
-    constructor(address signerAddr) payable initializer {
-        __ERC7739ECDSAMock_init(signerAddr);
+    constructor() payable initializer {
+        __ERC7739ECDSAMock_init();
     }
 }
 import "./utils/cryptography/ERC7739MockUpgradeable.sol";
 
 contract ERC7739P256MockUpgradeableWithInit is ERC7739P256MockUpgradeable {
-    constructor(bytes32 qx, bytes32 qy) payable initializer {
-        __ERC7739P256Mock_init(qx, qy);
+    constructor() payable initializer {
+        __ERC7739P256Mock_init();
     }
 }
 import "./utils/cryptography/ERC7739MockUpgradeable.sol";
 
 contract ERC7739RSAMockUpgradeableWithInit is ERC7739RSAMockUpgradeable {
-    constructor(bytes memory e, bytes memory n) payable initializer {
-        __ERC7739RSAMock_init(e, n);
+    constructor() payable initializer {
+        __ERC7739RSAMock_init();
     }
 }
 import "./VotesExtendedMockUpgradeable.sol";
@@ -1378,43 +1378,43 @@ contract EIP712UpgradeableWithInit is EIP712Upgradeable {
 import "../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
 
 contract MultiSignerERC7913UpgradeableWithInit is MultiSignerERC7913Upgradeable {
-    constructor() payable initializer {
-        __MultiSignerERC7913_init();
+    constructor(bytes[] memory signers_, uint64 threshold_) payable initializer {
+        __MultiSignerERC7913_init(signers_, threshold_);
     }
 }
 import "../utils/cryptography/signers/MultiSignerERC7913WeightedUpgradeable.sol";
 
 contract MultiSignerERC7913WeightedUpgradeableWithInit is MultiSignerERC7913WeightedUpgradeable {
-    constructor() payable initializer {
-        __MultiSignerERC7913Weighted_init();
+    constructor(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) payable initializer {
+        __MultiSignerERC7913Weighted_init(signers_, weights_, threshold_);
     }
 }
 import "../utils/cryptography/signers/SignerECDSAUpgradeable.sol";
 
 contract SignerECDSAUpgradeableWithInit is SignerECDSAUpgradeable {
-    constructor() payable initializer {
-        __SignerECDSA_init();
+    constructor(address signerAddr) payable initializer {
+        __SignerECDSA_init(signerAddr);
     }
 }
 import "../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
 
 contract SignerERC7913UpgradeableWithInit is SignerERC7913Upgradeable {
-    constructor() payable initializer {
-        __SignerERC7913_init();
+    constructor(bytes memory signer_) payable initializer {
+        __SignerERC7913_init(signer_);
     }
 }
 import "../utils/cryptography/signers/SignerP256Upgradeable.sol";
 
 contract SignerP256UpgradeableWithInit is SignerP256Upgradeable {
-    constructor() payable initializer {
-        __SignerP256_init();
+    constructor(bytes32 qx, bytes32 qy) payable initializer {
+        __SignerP256_init(qx, qy);
     }
 }
 import "../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 
 contract SignerRSAUpgradeableWithInit is SignerRSAUpgradeable {
-    constructor() payable initializer {
-        __SignerRSA_init();
+    constructor(bytes memory e, bytes memory n) payable initializer {
+        __SignerRSA_init(e, n);
     }
 }
 import "../utils/introspection/ERC165Upgradeable.sol";

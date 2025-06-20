@@ -81,11 +81,16 @@ abstract contract MultiSignerERC7913WeightedUpgradeable is Initializable, MultiS
     /// @dev Thrown when the arrays lengths don't match. See {_setSignerWeights}.
     error MultiSignerERC7913WeightedMismatchedLength();
 
-    function __MultiSignerERC7913Weighted_init() internal onlyInitializing {
+    function __MultiSignerERC7913Weighted_init(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) internal onlyInitializing {
+        __MultiSignerERC7913_init_unchained(signers_, 1);
+        __MultiSignerERC7913Weighted_init_unchained(signers_, weights_, threshold_);
     }
 
-    function __MultiSignerERC7913Weighted_init_unchained() internal onlyInitializing {
+    function __MultiSignerERC7913Weighted_init_unchained(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) internal onlyInitializing {
+        _setSignerWeights(signers_, weights_);
+        _setThreshold(threshold_);
     }
+
     /// @dev Gets the weight of a signer. Returns 0 if the signer is not authorized.
     function signerWeight(bytes memory signer) public view virtual returns (uint64) {
         MultiSignerERC7913WeightedStorage storage $ = _getMultiSignerERC7913WeightedStorage();
