@@ -41,11 +41,14 @@ abstract contract SignerRSAUpgradeable is Initializable, AbstractSigner {
         }
     }
 
-    function __SignerRSA_init() internal onlyInitializing {
+    function __SignerRSA_init(bytes memory e, bytes memory n) internal onlyInitializing {
+        __SignerRSA_init_unchained(e, n);
     }
 
-    function __SignerRSA_init_unchained() internal onlyInitializing {
+    function __SignerRSA_init_unchained(bytes memory e, bytes memory n) internal onlyInitializing {
+        _setSigner(e, n);
     }
+
     /**
      * @dev Sets the signer with a RSA public key. This function should be called during construction
      * or through an initializer.

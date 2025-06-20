@@ -44,14 +44,11 @@ abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgra
 }
 
 abstract contract AccountECDSAMockUpgradeable is Initializable, Account, SignerECDSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
-    function __AccountECDSAMock_init(address signerAddr) internal onlyInitializing {
-        __AccountECDSAMock_init_unchained(signerAddr);
+    function __AccountECDSAMock_init() internal onlyInitializing {
     }
 
-    function __AccountECDSAMock_init_unchained(address signerAddr) internal onlyInitializing {
-        _setSigner(signerAddr);
+    function __AccountECDSAMock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,
@@ -63,14 +60,11 @@ abstract contract AccountECDSAMockUpgradeable is Initializable, Account, SignerE
 }
 
 abstract contract AccountP256MockUpgradeable is Initializable, Account, SignerP256Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
-    function __AccountP256Mock_init(bytes32 qx, bytes32 qy) internal onlyInitializing {
-        __AccountP256Mock_init_unchained(qx, qy);
+    function __AccountP256Mock_init() internal onlyInitializing {
     }
 
-    function __AccountP256Mock_init_unchained(bytes32 qx, bytes32 qy) internal onlyInitializing {
-        _setSigner(qx, qy);
+    function __AccountP256Mock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,
@@ -82,14 +76,11 @@ abstract contract AccountP256MockUpgradeable is Initializable, Account, SignerP2
 }
 
 abstract contract AccountRSAMockUpgradeable is Initializable, Account, SignerRSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
-    function __AccountRSAMock_init(bytes memory e, bytes memory n) internal onlyInitializing {
-        __AccountRSAMock_init_unchained(e, n);
+    function __AccountRSAMock_init() internal onlyInitializing {
     }
 
-    function __AccountRSAMock_init_unchained(bytes memory e, bytes memory n) internal onlyInitializing {
-        _setSigner(e, n);
+    function __AccountRSAMock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,
@@ -177,14 +168,11 @@ abstract contract AccountERC7579HookedMockUpgradeable is Initializable, AccountE
 }
 
 abstract contract AccountERC7913MockUpgradeable is Initializable, Account, SignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
-    function __AccountERC7913Mock_init(bytes memory _signer) internal onlyInitializing {
-        __AccountERC7913Mock_init_unchained(_signer);
+    function __AccountERC7913Mock_init() internal onlyInitializing {
     }
 
-    function __AccountERC7913Mock_init_unchained(bytes memory _signer) internal onlyInitializing {
-        _setSigner(_signer);
+    function __AccountERC7913Mock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,
@@ -196,15 +184,11 @@ abstract contract AccountERC7913MockUpgradeable is Initializable, Account, Signe
 }
 
 abstract contract AccountMultiSignerMockUpgradeable is Initializable, Account, MultiSignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
-    function __AccountMultiSignerMock_init(bytes[] memory signers, uint64 threshold) internal onlyInitializing {
-        __AccountMultiSignerMock_init_unchained(signers, threshold);
+    function __AccountMultiSignerMock_init() internal onlyInitializing {
     }
 
-    function __AccountMultiSignerMock_init_unchained(bytes[] memory signers, uint64 threshold) internal onlyInitializing {
-        _addSigners(signers);
-        _setThreshold(threshold);
+    function __AccountMultiSignerMock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,
@@ -223,16 +207,11 @@ abstract contract AccountMultiSignerWeightedMockUpgradeable is
     ERC721HolderUpgradeable,
     ERC1155HolderUpgradeable
 {
-    function __AccountMultiSignerWeightedMock_init(bytes[] memory signers, uint64[] memory weights, uint64 threshold) internal onlyInitializing {
-        __AccountMultiSignerWeightedMock_init_unchained(signers, weights, threshold);
+    function __AccountMultiSignerWeightedMock_init() internal onlyInitializing {
     }
 
-    function __AccountMultiSignerWeightedMock_init_unchained(bytes[] memory signers, uint64[] memory weights, uint64 threshold) internal onlyInitializing {
-        _addSigners(signers);
-        _setSignerWeights(signers, weights);
-        _setThreshold(threshold);
+    function __AccountMultiSignerWeightedMock_init_unchained() internal onlyInitializing {
     }
-
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
         address caller,

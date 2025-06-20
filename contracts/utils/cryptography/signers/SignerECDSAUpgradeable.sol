@@ -40,11 +40,14 @@ abstract contract SignerECDSAUpgradeable is Initializable, AbstractSigner {
         }
     }
 
-    function __SignerECDSA_init() internal onlyInitializing {
+    function __SignerECDSA_init(address signerAddr) internal onlyInitializing {
+        __SignerECDSA_init_unchained(signerAddr);
     }
 
-    function __SignerECDSA_init_unchained() internal onlyInitializing {
+    function __SignerECDSA_init_unchained(address signerAddr) internal onlyInitializing {
+        _setSigner(signerAddr);
     }
+
     /**
      * @dev Sets the signer with the address of the native signer. This function should be called during construction
      * or through an initializer.

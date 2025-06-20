@@ -44,11 +44,14 @@ abstract contract SignerERC7913Upgradeable is Initializable, AbstractSigner {
         }
     }
 
-    function __SignerERC7913_init() internal onlyInitializing {
+    function __SignerERC7913_init(bytes memory signer_) internal onlyInitializing {
+        __SignerERC7913_init_unchained(signer_);
     }
 
-    function __SignerERC7913_init_unchained() internal onlyInitializing {
+    function __SignerERC7913_init_unchained(bytes memory signer_) internal onlyInitializing {
+        _setSigner(signer_);
     }
+
     /// @dev Return the ERC-7913 signer (i.e. `verifier || key`).
     function signer() public view virtual returns (bytes memory) {
         SignerERC7913Storage storage $ = _getSignerERC7913Storage();

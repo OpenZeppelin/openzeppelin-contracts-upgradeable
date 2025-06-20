@@ -43,11 +43,14 @@ abstract contract SignerP256Upgradeable is Initializable, AbstractSigner {
 
     error SignerP256InvalidPublicKey(bytes32 qx, bytes32 qy);
 
-    function __SignerP256_init() internal onlyInitializing {
+    function __SignerP256_init(bytes32 qx, bytes32 qy) internal onlyInitializing {
+        __SignerP256_init_unchained(qx, qy);
     }
 
-    function __SignerP256_init_unchained() internal onlyInitializing {
+    function __SignerP256_init_unchained(bytes32 qx, bytes32 qy) internal onlyInitializing {
+        _setSigner(qx, qy);
     }
+
     /**
      * @dev Sets the signer with a P256 public key. This function should be called during construction
      * or through an initializer.

@@ -82,11 +82,15 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
     /// @dev The `threshold` is unreachable given the number of `signers`.
     error MultiSignerERC7913UnreachableThreshold(uint64 signers, uint64 threshold);
 
-    function __MultiSignerERC7913_init() internal onlyInitializing {
+    function __MultiSignerERC7913_init(bytes[] memory signers_, uint64 threshold_) internal onlyInitializing {
+        __MultiSignerERC7913_init_unchained(signers_, threshold_);
     }
 
-    function __MultiSignerERC7913_init_unchained() internal onlyInitializing {
+    function __MultiSignerERC7913_init_unchained(bytes[] memory signers_, uint64 threshold_) internal onlyInitializing {
+        _addSigners(signers_);
+        _setThreshold(threshold_);
     }
+
     /**
      * @dev Returns a slice of the set of authorized signers.
      *
