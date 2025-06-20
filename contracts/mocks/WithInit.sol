@@ -1417,20 +1417,6 @@ contract SignerRSAUpgradeableWithInit is SignerRSAUpgradeable {
         __SignerRSA_init();
     }
 }
-import "../utils/cryptography/verifiers/ERC7913P256VerifierUpgradeable.sol";
-
-contract ERC7913P256VerifierUpgradeableWithInit is ERC7913P256VerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913P256Verifier_init();
-    }
-}
-import "../utils/cryptography/verifiers/ERC7913RSAVerifierUpgradeable.sol";
-
-contract ERC7913RSAVerifierUpgradeableWithInit is ERC7913RSAVerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913RSAVerifier_init();
-    }
-}
 import "../utils/introspection/ERC165Upgradeable.sol";
 
 contract ERC165UpgradeableWithInit is ERC165Upgradeable {
