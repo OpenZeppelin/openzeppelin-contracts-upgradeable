@@ -80,6 +80,9 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
     /// @dev The `signer` is less than 20 bytes long.
     error MultiSignerERC7913InvalidSigner(bytes signer);
 
+    /// @dev The `threshold` is zero.
+    error MultiSignerERC7913ZeroThreshold();
+
     /// @dev The `threshold` is unreachable given the number of `signers`.
     error MultiSignerERC7913UnreachableThreshold(uint64 signers, uint64 threshold);
 
@@ -171,6 +174,7 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
      */
     function _setThreshold(uint64 newThreshold) internal virtual {
         MultiSignerERC7913Storage storage $ = _getMultiSignerERC7913Storage();
+        require(newThreshold > 0, MultiSignerERC7913ZeroThreshold());
         $._threshold = newThreshold;
         _validateReachableThreshold();
         emit ERC7913ThresholdSet(newThreshold);
