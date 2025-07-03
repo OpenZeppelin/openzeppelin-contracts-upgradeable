@@ -244,7 +244,7 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
 
     /**
      * @dev Validates the signatures using the signers and their corresponding signatures.
-     * Returns whether whether the signers are authorized and the signatures are valid for the given hash.
+     * Returns whether the signers are authorized and the signatures are valid for the given hash.
      *
      * IMPORTANT: Sorting the signers by their `keccak256` hash will improve the gas efficiency of this function.
      * See {SignatureChecker-areValidSignaturesNow-bytes32-bytes[]-bytes[]} for more details.
