@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.4.0-rc.1) (utils/cryptography/signers/MultiSignerERC7913Weighted.sol)
 
-pragma solidity ^0.8.27;
+pragma solidity ^0.8.26;
 
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {MultiSignerERC7913Upgradeable} from "./MultiSignerERC7913Upgradeable.sol";
@@ -126,18 +126,22 @@ abstract contract MultiSignerERC7913WeightedUpgradeable is Initializable, MultiS
         uint256 extraWeightRemoved = 0;
         for (uint256 i = 0; i < signers.length; ++i) {
             bytes memory signer = signers[i];
-            uint64 weight = weights[i];
-
             require(isSigner(signer), MultiSignerERC7913NonexistentSigner(signer));
+
+            uint64 weight = weights[i];
             require(weight > 0, MultiSignerERC7913WeightedInvalidWeight(signer, weight));
 
             unchecked {
-                // Overflow impossible: weight values are bounded by uint64 and economic constraints
-                extraWeightRemoved += $._extraWeights[signer];
-                extraWeightAdded += $._extraWeights[signer] = weight - 1;
-            }
+                uint64 oldExtraWeight = $._extraWeights[signer];
+                uint64 newExtraWeight = weight - 1;
 
-            emit ERC7913SignerWeightChanged(signer, weight);
+                if (oldExtraWeight != newExtraWeight) {
+                    // Overflow impossible: weight values are bounded by uint64 and economic constraints
+                    extraWeightRemoved += oldExtraWeight;
+                    extraWeightAdded += $._extraWeights[signer] = newExtraWeight;
+                    emit ERC7913SignerWeightChanged(signer, weight);
+                }
+            }
         }
         unchecked {
             // Safe from underflow: `extraWeightRemoved` is bounded by `_totalExtraWeight` by construction
