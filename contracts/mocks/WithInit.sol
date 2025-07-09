@@ -394,6 +394,20 @@ contract MyContractUpgradeableWithInit is MyContractUpgradeable {
         __MyContract_init(initialOwner);
     }
 }
+import "./docs/account/MyAccountERC7702Upgradeable.sol";
+
+contract MyAccountERC7702UpgradeableWithInit is MyAccountERC7702Upgradeable {
+    constructor() payable initializer {
+        __MyAccountERC7702_init();
+    }
+}
+import "./docs/account/MyFactoryAccountUpgradeable.sol";
+
+contract MyFactoryAccountUpgradeableWithInit is MyFactoryAccountUpgradeable {
+    constructor(address impl_) payable initializer {
+        __MyFactoryAccount_init(impl_);
+    }
+}
 import "./docs/ERC20WithAutoMinerRewardUpgradeable.sol";
 
 contract ERC20WithAutoMinerRewardUpgradeableWithInit is ERC20WithAutoMinerRewardUpgradeable {
