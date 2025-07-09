@@ -184,7 +184,8 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
      *
      * Requirements:
      *
-     * * The {signers}'s length must be `>=` to the {threshold}. Throws {MultiSignerERC7913UnreachableThreshold} if not.
+     * * The {getSignerCount} must be greater or equal than to the {threshold}. Throws
+     * {MultiSignerERC7913UnreachableThreshold} if not.
      */
     function _validateReachableThreshold() internal view virtual {
         MultiSignerERC7913Storage storage $ = _getMultiSignerERC7913Storage();
