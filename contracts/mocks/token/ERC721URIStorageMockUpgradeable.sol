@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import {ERC721URIStorageUpgradeable} from "../../token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";

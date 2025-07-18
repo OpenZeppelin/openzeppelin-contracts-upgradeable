@@ -1,6 +1,6 @@
 // contracts/MyNFT.sol
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../../token/ERC721/ERC721Upgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";

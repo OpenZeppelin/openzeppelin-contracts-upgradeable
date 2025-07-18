@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.4.0) (token/ERC721/extensions/ERC721Royalty.sol)
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";

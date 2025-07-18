@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.3.0) (metatx/ERC2771Forwarder.sol)
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import {ERC2771ContextUpgradeable} from "./ERC2771ContextUpgradeable.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
