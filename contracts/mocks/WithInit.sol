@@ -144,6 +144,13 @@ contract AccountRSAMockUpgradeableWithInit is AccountRSAMockUpgradeable {
 }
 import "./account/AccountMockUpgradeable.sol";
 
+contract AccountWebAuthnMockUpgradeableWithInit is AccountWebAuthnMockUpgradeable {
+    constructor() payable initializer {
+        __AccountWebAuthnMock_init();
+    }
+}
+import "./account/AccountMockUpgradeable.sol";
+
 contract AccountERC7702MockUpgradeableWithInit is AccountERC7702MockUpgradeable {
     constructor() payable initializer {
         __AccountERC7702Mock_init();
@@ -1429,6 +1436,20 @@ import "../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 contract SignerRSAUpgradeableWithInit is SignerRSAUpgradeable {
     constructor(bytes memory e, bytes memory n) payable initializer {
         __SignerRSA_init(e, n);
+    }
+}
+import "../utils/cryptography/signers/SignerWebAuthnUpgradeable.sol";
+
+contract SignerWebAuthnUpgradeableWithInit is SignerWebAuthnUpgradeable {
+    constructor() payable initializer {
+        __SignerWebAuthn_init();
+    }
+}
+import "../utils/cryptography/verifiers/ERC7913WebAuthnVerifierUpgradeable.sol";
+
+contract ERC7913WebAuthnVerifierUpgradeableWithInit is ERC7913WebAuthnVerifierUpgradeable {
+    constructor() payable initializer {
+        __ERC7913WebAuthnVerifier_init();
     }
 }
 import "../utils/introspection/ERC165Upgradeable.sol";
