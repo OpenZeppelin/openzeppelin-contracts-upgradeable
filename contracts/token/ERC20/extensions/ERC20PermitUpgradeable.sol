@@ -41,8 +41,6 @@ abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IER
         __EIP712_init_unchained(name, "1");
     }
 
-    function __ERC20Permit_init_unchained(string memory) internal onlyInitializing {}
-
     /// @inheritdoc IERC20Permit
     function permit(
         address owner,
