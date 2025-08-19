@@ -55,7 +55,7 @@ abstract contract ERC721WrapperUpgradeable is Initializable, ERC721Upgradeable, 
             // This is an "unsafe" transfer that doesn't call any hook on the receiver. With underlying() being trusted
             // (by design of this contract) and no other contracts expected to be called from there, we are safe.
             // slither-disable-next-line reentrancy-no-eth
-            underlying().transferFrom(_msgSender(), address(this), tokenId);
+            underlying().transferFrom(_msgSender(), address(this), tokenId); // forge-lint: disable-line(erc20-unchecked-transfer)
             _safeMint(account, tokenId);
         }
 

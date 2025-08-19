@@ -6,7 +6,6 @@ import {GovernorUpgradeable, NoncesUpgradeable} from "../../governance/GovernorU
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import {GovernorProposalGuardianUpgradeable} from "../../governance/extensions/GovernorProposalGuardianUpgradeable.sol";
 import {GovernorNoncesKeyedUpgradeable} from "../../governance/extensions/GovernorNoncesKeyedUpgradeable.sol";
 import {Initializable} from "../../proxy/utils/Initializable.sol";
 

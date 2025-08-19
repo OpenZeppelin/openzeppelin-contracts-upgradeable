@@ -8,7 +8,6 @@ import {EIP712Upgradeable} from "../EIP712Upgradeable.sol";
 import {ERC7739Utils} from "@openzeppelin/contracts/utils/cryptography/draft-ERC7739Utils.sol";
 import {IERC1271} from "@openzeppelin/contracts/interfaces/IERC1271.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
-import {ShortStrings} from "@openzeppelin/contracts/utils/ShortStrings.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
 /**
