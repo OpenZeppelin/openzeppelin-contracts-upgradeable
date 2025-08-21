@@ -79,12 +79,30 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
         _nonReentrantAfter();
     }
 
-    function _nonReentrantBefore() private {
+    /**
+     * @dev A `view` only version of {nonReentrant}. Use to block view functions
+     * from being called, preventing reading from inconsistent contract state.
+     *
+     * CAUTION: This is a "view" modifier and does not change the reentrancy
+     * status. Use it only on view functions. For payable or non-payable functions,
+     * use the standard {nonReentrant} modifier instead.
+     */
+    modifier nonReentrantView() {
+        _nonReentrantBeforeView();
+        _;
+    }
+
+    function _nonReentrantBeforeView() private view {
         ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
-        // On the first call to nonReentrant, _status will be NOT_ENTERED
         if ($._status == ENTERED) {
             revert ReentrancyGuardReentrantCall();
         }
+    }
+
+    function _nonReentrantBefore() private {
+        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
+        // On the first call to nonReentrant, _status will be NOT_ENTERED
+        _nonReentrantBeforeView();
 
         // Any calls to nonReentrant after this point will fail
         $._status = ENTERED;

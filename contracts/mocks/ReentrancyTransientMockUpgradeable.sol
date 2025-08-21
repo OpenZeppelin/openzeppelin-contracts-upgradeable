@@ -21,6 +21,10 @@ contract ReentrancyTransientMockUpgradeable is Initializable, ReentrancyGuardTra
         _count();
     }
 
+    function viewCallback() external view nonReentrantView returns (uint256) {
+        return counter;
+    }
+
     function countLocalRecursive(uint256 n) public nonReentrant {
         if (n > 0) {
             _count();
@@ -39,6 +43,11 @@ contract ReentrancyTransientMockUpgradeable is Initializable, ReentrancyGuardTra
     function countAndCall(ReentrancyAttackUpgradeable attacker) public nonReentrant {
         _count();
         attacker.callSender(abi.encodeCall(this.callback, ()));
+    }
+
+    function countAndCallView(ReentrancyAttackUpgradeable attacker) public nonReentrant {
+        _count();
+        attacker.staticcallSender(abi.encodeCall(this.viewCallback, ()));
     }
 
     function _count() private {
