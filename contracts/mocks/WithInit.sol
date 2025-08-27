@@ -553,42 +553,49 @@ contract ERC1271MaliciousMockUpgradeableWithInit is ERC1271MaliciousMockUpgradea
         __ERC1271MaliciousMock_init();
     }
 }
-import "./ERC165/ERC165InterfacesSupportedUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
 
 contract SupportsInterfaceWithLookupMockUpgradeableWithInit is SupportsInterfaceWithLookupMockUpgradeable {
     constructor() payable initializer {
         __SupportsInterfaceWithLookupMock_init();
     }
 }
-import "./ERC165/ERC165InterfacesSupportedUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
 
 contract ERC165InterfacesSupportedUpgradeableWithInit is ERC165InterfacesSupportedUpgradeable {
     constructor(bytes4[] memory interfaceIds) payable initializer {
         __ERC165InterfacesSupported_init(interfaceIds);
     }
 }
-import "./ERC165/ERC165MaliciousDataUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
+
+contract ERC165RevertInvalidUpgradeableWithInit is ERC165RevertInvalidUpgradeable {
+    constructor(bytes4[] memory interfaceIds) payable initializer {
+        __ERC165RevertInvalid_init(interfaceIds);
+    }
+}
+import "./ERC165MockUpgradeable.sol";
 
 contract ERC165MaliciousDataUpgradeableWithInit is ERC165MaliciousDataUpgradeable {
     constructor() payable initializer {
         __ERC165MaliciousData_init();
     }
 }
-import "./ERC165/ERC165MissingDataUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
 
 contract ERC165MissingDataUpgradeableWithInit is ERC165MissingDataUpgradeable {
     constructor() payable initializer {
         __ERC165MissingData_init();
     }
 }
-import "./ERC165/ERC165NotSupportedUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
 
 contract ERC165NotSupportedUpgradeableWithInit is ERC165NotSupportedUpgradeable {
     constructor() payable initializer {
         __ERC165NotSupported_init();
     }
 }
-import "./ERC165/ERC165ReturnBombUpgradeable.sol";
+import "./ERC165MockUpgradeable.sol";
 
 contract ERC165ReturnBombMockUpgradeableWithInit is ERC165ReturnBombMockUpgradeable {
     constructor() payable initializer {
