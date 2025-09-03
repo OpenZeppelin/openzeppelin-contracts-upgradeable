@@ -2,6 +2,8 @@
 // OpenZeppelin Contracts (last updated v5.1.0) (utils/ReentrancyGuard.sol)
 
 pragma solidity ^0.8.20;
+
+import {StorageSlot} from "@openzeppelin/contracts/utils/StorageSlot.sol";
 import {Initializable} from "../proxy/utils/Initializable.sol";
 
 /**
@@ -22,8 +24,22 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * TIP: If you would like to learn more about reentrancy and alternative ways
  * to protect against it, check out our blog post
  * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ *
+ * IMPORTANT: Deprecated. This storage-based reentrancy guard will be removed and replaced
+ * by the {ReentrancyGuardTransient} variant in v6.0.
  */
 abstract contract ReentrancyGuardUpgradeable is Initializable {
+    using StorageSlot for bytes32;
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ReentrancyGuard")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant REENTRANCY_GUARD_STORAGE =
+        0x9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00;
+
+    /// @custom:storage-location erc7201:openzeppelin.storage.ReentrancyGuard
+    struct ReentrancyGuardStorage {
+        uint256 _status;
+    }
+
     // Booleans are more expensive than uint256 or any type that takes up a full
     // word because each write operation emits an extra SLOAD to first read the
     // slot's contents, replace the bits taken up by the boolean, and then write
@@ -38,20 +54,6 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     uint256 private constant NOT_ENTERED = 1;
     uint256 private constant ENTERED = 2;
 
-    /// @custom:storage-location erc7201:openzeppelin.storage.ReentrancyGuard
-    struct ReentrancyGuardStorage {
-        uint256 _status;
-    }
-
-    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ReentrancyGuard")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant ReentrancyGuardStorageLocation = 0x9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00;
-
-    function _getReentrancyGuardStorage() private pure returns (ReentrancyGuardStorage storage $) {
-        assembly {
-            $.slot := ReentrancyGuardStorageLocation
-        }
-    }
-
     /**
      * @dev Unauthorized reentrant call.
      */
@@ -62,8 +64,7 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     }
 
     function __ReentrancyGuard_init_unchained() internal onlyInitializing {
-        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
-        $._status = NOT_ENTERED;
+        _reentrancyGuardStorageSlot().getUint256Slot().value = NOT_ENTERED;
     }
 
     /**
@@ -93,26 +94,23 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
     }
 
     function _nonReentrantBeforeView() private view {
-        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
-        if ($._status == ENTERED) {
+        if (_reentrancyGuardEntered()) {
             revert ReentrancyGuardReentrantCall();
         }
     }
 
     function _nonReentrantBefore() private {
-        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
         // On the first call to nonReentrant, _status will be NOT_ENTERED
         _nonReentrantBeforeView();
 
         // Any calls to nonReentrant after this point will fail
-        $._status = ENTERED;
+        _reentrancyGuardStorageSlot().getUint256Slot().value = ENTERED;
     }
 
     function _nonReentrantAfter() private {
-        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
         // By storing the original value once again, a refund is triggered (see
         // https://eips.ethereum.org/EIPS/eip-2200)
-        $._status = NOT_ENTERED;
+        _reentrancyGuardStorageSlot().getUint256Slot().value = NOT_ENTERED;
     }
 
     /**
@@ -120,7 +118,10 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
      * `nonReentrant` function in the call stack.
      */
     function _reentrancyGuardEntered() internal view returns (bool) {
-        ReentrancyGuardStorage storage $ = _getReentrancyGuardStorage();
-        return $._status == ENTERED;
+        return _reentrancyGuardStorageSlot().getUint256Slot().value == ENTERED;
+    }
+
+    function _reentrancyGuardStorageSlot() internal pure virtual returns (bytes32) {
+        return REENTRANCY_GUARD_STORAGE;
     }
 }
