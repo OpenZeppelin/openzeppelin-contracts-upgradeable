@@ -8,6 +8,8 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
+import {LowLevelCall} from "@openzeppelin/contracts/utils/LowLevelCall.sol";
+import {Memory} from "@openzeppelin/contracts/utils/Memory.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Initializable} from "../../../proxy/utils/Initializable.sol";
 
@@ -104,16 +106,17 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
      * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
      */
     function _tryGetAssetDecimals(IERC20 asset_) private view returns (bool ok, uint8 assetDecimals) {
-        (bool success, bytes memory encodedDecimals) = address(asset_).staticcall(
+        Memory.Pointer ptr = Memory.getFreeMemoryPointer();
+        (bool success, bytes32 returnedDecimals, ) = LowLevelCall.staticcallReturn64Bytes(
+            address(asset_),
             abi.encodeCall(IERC20Metadata.decimals, ())
         );
-        if (success && encodedDecimals.length >= 32) {
-            uint256 returnedDecimals = abi.decode(encodedDecimals, (uint256));
-            if (returnedDecimals <= type(uint8).max) {
-                return (true, uint8(returnedDecimals));
-            }
-        }
-        return (false, 0);
+        Memory.setFreeMemoryPointer(ptr);
+
+        return
+            (success && LowLevelCall.returnDataSize() >= 32 && uint256(returnedDecimals) <= type(uint8).max)
+                ? (true, uint8(uint256(returnedDecimals)))
+                : (false, 0);
     }
 
     /**
