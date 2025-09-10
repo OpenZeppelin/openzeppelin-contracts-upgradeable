@@ -15,7 +15,7 @@ import {Initializable} from "./Initializable.sol";
  * reinstated if the upgrade retains upgradeability but removes the security mechanism, e.g. by replacing
  * `UUPSUpgradeable` with a custom implementation of upgrades.
  *
- * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
+ * CAUTION: The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
  */
 abstract contract UUPSUpgradeable is Initializable, IERC1822Proxiable {
     /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
