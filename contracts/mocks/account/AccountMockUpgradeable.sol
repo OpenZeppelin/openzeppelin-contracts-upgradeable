@@ -16,7 +16,7 @@ import {SignerECDSAUpgradeable} from "../../utils/cryptography/signers/SignerECD
 import {SignerP256Upgradeable} from "../../utils/cryptography/signers/SignerP256Upgradeable.sol";
 import {SignerRSAUpgradeable} from "../../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 import {SignerWebAuthnUpgradeable} from "../../utils/cryptography/signers/SignerWebAuthnUpgradeable.sol";
-import {SignerERC7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerERC7702.sol";
+import {SignerEIP7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerEIP7702.sol";
 import {SignerERC7913Upgradeable} from "../../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
 import {MultiSignerERC7913Upgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
 import {MultiSignerERC7913WeightedUpgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913WeightedUpgradeable.sol";
@@ -107,7 +107,7 @@ abstract contract AccountWebAuthnMockUpgradeable is Initializable, Account, Sign
     }
 }
 
-abstract contract AccountERC7702MockUpgradeable is Initializable, Account, SignerERC7702, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountERC7702MockUpgradeable is Initializable, Account, SignerEIP7702, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
     function __AccountERC7702Mock_init() internal onlyInitializing {
     }
 
@@ -126,7 +126,7 @@ abstract contract AccountERC7702MockUpgradeable is Initializable, Account, Signe
 abstract contract AccountERC7702WithModulesMockUpgradeable is
     Initializable, Account,
     AccountERC7579Upgradeable,
-    SignerERC7702,
+    SignerEIP7702,
     ERC7739Upgradeable,
     ERC721HolderUpgradeable,
     ERC1155HolderUpgradeable
@@ -158,8 +158,8 @@ abstract contract AccountERC7702WithModulesMockUpgradeable is
     function _rawSignatureValidation(
         bytes32 hash,
         bytes calldata signature
-    ) internal view virtual override(AbstractSigner, AccountERC7579Upgradeable, SignerERC7702) returns (bool) {
-        return SignerERC7702._rawSignatureValidation(hash, signature);
+    ) internal view virtual override(AbstractSigner, AccountERC7579Upgradeable, SignerEIP7702) returns (bool) {
+        return SignerEIP7702._rawSignatureValidation(hash, signature);
     }
 }
 
