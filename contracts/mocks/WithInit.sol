@@ -359,6 +359,20 @@ contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
         __ContextMockCaller_init();
     }
 }
+import "./crosschain/ERC7786GatewayMockUpgradeable.sol";
+
+contract ERC7786GatewayMockUpgradeableWithInit is ERC7786GatewayMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7786GatewayMock_init();
+    }
+}
+import "./crosschain/ERC7786RecipientMockUpgradeable.sol";
+
+contract ERC7786RecipientMockUpgradeableWithInit is ERC7786RecipientMockUpgradeable {
+    constructor(address gateway_) payable initializer {
+        __ERC7786RecipientMock_init(gateway_);
+    }
+}
 import "./docs/access-control/AccessControlERC20MintBaseUpgradeable.sol";
 
 contract AccessControlERC20MintBaseUpgradeableWithInit is AccessControlERC20MintBaseUpgradeable {
