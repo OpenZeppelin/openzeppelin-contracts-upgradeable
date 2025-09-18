@@ -295,7 +295,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
             uint256 gasLeft;
 
             assembly ("memory-safe") {
-                success := call(reqGas, to, value, add(data, 0x20), mload(data), 0, 0)
+                success := call(reqGas, to, value, add(data, 0x20), mload(data), 0x00, 0x00)
                 gasLeft := gas()
             }
 
@@ -326,9 +326,9 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
             // |-----------|----------|--------------------------------------------------------------------|
             // |           |          |                                                           result ↓ |
             // | 0x00:0x1F | selector | 0x0000000000000000000000000000000000000000000000000000000000000001 |
-            success := staticcall(gas(), target, add(encodedParams, 0x20), mload(encodedParams), 0, 0x20)
+            success := staticcall(gas(), target, add(encodedParams, 0x20), mload(encodedParams), 0x00, 0x20)
             returnSize := returndatasize()
-            returnValue := mload(0)
+            returnValue := mload(0x00)
         }
 
         return success && returnSize >= 0x20 && returnValue > 0;
