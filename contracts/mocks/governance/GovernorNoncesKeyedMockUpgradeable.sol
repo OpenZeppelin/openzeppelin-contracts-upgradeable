@@ -7,7 +7,7 @@ import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorS
 import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorNoncesKeyedUpgradeable} from "../../governance/extensions/GovernorNoncesKeyedUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorNoncesKeyedMockUpgradeable is
     Initializable, GovernorSettingsUpgradeable,

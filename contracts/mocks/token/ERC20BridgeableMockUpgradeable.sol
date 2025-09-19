@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC20BridgeableUpgradeable} from "../../token/ERC20/extensions/draft-ERC20BridgeableUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract ERC20BridgeableMockUpgradeable is Initializable, ERC20BridgeableUpgradeable {
     address private _bridge;

@@ -6,7 +6,7 @@ pragma solidity ^0.8.20;
 import {IERC3156FlashBorrower} from "@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol";
 import {IERC3156FlashLender} from "@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol";
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC-3156 Flash loans extension, as defined in

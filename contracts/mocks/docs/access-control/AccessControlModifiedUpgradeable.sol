@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../../../access/AccessControlUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract AccessControlModifiedUpgradeable is Initializable, AccessControlUpgradeable {
     error AccessControlNonRevocable();

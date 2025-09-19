@@ -7,7 +7,7 @@ import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {IERC7802} from "@openzeppelin/contracts/interfaces/draft-IERC7802.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC20 extension that implements the standard token interface according to

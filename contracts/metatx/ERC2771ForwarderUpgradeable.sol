@@ -9,7 +9,7 @@ import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Errors} from "@openzeppelin/contracts/utils/Errors.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A forwarder compatible with ERC-2771 contracts. See {ERC2771Context}.

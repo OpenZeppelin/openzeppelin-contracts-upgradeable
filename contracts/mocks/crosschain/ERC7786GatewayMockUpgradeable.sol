@@ -4,7 +4,7 @@ pragma solidity ^0.8.27;
 
 import {IERC7786GatewaySource, IERC7786Recipient} from "@openzeppelin/contracts/interfaces/draft-IERC7786.sol";
 import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract ERC7786GatewayMockUpgradeable is Initializable, IERC7786GatewaySource {
     using InteroperableAddress for bytes;

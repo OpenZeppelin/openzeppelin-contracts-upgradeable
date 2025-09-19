@@ -7,7 +7,7 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A vesting wallet is an ownable contract that can receive native currency and ERC-20 tokens, and release these

@@ -20,7 +20,7 @@ import {SignerEIP7702} from "@openzeppelin/contracts/utils/cryptography/signers/
 import {SignerERC7913Upgradeable} from "../../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
 import {MultiSignerERC7913Upgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
 import {MultiSignerERC7913WeightedUpgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913WeightedUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
     function __AccountMock_init() internal onlyInitializing {

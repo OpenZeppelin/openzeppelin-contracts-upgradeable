@@ -6,7 +6,7 @@ pragma solidity ^0.8.24;
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This implements an optional extension of {ERC721} defined in the ERC that adds enumerability

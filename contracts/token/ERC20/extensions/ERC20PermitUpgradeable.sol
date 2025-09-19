@@ -8,7 +8,7 @@ import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../../../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC-20 Permit extension allowing approvals to be made via signatures, as defined in

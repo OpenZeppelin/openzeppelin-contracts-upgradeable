@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract Uint256ArraysMockUpgradeable is Initializable {
     using Arrays for uint256[];

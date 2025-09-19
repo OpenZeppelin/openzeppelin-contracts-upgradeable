@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {AccessManagedUpgradeable} from "../../../access/manager/AccessManagedUpgradeable.sol";
 import {ERC20Upgradeable} from "../../../token/ERC20/ERC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract AccessManagedERC20MintUpgradeable is Initializable, ERC20Upgradeable, AccessManagedUpgradeable {
     function __AccessManagedERC20Mint_init(address manager) internal onlyInitializing {

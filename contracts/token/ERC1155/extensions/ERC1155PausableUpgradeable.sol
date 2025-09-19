@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {PausableUpgradeable} from "../../../utils/PausableUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC-1155 token with pausable token transfers, minting and burning.

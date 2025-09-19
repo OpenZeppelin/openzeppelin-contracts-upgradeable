@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../draft-ERC6909Upgradeable.sol";
 import {IERC6909Metadata} from "@openzeppelin/contracts/interfaces/draft-IERC6909.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Metadata extension defined in ERC6909. Exposes the name, symbol, and decimals of each token id.

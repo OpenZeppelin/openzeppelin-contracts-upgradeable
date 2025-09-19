@@ -53,7 +53,7 @@ import {SignedMath} from "@openzeppelin/contracts/utils/math/SignedMath.sol";
 import {StorageSlot} from "@openzeppelin/contracts/utils/StorageSlot.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract Dummy1234Upgradeable is Initializable {    function __Dummy1234_init() internal onlyInitializing {
     }

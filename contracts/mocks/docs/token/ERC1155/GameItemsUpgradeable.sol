@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC1155Upgradeable} from "../../../../token/ERC1155/ERC1155Upgradeable.sol";
-import {Initializable} from "../../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract GameItemsUpgradeable is Initializable, ERC1155Upgradeable {
     uint256 public constant GOLD = 0;

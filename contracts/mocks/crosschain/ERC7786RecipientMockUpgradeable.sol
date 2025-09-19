@@ -3,7 +3,7 @@
 pragma solidity ^0.8.27;
 
 import {ERC7786RecipientUpgradeable} from "../../crosschain/ERC7786RecipientUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC7786RecipientMockUpgradeable is Initializable, ERC7786RecipientUpgradeable {
     address private _gateway;

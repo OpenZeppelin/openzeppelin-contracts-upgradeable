@@ -7,7 +7,7 @@ import {ERC721HolderUpgradeable} from "../../../token/ERC721/utils/ERC721HolderU
 import {ERC1155HolderUpgradeable} from "../../../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
 import {ERC7821} from "@openzeppelin/contracts/account/extensions/draft-ERC7821.sol";
 import {SignerEIP7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerEIP7702.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract MyAccountERC7702Upgradeable is Initializable, Account, SignerEIP7702, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
     function __MyAccountERC7702_init() internal onlyInitializing {

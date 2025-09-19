@@ -7,7 +7,7 @@ import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC2309} from "@openzeppelin/contracts/interfaces/IERC2309.sol";
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC-2309 "Consecutive Transfer Extension" as defined in

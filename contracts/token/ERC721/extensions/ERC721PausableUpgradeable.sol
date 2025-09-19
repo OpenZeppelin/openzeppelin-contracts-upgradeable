@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {PausableUpgradeable} from "../../../utils/PausableUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev ERC-721 token with pausable token transfers, minting and burning.

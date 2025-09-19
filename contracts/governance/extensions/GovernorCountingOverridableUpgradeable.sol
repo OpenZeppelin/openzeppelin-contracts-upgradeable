@@ -9,7 +9,7 @@ import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} which enables delegators to override the vote of their delegates. This module requires a

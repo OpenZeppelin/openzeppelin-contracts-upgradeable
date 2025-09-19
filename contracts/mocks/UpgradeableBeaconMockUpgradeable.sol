@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {IBeacon} from "@openzeppelin/contracts/proxy/beacon/IBeacon.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract UpgradeableBeaconMockUpgradeable is Initializable, IBeacon {
     address public implementation;

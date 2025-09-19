@@ -5,7 +5,7 @@ pragma solidity ^0.8.26;
 
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {MultiSignerERC7913Upgradeable} from "./MultiSignerERC7913Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {MultiSignerERC7913} that supports weighted signatures.

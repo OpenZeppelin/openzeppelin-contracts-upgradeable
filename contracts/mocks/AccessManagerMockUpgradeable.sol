@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {AccessManagerUpgradeable} from "../access/manager/AccessManagerUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract AccessManagerMockUpgradeable is Initializable, AccessManagerUpgradeable {
     event CalledRestricted(address caller);

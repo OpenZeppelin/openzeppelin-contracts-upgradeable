@@ -6,7 +6,7 @@ import {ContextMockUpgradeable} from "./ContextMockUpgradeable.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {MulticallUpgradeable} from "../utils/MulticallUpgradeable.sol";
 import {ERC2771ContextUpgradeable} from "../metatx/ERC2771ContextUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 // By inheriting from ERC2771Context, Context's internal functions are overridden automatically
 contract ERC2771ContextMockUpgradeable is Initializable, ContextMockUpgradeable, ERC2771ContextUpgradeable, MulticallUpgradeable {

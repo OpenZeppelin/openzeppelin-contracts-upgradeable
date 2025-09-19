@@ -3,7 +3,7 @@
 pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../../token/ERC721/ERC721Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract MyNFTUpgradeable is Initializable, ERC721Upgradeable {
     function __MyNFT_init() internal onlyInitializing {

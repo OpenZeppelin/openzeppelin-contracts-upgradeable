@@ -4,7 +4,7 @@
 pragma solidity ^0.8.24;
 
 import {TransientSlot} from "@openzeppelin/contracts/utils/TransientSlot.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Variant of {ReentrancyGuard} that uses transient storage.

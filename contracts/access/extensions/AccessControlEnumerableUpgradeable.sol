@@ -7,7 +7,7 @@ import {IAccessControlEnumerable} from "@openzeppelin/contracts/access/extension
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
 import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.

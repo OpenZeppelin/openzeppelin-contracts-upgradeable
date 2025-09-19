@@ -7,7 +7,7 @@ import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {NoncesKeyedUpgradeable} from "../../utils/NoncesKeyedUpgradeable.sol";
 import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev An extension of {Governor} that extends existing nonce management to use {NoncesKeyed}, where the key is the low-order 192 bits of the `proposalId`.

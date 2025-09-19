@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../draft-ERC6909Upgradeable.sol";
 import {IERC6909ContentURI} from "@openzeppelin/contracts/interfaces/draft-IERC6909.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Content URI extension defined in ERC6909.

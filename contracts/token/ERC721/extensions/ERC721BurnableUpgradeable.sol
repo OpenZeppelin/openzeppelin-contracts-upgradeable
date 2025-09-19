@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @title ERC-721 Burnable Token

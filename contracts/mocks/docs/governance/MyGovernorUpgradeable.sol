@@ -8,7 +8,7 @@ import {GovernorVotesQuorumFractionUpgradeable} from "../../../governance/extens
 import {GovernorTimelockControlUpgradeable} from "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../../../governance/TimelockControllerUpgradeable.sol";
 import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract MyGovernorUpgradeable is
     Initializable, GovernorUpgradeable,

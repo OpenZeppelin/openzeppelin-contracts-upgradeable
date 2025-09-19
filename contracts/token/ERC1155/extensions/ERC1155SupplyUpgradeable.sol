@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of ERC-1155 that adds tracking of total supply per id.

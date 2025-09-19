@@ -7,7 +7,7 @@ import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUt
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
 import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This contract module makes available a {restricted} modifier. Functions decorated with this modifier will be

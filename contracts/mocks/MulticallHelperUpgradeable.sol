@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {ERC20MulticallMockUpgradeable} from "./token/ERC20MulticallMockUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract MulticallHelperUpgradeable is Initializable {
     function __MulticallHelper_init() internal onlyInitializing {

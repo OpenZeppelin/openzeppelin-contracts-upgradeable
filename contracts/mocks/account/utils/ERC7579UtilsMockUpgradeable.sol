@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {CallType, ExecType, ModeSelector, ModePayload} from "@openzeppelin/contracts/account/utils/draft-ERC7579Utils.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC7579UtilsGlobalMockUpgradeable is Initializable {
     function __ERC7579UtilsGlobalMock_init() internal onlyInitializing {

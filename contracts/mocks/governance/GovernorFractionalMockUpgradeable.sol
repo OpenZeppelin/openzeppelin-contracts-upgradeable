@@ -6,7 +6,7 @@ import {GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import {GovernorCountingFractionalUpgradeable} from "../../governance/extensions/GovernorCountingFractionalUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorFractionalMockUpgradeable is Initializable, GovernorSettingsUpgradeable, GovernorVotesQuorumFractionUpgradeable, GovernorCountingFractionalUpgradeable {
     function __GovernorFractionalMock_init() internal onlyInitializing {

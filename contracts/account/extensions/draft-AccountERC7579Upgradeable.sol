@@ -13,7 +13,7 @@ import {Bytes} from "@openzeppelin/contracts/utils/Bytes.sol";
 import {Packing} from "@openzeppelin/contracts/utils/Packing.sol";
 import {Calldata} from "@openzeppelin/contracts/utils/Calldata.sol";
 import {Account} from "@openzeppelin/contracts/account/Account.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Account} that implements support for ERC-7579 modules.

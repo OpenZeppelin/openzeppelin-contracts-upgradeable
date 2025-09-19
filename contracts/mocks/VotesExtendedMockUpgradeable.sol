@@ -3,7 +3,7 @@
 pragma solidity ^0.8.24;
 
 import {VotesExtendedUpgradeable} from "../governance/utils/VotesExtendedUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 abstract contract VotesExtendedMockUpgradeable is Initializable, VotesExtendedUpgradeable {
     mapping(address voter => uint256) private _votingUnits;

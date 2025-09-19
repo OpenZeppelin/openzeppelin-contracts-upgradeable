@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 import {ERC721Upgradeable} from "../../../token/ERC721/ERC721Upgradeable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract Base64NFTUpgradeable is Initializable, ERC721Upgradeable {
     using Strings for uint256;

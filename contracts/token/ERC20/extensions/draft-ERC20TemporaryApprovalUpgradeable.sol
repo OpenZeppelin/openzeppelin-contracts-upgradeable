@@ -9,7 +9,7 @@ import {IERC7674} from "@openzeppelin/contracts/interfaces/draft-IERC7674.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {SlotDerivation} from "@openzeppelin/contracts/utils/SlotDerivation.sol";
 import {TransientSlot} from "@openzeppelin/contracts/utils/TransientSlot.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {ERC20} that adds support for temporary allowances following ERC-7674.

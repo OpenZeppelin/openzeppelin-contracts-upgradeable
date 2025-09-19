@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../../../access/AccessControlUpgradeable.sol";
 import {ERC20Upgradeable} from "../../../token/ERC20/ERC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract AccessControlERC20MintMissingUpgradeable is Initializable, ERC20Upgradeable, AccessControlUpgradeable {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");

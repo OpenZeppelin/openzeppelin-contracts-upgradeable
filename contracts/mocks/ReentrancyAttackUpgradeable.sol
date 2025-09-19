@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ReentrancyAttackUpgradeable is Initializable, ContextUpgradeable {
     function __ReentrancyAttack_init() internal onlyInitializing {

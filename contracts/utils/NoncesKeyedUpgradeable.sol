@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {NoncesUpgradeable} from "./NoncesUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Alternative to {Nonces}, that supports key-ed nonces.

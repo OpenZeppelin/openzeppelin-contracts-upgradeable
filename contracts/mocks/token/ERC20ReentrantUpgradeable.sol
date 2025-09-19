@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {ERC20Upgradeable} from "../../token/ERC20/ERC20Upgradeable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC20ReentrantUpgradeable is Initializable, ERC20Upgradeable {
     enum Type {
