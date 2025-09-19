@@ -5,8 +5,8 @@ pragma solidity ^0.8.26;
 import {Account} from "@openzeppelin/contracts/account/Account.sol";
 import {AccountERC7579Upgradeable} from "../../account/extensions/draft-AccountERC7579Upgradeable.sol";
 import {AccountERC7579HookedUpgradeable} from "../../account/extensions/draft-AccountERC7579HookedUpgradeable.sol";
-import {ERC721HolderUpgradeable} from "../../token/ERC721/utils/ERC721HolderUpgradeable.sol";
-import {ERC1155HolderUpgradeable} from "../../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
+import {ERC721Holder} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import {ERC1155Holder} from "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import {ERC7739Upgradeable} from "../../utils/cryptography/signers/draft-ERC7739Upgradeable.sol";
 import {ERC7821} from "@openzeppelin/contracts/account/extensions/draft-ERC7821.sol";
 import {MODULE_TYPE_VALIDATOR} from "@openzeppelin/contracts/interfaces/draft-IERC7579.sol";
@@ -22,7 +22,7 @@ import {MultiSignerERC7913Upgradeable} from "../../utils/cryptography/signers/Mu
 import {MultiSignerERC7913WeightedUpgradeable} from "../../utils/cryptography/signers/MultiSignerERC7913WeightedUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountMock_init() internal onlyInitializing {
     }
 
@@ -43,7 +43,7 @@ abstract contract AccountMockUpgradeable is Initializable, Account, ERC7739Upgra
     }
 }
 
-abstract contract AccountECDSAMockUpgradeable is Initializable, Account, SignerECDSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountECDSAMockUpgradeable is Initializable, Account, SignerECDSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountECDSAMock_init() internal onlyInitializing {
     }
 
@@ -59,7 +59,7 @@ abstract contract AccountECDSAMockUpgradeable is Initializable, Account, SignerE
     }
 }
 
-abstract contract AccountP256MockUpgradeable is Initializable, Account, SignerP256Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountP256MockUpgradeable is Initializable, Account, SignerP256Upgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountP256Mock_init() internal onlyInitializing {
     }
 
@@ -75,7 +75,7 @@ abstract contract AccountP256MockUpgradeable is Initializable, Account, SignerP2
     }
 }
 
-abstract contract AccountRSAMockUpgradeable is Initializable, Account, SignerRSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountRSAMockUpgradeable is Initializable, Account, SignerRSAUpgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountRSAMock_init() internal onlyInitializing {
     }
 
@@ -91,7 +91,7 @@ abstract contract AccountRSAMockUpgradeable is Initializable, Account, SignerRSA
     }
 }
 
-abstract contract AccountWebAuthnMockUpgradeable is Initializable, Account, SignerWebAuthnUpgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountWebAuthnMockUpgradeable is Initializable, Account, SignerWebAuthnUpgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountWebAuthnMock_init() internal onlyInitializing {
     }
 
@@ -107,7 +107,7 @@ abstract contract AccountWebAuthnMockUpgradeable is Initializable, Account, Sign
     }
 }
 
-abstract contract AccountERC7702MockUpgradeable is Initializable, Account, SignerEIP7702, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountERC7702MockUpgradeable is Initializable, Account, SignerEIP7702, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountERC7702Mock_init() internal onlyInitializing {
     }
 
@@ -128,8 +128,8 @@ abstract contract AccountERC7702WithModulesMockUpgradeable is
     AccountERC7579Upgradeable,
     SignerEIP7702,
     ERC7739Upgradeable,
-    ERC721HolderUpgradeable,
-    ERC1155HolderUpgradeable
+    ERC721Holder,
+    ERC1155Holder
 {
     function __AccountERC7702WithModulesMock_init() internal onlyInitializing {
     }
@@ -183,7 +183,7 @@ abstract contract AccountERC7579HookedMockUpgradeable is Initializable, AccountE
     }
 }
 
-abstract contract AccountERC7913MockUpgradeable is Initializable, Account, SignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountERC7913MockUpgradeable is Initializable, Account, SignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountERC7913Mock_init() internal onlyInitializing {
     }
 
@@ -199,7 +199,7 @@ abstract contract AccountERC7913MockUpgradeable is Initializable, Account, Signe
     }
 }
 
-abstract contract AccountMultiSignerMockUpgradeable is Initializable, Account, MultiSignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721HolderUpgradeable, ERC1155HolderUpgradeable {
+abstract contract AccountMultiSignerMockUpgradeable is Initializable, Account, MultiSignerERC7913Upgradeable, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
     function __AccountMultiSignerMock_init() internal onlyInitializing {
     }
 
@@ -220,8 +220,8 @@ abstract contract AccountMultiSignerWeightedMockUpgradeable is
     MultiSignerERC7913WeightedUpgradeable,
     ERC7739Upgradeable,
     ERC7821,
-    ERC721HolderUpgradeable,
-    ERC1155HolderUpgradeable
+    ERC721Holder,
+    ERC1155Holder
 {
     function __AccountMultiSignerWeightedMock_init() internal onlyInitializing {
     }

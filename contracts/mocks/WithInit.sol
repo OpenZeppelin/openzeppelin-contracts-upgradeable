@@ -1221,13 +1221,6 @@ contract ERC1155URIStorageUpgradeableWithInit is ERC1155URIStorageUpgradeable {
         __ERC1155URIStorage_init();
     }
 }
-import "../token/ERC1155/utils/ERC1155HolderUpgradeable.sol";
-
-contract ERC1155HolderUpgradeableWithInit is ERC1155HolderUpgradeable {
-    constructor() payable initializer {
-        __ERC1155Holder_init();
-    }
-}
 import "../token/ERC20/ERC20Upgradeable.sol";
 
 contract ERC20UpgradeableWithInit is ERC20Upgradeable {
@@ -1394,13 +1387,6 @@ import "../token/ERC721/extensions/ERC721WrapperUpgradeable.sol";
 contract ERC721WrapperUpgradeableWithInit is ERC721WrapperUpgradeable {
     constructor(IERC721 underlyingToken) payable initializer {
         __ERC721Wrapper_init(underlyingToken);
-    }
-}
-import "../token/ERC721/utils/ERC721HolderUpgradeable.sol";
-
-contract ERC721HolderUpgradeableWithInit is ERC721HolderUpgradeable {
-    constructor() payable initializer {
-        __ERC721Holder_init();
     }
 }
 import "../utils/ContextUpgradeable.sol";
