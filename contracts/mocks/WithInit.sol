@@ -1298,28 +1298,28 @@ contract ERC4626UpgradeableWithInit is ERC4626Upgradeable {
         __ERC4626_init(asset_);
     }
 }
-import "../token/ERC6909/draft-ERC6909Upgradeable.sol";
+import "../token/ERC6909/ERC6909Upgradeable.sol";
 
 contract ERC6909UpgradeableWithInit is ERC6909Upgradeable {
     constructor() payable initializer {
         __ERC6909_init();
     }
 }
-import "../token/ERC6909/extensions/draft-ERC6909ContentURIUpgradeable.sol";
+import "../token/ERC6909/extensions/ERC6909ContentURIUpgradeable.sol";
 
 contract ERC6909ContentURIUpgradeableWithInit is ERC6909ContentURIUpgradeable {
     constructor() payable initializer {
         __ERC6909ContentURI_init();
     }
 }
-import "../token/ERC6909/extensions/draft-ERC6909MetadataUpgradeable.sol";
+import "../token/ERC6909/extensions/ERC6909MetadataUpgradeable.sol";
 
 contract ERC6909MetadataUpgradeableWithInit is ERC6909MetadataUpgradeable {
     constructor() payable initializer {
         __ERC6909Metadata_init();
     }
 }
-import "../token/ERC6909/extensions/draft-ERC6909TokenSupplyUpgradeable.sol";
+import "../token/ERC6909/extensions/ERC6909TokenSupplyUpgradeable.sol";
 
 contract ERC6909TokenSupplyUpgradeableWithInit is ERC6909TokenSupplyUpgradeable {
     constructor() payable initializer {

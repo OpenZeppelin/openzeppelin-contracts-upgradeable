@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {ERC6909MetadataUpgradeable} from "../../../../token/ERC6909/extensions/draft-ERC6909MetadataUpgradeable.sol";
+import {ERC6909MetadataUpgradeable} from "../../../../token/ERC6909/extensions/ERC6909MetadataUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC6909GameItemsUpgradeable is Initializable, ERC6909MetadataUpgradeable {
