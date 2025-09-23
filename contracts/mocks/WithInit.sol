@@ -814,9 +814,9 @@ contract UUPSUpgradeableUnsafeMockUpgradeableWithInit is UUPSUpgradeableUnsafeMo
 }
 import "./proxy/UUPSUpgradeableMockUpgradeable.sol";
 
-contract UUPSUnsupportedProxiableUUIDUpgradeableWithInit is UUPSUnsupportedProxiableUUIDUpgradeable {
+contract UUPSUnsupportedProxiableUUIDMockUpgradeableWithInit is UUPSUnsupportedProxiableUUIDMockUpgradeable {
     constructor() payable initializer {
-        __UUPSUnsupportedProxiableUUID_init();
+        __UUPSUnsupportedProxiableUUIDMock_init();
     }
 }
 import "./ReentrancyAttackUpgradeable.sol";

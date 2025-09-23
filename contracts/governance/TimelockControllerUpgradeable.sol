@@ -27,7 +27,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
-    uint256 internal constant _DONE_TIMESTAMP = uint256(1);
+    uint256 internal constant DONE_TIMESTAMP = uint256(1);
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TimelockController
     struct TimelockControllerStorage {
@@ -229,7 +229,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         uint256 timestamp = getTimestamp(id);
         if (timestamp == 0) {
             return OperationState.Unset;
-        } else if (timestamp == _DONE_TIMESTAMP) {
+        } else if (timestamp == DONE_TIMESTAMP) {
             return OperationState.Done;
         } else if (timestamp > block.timestamp) {
             return OperationState.Waiting;
@@ -458,7 +458,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
         if (!isOperationReady(id)) {
             revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
         }
-        $._timestamps[id] = _DONE_TIMESTAMP;
+        $._timestamps[id] = DONE_TIMESTAMP;
     }
 
     /**
@@ -471,7 +471,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
      * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
      */
-    function updateDelay(uint256 newDelay) external virtual {
+    function updateDelay(uint256 newDelay) public virtual {
         TimelockControllerStorage storage $ = _getTimelockControllerStorage();
         address sender = _msgSender();
         if (sender != address(this)) {

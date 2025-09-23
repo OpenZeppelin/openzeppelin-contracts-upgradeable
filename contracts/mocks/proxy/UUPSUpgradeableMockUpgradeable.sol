@@ -44,13 +44,13 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
     }
 }
 
-contract UUPSUnsupportedProxiableUUIDUpgradeable is Initializable, UUPSUpgradeableMockUpgradeable {
-    function __UUPSUnsupportedProxiableUUID_init() internal onlyInitializing {
+contract UUPSUnsupportedProxiableUUIDMockUpgradeable is Initializable, NonUpgradeableMockUpgradeable {
+    function __UUPSUnsupportedProxiableUUIDMock_init() internal onlyInitializing {
     }
 
-    function __UUPSUnsupportedProxiableUUID_init_unchained() internal onlyInitializing {
+    function __UUPSUnsupportedProxiableUUIDMock_init_unchained() internal onlyInitializing {
     }
-    function proxiableUUID() external pure override returns (bytes32) {
+    function proxiableUUID() external pure returns (bytes32) {
         return keccak256("invalid UUID");
     }
 }

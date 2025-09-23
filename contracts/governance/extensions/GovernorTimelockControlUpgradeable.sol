@@ -170,7 +170,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorU
      *
      * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
      */
-    function updateTimelock(TimelockControllerUpgradeable newTimelock) external virtual onlyGovernance {
+    function updateTimelock(TimelockControllerUpgradeable newTimelock) public virtual onlyGovernance {
         _updateTimelock(newTimelock);
     }
 

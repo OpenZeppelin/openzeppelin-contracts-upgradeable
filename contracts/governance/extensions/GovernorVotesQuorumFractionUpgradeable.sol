@@ -92,7 +92,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * - Must be called through a governance proposal.
      * - New numerator must be smaller or equal to the denominator.
      */
-    function updateQuorumNumerator(uint256 newQuorumNumerator) external virtual onlyGovernance {
+    function updateQuorumNumerator(uint256 newQuorumNumerator) public virtual onlyGovernance {
         _updateQuorumNumerator(newQuorumNumerator);
     }
 
