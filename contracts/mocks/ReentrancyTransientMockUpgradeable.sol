@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.24;
 
-import {ReentrancyGuardTransientUpgradeable} from "../utils/ReentrancyGuardTransientUpgradeable.sol";
+import {ReentrancyGuardTransient} from "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
 import {ReentrancyAttackUpgradeable} from "./ReentrancyAttackUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract ReentrancyTransientMockUpgradeable is Initializable, ReentrancyGuardTransientUpgradeable {
+contract ReentrancyTransientMockUpgradeable is Initializable, ReentrancyGuardTransient {
     uint256 public counter;
 
     function __ReentrancyTransientMock_init() internal onlyInitializing {

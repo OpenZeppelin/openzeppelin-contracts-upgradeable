@@ -1494,17 +1494,3 @@ contract PausableUpgradeableWithInit is PausableUpgradeable {
         __Pausable_init();
     }
 }
-import "../utils/ReentrancyGuardUpgradeable.sol";
-
-contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyGuard_init();
-    }
-}
-import "../utils/ReentrancyGuardTransientUpgradeable.sol";
-
-contract ReentrancyGuardTransientUpgradeableWithInit is ReentrancyGuardTransientUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyGuardTransient_init();
-    }
-}
