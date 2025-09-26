@@ -8,6 +8,7 @@ import {Accumulators} from "@openzeppelin/contracts/utils/structs/Accumulators.s
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
 import {AuthorityUtils} from "@openzeppelin/contracts/access/manager/AuthorityUtils.sol";
+import {Base58} from "@openzeppelin/contracts/utils/Base58.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {Blockhash} from "@openzeppelin/contracts/utils/Blockhash.sol";
