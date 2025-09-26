@@ -368,7 +368,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     }
 
     /**
-     * @dev Execute an (ready) operation containing a single transaction.
+     * @dev Execute a ready operation containing a single transaction.
      *
      * Emits a {CallExecuted} event.
      *
@@ -395,7 +395,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     }
 
     /**
-     * @dev Execute an (ready) operation containing a batch of transactions.
+     * @dev Execute a ready operation containing a batch of transactions.
      *
      * Emits one {CallExecuted} event per transaction in the batch.
      *

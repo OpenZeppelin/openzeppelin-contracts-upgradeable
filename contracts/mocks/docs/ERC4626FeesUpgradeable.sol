@@ -39,7 +39,7 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
         return assets + _feeOnRaw(assets, _entryFeeBasisPoints());
     }
 
-    /// @dev Preview adding an exit fee on withdraw. See {IERC4626-previewWithdraw}.
+    /// @dev Preview adding an exit fee on withdrawal. See {IERC4626-previewWithdraw}.
     function previewWithdraw(uint256 assets) public view virtual override returns (uint256) {
         uint256 fee = _feeOnRaw(assets, _exitFeeBasisPoints());
         return super.previewWithdraw(assets + fee);

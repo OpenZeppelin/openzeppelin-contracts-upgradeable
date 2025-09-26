@@ -13,7 +13,7 @@ contract NotAuthorityMockUpgradeable is Initializable, IAuthority {
     function __NotAuthorityMock_init_unchained() internal onlyInitializing {
     }
     function canCall(address /* caller */, address /* target */, bytes4 /* selector */) external pure returns (bool) {
-        revert("AuthorityNoDelayMock: not implemented");
+        revert("NotAuthorityMock: not implemented");
     }
 }
 

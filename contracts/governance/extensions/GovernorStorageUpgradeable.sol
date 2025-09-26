@@ -7,7 +7,7 @@ import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of {Governor} that implements storage of proposal details. This modules also provides primitives for
+ * @dev Extension of {Governor} that implements storage of proposal details. This module also provides primitives for
  * the enumerability of proposals.
  *
  * Use cases for this module include:
