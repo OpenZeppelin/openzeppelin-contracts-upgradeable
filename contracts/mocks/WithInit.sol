@@ -1452,13 +1452,6 @@ contract SignerWebAuthnUpgradeableWithInit is SignerWebAuthnUpgradeable {
         __SignerWebAuthn_init();
     }
 }
-import "../utils/cryptography/verifiers/ERC7913WebAuthnVerifierUpgradeable.sol";
-
-contract ERC7913WebAuthnVerifierUpgradeableWithInit is ERC7913WebAuthnVerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913WebAuthnVerifier_init();
-    }
-}
 import "../utils/introspection/ERC165Upgradeable.sol";
 
 contract ERC165UpgradeableWithInit is ERC165Upgradeable {
