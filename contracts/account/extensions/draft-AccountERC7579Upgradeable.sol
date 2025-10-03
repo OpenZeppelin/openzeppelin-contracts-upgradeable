@@ -159,7 +159,9 @@ abstract contract AccountERC7579Upgradeable is Initializable, Account, IERC1271,
         AccountERC7579Storage storage $ = _getAccountERC7579Storage();
         if (moduleTypeId == MODULE_TYPE_VALIDATOR) return $._validators.contains(module);
         if (moduleTypeId == MODULE_TYPE_EXECUTOR) return $._executors.contains(module);
-        if (moduleTypeId == MODULE_TYPE_FALLBACK) return $._fallbacks[bytes4(additionalContext[0:4])] == module;
+        if (moduleTypeId == MODULE_TYPE_FALLBACK)
+            // ERC-7579 requires this function to return bool, never revert. Check length to avoid out-of-bounds access.
+            return additionalContext.length > 3 && $._fallbacks[bytes4(additionalContext[0:4])] == module;
         return false;
     }
 
