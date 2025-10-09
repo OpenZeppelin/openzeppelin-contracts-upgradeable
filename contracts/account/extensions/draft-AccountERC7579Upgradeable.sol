@@ -220,13 +220,14 @@ abstract contract AccountERC7579Upgradeable is Initializable, Account, IERC1271,
      */
     function _validateUserOp(
         PackedUserOperation calldata userOp,
-        bytes32 userOpHash
+        bytes32 userOpHash,
+        bytes calldata signature
     ) internal virtual override returns (uint256) {
         address module = _extractUserOpValidator(userOp);
         return
             isModuleInstalled(MODULE_TYPE_VALIDATOR, module, Calldata.emptyBytes())
                 ? IERC7579Validator(module).validateUserOp(userOp, _signableUserOpHash(userOp, userOpHash))
-                : super._validateUserOp(userOp, userOpHash);
+                : super._validateUserOp(userOp, userOpHash, signature);
     }
 
     /**
