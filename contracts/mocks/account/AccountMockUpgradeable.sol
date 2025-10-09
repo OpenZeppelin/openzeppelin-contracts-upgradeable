@@ -138,9 +138,10 @@ abstract contract AccountERC7702WithModulesMockUpgradeable is
     }
     function _validateUserOp(
         PackedUserOperation calldata userOp,
-        bytes32 userOpHash
+        bytes32 userOpHash,
+        bytes calldata signature
     ) internal virtual override(Account, AccountERC7579Upgradeable) returns (uint256) {
-        return super._validateUserOp(userOp, userOpHash);
+        return super._validateUserOp(userOp, userOpHash, signature);
     }
 
     /// @dev Resolve implementation of ERC-1271 by both ERC7739 and AccountERC7579 to support both schemes.
