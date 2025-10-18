@@ -1,7 +1,7 @@
 = Proxies
 
 [.readme-notice]
-NOTE: This document is better viewed at https://docs.openzeppelin.com/contracts/api/proxy
+NOTE: This document is better viewed at https://docs.openzeppelin.com/contracts/5.x/api/proxy
 
 This is a low-level set of contracts implementing different proxy patterns with and without upgradeability. For an in-depth overview of this pattern check out the xref:upgrades-plugins::proxies.adoc[Proxy Upgrade Pattern] page.
 
