@@ -69,7 +69,7 @@ abstract contract SignerECDSAUpgradeable is Initializable, AbstractSigner {
         bytes32 hash,
         bytes calldata signature
     ) internal view virtual override returns (bool) {
-        (address recovered, ECDSA.RecoverError err, ) = ECDSA.tryRecover(hash, signature);
+        (address recovered, ECDSA.RecoverError err, ) = ECDSA.tryRecoverCalldata(hash, signature);
         return signer() == recovered && err == ECDSA.RecoverError.NoError;
     }
 }
