@@ -5,7 +5,6 @@ pragma solidity ^0.8.24;
 
 import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC721Metadata} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
-import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {IERC4906} from "@openzeppelin/contracts/interfaces/IERC4906.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
@@ -14,8 +13,6 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * @dev ERC-721 token with storage based token URI management.
  */
 abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906, ERC721Upgradeable {
-    using Strings for uint256;
-
     // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
     // defines events and does not include any external function.
     bytes4 private constant ERC4906_INTERFACE_ID = bytes4(0x49064906);

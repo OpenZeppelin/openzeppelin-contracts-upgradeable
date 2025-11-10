@@ -3,7 +3,6 @@
 
 pragma solidity ^0.8.24;
 
-import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
@@ -12,8 +11,6 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * Inspired by the {ERC721URIStorage} extension
  */
 abstract contract ERC1155URIStorageUpgradeable is Initializable, ERC1155Upgradeable {
-    using Strings for uint256;
-
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC1155URIStorage
     struct ERC1155URIStorageStorage {
         // Optional base URI
