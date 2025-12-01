@@ -11,11 +11,15 @@ abstract contract ERC20BridgeableMockUpgradeable is Initializable, ERC20Bridgeab
     error OnlyTokenBridge();
     event OnlyTokenBridgeFnCalled(address caller);
 
-    function __ERC20BridgeableMock_init(address bridge) internal onlyInitializing {
-        __ERC20BridgeableMock_init_unchained(bridge);
+    function __ERC20BridgeableMock_init(address initialBridge) internal onlyInitializing {
+        __ERC20BridgeableMock_init_unchained(initialBridge);
     }
 
-    function __ERC20BridgeableMock_init_unchained(address bridge) internal onlyInitializing {
+    function __ERC20BridgeableMock_init_unchained(address initialBridge) internal onlyInitializing {
+        _setBridge(initialBridge);
+    }
+
+    function _setBridge(address bridge) internal {
         _bridge = bridge;
     }
 

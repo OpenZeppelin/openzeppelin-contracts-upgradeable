@@ -65,6 +65,20 @@ contract AccountERC7579HookedUpgradeableWithInit is AccountERC7579HookedUpgradea
         __AccountERC7579Hooked_init();
     }
 }
+import "../crosschain/bridges/BridgeERC20Upgradeable.sol";
+
+contract BridgeERC20UpgradeableWithInit is BridgeERC20Upgradeable {
+    constructor(IERC20 token_) payable initializer {
+        __BridgeERC20_init(token_);
+    }
+}
+import "../crosschain/bridges/BridgeERC7802Upgradeable.sol";
+
+contract BridgeERC7802UpgradeableWithInit is BridgeERC7802Upgradeable {
+    constructor(IERC7802 token_) payable initializer {
+        __BridgeERC7802_init(token_);
+    }
+}
 import "../finance/VestingWalletUpgradeable.sol";
 
 contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
@@ -920,8 +934,8 @@ contract ERC20ApprovalMockUpgradeableWithInit is ERC20ApprovalMockUpgradeable {
 import "./token/ERC20BridgeableMockUpgradeable.sol";
 
 contract ERC20BridgeableMockUpgradeableWithInit is ERC20BridgeableMockUpgradeable {
-    constructor(address bridge) payable initializer {
-        __ERC20BridgeableMock_init(bridge);
+    constructor(address initialBridge) payable initializer {
+        __ERC20BridgeableMock_init(initialBridge);
     }
 }
 import "./token/ERC20DecimalsMockUpgradeable.sol";
@@ -1254,6 +1268,13 @@ import "../token/ERC20/extensions/ERC20CappedUpgradeable.sol";
 contract ERC20CappedUpgradeableWithInit is ERC20CappedUpgradeable {
     constructor(uint256 cap_) payable initializer {
         __ERC20Capped_init(cap_);
+    }
+}
+import "../token/ERC20/extensions/ERC20CrosschainUpgradeable.sol";
+
+contract ERC20CrosschainUpgradeableWithInit is ERC20CrosschainUpgradeable {
+    constructor() payable initializer {
+        __ERC20Crosschain_init();
     }
 }
 import "../token/ERC20/extensions/ERC20FlashMintUpgradeable.sol";
