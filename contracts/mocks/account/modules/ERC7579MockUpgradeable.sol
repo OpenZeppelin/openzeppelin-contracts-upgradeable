@@ -36,6 +36,17 @@ abstract contract ERC7579ModuleMockUpgradeable is Initializable, IERC7579Module 
     }
 }
 
+abstract contract ERC7579ModuleMaliciousMockUpgradeable is Initializable, ERC7579ModuleMockUpgradeable {
+    function __ERC7579ModuleMaliciousMock_init() internal onlyInitializing {
+    }
+
+    function __ERC7579ModuleMaliciousMock_init_unchained() internal onlyInitializing {
+    }
+    function onUninstall(bytes calldata /*data*/) public virtual override {
+        revert("uninstall reverts");
+    }
+}
+
 abstract contract ERC7579HookMockUpgradeable is Initializable, ERC7579ModuleMockUpgradeable, IERC7579Hook {
     event PreCheck(address sender, uint256 value, bytes data);
     event PostCheck(bytes hookData);

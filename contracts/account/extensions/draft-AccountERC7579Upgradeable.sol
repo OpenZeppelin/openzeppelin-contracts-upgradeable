@@ -314,7 +314,8 @@ abstract contract AccountERC7579Upgradeable is Initializable, Account, IERC1271,
             delete $._fallbacks[selector];
         }
 
-        IERC7579Module(module).onUninstall(deInitData);
+        // Ignores success purposely to avoid modules that revert on uninstall
+        LowLevelCall.callNoReturn(module, abi.encodeCall(IERC7579Module.onUninstall, (deInitData)));
         emit ModuleUninstalled(moduleTypeId, module);
     }
 

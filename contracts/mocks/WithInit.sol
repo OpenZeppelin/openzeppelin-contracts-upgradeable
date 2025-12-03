@@ -221,6 +221,13 @@ contract ERC7579ModuleMockUpgradeableWithInit is ERC7579ModuleMockUpgradeable {
 }
 import "./account/modules/ERC7579MockUpgradeable.sol";
 
+contract ERC7579ModuleMaliciousMockUpgradeableWithInit is ERC7579ModuleMaliciousMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7579ModuleMaliciousMock_init();
+    }
+}
+import "./account/modules/ERC7579MockUpgradeable.sol";
+
 contract ERC7579HookMockUpgradeableWithInit is ERC7579HookMockUpgradeable {
     constructor() payable initializer {
         __ERC7579HookMock_init();
