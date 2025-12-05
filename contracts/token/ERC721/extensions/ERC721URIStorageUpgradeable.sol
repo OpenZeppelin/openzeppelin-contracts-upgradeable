@@ -44,19 +44,18 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906, ERC721
 
     /// @inheritdoc IERC721Metadata
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
         _requireOwned(tokenId);
 
-        string memory _tokenURI = $._tokenURIs[tokenId];
         string memory base = _baseURI();
+        string memory suffix = _suffixURI(tokenId);
 
         // If there is no base URI, return the token URI.
         if (bytes(base).length == 0) {
-            return _tokenURI;
+            return suffix;
         }
         // If both are set, concatenate the baseURI and tokenURI (via string.concat).
-        if (bytes(_tokenURI).length > 0) {
-            return string.concat(base, _tokenURI);
+        if (bytes(suffix).length > 0) {
+            return string.concat(base, suffix);
         }
 
         return super.tokenURI(tokenId);
@@ -71,5 +70,13 @@ abstract contract ERC721URIStorageUpgradeable is Initializable, IERC4906, ERC721
         ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
         $._tokenURIs[tokenId] = _tokenURI;
         emit MetadataUpdate(tokenId);
+    }
+
+    /**
+     * @dev Returns the suffix part of the tokenURI for `tokenId`.
+     */
+    function _suffixURI(uint256 tokenId) internal view virtual returns (string memory) {
+        ERC721URIStorageStorage storage $ = _getERC721URIStorageStorage();
+        return $._tokenURIs[tokenId];
     }
 }
