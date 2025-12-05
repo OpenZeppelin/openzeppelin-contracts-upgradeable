@@ -75,6 +75,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
+        if (details.descriptionHash == 0) {
+            revert GovernorNonexistentProposal(proposalId);
+        }
         queue(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -85,6 +88,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
+        if (details.descriptionHash == 0) {
+            revert GovernorNonexistentProposal(proposalId);
+        }
         execute(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -95,6 +101,9 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
+        if (details.descriptionHash == 0) {
+            revert GovernorNonexistentProposal(proposalId);
+        }
         cancel(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
