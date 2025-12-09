@@ -436,6 +436,9 @@ abstract contract ERC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
         ERC721Storage storage $ = _getERC721Storage();
+        if (owner == address(0)) {
+            revert ERC721InvalidApprover(address(0));
+        }
         if (operator == address(0)) {
             revert ERC721InvalidOperator(operator);
         }

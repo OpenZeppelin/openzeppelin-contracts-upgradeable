@@ -380,6 +380,9 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
         ERC1155Storage storage $ = _getERC1155Storage();
+        if (owner == address(0)) {
+            revert ERC1155InvalidApprover(address(0));
+        }
         if (operator == address(0)) {
             revert ERC1155InvalidOperator(address(0));
         }
