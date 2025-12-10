@@ -28,7 +28,7 @@ abstract contract ERC20CrosschainUpgradeable is Initializable, ERC20Upgradeable,
     }
     /// @dev Variant of {crosschainTransfer} that allows an authorized account (using ERC20 allowance) to operate on `from`'s assets.
     function crosschainTransferFrom(address from, bytes memory to, uint256 amount) public virtual returns (bytes32) {
-        _spendAllowance(from, msg.sender, amount);
+        _spendAllowance(from, _msgSender(), amount);
         return _crosschainTransfer(from, to, amount);
     }
 
