@@ -165,16 +165,16 @@ contract AccountWebAuthnMockUpgradeableWithInit is AccountWebAuthnMockUpgradeabl
 }
 import "./account/AccountMockUpgradeable.sol";
 
-contract AccountERC7702MockUpgradeableWithInit is AccountERC7702MockUpgradeable {
+contract AccountEIP7702MockUpgradeableWithInit is AccountEIP7702MockUpgradeable {
     constructor() payable initializer {
-        __AccountERC7702Mock_init();
+        __AccountEIP7702Mock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
 
-contract AccountERC7702WithModulesMockUpgradeableWithInit is AccountERC7702WithModulesMockUpgradeable {
+contract AccountEIP7702WithModulesMockUpgradeableWithInit is AccountEIP7702WithModulesMockUpgradeable {
     constructor() payable initializer {
-        __AccountERC7702WithModulesMock_init();
+        __AccountEIP7702WithModulesMock_init();
     }
 }
 import "./account/AccountMockUpgradeable.sol";
@@ -443,11 +443,11 @@ contract AccessManagerEnumerableUpgradeableWithInit is AccessManagerEnumerableUp
         __AccessManagerEnumerable_init();
     }
 }
-import "./docs/account/MyAccountERC7702Upgradeable.sol";
+import "./docs/account/MyAccountEIP7702Upgradeable.sol";
 
-contract MyAccountERC7702UpgradeableWithInit is MyAccountERC7702Upgradeable {
+contract MyAccountEIP7702UpgradeableWithInit is MyAccountEIP7702Upgradeable {
     constructor() payable initializer {
-        __MyAccountERC7702_init();
+        __MyAccountEIP7702_init();
     }
 }
 import "./docs/account/MyFactoryAccountUpgradeable.sol";

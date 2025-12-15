@@ -1,4 +1,4 @@
-// contracts/MyAccountERC7702.sol
+// contracts/MyAccountEIP7702.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -9,11 +9,11 @@ import {ERC7821} from "@openzeppelin/contracts/account/extensions/draft-ERC7821.
 import {SignerEIP7702} from "@openzeppelin/contracts/utils/cryptography/signers/SignerEIP7702.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract MyAccountERC7702Upgradeable is Initializable, Account, SignerEIP7702, ERC7821, ERC721Holder, ERC1155Holder {
-    function __MyAccountERC7702_init() internal onlyInitializing {
+contract MyAccountEIP7702Upgradeable is Initializable, Account, SignerEIP7702, ERC7821, ERC721Holder, ERC1155Holder {
+    function __MyAccountEIP7702_init() internal onlyInitializing {
     }
 
-    function __MyAccountERC7702_init_unchained() internal onlyInitializing {
+    function __MyAccountEIP7702_init_unchained() internal onlyInitializing {
     }
     /// @dev Allows the entry point as an authorized executor.
     function _erc7821AuthorizedExecutor(

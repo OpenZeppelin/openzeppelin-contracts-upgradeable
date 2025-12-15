@@ -7,7 +7,7 @@ import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev Context variant with ERC-2771 support.
+ * @dev Context variant with ERC-2771 support. See {_msgSender} for the calldata format.
  *
  * WARNING: Avoid using this pattern in contracts that rely on a specific calldata length as they'll
  * be affected by any forwarder whose `msg.data` is suffixed with the `from` address according to the ERC-2771

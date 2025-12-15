@@ -51,7 +51,7 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
         return assets - _feeOnTotal(assets, _exitFeeBasisPoints());
     }
 
-    /// @dev Send entry fee to {_entryFeeRecipient}. See {IERC4626-_deposit}.
+    /// @dev Send entry fee to {_entryFeeRecipient}. See {ERC4626-_deposit}.
     function _deposit(address caller, address receiver, uint256 assets, uint256 shares) internal virtual override {
         uint256 fee = _feeOnTotal(assets, _entryFeeBasisPoints());
         address recipient = _entryFeeRecipient();
@@ -63,7 +63,7 @@ abstract contract ERC4626FeesUpgradeable is Initializable, ERC4626Upgradeable {
         }
     }
 
-    /// @dev Send exit fee to {_exitFeeRecipient}. See {IERC4626-_deposit}.
+    /// @dev Send exit fee to {_exitFeeRecipient}. See {ERC4626-_withdraw}.
     function _withdraw(
         address caller,
         address receiver,

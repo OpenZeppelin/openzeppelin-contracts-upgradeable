@@ -19,7 +19,7 @@ async function fixture() {
 
   // ERC-4337 account
   const helper = new ERC4337Helper();
-  const mock = await helper.newAccount('$AccountERC7702Mock', ['AccountERC7702Mock', '1'], { erc7702signer: signer });
+  const mock = await helper.newAccount('$AccountEIP7702Mock', ['AccountEIP7702Mock', '1'], { eip7702signer: signer });
 
   // ERC-4337 Entrypoint domain
   const entrypointDomain = await getDomain(predeploy.entrypoint.v09);
@@ -40,7 +40,7 @@ async function fixture() {
   return { helper, mock, domain, signer, target, beneficiary, other, signUserOp };
 }
 
-describe('AccountERC7702', function () {
+describe('AccountEIP7702', function () {
   beforeEach(async function () {
     Object.assign(this, await loadFixture(fixture));
   });

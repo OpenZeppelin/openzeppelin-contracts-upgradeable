@@ -27,8 +27,8 @@ async function fixture() {
 
   // ERC-4337 account
   const helper = new ERC4337Helper();
-  const mock = await helper.newAccount('$AccountERC7702WithModulesMock', ['AccountERC7702WithModulesMock', '1'], {
-    erc7702signer: eoa,
+  const mock = await helper.newAccount('$AccountEIP7702WithModulesMock', ['AccountEIP7702WithModulesMock', '1'], {
+    eip7702signer: eoa,
   });
 
   // ERC-4337 Entrypoint domain
@@ -45,12 +45,12 @@ async function fixture() {
   return { helper, validator, mock, domain, entrypointDomain, eoa, target, anotherTarget, beneficiary, other };
 }
 
-describe('AccountERC7702WithModules: ERC-7702 account with ERC-7579 modules supports', function () {
+describe('AccountEIP7702WithModules: EIP-7702 account with ERC-7579 modules supports', function () {
   beforeEach(async function () {
     Object.assign(this, await loadFixture(fixture));
   });
 
-  describe('using ERC-7702 signer', function () {
+  describe('using EIP-7702 signer', function () {
     beforeEach(async function () {
       this.signer = this.eoa;
       this.signUserOp = userOp =>
@@ -86,7 +86,7 @@ describe('AccountERC7702WithModules: ERC-7702 account with ERC-7579 modules supp
       // Use the first 20 bytes from the nonce key (24 bytes) to identify the validator module
       this.userOp = { nonce: ethers.zeroPadBytes(ethers.hexlify(this.validator.target), 32) };
 
-      // Deploy (using ERC-7702) and add the validator module using EOA
+      // Deploy (using EIP-7702) and add the validator module using EOA
       await this.mock.deploy();
       await this.mock.connect(this.eoa).installModule(MODULE_TYPE_VALIDATOR, this.validator, this.signer.address);
     });

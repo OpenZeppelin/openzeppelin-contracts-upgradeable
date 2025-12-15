@@ -58,7 +58,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * functions. Overriding {_deposit} automatically affects both {deposit} and {mint}. Similarly, overriding {_withdraw}
  * automatically affects both {withdraw} and {redeem}. Overall it is not recommended to override the public facing
  * functions since that could lead to inconsistent behaviors between the {deposit} and {mint} or between {withdraw} and
- * {redeem}, which is documented to have lead to loss of funds.
+ * {redeem}, which is documented to have led to loss of funds.
  *
  * * Overrides to the deposit or withdraw mechanism must be reflected in the preview functions as well.
  *
@@ -99,12 +99,12 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
     error ERC4626ExceededMaxMint(address receiver, uint256 shares, uint256 max);
 
     /**
-     * @dev Attempted to withdraw more assets than the max amount for `receiver`.
+     * @dev Attempted to withdraw more assets than the max amount for `owner`.
      */
     error ERC4626ExceededMaxWithdraw(address owner, uint256 assets, uint256 max);
 
     /**
-     * @dev Attempted to redeem more shares than the max amount for `receiver`.
+     * @dev Attempted to redeem more shares than the max amount for `owner`.
      */
     error ERC4626ExceededMaxRedeem(address owner, uint256 shares, uint256 max);
 

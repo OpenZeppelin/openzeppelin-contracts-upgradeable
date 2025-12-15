@@ -107,11 +107,11 @@ abstract contract AccountWebAuthnMockUpgradeable is Initializable, Account, Sign
     }
 }
 
-abstract contract AccountERC7702MockUpgradeable is Initializable, Account, SignerEIP7702, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
-    function __AccountERC7702Mock_init() internal onlyInitializing {
+abstract contract AccountEIP7702MockUpgradeable is Initializable, Account, SignerEIP7702, ERC7739Upgradeable, ERC7821, ERC721Holder, ERC1155Holder {
+    function __AccountEIP7702Mock_init() internal onlyInitializing {
     }
 
-    function __AccountERC7702Mock_init_unchained() internal onlyInitializing {
+    function __AccountEIP7702Mock_init_unchained() internal onlyInitializing {
     }
     /// @inheritdoc ERC7821
     function _erc7821AuthorizedExecutor(
@@ -123,7 +123,7 @@ abstract contract AccountERC7702MockUpgradeable is Initializable, Account, Signe
     }
 }
 
-abstract contract AccountERC7702WithModulesMockUpgradeable is
+abstract contract AccountEIP7702WithModulesMockUpgradeable is
     Initializable, Account,
     AccountERC7579Upgradeable,
     SignerEIP7702,
@@ -131,10 +131,10 @@ abstract contract AccountERC7702WithModulesMockUpgradeable is
     ERC721Holder,
     ERC1155Holder
 {
-    function __AccountERC7702WithModulesMock_init() internal onlyInitializing {
+    function __AccountEIP7702WithModulesMock_init() internal onlyInitializing {
     }
 
-    function __AccountERC7702WithModulesMock_init_unchained() internal onlyInitializing {
+    function __AccountEIP7702WithModulesMock_init_unchained() internal onlyInitializing {
     }
     function _validateUserOp(
         PackedUserOperation calldata userOp,
@@ -155,7 +155,7 @@ abstract contract AccountERC7702WithModulesMockUpgradeable is
         return erc7739magic == bytes4(0xffffffff) ? AccountERC7579Upgradeable.isValidSignature(hash, signature) : erc7739magic;
     }
 
-    /// @dev Enable signature using the ERC-7702 signer.
+    /// @dev Enable signature using the EIP-7702 signer.
     function _rawSignatureValidation(
         bytes32 hash,
         bytes calldata signature
