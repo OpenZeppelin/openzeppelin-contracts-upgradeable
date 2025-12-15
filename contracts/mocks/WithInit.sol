@@ -436,6 +436,13 @@ contract MyContractUpgradeableWithInit is MyContractUpgradeable {
         __MyContract_init(initialOwner);
     }
 }
+import "./docs/AccessManagerEnumerableUpgradeable.sol";
+
+contract AccessManagerEnumerableUpgradeableWithInit is AccessManagerEnumerableUpgradeable {
+    constructor() payable initializer {
+        __AccessManagerEnumerable_init();
+    }
+}
 import "./docs/account/MyAccountERC7702Upgradeable.sol";
 
 contract MyAccountERC7702UpgradeableWithInit is MyAccountERC7702Upgradeable {
