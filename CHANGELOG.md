@@ -150,7 +150,7 @@
 
 ### Breaking Changes
 
-- Replace `GovernorCountingOverridable.VoteReceipt` struct parameter member names `hasOverriden` and `overridenWeight` for `hasOverridden` and `overriddenWeight` respectively.
+- Replace `GovernorCountingOverridable.VoteReceipt` struct parameter member names `hasOverriden` and `overridenWeight` with `hasOverridden` and `overriddenWeight` respectively.
 
 #### Custom error changes
 
