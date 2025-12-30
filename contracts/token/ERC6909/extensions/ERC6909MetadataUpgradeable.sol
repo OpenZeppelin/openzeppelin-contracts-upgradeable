@@ -5,6 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
 import {IERC6909Metadata} from "@openzeppelin/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -61,6 +62,11 @@ contract ERC6909MetadataUpgradeable is Initializable, ERC6909Upgradeable, IERC69
     function decimals(uint256 id) public view virtual override returns (uint8) {
         ERC6909MetadataStorage storage $ = _getERC6909MetadataStorage();
         return $._tokenMetadata[id].decimals;
+    }
+
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909Metadata).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

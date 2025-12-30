@@ -5,6 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
 import {IERC6909ContentURI} from "@openzeppelin/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -37,6 +38,11 @@ contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC
 
     function __ERC6909ContentURI_init_unchained() internal onlyInitializing {
     }
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909ContentURI).interfaceId || super.supportsInterface(interfaceId);
+    }
+
     /// @inheritdoc IERC6909ContentURI
     function contractURI() public view virtual override returns (string memory) {
         ERC6909ContentURIStorage storage $ = _getERC6909ContentURIStorage();
