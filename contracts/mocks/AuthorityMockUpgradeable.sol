@@ -40,7 +40,7 @@ contract AuthorityNoDelayMockUpgradeable is Initializable, IAuthority {
 
 contract AuthorityDelayMockUpgradeable is Initializable {
     bool private _immediate;
-    uint256 private _delay;
+    uint32 private _delay;
 
     function __AuthorityDelayMock_init() internal onlyInitializing {
     }
@@ -51,15 +51,15 @@ contract AuthorityDelayMockUpgradeable is Initializable {
         address /* caller */,
         address /* target */,
         bytes4 /* selector */
-    ) external view returns (bool immediate, uint256 delay) {
-        return (_immediate, _delay);
+    ) external view returns (bool immediate, uint32 delay) {
+        return (_immediate, uint32(_delay));
     }
 
     function _setImmediate(bool immediate) external {
         _immediate = immediate;
     }
 
-    function _setDelay(uint256 delay) external {
+    function _setDelay(uint32 delay) external {
         _delay = delay;
     }
 }
@@ -70,6 +70,8 @@ contract AuthorityNoResponseUpgradeable is Initializable {
 
     function __AuthorityNoResponse_init_unchained() internal onlyInitializing {
     }
+
+    // Deliberately returns no data to test caller robustness.
     function canCall(address /* caller */, address /* target */, bytes4 /* selector */) external view {}
 }
 
