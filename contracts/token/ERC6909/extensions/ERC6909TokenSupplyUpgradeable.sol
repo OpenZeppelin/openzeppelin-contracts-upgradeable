@@ -5,6 +5,7 @@ pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
 import {IERC6909TokenSupply} from "@openzeppelin/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -35,6 +36,11 @@ contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IER
     function totalSupply(uint256 id) public view virtual override returns (uint256) {
         ERC6909TokenSupplyStorage storage $ = _getERC6909TokenSupplyStorage();
         return $._totalSupplies[id];
+    }
+
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909TokenSupply).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /// @dev Override the `_update` function to update the total supply of each token id as necessary.
