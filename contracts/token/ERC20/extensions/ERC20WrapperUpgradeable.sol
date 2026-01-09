@@ -47,7 +47,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
 
     function __ERC20Wrapper_init_unchained(IERC20 underlyingToken) internal onlyInitializing {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
-        if (underlyingToken == this) {
+        if (address(underlyingToken) == address(this)) {
             revert ERC20InvalidUnderlying(address(this));
         }
         $._underlying = underlyingToken;
