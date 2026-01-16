@@ -280,29 +280,29 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
             if (!signerMatch) {
                 revert ERC2771ForwarderInvalidSigner(signer, request.from);
             }
+        } else if (!(isTrustedForwarder && signerMatch && active)) {
+            // Ignore an invalid request because requireValidRequest = false
+            return false;
         }
 
-        // Ignore an invalid request because requireValidRequest = false
-        if (isTrustedForwarder && signerMatch && active) {
-            // Nonce should be used before the call to prevent reusing by reentrancy
-            uint256 currentNonce = _useNonce(signer);
+        // Nonce should be used before the call to prevent reusing by reentrancy
+        uint256 currentNonce = _useNonce(signer);
 
-            uint256 reqGas = request.gas;
-            address to = request.to;
-            uint256 value = request.value;
-            bytes memory data = abi.encodePacked(request.data, request.from);
+        uint256 reqGas = request.gas;
+        address to = request.to;
+        uint256 value = request.value;
+        bytes memory data = abi.encodePacked(request.data, request.from);
 
-            uint256 gasLeft;
+        uint256 gasLeft;
 
-            assembly ("memory-safe") {
-                success := call(reqGas, to, value, add(data, 0x20), mload(data), 0x00, 0x00)
-                gasLeft := gas()
-            }
-
-            _checkForwardedGas(gasLeft, request);
-
-            emit ExecutedForwardRequest(signer, currentNonce, success);
+        assembly ("memory-safe") {
+            success := call(reqGas, to, value, add(data, 0x20), mload(data), 0x00, 0x00)
+            gasLeft := gas()
         }
+
+        _checkForwardedGas(gasLeft, request);
+
+        emit ExecutedForwardRequest(signer, currentNonce, success);
     }
 
     /**
