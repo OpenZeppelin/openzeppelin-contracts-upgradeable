@@ -94,8 +94,9 @@ contract CallReceiverMockUpgradeable is Initializable {
         }
     }
 
-    function mockFunctionExtra() public payable {
+    function mockFunctionExtra() public payable returns (address, uint256) {
         emit MockFunctionCalledExtra(msg.sender, msg.value);
+        return (msg.sender, msg.value);
     }
 }
 
