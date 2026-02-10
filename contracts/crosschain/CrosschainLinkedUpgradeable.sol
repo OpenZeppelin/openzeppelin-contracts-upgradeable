@@ -14,7 +14,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  *
  * This contract contains the logic to register and send messages to counterparts on remote chains using ERC-7786
  * gateways. It ensure received messages originate from a counterpart. This is the base of token bridges such as
- * {BridgeERC20Core}.
+ * {BridgeFungible}.
  *
  * Contracts that inherit from this contract can use the internal {_sendMessageToCounterpart} to send messages to their
  * counterpart on a foreign chain. They must override the {_processMessage} function to handle messages that have

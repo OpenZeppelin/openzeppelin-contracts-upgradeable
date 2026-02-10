@@ -4,14 +4,14 @@
 pragma solidity ^0.8.26;
 
 import {IERC7802} from "@openzeppelin/contracts/interfaces/draft-IERC7802.sol";
-import {BridgeERC20CoreUpgradeable} from "./BridgeERC20CoreUpgradeable.sol";
+import {BridgeFungibleUpgradeable} from "./abstract/BridgeFungibleUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev This is a variant of {BridgeERC20Core} that implements the bridge logic for ERC-7802 compliant tokens.
+ * @dev This is a variant of {BridgeFungible} that implements the bridge logic for ERC-7802 compliant tokens.
  */
 // slither-disable-next-line locked-ether
-abstract contract BridgeERC7802Upgradeable is Initializable, BridgeERC20CoreUpgradeable {
+abstract contract BridgeERC7802Upgradeable is Initializable, BridgeFungibleUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.BridgeERC7802
     struct BridgeERC7802Storage {
         IERC7802 _token;

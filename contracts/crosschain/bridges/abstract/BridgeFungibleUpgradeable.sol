@@ -4,9 +4,9 @@
 pragma solidity ^0.8.26;
 
 import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
-import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {ERC7786RecipientUpgradeable} from "../ERC7786RecipientUpgradeable.sol";
-import {CrosschainLinkedUpgradeable} from "../CrosschainLinkedUpgradeable.sol";
+import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
+import {ERC7786RecipientUpgradeable} from "../../ERC7786RecipientUpgradeable.sol";
+import {CrosschainLinkedUpgradeable} from "../../CrosschainLinkedUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -20,16 +20,16 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * which interface with ERC-7802 to provide an approve-free user experience. It is also used by the {ERC20Crosschain}
  * extension, which embeds the bridge logic directly in the token contract.
  */
-abstract contract BridgeERC20CoreUpgradeable is Initializable, ContextUpgradeable, CrosschainLinkedUpgradeable {
+abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable, CrosschainLinkedUpgradeable {
     using InteroperableAddress for bytes;
 
-    event CrosschainERC20TransferSent(bytes32 indexed sendId, address indexed from, bytes to, uint256 amount);
-    event CrosschainERC20TransferReceived(bytes32 indexed receiveId, bytes from, address indexed to, uint256 amount);
+    event CrosschainFungibleTransferSent(bytes32 indexed sendId, address indexed from, bytes to, uint256 amount);
+    event CrosschainFungibleTransferReceived(bytes32 indexed receiveId, bytes from, address indexed to, uint256 amount);
 
-    function __BridgeERC20Core_init() internal onlyInitializing {
+    function __BridgeFungible_init() internal onlyInitializing {
     }
 
-    function __BridgeERC20Core_init_unchained() internal onlyInitializing {
+    function __BridgeFungible_init_unchained() internal onlyInitializing {
     }
     /**
      * @dev Transfer `amount` tokens to a crosschain receiver.
@@ -57,7 +57,7 @@ abstract contract BridgeERC20CoreUpgradeable is Initializable, ContextUpgradeabl
             new bytes[](0)
         );
 
-        emit CrosschainERC20TransferSent(sendId, from, to, amount);
+        emit CrosschainFungibleTransferSent(sendId, from, to, amount);
 
         return sendId;
     }
@@ -75,7 +75,7 @@ abstract contract BridgeERC20CoreUpgradeable is Initializable, ContextUpgradeabl
 
         _onReceive(to, amount);
 
-        emit CrosschainERC20TransferReceived(receiveId, from, to, amount);
+        emit CrosschainFungibleTransferReceived(receiveId, from, to, amount);
     }
 
     /// @dev Virtual function: implementation is required to handle token being burnt or locked on the source chain.

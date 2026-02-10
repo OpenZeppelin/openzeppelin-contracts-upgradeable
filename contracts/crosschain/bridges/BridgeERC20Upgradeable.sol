@@ -5,15 +5,15 @@ pragma solidity ^0.8.26;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {BridgeERC20CoreUpgradeable} from "./BridgeERC20CoreUpgradeable.sol";
+import {BridgeFungibleUpgradeable} from "./abstract/BridgeFungibleUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev This is a variant of {BridgeERC20Core} that implements the bridge logic for ERC-20 tokens that do not expose a
+ * @dev This is a variant of {BridgeFungible} that implements the bridge logic for ERC-20 tokens that do not expose a
  * crosschain mint and burn mechanism. Instead, it takes custody of bridged assets.
  */
 // slither-disable-next-line locked-ether
-abstract contract BridgeERC20Upgradeable is Initializable, BridgeERC20CoreUpgradeable {
+abstract contract BridgeERC20Upgradeable is Initializable, BridgeFungibleUpgradeable {
     using SafeERC20 for IERC20;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.BridgeERC20
