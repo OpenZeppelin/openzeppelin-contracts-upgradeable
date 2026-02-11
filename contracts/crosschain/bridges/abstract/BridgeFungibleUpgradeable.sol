@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 
 import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {ERC7786RecipientUpgradeable} from "../../ERC7786RecipientUpgradeable.sol";
+import {ERC7786Recipient} from "@openzeppelin/contracts/crosschain/ERC7786Recipient.sol";
 import {CrosschainLinkedUpgradeable} from "../../CrosschainLinkedUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
@@ -61,7 +61,7 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         return sendId;
     }
 
-    /// @inheritdoc ERC7786RecipientUpgradeable
+    /// @inheritdoc ERC7786Recipient
     function _processMessage(
         address /*gateway*/,
         bytes32 receiveId,
