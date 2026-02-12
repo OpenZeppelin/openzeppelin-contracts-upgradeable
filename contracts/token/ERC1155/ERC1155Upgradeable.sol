@@ -399,6 +399,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      *
      * Requirements:
      *
+     * - `owner` cannot be the zero address.
      * - `operator` cannot be the zero address.
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
