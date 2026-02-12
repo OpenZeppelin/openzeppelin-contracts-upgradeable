@@ -131,7 +131,7 @@ abstract contract ERC4626Upgradeable is Initializable, ERC20Upgradeable, IERC462
             address(asset_),
             abi.encodeCall(IERC20Metadata.decimals, ())
         );
-        Memory.setFreeMemoryPointer(ptr);
+        Memory.unsafeSetFreeMemoryPointer(ptr);
 
         return
             (success && LowLevelCall.returnDataSize() >= 32 && uint256(returnedDecimals) <= type(uint8).max)
