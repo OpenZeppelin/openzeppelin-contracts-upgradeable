@@ -93,6 +93,13 @@ contract BridgeERC7802UpgradeableWithInit is BridgeERC7802Upgradeable {
         __BridgeERC7802_init(token_);
     }
 }
+import "../crosschain/CrosschainRemoteExecutorUpgradeable.sol";
+
+contract CrosschainRemoteExecutorUpgradeableWithInit is CrosschainRemoteExecutorUpgradeable {
+    constructor(address initialGateway, bytes memory initialController) payable initializer {
+        __CrosschainRemoteExecutor_init(initialGateway, initialController);
+    }
+}
 import "../finance/VestingWalletUpgradeable.sol";
 
 contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
@@ -684,6 +691,13 @@ import "./governance/GovernorCountingOverridableMockUpgradeable.sol";
 contract GovernorCountingOverridableMockUpgradeableWithInit is GovernorCountingOverridableMockUpgradeable {
     constructor() payable initializer {
         __GovernorCountingOverridableMock_init();
+    }
+}
+import "./governance/GovernorCrosschainUpgradeable.sol";
+
+contract GovernorCrosschainMockUpgradeableWithInit is GovernorCrosschainMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorCrosschainMock_init();
     }
 }
 import "./governance/GovernorFractionalMockUpgradeable.sol";
