@@ -116,9 +116,6 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
     ) internal virtual override {
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
         uint256 etaSeconds = proposalEta(proposalId);
-        if (etaSeconds == 0) {
-            revert GovernorNotQueuedProposal(proposalId);
-        }
         Address.sendValue(payable($._timelock), msg.value);
         for (uint256 i = 0; i < targets.length; ++i) {
             $._timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
