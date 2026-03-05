@@ -77,6 +77,11 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
     event ExecutedForwardRequest(address indexed signer, uint256 nonce, bool success);
 
     /**
+     * @dev One of the calls in an atomic batch failed.
+     */
+    error ERC2771ForwarderFailureInAtomicBatch();
+
+    /**
      * @dev The request `from` doesn't match with the recovered `signer`.
      */
     error ERC2771ForwarderInvalidSigner(address signer, address from);
@@ -194,6 +199,8 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
         // Some requests with value were invalid (possibly due to frontrunning).
         // To avoid leaving ETH in the contract this value is refunded.
         if (refundValue != 0) {
+            if (atomic) revert ERC2771ForwarderFailureInAtomicBatch();
+
             // We know refundReceiver != address(0) && requestsValue == msg.value
             // meaning we can ensure refundValue is not taken from the original contract's balance
             // and refundReceiver is a known account.
