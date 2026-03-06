@@ -51,22 +51,38 @@ abstract contract ERC7579HookMockUpgradeable is Initializable, ERC7579ModuleMock
     event PreCheck(address sender, uint256 value, bytes data);
     event PostCheck(bytes hookData);
 
+    bool private _shouldRevertOnPreCheck;
+    bool private _shouldRevertOnPostCheck;
+
     function __ERC7579HookMock_init() internal onlyInitializing {
         __ERC7579ModuleMock_init_unchained(MODULE_TYPE_HOOK);
+        __ERC7579HookMock_init_unchained();
     }
 
     function __ERC7579HookMock_init_unchained() internal onlyInitializing {
+        _shouldRevertOnPreCheck = false;
+        _shouldRevertOnPostCheck = false;
     }
+    function revertOnPreCheck(bool shouldRevert) external {
+        _shouldRevertOnPreCheck = shouldRevert;
+    }
+
+    function revertOnPostCheck(bool shouldRevert) external {
+        _shouldRevertOnPostCheck = shouldRevert;
+    }
+
     function preCheck(
         address msgSender,
         uint256 value,
         bytes calldata msgData
     ) external returns (bytes memory hookData) {
+        require(!_shouldRevertOnPreCheck, "preCheck reverts");
         emit PreCheck(msgSender, value, msgData);
         return msgData;
     }
 
     function postCheck(bytes calldata hookData) external {
+        require(!_shouldRevertOnPostCheck, "postCheck reverts");
         emit PostCheck(hookData);
     }
 }
