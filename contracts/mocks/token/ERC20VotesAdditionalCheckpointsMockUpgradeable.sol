@@ -3,7 +3,6 @@ pragma solidity ^0.8.24;
 
 import {ERC20VotesUpgradeable} from "../../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
 import {VotesExtendedUpgradeable, VotesUpgradeable} from "../../governance/utils/VotesExtendedUpgradeable.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {ERC6372Utils} from "@openzeppelin/contracts/utils/ERC6372Utils.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
