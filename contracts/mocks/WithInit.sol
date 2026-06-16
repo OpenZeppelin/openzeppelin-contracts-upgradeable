@@ -65,6 +65,13 @@ contract AccountERC7579HookedUpgradeableWithInit is AccountERC7579HookedUpgradea
         __AccountERC7579Hooked_init();
     }
 }
+import "../account/paymaster/extensions/PaymasterERC721OwnerUpgradeable.sol";
+
+contract PaymasterERC721OwnerUpgradeableWithInit is PaymasterERC721OwnerUpgradeable {
+    constructor(IERC721 token_) payable initializer {
+        __PaymasterERC721Owner_init(token_);
+    }
+}
 import "../crosschain/bridges/BridgeERC1155Upgradeable.sol";
 
 contract BridgeERC1155UpgradeableWithInit is BridgeERC1155Upgradeable {
@@ -266,6 +273,48 @@ import "./account/modules/ERC7579MockUpgradeable.sol";
 contract ERC7579ValidatorMockUpgradeableWithInit is ERC7579ValidatorMockUpgradeable {
     constructor() payable initializer {
         __ERC7579ValidatorMock_init();
+    }
+}
+import "./account/paymaster/PaymasterERC20MockUpgradeable.sol";
+
+contract PaymasterERC20MockUpgradeableWithInit is PaymasterERC20MockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterERC20Mock_init();
+    }
+}
+import "./account/paymaster/PaymasterERC20MockUpgradeable.sol";
+
+contract PaymasterERC20GuarantorMockUpgradeableWithInit is PaymasterERC20GuarantorMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterERC20GuarantorMock_init();
+    }
+}
+import "./account/paymaster/PaymasterERC721OwnerMockUpgradeable.sol";
+
+contract PaymasterERC721OwnerContextNoPostOpMockUpgradeableWithInit is PaymasterERC721OwnerContextNoPostOpMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterERC721OwnerContextNoPostOpMock_init();
+    }
+}
+import "./account/paymaster/PaymasterERC721OwnerMockUpgradeable.sol";
+
+contract PaymasterERC721OwnerMockUpgradeableWithInit is PaymasterERC721OwnerMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterERC721OwnerMock_init();
+    }
+}
+import "./account/paymaster/PaymasterSignerMockUpgradeable.sol";
+
+contract PaymasterSignerContextNoPostOpMockUpgradeableWithInit is PaymasterSignerContextNoPostOpMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterSignerContextNoPostOpMock_init();
+    }
+}
+import "./account/paymaster/PaymasterSignerMockUpgradeable.sol";
+
+contract PaymasterSignerMockUpgradeableWithInit is PaymasterSignerMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterSignerMock_init();
     }
 }
 import "./account/utils/ERC7579UtilsMockUpgradeable.sol";
@@ -476,6 +525,13 @@ import "./docs/account/MyFactoryAccountUpgradeable.sol";
 contract MyFactoryAccountUpgradeableWithInit is MyFactoryAccountUpgradeable {
     constructor(address impl_) payable initializer {
         __MyFactoryAccount_init(impl_);
+    }
+}
+import "./docs/account/paymaster/PaymasterECDSASignerUpgradeable.sol";
+
+contract PaymasterECDSASignerUpgradeableWithInit is PaymasterECDSASignerUpgradeable {
+    constructor(address signerAddr) payable initializer {
+        __PaymasterECDSASigner_init(signerAddr);
     }
 }
 import "./docs/ERC20WithAutoMinerRewardUpgradeable.sol";
@@ -971,6 +1027,13 @@ import "./token/ERC20ApprovalMockUpgradeable.sol";
 contract ERC20ApprovalMockUpgradeableWithInit is ERC20ApprovalMockUpgradeable {
     constructor() payable initializer {
         __ERC20ApprovalMock_init();
+    }
+}
+import "./token/ERC20BlocklistMockUpgradeable.sol";
+
+contract ERC20BlocklistMockUpgradeableWithInit is ERC20BlocklistMockUpgradeable {
+    constructor() payable initializer {
+        __ERC20BlocklistMock_init();
     }
 }
 import "./token/ERC20BridgeableMockUpgradeable.sol";
