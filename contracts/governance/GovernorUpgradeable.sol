@@ -378,8 +378,13 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
     ) public virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         uint256 proposalId = getProposalId(targets, values, calldatas, descriptionHash);
+        bool needsQueueing = proposalNeedsQueuing(proposalId);
 
         _validateStateBitmap(proposalId, _encodeStateBitmap(ProposalState.Succeeded));
+
+        if (!needsQueueing) {
+            revert GovernorProposalQueueingNotRequired(proposalId);
+        }
 
         uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
 
@@ -387,7 +392,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
             $._proposals[proposalId].etaSeconds = etaSeconds;
             emit ProposalQueued(proposalId, etaSeconds);
         } else {
-            revert GovernorQueueNotImplemented();
+            revert GovernorProposalQueueingFailed(proposalId);
         }
 
         return proposalId;

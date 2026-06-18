@@ -791,6 +791,13 @@ contract GovernorProposalGuardianMockUpgradeableWithInit is GovernorProposalGuar
         __GovernorProposalGuardianMock_init();
     }
 }
+import "./governance/GovernorQueueingFailedMockUpgradeable.sol";
+
+contract GovernorQueueingFailedMockUpgradeableWithInit is GovernorQueueingFailedMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorQueueingFailedMock_init();
+    }
+}
 import "./governance/GovernorSequentialProposalIdMockUpgradeable.sol";
 
 contract GovernorSequentialProposalIdMockUpgradeableWithInit is GovernorSequentialProposalIdMockUpgradeable {
