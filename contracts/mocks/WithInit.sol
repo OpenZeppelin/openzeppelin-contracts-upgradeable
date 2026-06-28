@@ -1368,6 +1368,13 @@ contract ERC20TemporaryApprovalUpgradeableWithInit is ERC20TemporaryApprovalUpgr
         __ERC20TemporaryApproval_init();
     }
 }
+import "../token/ERC20/extensions/draft-ERC3009Upgradeable.sol";
+
+contract ERC3009UpgradeableWithInit is ERC3009Upgradeable {
+    constructor() payable initializer {
+        __ERC3009_init();
+    }
+}
 import "../token/ERC20/extensions/ERC1363Upgradeable.sol";
 
 contract ERC1363UpgradeableWithInit is ERC1363Upgradeable {
@@ -1415,6 +1422,13 @@ import "../token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 contract ERC20PermitUpgradeableWithInit is ERC20PermitUpgradeable {
     constructor(string memory name) payable initializer {
         __ERC20Permit_init(name);
+    }
+}
+import "../token/ERC20/extensions/ERC20TransferAuthorizationUpgradeable.sol";
+
+contract ERC20TransferAuthorizationUpgradeableWithInit is ERC20TransferAuthorizationUpgradeable {
+    constructor() payable initializer {
+        __ERC20TransferAuthorization_init();
     }
 }
 import "../token/ERC20/extensions/ERC20VotesUpgradeable.sol";
