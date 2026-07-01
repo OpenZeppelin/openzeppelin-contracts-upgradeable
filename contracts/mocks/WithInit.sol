@@ -408,6 +408,13 @@ contract BatchCallerUpgradeableWithInit is BatchCallerUpgradeable {
         __BatchCaller_init();
     }
 }
+import "./BlockHeaderMockUpgradeable.sol";
+
+contract BlockHeaderMultiReadMockUpgradeableWithInit is BlockHeaderMultiReadMockUpgradeable {
+    constructor() payable initializer {
+        __BlockHeaderMultiReadMock_init();
+    }
+}
 import "./CallReceiverMockUpgradeable.sol";
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
