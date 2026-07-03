@@ -244,10 +244,10 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function _checkpoints(
         address account,
-        uint32 pos
+        uint32 index
     ) internal view virtual returns (Checkpoints.Checkpoint208 memory) {
         VotesStorage storage $ = _getVotesStorage();
-        return $._delegateCheckpoints[account].at(pos);
+        return $._delegateCheckpoints[account].pos(index);
     }
 
     function _push(

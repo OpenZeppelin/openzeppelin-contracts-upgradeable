@@ -439,8 +439,8 @@ contract CompTimelockUpgradeableWithInit is CompTimelockUpgradeable {
 import "./ConstructorMockUpgradeable.sol";
 
 contract ConstructorMockUpgradeableWithInit is ConstructorMockUpgradeable {
-    constructor(RevertType error) payable initializer {
-        __ConstructorMock_init(error);
+    constructor(RevertType err) payable initializer {
+        __ConstructorMock_init(err);
     }
 }
 import "./ContextMockUpgradeable.sol";
@@ -990,8 +990,8 @@ contract TimelockReentrantUpgradeableWithInit is TimelockReentrantUpgradeable {
 import "./token/ERC1155ReceiverMockUpgradeable.sol";
 
 contract ERC1155ReceiverMockUpgradeableWithInit is ERC1155ReceiverMockUpgradeable {
-    constructor(bytes4 recRetval, bytes4 batRetval, RevertType error) payable initializer {
-        __ERC1155ReceiverMock_init(recRetval, batRetval, error);
+    constructor(bytes4 recRetval, bytes4 batRetval, RevertType err) payable initializer {
+        __ERC1155ReceiverMock_init(recRetval, batRetval, err);
     }
 }
 import "./token/ERC1363ForceApproveMockUpgradeable.sol";
@@ -1231,8 +1231,8 @@ contract ERC721ConsecutiveNoConstructorMintMockUpgradeableWithInit is ERC721Cons
 import "./token/ERC721ReceiverMockUpgradeable.sol";
 
 contract ERC721ReceiverMockUpgradeableWithInit is ERC721ReceiverMockUpgradeable {
-    constructor(bytes4 retval, RevertType error) payable initializer {
-        __ERC721ReceiverMock_init(retval, error);
+    constructor(bytes4 retval, RevertType err) payable initializer {
+        __ERC721ReceiverMock_init(retval, err);
     }
 }
 import "./token/ERC721URIStorageMockUpgradeable.sol";

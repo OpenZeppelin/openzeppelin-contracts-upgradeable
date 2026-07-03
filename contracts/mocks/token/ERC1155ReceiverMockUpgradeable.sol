@@ -23,14 +23,14 @@ contract ERC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, IER
     event BatchReceived(address operator, address from, uint256[] ids, uint256[] values, bytes data, uint256 gas);
     error CustomError(bytes4);
 
-    function __ERC1155ReceiverMock_init(bytes4 recRetval, bytes4 batRetval, RevertType error) internal onlyInitializing {
-        __ERC1155ReceiverMock_init_unchained(recRetval, batRetval, error);
+    function __ERC1155ReceiverMock_init(bytes4 recRetval, bytes4 batRetval, RevertType err) internal onlyInitializing {
+        __ERC1155ReceiverMock_init_unchained(recRetval, batRetval, err);
     }
 
-    function __ERC1155ReceiverMock_init_unchained(bytes4 recRetval, bytes4 batRetval, RevertType error) internal onlyInitializing {
+    function __ERC1155ReceiverMock_init_unchained(bytes4 recRetval, bytes4 batRetval, RevertType err) internal onlyInitializing {
         _recRetval = recRetval;
         _batRetval = batRetval;
-        _error = error;
+        _error = err;
     }
 
     function onERC1155Received(

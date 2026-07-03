@@ -46,7 +46,7 @@ abstract contract AccessManagerEnumerableUpgradeable is Initializable, AccessMan
      * for more information.
      */
     function getRoleMember(uint64 roleId, uint256 index) public view virtual returns (address) {
-        return _roleMembers[roleId].at(index);
+        return _roleMembers[roleId].pos(index);
     }
 
     /**
@@ -90,7 +90,7 @@ abstract contract AccessManagerEnumerableUpgradeable is Initializable, AccessMan
      * for more information.
      */
     function getRoleTargetFunction(uint64 roleId, address target, uint256 index) public view virtual returns (bytes4) {
-        return _roleTargetFunctions[roleId][target].at(index);
+        return _roleTargetFunctions[roleId][target].pos(index);
     }
 
     /**

@@ -53,7 +53,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
      */
     function getRoleMember(bytes32 role, uint256 index) public view virtual returns (address) {
         AccessControlEnumerableStorage storage $ = _getAccessControlEnumerableStorage();
-        return $._roleMembers[role].at(index);
+        return $._roleMembers[role].pos(index);
     }
 
     /**
