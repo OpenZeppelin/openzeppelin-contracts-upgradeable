@@ -11,6 +11,11 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 /**
  * @dev This is a variant of {BridgeFungible} that implements the bridge logic for ERC-20 tokens that do not expose a
  * crosschain mint and burn mechanism. Instead, it takes custody of bridged assets.
+ *
+ * WARNING: Any mechanism in which the underlying token changes the {IERC20-balanceOf} of an account without an explicit
+ * transfer may desynchronize this contract's custodied balance from the supply minted or unlocked on the counterpart
+ * chain. Once the counterpart chain supply exceeds the custodied balance, redemptions on this chain revert in
+ * {SafeERC20-safeTransfer} due to insufficient balance.
  */
 // slither-disable-next-line locked-ether
 abstract contract BridgeERC20Upgradeable is Initializable, BridgeFungibleUpgradeable {
