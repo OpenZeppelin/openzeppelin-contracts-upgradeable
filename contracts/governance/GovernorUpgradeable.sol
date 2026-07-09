@@ -442,6 +442,10 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC1
 
         // before execute: register governance call in queue.
         if (_executor() != address(this)) {
+            // Ensure queue is clean before starting
+            if (!$._governanceCall.empty()) {
+                $._governanceCall.clear();
+            }
             for (uint256 i = 0; i < targets.length; ++i) {
                 if (targets[i] == address(this)) {
                     $._governanceCall.pushBack(keccak256(calldatas[i]));
