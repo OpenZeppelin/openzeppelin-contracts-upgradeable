@@ -16,8 +16,8 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * the admin of the timelock for any operation to be performed. A public, unrestricted,
  * {GovernorTimelockCompound-__acceptAdmin} is available to accept ownership of the timelock.
  *
- * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
- * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
+ * Using this model means the proposal will be operated by the {ICompoundTimelock} and not by the {Governor}. Thus,
+ * the assets and permissions must be attached to the {ICompoundTimelock}. Any asset sent to the {Governor} will be
  * inaccessible from a proposal, unless executed via {Governor-relay}.
  */
 abstract contract GovernorTimelockCompoundUpgradeable is Initializable, GovernorUpgradeable {
@@ -36,7 +36,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
     }
 
     /**
-     * @dev Emitted when the timelock controller used for proposal execution is modified.
+     * @dev Emitted when the timelock used for proposal execution is modified.
      */
     event TimelockChange(address oldTimelock, address newTimelock);
 

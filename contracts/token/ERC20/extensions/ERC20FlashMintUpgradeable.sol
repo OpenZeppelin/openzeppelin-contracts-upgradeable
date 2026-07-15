@@ -73,7 +73,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
 
     /**
      * @dev Returns the fee applied when doing flash loans. By default this
-     * implementation has 0 fees. This function can be overloaded to make
+     * implementation has 0 fees. This function can be overridden to make
      * the flash loan mechanism deflationary.
      * @return The fees applied to the corresponding flash loan.
      */
@@ -84,7 +84,7 @@ abstract contract ERC20FlashMintUpgradeable is Initializable, ERC20Upgradeable, 
     /**
      * @dev Returns the receiver address of the flash fee. By default this
      * implementation returns the address(0) which means the fee amount will be burnt.
-     * This function can be overloaded to change the fee receiver.
+     * This function can be overridden to change the fee receiver.
      * @return The address for which the flash fee will be sent to.
      */
     function _flashFeeReceiver() internal view virtual returns (address) {

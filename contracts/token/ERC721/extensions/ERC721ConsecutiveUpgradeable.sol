@@ -106,7 +106,7 @@ abstract contract ERC721ConsecutiveUpgradeable is Initializable, IERC2309, ERC72
 
     /**
      * @dev Mint a batch of tokens of length `batchSize` for `to`. Returns the token id of the first token minted in the
-     * batch; if `batchSize` is 0, returns the number of consecutive ids minted so far.
+     * batch; if `batchSize` is 0, returns the next token id to be minted consecutively.
      *
      * Requirements:
      *

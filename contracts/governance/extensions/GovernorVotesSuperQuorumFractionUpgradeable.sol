@@ -41,7 +41,7 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
     error GovernorInvalidSuperQuorumFraction(uint256 superQuorumNumerator, uint256 denominator);
 
     /**
-     * @dev The super quorum set is not valid as it is smaller or equal to the quorum.
+     * @dev The super quorum set is not valid as it is smaller than the quorum.
      */
     error GovernorInvalidSuperQuorumTooSmall(uint256 superQuorumNumerator, uint256 quorumNumerator);
 
@@ -54,7 +54,7 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
      * @dev Initialize super quorum as a fraction of the token's total supply.
      *
      * The super quorum is specified as a fraction of the token's total supply and has to
-     * be greater than the quorum.
+     * be greater than or equal to the quorum.
      */
     function __GovernorVotesSuperQuorumFraction_init(uint256 superQuorumNumeratorValue) internal onlyInitializing {
         __GovernorVotesSuperQuorumFraction_init_unchained(superQuorumNumeratorValue);

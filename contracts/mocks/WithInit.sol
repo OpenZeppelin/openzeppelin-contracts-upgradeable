@@ -602,11 +602,11 @@ contract GameItemsUpgradeableWithInit is GameItemsUpgradeable {
         __GameItems_init();
     }
 }
-import "./docs/token/ERC1155/MyERC115HolderContractUpgradeable.sol";
+import "./docs/token/ERC1155/MyERC1155HolderContractUpgradeable.sol";
 
-contract MyERC115HolderContractUpgradeableWithInit is MyERC115HolderContractUpgradeable {
+contract MyERC1155HolderContractUpgradeableWithInit is MyERC1155HolderContractUpgradeable {
     constructor() payable initializer {
-        __MyERC115HolderContract_init();
+        __MyERC1155HolderContract_init();
     }
 }
 import "./docs/token/ERC20/GLDTokenUpgradeable.sol";

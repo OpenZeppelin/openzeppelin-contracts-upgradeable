@@ -4,7 +4,6 @@
 pragma solidity ^0.8.20;
 
 import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
-import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -12,7 +11,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable, ERC20Upgradeable {
+abstract contract ERC20BurnableUpgradeable is Initializable, ERC20Upgradeable {
     function __ERC20Burnable_init() internal onlyInitializing {
     }
 
@@ -35,7 +34,7 @@ abstract contract ERC20BurnableUpgradeable is Initializable, ContextUpgradeable,
      *
      * Requirements:
      *
-     * - the caller must have allowance for ``accounts``'s tokens of at least
+     * - the caller must have allowance for `account`'s tokens of at least
      * `value`.
      */
     function burnFrom(address account, uint256 value) public virtual {
