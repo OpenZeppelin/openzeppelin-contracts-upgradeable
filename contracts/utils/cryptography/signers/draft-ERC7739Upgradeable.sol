@@ -75,6 +75,22 @@ abstract contract ERC7739Upgradeable is Initializable, AbstractSigner, EIP712Upg
             string calldata contentsDescr
         ) = encodedSignature.decodeTypedDataSig();
 
+        (string calldata contentsName, string calldata contentsType) = contentsDescr.decodeContentsDescr();
+
+        // Check that contentHash and separator are correct
+        // Rebuild nested hash
+        return
+            hash == appSeparator.toTypedDataHash(contentsHash) &&
+            bytes(contentsName).length != 0 &&
+            _rawSignatureValidation(
+                appSeparator.toTypedDataHash(
+                    ERC7739Utils.typedDataSignStructHash(contentsName, contentsType, contentsHash, _buildDomainBytes())
+                ),
+                signature
+            );
+    }
+
+    function _buildDomainBytes() private view returns (bytes memory) {
         (
             ,
             string memory name,
@@ -84,21 +100,6 @@ abstract contract ERC7739Upgradeable is Initializable, AbstractSigner, EIP712Upg
             bytes32 salt,
 
         ) = eip712Domain();
-
-        // Check that contentHash and separator are correct
-        // Rebuild nested hash
-        return
-            hash == appSeparator.toTypedDataHash(contentsHash) &&
-            bytes(contentsDescr).length != 0 &&
-            _rawSignatureValidation(
-                appSeparator.toTypedDataHash(
-                    ERC7739Utils.typedDataSignStructHash(
-                        contentsDescr,
-                        contentsHash,
-                        abi.encode(keccak256(bytes(name)), keccak256(bytes(version)), chainId, verifyingContract, salt)
-                    )
-                ),
-                signature
-            );
+        return abi.encode(keccak256(bytes(name)), keccak256(bytes(version)), chainId, verifyingContract, salt);
     }
 }
