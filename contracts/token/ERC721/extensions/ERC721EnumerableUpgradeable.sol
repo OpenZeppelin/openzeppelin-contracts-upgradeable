@@ -14,6 +14,10 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  *
  * CAUTION: {ERC721} extensions that implement custom `balanceOf` logic, such as {ERC721Consecutive},
  * interfere with enumerability and should not be used together with {ERC721Enumerable}.
+ *
+ * CAUTION: This extension should not be added in an upgrade after tokens have already been minted.
+ * Enumeration is tracked in {_update}, so preexisting tokens would be missing from {totalSupply},
+ * {tokenByIndex}, and {tokenOfOwnerByIndex}.
  */
 abstract contract ERC721EnumerableUpgradeable is Initializable, ERC721Upgradeable, IERC721Enumerable {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC721Enumerable
