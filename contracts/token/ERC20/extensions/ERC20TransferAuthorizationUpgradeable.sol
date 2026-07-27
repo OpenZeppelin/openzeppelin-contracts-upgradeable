@@ -16,6 +16,14 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * different keys are independent and can be submitted in parallel without ordering constraints, while nonces
  * sharing the same key must be used sequentially. This is unlike {ERC20Permit} which uses a single global
  * sequential nonce.
+ *
+ * WARNING: Upgrading a proxy between {ERC3009} and {ERC20TransferAuthorization} implementations (in either direction)
+ * can re-enable replay of previously-consumed authorizations. The two contracts use different nonce-consumption
+ * schemes and do not share storage: {ERC3009} records used nonces in a
+ * `mapping(address => mapping(bytes32 => bool))`, while this contract uses {NoncesKeyed}'s keyed sequential counters.
+ * Historical usage recorded under one scheme is not observed by the other, so a previously-used nonce can become valid
+ * again after the upgrade. If such an upgrade is unavoidable, consider bumping the EIP-712 domain `version` (or `name`)
+ * to invalidate pre-upgrade signatures.
  */
 abstract contract ERC20TransferAuthorizationUpgradeable is Initializable, ERC3009Upgradeable, NoncesKeyedUpgradeable {
     function __ERC20TransferAuthorization_init() internal onlyInitializing {
