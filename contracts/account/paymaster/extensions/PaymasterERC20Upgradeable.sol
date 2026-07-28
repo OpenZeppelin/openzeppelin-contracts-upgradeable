@@ -7,6 +7,7 @@ import {PackedUserOperation} from "@openzeppelin/contracts/interfaces/IERC4337.s
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {PaymasterUpgradeable} from "../PaymasterUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
@@ -60,6 +61,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 abstract contract PaymasterERC20Upgradeable is Initializable, PaymasterUpgradeable {
     using ERC4337Utils for *;
     using Math for *;
+    using SafeCast for *;
     using SafeERC20 for IERC20;
 
     /**
@@ -304,8 +306,13 @@ abstract contract PaymasterERC20Upgradeable is Initializable, PaymasterUpgradeab
     function _erc20Cost(uint256 nativeCost, uint256 tokenPerNative) internal view virtual returns (uint256) {
         uint256 denominator = _tokenPerNativeDenominator();
         (uint256 high, ) = nativeCost.mul512(tokenPerNative);
+        // Round up using a saturating add to avoid possible overflow of the rounding.
         return
-            high < denominator ? nativeCost.mulDiv(tokenPerNative, denominator, Math.Rounding.Ceil) : type(uint256).max;
+            high < denominator
+                ? nativeCost.mulDiv(tokenPerNative, denominator).saturatingAdd(
+                    (mulmod(nativeCost, tokenPerNative, denominator) > 0).toUint()
+                )
+                : type(uint256).max;
     }
 
     /// @dev Internal function that allows the withdrawer to extract ERC-20 tokens resulting from gas payments.
