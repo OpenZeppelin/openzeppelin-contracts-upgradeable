@@ -46,6 +46,10 @@ contract ERC6909MetadataUpgradeable is Initializable, ERC6909Upgradeable, IERC69
 
     function __ERC6909Metadata_init_unchained() internal onlyInitializing {
     }
+    /// @inheritdoc ERC6909Upgradeable
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC6909Metadata).interfaceId || super.supportsInterface(interfaceId);
+    }
     /// @inheritdoc IERC6909Metadata
     function name(uint256 id) public view virtual override returns (string memory) {
         ERC6909MetadataStorage storage $ = _getERC6909MetadataStorage();
