@@ -289,6 +289,13 @@ contract PaymasterERC20GuarantorMockUpgradeableWithInit is PaymasterERC20Guarant
         __PaymasterERC20GuarantorMock_init();
     }
 }
+import "./account/paymaster/PaymasterERC20MockUpgradeable.sol";
+
+contract PaymasterERC20GuarantorReducingMockUpgradeableWithInit is PaymasterERC20GuarantorReducingMockUpgradeable {
+    constructor() payable initializer {
+        __PaymasterERC20GuarantorReducingMock_init();
+    }
+}
 import "./account/paymaster/PaymasterERC721OwnerMockUpgradeable.sol";
 
 contract PaymasterERC721OwnerContextNoPostOpMockUpgradeableWithInit is PaymasterERC721OwnerContextNoPostOpMockUpgradeable {
