@@ -15,6 +15,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * If a vote causes quorum to be reached, the proposal's voting period may be extended so that it does not end before at
  * least a specified time has passed (the "vote extension" parameter). This parameter can be set through a governance
  * proposal.
+ *
+ * NOTE: This module only reacts to the first time a proposal reaches quorum. If quorum can later be lost, for example
+ * when combined with {GovernorCountingOverridable}, reaching quorum again will not trigger another vote extension.
  */
 abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorPreventLateQuorum
