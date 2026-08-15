@@ -875,13 +875,6 @@ contract GovernorWithParamsMockUpgradeableWithInit is GovernorWithParamsMockUpgr
         __GovernorWithParamsMock_init();
     }
 }
-import "./MerkleProofCustomHashMockUpgradeable.sol";
-
-contract MerkleProofCustomHashMockUpgradeableWithInit is MerkleProofCustomHashMockUpgradeable {
-    constructor() payable initializer {
-        __MerkleProofCustomHashMock_init();
-    }
-}
 import "./MerkleTreeMockUpgradeable.sol";
 
 contract MerkleTreeMockUpgradeableWithInit is MerkleTreeMockUpgradeable {
@@ -971,13 +964,6 @@ import "./ReentrancyTransientMockUpgradeable.sol";
 contract ReentrancyTransientMockUpgradeableWithInit is ReentrancyTransientMockUpgradeable {
     constructor() payable initializer {
         __ReentrancyTransientMock_init();
-    }
-}
-import "./StatelessUpgradeable.sol";
-
-contract Dummy1234UpgradeableWithInit is Dummy1234Upgradeable {
-    constructor() payable initializer {
-        __Dummy1234_init();
     }
 }
 import "./StorageSlotMockUpgradeable.sol";
