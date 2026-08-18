@@ -137,6 +137,12 @@ abstract contract PaymasterERC20GuarantorMockUpgradeable is Initializable, Payma
                 : address(0);
     }
 
+    function _postOpGasBudget(
+        PackedUserOperation calldata userOp
+    ) internal view virtual override(PaymasterERC20Upgradeable, PaymasterERC20GuarantorUpgradeable) returns (uint256) {
+        return super._postOpGasBudget(userOp);
+    }
+
     function _refund(
         IERC20 token,
         uint256 actualAmount,
@@ -270,6 +276,12 @@ contract PaymasterERC20GuarantorReducingMockUpgradeable is Initializable, Paymas
 
     function _guaranteedPostOpCost() internal pure override returns (uint256) {
         return 0;
+    }
+
+    function _postOpGasBudget(
+        PackedUserOperation calldata userOp
+    ) internal view virtual override(PaymasterERC20Upgradeable, PaymasterERC20GuarantorUpgradeable) returns (uint256) {
+        return super._postOpGasBudget(userOp);
     }
 
     function _prefund(
