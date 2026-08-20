@@ -44,6 +44,9 @@ contract CrosschainRemoteExecutorUpgradeable is Initializable, ERC7786Recipient 
     /// @dev Reverted when a non-controller tries to relay instructions to this executor.
     error AccessRestricted();
 
+    function initialize(address initialGateway, bytes memory initialController) public virtual initializer {
+        __CrosschainRemoteExecutor_init(initialGateway, initialController);
+    }
     function __CrosschainRemoteExecutor_init(address initialGateway, bytes memory initialController) internal onlyInitializing {
         __CrosschainRemoteExecutor_init_unchained(initialGateway, initialController);
     }

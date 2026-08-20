@@ -12,7 +12,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * @dev Implementation of the Token Supply extension defined in ERC6909.
  * Tracks the total supply of each token id individually.
  */
-contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IERC6909TokenSupply {
+abstract contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IERC6909TokenSupply {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909TokenSupply
     struct ERC6909TokenSupplyStorage {
         mapping(uint256 id => uint256) _totalSupplies;

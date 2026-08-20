@@ -13,7 +13,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * @dev Implementation of ERC-6909.
  * See https://eips.ethereum.org/EIPS/eip-6909
  */
-contract ERC6909Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC6909 {
+abstract contract ERC6909Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC6909 {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909
     struct ERC6909Storage {
         mapping(address owner => mapping(uint256 id => uint256)) _balances;

@@ -11,7 +11,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 /**
  * @dev Implementation of the Content URI extension defined in ERC6909.
  */
-contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC6909ContentURI {
+abstract contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC6909ContentURI {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909ContentURI
     struct ERC6909ContentURIStorage {
         string _contractURI;
