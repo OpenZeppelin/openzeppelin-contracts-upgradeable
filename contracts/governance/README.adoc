@@ -1,7 +1,7 @@
 = Governance
 
 [.readme-notice]
-NOTE: This document is better viewed at https://docs.openzeppelin.com/contracts/api/governance
+NOTE: This document is better viewed at https://docs.openzeppelin.com/contracts/5.x/api/governance
 
 This directory includes primitives for on-chain governance.
 
