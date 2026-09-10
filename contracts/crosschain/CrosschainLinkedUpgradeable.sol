@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.26;
 
-import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/draft-IERC7786.sol";
+import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/IERC7786.sol";
 import {Bytes} from "@openzeppelin/contracts/utils/Bytes.sol";
 import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
 import {ERC7786Recipient} from "@openzeppelin/contracts/crosschain/ERC7786Recipient.sol";

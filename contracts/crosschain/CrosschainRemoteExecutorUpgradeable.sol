@@ -4,7 +4,7 @@
 pragma solidity ^0.8.27;
 
 import {ERC7579Utils, Mode, CallType, ExecType} from "@openzeppelin/contracts/account/utils/draft-ERC7579Utils.sol";
-import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/draft-IERC7786.sol";
+import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/IERC7786.sol";
 import {Bytes} from "@openzeppelin/contracts/utils/Bytes.sol";
 import {ERC7786Recipient} from "@openzeppelin/contracts/crosschain/ERC7786Recipient.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";

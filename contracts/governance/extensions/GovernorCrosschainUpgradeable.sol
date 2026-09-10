@@ -4,7 +4,7 @@
 pragma solidity ^0.8.26;
 
 import {Mode} from "@openzeppelin/contracts/account/utils/draft-ERC7579Utils.sol";
-import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/draft-IERC7786.sol";
+import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/IERC7786.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
