@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.24;
 
-import {IERC1155Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
+import {IERC1155Errors} from "@openzeppelin/contracts/interfaces/IERC6093.sol";
 import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
