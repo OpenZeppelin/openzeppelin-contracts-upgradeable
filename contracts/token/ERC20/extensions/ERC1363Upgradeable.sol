@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
+import {IERC1363} from "@openzeppelin/contracts/interfaces/IERC1363.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
-import {IERC1363} from "@openzeppelin/contracts/interfaces/IERC1363.sol";
+import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {ERC1363Utils} from "@openzeppelin/contracts/token/ERC20/utils/ERC1363Utils.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 

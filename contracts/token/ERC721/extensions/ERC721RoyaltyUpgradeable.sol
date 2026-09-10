@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {ERC2981Upgradeable} from "../../common/ERC2981Upgradeable.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

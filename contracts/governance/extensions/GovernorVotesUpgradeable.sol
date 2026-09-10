@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.24;
 
+import {IERC5805} from "@openzeppelin/contracts/interfaces/IERC5805.sol";
+import {ERC6372Utils} from "@openzeppelin/contracts/utils/ERC6372Utils.sol";
+import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
-import {IERC5805} from "@openzeppelin/contracts/interfaces/IERC5805.sol";
-import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
-import {ERC6372Utils} from "@openzeppelin/contracts/utils/ERC6372Utils.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

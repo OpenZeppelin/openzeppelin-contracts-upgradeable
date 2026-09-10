@@ -2,9 +2,9 @@
 // OpenZeppelin Contracts (last updated v5.7.0) (token/ERC20/extensions/ERC20TransferAuthorization.sol)
 pragma solidity ^0.8.26;
 
-import {ERC3009Upgradeable} from "./draft-ERC3009Upgradeable.sol";
 import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 import {NoncesKeyedUpgradeable} from "../../../utils/NoncesKeyedUpgradeable.sol";
+import {ERC3009Upgradeable} from "./draft-ERC3009Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

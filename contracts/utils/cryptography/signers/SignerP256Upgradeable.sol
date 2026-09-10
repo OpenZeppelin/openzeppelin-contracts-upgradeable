@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
 import {P256} from "@openzeppelin/contracts/utils/cryptography/P256.sol";
+import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

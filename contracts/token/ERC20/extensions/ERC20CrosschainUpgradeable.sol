@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.26;
 
-import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {BridgeFungibleUpgradeable} from "../../../crosschain/bridges/abstract/BridgeFungibleUpgradeable.sol";
+import {ERC20Upgradeable} from "../ERC20Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

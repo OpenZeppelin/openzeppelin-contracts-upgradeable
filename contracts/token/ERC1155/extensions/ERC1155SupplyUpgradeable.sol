@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.24;
 
-import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
+import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

@@ -5,10 +5,10 @@ pragma solidity ^0.8.24;
 
 import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
-import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {IGovernor} from "@openzeppelin/contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
+import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

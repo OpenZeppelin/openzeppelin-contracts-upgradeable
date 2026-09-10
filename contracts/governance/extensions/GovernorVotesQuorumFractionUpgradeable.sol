@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
+import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

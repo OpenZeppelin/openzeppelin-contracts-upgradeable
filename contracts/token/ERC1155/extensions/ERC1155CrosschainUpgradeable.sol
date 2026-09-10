@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.26;
 
-import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {BridgeMultiTokenUpgradeable} from "../../../crosschain/bridges/abstract/BridgeMultiTokenUpgradeable.sol";
+import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

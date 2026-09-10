@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {NoncesKeyedUpgradeable} from "../../utils/NoncesKeyedUpgradeable.sol";
-import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

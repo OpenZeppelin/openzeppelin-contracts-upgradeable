@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.24;
 
-import {SignerP256Upgradeable} from "./SignerP256Upgradeable.sol";
 import {WebAuthn} from "@openzeppelin/contracts/utils/cryptography/WebAuthn.sol";
+import {SignerP256Upgradeable} from "./SignerP256Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

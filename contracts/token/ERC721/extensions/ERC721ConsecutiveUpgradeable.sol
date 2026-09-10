@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {IERC2309} from "@openzeppelin/contracts/interfaces/IERC2309.sol";
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
+import {ERC721Upgradeable} from "../ERC721Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
