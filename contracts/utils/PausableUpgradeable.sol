@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.20;
 
-import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {ContextUpgradeable} from "./ContextUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
