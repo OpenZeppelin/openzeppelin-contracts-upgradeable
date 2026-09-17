@@ -240,7 +240,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     }
 
     /**
-     * @dev Get the `pos`-th checkpoint for `account`.
+     * @dev Get the `index`-th checkpoint for `account`.
      */
     function _checkpoints(
         address account,
