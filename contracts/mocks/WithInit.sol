@@ -1473,6 +1473,13 @@ contract ERC6909MetadataUpgradeableWithInit is ERC6909MetadataUpgradeable {
         __ERC6909Metadata_init();
     }
 }
+import "../token/ERC6909/extensions/ERC6909PausableUpgradeable.sol";
+
+contract ERC6909PausableUpgradeableWithInit is ERC6909PausableUpgradeable {
+    constructor() payable initializer {
+        __ERC6909Pausable_init();
+    }
+}
 import "../token/ERC6909/extensions/ERC6909TokenSupplyUpgradeable.sol";
 
 contract ERC6909TokenSupplyUpgradeableWithInit is ERC6909TokenSupplyUpgradeable {
