@@ -66,7 +66,7 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
         PackedUserOperation calldata userOp,
         bytes32 userOpHash,
         IERC20 token,
-        uint256 tokenPrice,
+        uint256 tokenPerNative,
         address prefunder_,
         uint256 prefundAmount_
     )
@@ -88,7 +88,7 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
 
             // `_erc20Cost` may return `type(uint256).max` as an overflow sentinel. `saturatingAdd` preserves it
             // so the bad value reaches `trySafeTransferFrom` and fails there, instead of reverting here.
-            uint256 guaranteedPostOpCost = _erc20Cost(_guaranteedPostOpCost() * userOp.maxFeePerGas(), tokenPrice);
+            uint256 guaranteedPostOpCost = _erc20Cost(_guaranteedPostOpCost() * userOp.maxFeePerGas(), tokenPerNative);
             prefundAmount_ = prefundAmount_.saturatingAdd(guaranteedPostOpCost);
             prefunder_ = guarantor;
         }
@@ -96,7 +96,7 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
             userOp,
             userOpHash,
             token,
-            tokenPrice,
+            tokenPerNative,
             prefunder_,
             prefundAmount_
         );
@@ -124,7 +124,7 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
      */
     function _refund(
         IERC20 token,
-        uint256 tokenPrice,
+        uint256 tokenPerNative,
         uint256 actualAmount,
         uint256 actualUserOpFeePerGas,
         address prefunder,
@@ -144,7 +144,10 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
             // If the values used here are able to cause that _erc20Cost math to fail (and return type(uint256).max),
             // then the same failure must have already happened in the _prefund phase, causing the whole userOp to
             // fail before even reaching this point.
-            uint256 guaranteedPostOpAmount = _erc20Cost(_guaranteedPostOpCost() * actualUserOpFeePerGas, tokenPrice);
+            uint256 guaranteedPostOpAmount = _erc20Cost(
+                _guaranteedPostOpCost() * actualUserOpFeePerGas,
+                tokenPerNative
+            );
             actualAmount += guaranteedPostOpAmount;
             effectiveAmount = actualAmount;
 
@@ -158,7 +161,7 @@ abstract contract PaymasterERC20GuarantorUpgradeable is Initializable, Paymaster
         bytes calldata forwardedContext = prefundContext[:prefundContext.length - 20];
         (refunded, returnedEffectiveAmount) = super._refund(
             token,
-            tokenPrice,
+            tokenPerNative,
             actualAmount,
             actualUserOpFeePerGas,
             prefunder,
