@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.6.0) (finance/VestingWallet.sol)
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
+import {IERC6372} from "@openzeppelin/contracts/interfaces/IERC6372.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
+import {ERC6372Utils} from "@openzeppelin/contracts/utils/ERC6372Utils.sol";
+import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -20,6 +23,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  *
  * By setting the duration to 0, one can configure this contract to behave like an asset timelock that holds tokens for
  * a beneficiary until a specified time.
+ *
+ * NOTE: The vesting schedule uses {clock}, which defaults to timestamps. If overriding the clock, also override
+ * {CLOCK_MODE} and express the start, duration, and any cliff in the same unit as the clock.
  *
  * NOTE: Since the wallet is {Ownable}, and ownership can be transferred, it is possible to sell unvested tokens.
  * Preventing this in a smart contract is difficult, considering that: 1) a beneficiary address could be a
@@ -34,7 +40,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * at 50% of the vesting period, the beneficiary can withdraw 50 A as ERC20 and 25 A as native currency (totaling 75 A).
  * Consider disabling one of the withdrawal methods.
  */
-contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableUpgradeable {
+contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableUpgradeable, IERC6372 {
     event EtherReleased(uint256 amount);
     event ERC20Released(address indexed token, uint256 amount);
 
@@ -55,22 +61,33 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         }
     }
 
-    function initialize(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) public virtual initializer {
-        __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
+    function initialize(address beneficiary, uint64 start_, uint64 duration_) public virtual initializer {
+        __VestingWallet_init(beneficiary, start_, duration_);
     }
     /**
      * @dev Sets the beneficiary (owner), the start timestamp and the vesting duration (in seconds) of the vesting
      * wallet.
      */
-    function __VestingWallet_init(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
+    function __VestingWallet_init(address beneficiary, uint64 start_, uint64 duration_) internal onlyInitializing {
         __Ownable_init_unchained(beneficiary);
-        __VestingWallet_init_unchained(beneficiary, startTimestamp, durationSeconds);
+        __VestingWallet_init_unchained(beneficiary, start_, duration_);
     }
 
-    function __VestingWallet_init_unchained(address, uint64 startTimestamp, uint64 durationSeconds) internal onlyInitializing {
+    function __VestingWallet_init_unchained(address, uint64 start_, uint64 duration_) internal onlyInitializing {
         VestingWalletStorage storage $ = _getVestingWalletStorage();
-        $._start = startTimestamp;
-        $._duration = durationSeconds;
+        $._start = start_;
+        $._duration = duration_;
+    }
+
+    /// @inheritdoc IERC6372
+    function clock() public view virtual returns (uint48) {
+        return Time.timestamp();
+    }
+
+    /// @inheritdoc IERC6372
+    // solhint-disable-next-line func-name-mixedcase
+    function CLOCK_MODE() public view virtual returns (string memory) {
+        return ERC6372Utils.timestampClockMode(clock());
     }
 
     /**
@@ -121,7 +138,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * @dev Getter for the amount of releasable eth.
      */
     function releasable() public view virtual returns (uint256) {
-        return vestedAmount(uint64(block.timestamp)) - released();
+        return vestedAmount(clock()) - released();
     }
 
     /**
@@ -129,7 +146,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * {IERC20} contract.
      */
     function releasable(address token) public view virtual returns (uint256) {
-        return vestedAmount(token, uint64(block.timestamp)) - released(token);
+        return vestedAmount(token, clock()) - released(token);
     }
 
     /**

@@ -110,8 +110,8 @@ contract CrosschainRemoteExecutorUpgradeableWithInit is CrosschainRemoteExecutor
 import "../finance/VestingWalletUpgradeable.sol";
 
 contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
-    constructor(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) payable initializer {
-        __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
+    constructor(address beneficiary, uint64 start_, uint64 duration_) payable initializer {
+        __VestingWallet_init(beneficiary, start_, duration_);
     }
 }
 import "../finance/VestingWalletCliffUpgradeable.sol";
@@ -1275,6 +1275,20 @@ import "./utils/cryptography/ERC7739MockUpgradeable.sol";
 contract ERC7739RSAMockUpgradeableWithInit is ERC7739RSAMockUpgradeable {
     constructor() payable initializer {
         __ERC7739RSAMock_init();
+    }
+}
+import "./VestingWalletMockUpgradeable.sol";
+
+contract VestingWalletBlockNumberMockUpgradeableWithInit is VestingWalletBlockNumberMockUpgradeable {
+    constructor() payable initializer {
+        __VestingWalletBlockNumberMock_init();
+    }
+}
+import "./VestingWalletMockUpgradeable.sol";
+
+contract VestingWalletCliffBlockNumberMockUpgradeableWithInit is VestingWalletCliffBlockNumberMockUpgradeable {
+    constructor() payable initializer {
+        __VestingWalletCliffBlockNumberMock_init();
     }
 }
 import "./VotesExtendedMockUpgradeable.sol";
