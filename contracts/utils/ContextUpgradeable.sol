@@ -13,6 +13,11 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * is concerned).
  *
  * This contract is only required for intermediate, library-like contracts.
+ *
+ * IMPORTANT: Deprecated in favor of accessing `msg.sender` and `msg.data` directly. This contract, along with its
+ * `_msgSender`, `_msgData` and `_contextSuffixLength` functions, will be removed in v6.0, where contracts read
+ * `msg.sender` and `msg.data` directly. Contracts that override `_msgSender`/`_msgData` (e.g. to support
+ * meta-transactions) will lose that extension point; plan the migration before upgrading.
  */
 abstract contract ContextUpgradeable is Initializable {
     function __Context_init() internal onlyInitializing {
