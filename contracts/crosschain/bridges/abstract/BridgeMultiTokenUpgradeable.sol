@@ -42,8 +42,8 @@ abstract contract BridgeMultiTokenUpgradeable is Initializable, ContextUpgradeab
         bytes data
     );
 
-    /// @dev Revert reason when the address part of the interoperable address is empty.
-    error CrosschainMultiTokenEmptyAddress();
+    /// @dev Revert reason when the address part of the interoperable address is empty or has an invalid length.
+    error CrosschainMultiTokenInvalidAddress();
 
     function __BridgeMultiToken_init() internal onlyInitializing {
     }
@@ -66,7 +66,7 @@ abstract contract BridgeMultiTokenUpgradeable is Initializable, ContextUpgradeab
         _onSend(from, ids, values);
 
         (bytes2 chainType, bytes memory chainReference, bytes memory addr) = to.parseV1();
-        require(addr.length > 0, CrosschainMultiTokenEmptyAddress());
+        require(InteroperableAddress.isValidAddressLength(chainType, addr), CrosschainMultiTokenInvalidAddress());
 
         bytes32 sendId = _sendMessageToCounterpart(
             InteroperableAddress.formatV1(chainType, chainReference, hex""),

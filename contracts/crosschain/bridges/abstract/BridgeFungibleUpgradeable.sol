@@ -27,8 +27,8 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
     /// @dev Emitted when a crosschain ERC-20 transfer is received.
     event CrosschainFungibleTransferReceived(bytes32 indexed receiveId, bytes from, address indexed to, uint256 amount);
 
-    /// @dev Revert reason when the address part of the interoperable address is empty.
-    error CrosschainFungibleEmptyAddress();
+    /// @dev Revert reason when the address part of the interoperable address is empty or has an invalid length.
+    error CrosschainFungibleInvalidAddress();
 
     function __BridgeFungible_init() internal onlyInitializing {
     }
@@ -53,7 +53,7 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         _onSend(from, amount);
 
         (bytes2 chainType, bytes memory chainReference, bytes memory addr) = InteroperableAddress.parseV1(to);
-        require(addr.length > 0, CrosschainFungibleEmptyAddress());
+        require(InteroperableAddress.isValidAddressLength(chainType, addr), CrosschainFungibleInvalidAddress());
 
         bytes32 sendId = _sendMessageToCounterpart(
             InteroperableAddress.formatV1(chainType, chainReference, hex""),

@@ -31,8 +31,8 @@ abstract contract BridgeNonFungibleUpgradeable is Initializable, ContextUpgradea
         uint256 tokenId
     );
 
-    /// @dev Revert reason when the address part of the interoperable address is empty.
-    error CrosschainNonFungibleEmptyAddress();
+    /// @dev Revert reason when the address part of the interoperable address is empty or has an invalid length.
+    error CrosschainNonFungibleInvalidAddress();
 
     function __BridgeNonFungible_init() internal onlyInitializing {
     }
@@ -48,7 +48,7 @@ abstract contract BridgeNonFungibleUpgradeable is Initializable, ContextUpgradea
         _onSend(from, tokenId);
 
         (bytes2 chainType, bytes memory chainReference, bytes memory addr) = InteroperableAddress.parseV1(to);
-        require(addr.length > 0, CrosschainNonFungibleEmptyAddress());
+        require(InteroperableAddress.isValidAddressLength(chainType, addr), CrosschainNonFungibleInvalidAddress());
 
         bytes32 sendId = _sendMessageToCounterpart(
             InteroperableAddress.formatV1(chainType, chainReference, hex""),
