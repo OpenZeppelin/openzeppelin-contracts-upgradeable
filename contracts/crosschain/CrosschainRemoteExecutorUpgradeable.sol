@@ -6,6 +6,7 @@ pragma solidity ^0.8.31;
 import {ERC7579Utils, Mode, CallType, ExecType} from "@openzeppelin/contracts/account/utils/draft-ERC7579Utils.sol";
 import {IERC7786GatewaySource} from "@openzeppelin/contracts/interfaces/IERC7786.sol";
 import {Bytes} from "@openzeppelin/contracts/utils/Bytes.sol";
+import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
 import {ERC7786Recipient} from "@openzeppelin/contracts/crosschain/ERC7786Recipient.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
@@ -85,6 +86,13 @@ contract CrosschainRemoteExecutorUpgradeable is Initializable, ERC7786Recipient 
         // Sanity check, this should revert if gateway is not an ERC-7786 implementation. Note that since
         // supportsAttribute returns data, accounts without code would fail that test (nothing returned).
         IERC7786GatewaySource(gateway_).supportsAttribute(bytes4(0));
+
+        // Reject any controller that could never match a sender reported by the gateway (see _isAuthorizedGateway).
+        (bytes2 chainType, , bytes memory addr) = InteroperableAddress.parseV1(controller_, true);
+        require(
+            InteroperableAddress.isValidAddressLength(chainType, addr),
+            InteroperableAddress.InteroperableAddressParsingError(controller_)
+        );
 
         $._gateway = gateway_;
         $._controller = controller_;
