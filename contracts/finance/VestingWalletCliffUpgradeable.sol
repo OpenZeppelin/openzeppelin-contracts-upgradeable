@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.7.0) (finance/VestingWalletCliff.sol)
 
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.31;
 
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {VestingWalletUpgradeable} from "./VestingWalletUpgradeable.sol";

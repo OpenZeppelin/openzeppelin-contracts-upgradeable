@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.7.0) (account/extensions/draft-AccountERC7579.sol)
 
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.31;
 
 import {IERC7579Module, IERC7579Validator, IERC7579Execution, IERC7579AccountConfig, IERC7579ModuleConfig, MODULE_TYPE_VALIDATOR, MODULE_TYPE_EXECUTOR, MODULE_TYPE_FALLBACK} from "@openzeppelin/contracts/interfaces/draft-IERC7579.sol";
 import {IERC1271} from "@openzeppelin/contracts/interfaces/IERC1271.sol";

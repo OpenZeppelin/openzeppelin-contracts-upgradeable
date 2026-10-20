@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.7.0) (token/ERC1155/extensions/ERC1155Crosschain.sol)
 
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.31;
 
 import {BridgeMultiTokenUpgradeable} from "../../../crosschain/bridges/abstract/BridgeMultiTokenUpgradeable.sol";
 import {ERC1155Upgradeable} from "../ERC1155Upgradeable.sol";

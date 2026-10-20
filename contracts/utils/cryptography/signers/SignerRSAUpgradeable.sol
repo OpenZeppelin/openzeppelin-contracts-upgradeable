@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.4.0) (utils/cryptography/signers/SignerRSA.sol)
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.31;
 
 import {RSA} from "@openzeppelin/contracts/utils/cryptography/RSA.sol";
 import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";

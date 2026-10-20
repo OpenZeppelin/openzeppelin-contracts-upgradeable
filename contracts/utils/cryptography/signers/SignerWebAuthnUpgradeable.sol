@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.7.0) (utils/cryptography/signers/SignerWebAuthn.sol)
 
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.31;
 
 import {WebAuthn} from "@openzeppelin/contracts/utils/cryptography/WebAuthn.sol";
 import {SignerP256Upgradeable} from "./SignerP256Upgradeable.sol";

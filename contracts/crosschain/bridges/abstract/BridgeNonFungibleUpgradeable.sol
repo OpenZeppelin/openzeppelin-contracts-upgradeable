@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts (last updated v5.7.0) (crosschain/bridges/abstract/BridgeNonFungible.sol)
 
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.31;
 
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
 import {InteroperableAddress} from "@openzeppelin/contracts/utils/draft-InteroperableAddress.sol";
