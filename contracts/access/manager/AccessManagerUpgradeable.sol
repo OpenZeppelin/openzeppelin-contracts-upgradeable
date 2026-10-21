@@ -151,9 +151,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     function __AccessManager_init_unchained(address initialAdmin) internal onlyInitializing {
-        if (initialAdmin == address(0)) {
-            revert AccessManagerInvalidInitialAdmin(address(0));
-        }
+        require(initialAdmin != address(0), AccessManagerInvalidInitialAdmin(address(0)));
 
         // admin is active immediately and without any execution delay.
         _grantRole(ADMIN_ROLE, initialAdmin, 0, 0);
@@ -260,9 +258,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     // =============================================== ROLE MANAGEMENT ===============================================
     /// @inheritdoc IAccessManager
     function labelRole(uint64 roleId, string calldata label) public virtual onlyAuthorized {
-        if (roleId == ADMIN_ROLE || roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != ADMIN_ROLE && roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
         emit RoleLabel(roleId, label);
     }
 
@@ -278,9 +274,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
     /// @inheritdoc IAccessManager
     function renounceRole(uint64 roleId, address callerConfirmation) public virtual {
-        if (callerConfirmation != _msgSender()) {
-            revert AccessManagerBadConfirmation();
-        }
+        require(callerConfirmation == _msgSender(), AccessManagerBadConfirmation());
         _revokeRole(roleId, callerConfirmation);
     }
 
@@ -311,9 +305,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         uint32 executionDelay
     ) internal virtual returns (bool) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
 
         bool newMember = $._roles[roleId].members[account].since == 0;
         uint48 since;
@@ -342,9 +334,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _revokeRole(uint64 roleId, address account) internal virtual returns (bool) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
 
         if ($._roles[roleId].members[account].since == 0) {
             return false;
@@ -366,9 +356,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _setRoleAdmin(uint64 roleId, uint64 admin) internal virtual {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (roleId == ADMIN_ROLE || roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != ADMIN_ROLE && roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
 
         $._roles[roleId].admin = admin;
 
@@ -385,9 +373,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _setRoleGuardian(uint64 roleId, uint64 guardian) internal virtual {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (roleId == ADMIN_ROLE || roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != ADMIN_ROLE && roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
 
         $._roles[roleId].guardian = guardian;
 
@@ -401,9 +387,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _setGrantDelay(uint64 roleId, uint32 newDelay) internal virtual {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (roleId == PUBLIC_ROLE) {
-            revert AccessManagerLockedRole(roleId);
-        }
+        require(roleId != PUBLIC_ROLE, AccessManagerLockedRole(roleId));
 
         uint48 effect;
         ($._roles[roleId].grantDelay, effect) = $._roles[roleId].grantDelay.withUpdate(newDelay, minSetback());
@@ -430,11 +414,9 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _setTargetFunctionRole(address target, bytes4 selector, uint64 roleId) internal virtual {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        if (selector == IAccessManaged.setAuthority.selector) {
-            // Prevent updating authority using an execute call, instead only allow it through updateAuthority to
-            // ensure the proper delay and admin restrictions are applied.
-            revert AccessManagerLockedFunction(selector);
-        }
+        // Prevent updating authority using an execute call, instead only allow it through updateAuthority to
+        // ensure the proper delay and admin restrictions are applied.
+        require(selector != IAccessManaged.setAuthority.selector, AccessManagerLockedFunction(selector));
         $._targets[target].allowedRoles[selector] = roleId;
         emit TargetFunctionRoleUpdated(target, selector, roleId);
     }
@@ -534,9 +516,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     function _checkNotScheduled(bytes32 operationId) private view {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         uint48 prevTimepoint = $._schedules[operationId].timepoint;
-        if (prevTimepoint != 0 && !_isExpired(prevTimepoint)) {
-            revert AccessManagerAlreadyScheduled(operationId);
-        }
+        require(prevTimepoint == 0 || _isExpired(prevTimepoint), AccessManagerAlreadyScheduled(operationId));
     }
 
     /// @inheritdoc IAccessManager
@@ -600,9 +580,10 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     /// @inheritdoc IAccessManager
     function consumeScheduledOp(address caller, bytes calldata data) public virtual {
         address target = _msgSender();
-        if (IAccessManaged(target).isConsumingScheduledOp() != IAccessManaged.isConsumingScheduledOp.selector) {
-            revert AccessManagerUnauthorizedConsume(target);
-        }
+        require(
+            IAccessManaged(target).isConsumingScheduledOp() == IAccessManaged.isConsumingScheduledOp.selector,
+            AccessManagerUnauthorizedConsume(target)
+        );
         _consumeScheduledOp(hashOperation(caller, target, data));
     }
 

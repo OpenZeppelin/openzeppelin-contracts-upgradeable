@@ -80,12 +80,8 @@ abstract contract ERC20TemporaryApprovalUpgradeable is Initializable, ERC20Upgra
      * Does NOT emit an {Approval} event.
      */
     function _temporaryApprove(address owner, address spender, uint256 value) internal virtual {
-        if (owner == address(0)) {
-            revert ERC20InvalidApprover(address(0));
-        }
-        if (spender == address(0)) {
-            revert ERC20InvalidSpender(address(0));
-        }
+        require(owner != address(0), ERC20InvalidApprover(address(0)));
+        require(spender != address(0), ERC20InvalidSpender(address(0)));
         _temporaryAllowanceSlot(owner, spender).tstore(value);
     }
 

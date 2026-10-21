@@ -48,9 +48,7 @@ abstract contract GovernorSequentialProposalIdUpgradeable is Initializable, Gove
         GovernorSequentialProposalIdStorage storage $ = _getGovernorSequentialProposalIdStorage();
         uint256 proposalHash = hashProposal(targets, values, calldatas, descriptionHash);
         uint256 storedProposalId = $._proposalIds[proposalHash];
-        if (storedProposalId == 0) {
-            revert GovernorNonexistentProposal(0);
-        }
+        require(storedProposalId != 0, GovernorNonexistentProposal(0));
         return storedProposalId;
     }
 
@@ -90,9 +88,7 @@ abstract contract GovernorSequentialProposalIdUpgradeable is Initializable, Gove
      */
     function _initializeLatestProposalId(uint256 newLatestProposalId) internal virtual {
         GovernorSequentialProposalIdStorage storage $ = _getGovernorSequentialProposalIdStorage();
-        if ($._latestProposalId != 0) {
-            revert GovernorAlreadyInitializedLatestProposalId();
-        }
+        require($._latestProposalId == 0, GovernorAlreadyInitializedLatestProposalId());
         $._latestProposalId = newLatestProposalId;
     }
 }

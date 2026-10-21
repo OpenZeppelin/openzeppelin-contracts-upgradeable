@@ -113,13 +113,9 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeab
     function _setDefaultRoyalty(address receiver, uint96 feeNumerator) internal virtual {
         ERC2981Storage storage $ = _getERC2981Storage();
         uint256 denominator = _feeDenominator();
-        if (feeNumerator > denominator) {
-            // Royalty fee will exceed the sale price
-            revert ERC2981InvalidDefaultRoyalty(feeNumerator, denominator);
-        }
-        if (receiver == address(0)) {
-            revert ERC2981InvalidDefaultRoyaltyReceiver(address(0));
-        }
+        // Royalty fee will exceed the sale price
+        require(feeNumerator <= denominator, ERC2981InvalidDefaultRoyalty(feeNumerator, denominator));
+        require(receiver != address(0), ERC2981InvalidDefaultRoyaltyReceiver(address(0)));
 
         $._defaultRoyaltyInfo = RoyaltyInfo(receiver, feeNumerator);
     }
@@ -143,13 +139,9 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeab
     function _setTokenRoyalty(uint256 tokenId, address receiver, uint96 feeNumerator) internal virtual {
         ERC2981Storage storage $ = _getERC2981Storage();
         uint256 denominator = _feeDenominator();
-        if (feeNumerator > denominator) {
-            // Royalty fee will exceed the sale price
-            revert ERC2981InvalidTokenRoyalty(tokenId, feeNumerator, denominator);
-        }
-        if (receiver == address(0)) {
-            revert ERC2981InvalidTokenRoyaltyReceiver(tokenId, address(0));
-        }
+        // Royalty fee will exceed the sale price
+        require(feeNumerator <= denominator, ERC2981InvalidTokenRoyalty(tokenId, feeNumerator, denominator));
+        require(receiver != address(0), ERC2981InvalidTokenRoyaltyReceiver(tokenId, address(0)));
 
         $._tokenRoyaltyInfo[tokenId] = RoyaltyInfo(receiver, feeNumerator);
     }

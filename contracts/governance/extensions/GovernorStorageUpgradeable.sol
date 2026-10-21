@@ -75,9 +75,7 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
-        if (details.descriptionHash == 0) {
-            revert GovernorNonexistentProposal(proposalId);
-        }
+        require(details.descriptionHash != 0, GovernorNonexistentProposal(proposalId));
         queue(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -88,9 +86,7 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
-        if (details.descriptionHash == 0) {
-            revert GovernorNonexistentProposal(proposalId);
-        }
+        require(details.descriptionHash != 0, GovernorNonexistentProposal(proposalId));
         execute(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -101,9 +97,7 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using storage is more efficient than memory
         ProposalDetails storage details = $._proposalDetails[proposalId];
-        if (details.descriptionHash == 0) {
-            revert GovernorNonexistentProposal(proposalId);
-        }
+        require(details.descriptionHash != 0, GovernorNonexistentProposal(proposalId));
         cancel(details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 
@@ -129,9 +123,7 @@ abstract contract GovernorStorageUpgradeable is Initializable, GovernorUpgradeab
         GovernorStorageStorage storage $ = _getGovernorStorageStorage();
         // here, using memory is more efficient than storage
         ProposalDetails memory details = $._proposalDetails[proposalId];
-        if (details.descriptionHash == 0) {
-            revert GovernorNonexistentProposal(proposalId);
-        }
+        require(details.descriptionHash != 0, GovernorNonexistentProposal(proposalId));
         return (details.targets, details.values, details.calldatas, details.descriptionHash);
     }
 

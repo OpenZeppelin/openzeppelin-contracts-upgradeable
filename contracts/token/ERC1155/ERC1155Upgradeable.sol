@@ -136,9 +136,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
 
     /// @dev Checks if `operator` is authorized to transfer tokens owned by `owner`. Reverts with {ERC1155MissingApprovalForAll} if not.
     function _checkAuthorized(address operator, address owner) internal view virtual {
-        if (owner != operator && !isApprovedForAll(owner, operator)) {
-            revert ERC1155MissingApprovalForAll(operator, owner);
-        }
+        require(owner == operator || isApprovedForAll(owner, operator), ERC1155MissingApprovalForAll(operator, owner));
     }
 
     /**
@@ -169,9 +167,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
 
             if (from != address(0)) {
                 uint256 fromBalance = $._balances[id][from];
-                if (fromBalance < value) {
-                    revert ERC1155InsufficientBalance(from, fromBalance, value, id);
-                }
+                require(fromBalance >= value, ERC1155InsufficientBalance(from, fromBalance, value, id));
                 unchecked {
                     // Overflow not possible: value <= fromBalance
                     $._balances[id][from] = fromBalance - value;
@@ -257,12 +253,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * acceptance magic value.
      */
     function _safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes memory data) internal {
-        if (to == address(0)) {
-            revert ERC1155InvalidReceiver(address(0));
-        }
-        if (from == address(0)) {
-            revert ERC1155InvalidSender(address(0));
-        }
+        require(to != address(0), ERC1155InvalidReceiver(address(0)));
+        require(from != address(0), ERC1155InvalidSender(address(0)));
         (uint256[] memory ids, uint256[] memory values) = _asSingletonArrays(id, value);
         _updateWithAcceptanceCheck(from, to, ids, values, data, false);
     }
@@ -285,12 +277,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         uint256[] memory values,
         bytes memory data
     ) internal {
-        if (to == address(0)) {
-            revert ERC1155InvalidReceiver(address(0));
-        }
-        if (from == address(0)) {
-            revert ERC1155InvalidSender(address(0));
-        }
+        require(to != address(0), ERC1155InvalidReceiver(address(0)));
+        require(from != address(0), ERC1155InvalidSender(address(0)));
         _updateWithAcceptanceCheck(from, to, ids, values, data, true);
     }
 
@@ -330,9 +318,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * acceptance magic value.
      */
     function _mint(address to, uint256 id, uint256 value, bytes memory data) internal {
-        if (to == address(0)) {
-            revert ERC1155InvalidReceiver(address(0));
-        }
+        require(to != address(0), ERC1155InvalidReceiver(address(0)));
         (uint256[] memory ids, uint256[] memory values) = _asSingletonArrays(id, value);
         _updateWithAcceptanceCheck(address(0), to, ids, values, data, false);
     }
@@ -350,9 +336,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * acceptance magic value.
      */
     function _mintBatch(address to, uint256[] memory ids, uint256[] memory values, bytes memory data) internal {
-        if (to == address(0)) {
-            revert ERC1155InvalidReceiver(address(0));
-        }
+        require(to != address(0), ERC1155InvalidReceiver(address(0)));
         _updateWithAcceptanceCheck(address(0), to, ids, values, data, true);
     }
 
@@ -367,9 +351,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * - `from` must have at least `value` amount of tokens of type `id`.
      */
     function _burn(address from, uint256 id, uint256 value) internal {
-        if (from == address(0)) {
-            revert ERC1155InvalidSender(address(0));
-        }
+        require(from != address(0), ERC1155InvalidSender(address(0)));
         (uint256[] memory ids, uint256[] memory values) = _asSingletonArrays(id, value);
         _updateWithAcceptanceCheck(from, address(0), ids, values, "", false);
     }
@@ -386,9 +368,7 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      * - `ids` and `values` must have the same length.
      */
     function _burnBatch(address from, uint256[] memory ids, uint256[] memory values) internal {
-        if (from == address(0)) {
-            revert ERC1155InvalidSender(address(0));
-        }
+        require(from != address(0), ERC1155InvalidSender(address(0)));
         _updateWithAcceptanceCheck(from, address(0), ids, values, "", true);
     }
 
@@ -404,12 +384,8 @@ abstract contract ERC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
      */
     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {
         ERC1155Storage storage $ = _getERC1155Storage();
-        if (owner == address(0)) {
-            revert ERC1155InvalidApprover(address(0));
-        }
-        if (operator == address(0)) {
-            revert ERC1155InvalidOperator(address(0));
-        }
+        require(owner != address(0), ERC1155InvalidApprover(address(0)));
+        require(operator != address(0), ERC1155InvalidOperator(address(0)));
         $._operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }

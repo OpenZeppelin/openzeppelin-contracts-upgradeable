@@ -58,7 +58,7 @@ abstract contract SignerP256Upgradeable is Initializable, AbstractSigner {
      */
     function _setSigner(bytes32 qx, bytes32 qy) internal {
         SignerP256Storage storage $ = _getSignerP256Storage();
-        if (!P256.isValidPublicKey(qx, qy)) revert SignerP256InvalidPublicKey(qx, qy);
+        require(P256.isValidPublicKey(qx, qy), SignerP256InvalidPublicKey(qx, qy));
         $._qx = qx;
         $._qy = qy;
     }

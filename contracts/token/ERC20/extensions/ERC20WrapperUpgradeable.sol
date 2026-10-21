@@ -47,9 +47,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
 
     function __ERC20Wrapper_init_unchained(IERC20 underlyingToken) internal onlyInitializing {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
-        if (address(underlyingToken) == address(this)) {
-            revert ERC20InvalidUnderlying(address(this));
-        }
+        require(address(underlyingToken) != address(this), ERC20InvalidUnderlying(address(this)));
         $._underlying = underlyingToken;
     }
 
@@ -80,12 +78,8 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
     function depositFor(address account, uint256 value) public virtual returns (bool) {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
         address sender = _msgSender();
-        if (sender == address(this)) {
-            revert ERC20InvalidSender(address(this));
-        }
-        if (account == address(this)) {
-            revert ERC20InvalidReceiver(account);
-        }
+        require(sender != address(this), ERC20InvalidSender(address(this)));
+        require(account != address(this), ERC20InvalidReceiver(account));
         SafeERC20.safeTransferFrom($._underlying, sender, address(this), value);
         _mint(account, value);
         return true;
@@ -96,9 +90,7 @@ abstract contract ERC20WrapperUpgradeable is Initializable, ERC20Upgradeable {
      */
     function withdrawTo(address account, uint256 value) public virtual returns (bool) {
         ERC20WrapperStorage storage $ = _getERC20WrapperStorage();
-        if (account == address(this)) {
-            revert ERC20InvalidReceiver(account);
-        }
+        require(account != address(this), ERC20InvalidReceiver(account));
         _burn(_msgSender(), value);
         SafeERC20.safeTransfer($._underlying, account, value);
         return true;

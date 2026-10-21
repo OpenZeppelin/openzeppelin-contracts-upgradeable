@@ -73,9 +73,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
 
     function __AccessControlDefaultAdminRules_init_unchained(uint48 initialDelay, address initialDefaultAdmin) internal onlyInitializing {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
-        if (initialDefaultAdmin == address(0)) {
-            revert AccessControlInvalidDefaultAdmin(address(0));
-        }
+        require(initialDefaultAdmin != address(0), AccessControlInvalidDefaultAdmin(address(0)));
         $._currentDelay = initialDelay;
         _grantRole(DEFAULT_ADMIN_ROLE, initialDefaultAdmin);
     }
@@ -98,9 +96,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * @dev See {AccessControl-grantRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
     function grantRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
-        if (role == DEFAULT_ADMIN_ROLE) {
-            revert AccessControlEnforcedDefaultAdminRules();
-        }
+        require(role != DEFAULT_ADMIN_ROLE, AccessControlEnforcedDefaultAdminRules());
         super.grantRole(role, account);
     }
 
@@ -108,9 +104,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * @dev See {AccessControl-revokeRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
     function revokeRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
-        if (role == DEFAULT_ADMIN_ROLE) {
-            revert AccessControlEnforcedDefaultAdminRules();
-        }
+        require(role != DEFAULT_ADMIN_ROLE, AccessControlEnforcedDefaultAdminRules());
         super.revokeRole(role, account);
     }
 
@@ -131,9 +125,10 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE && account == defaultAdmin()) {
             (address newDefaultAdmin, uint48 schedule) = pendingDefaultAdmin();
-            if (newDefaultAdmin != address(0) || !_isScheduleSet(schedule) || !_hasSchedulePassed(schedule)) {
-                revert AccessControlEnforcedDefaultAdminDelay(schedule);
-            }
+            require(
+                newDefaultAdmin == address(0) && _isScheduleSet(schedule) && _hasSchedulePassed(schedule),
+                AccessControlEnforcedDefaultAdminDelay(schedule)
+            );
             delete $._pendingDefaultAdminSchedule;
         }
         super.renounceRole(role, account);
@@ -151,9 +146,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     function _grantRole(bytes32 role, address account) internal virtual override returns (bool) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE) {
-            if (defaultAdmin() != address(0)) {
-                revert AccessControlEnforcedDefaultAdminRules();
-            }
+            require(defaultAdmin() == address(0), AccessControlEnforcedDefaultAdminRules());
             $._currentDefaultAdmin = account;
         }
         return super._grantRole(role, account);
@@ -172,9 +165,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * @dev See {AccessControl-_setRoleAdmin}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual override {
-        if (role == DEFAULT_ADMIN_ROLE) {
-            revert AccessControlEnforcedDefaultAdminRules();
-        }
+        require(role != DEFAULT_ADMIN_ROLE, AccessControlEnforcedDefaultAdminRules());
         super._setRoleAdmin(role, adminRole);
     }
 
@@ -265,9 +256,10 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     function _acceptDefaultAdminTransfer() internal virtual {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         (address newAdmin, uint48 schedule) = pendingDefaultAdmin();
-        if (!_isScheduleSet(schedule) || !_hasSchedulePassed(schedule)) {
-            revert AccessControlEnforcedDefaultAdminDelay(schedule);
-        }
+        require(
+            _isScheduleSet(schedule) && _hasSchedulePassed(schedule),
+            AccessControlEnforcedDefaultAdminDelay(schedule)
+        );
         _revokeRole(DEFAULT_ADMIN_ROLE, defaultAdmin());
         _grantRole(DEFAULT_ADMIN_ROLE, newAdmin);
         delete $._pendingDefaultAdmin;

@@ -159,9 +159,7 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
         GovernorCountingFractionalStorage storage $ = _getGovernorCountingFractionalStorage();
         // Compute number of remaining votes. Returns 0 on overflow.
         (, uint256 remainingWeight) = totalWeight.trySub(usedVotes(proposalId, account));
-        if (remainingWeight == 0) {
-            revert GovernorAlreadyCastVote(account);
-        }
+        require(remainingWeight != 0, GovernorAlreadyCastVote(account));
 
         uint256 againstVotes = 0;
         uint256 forVotes = 0;
@@ -174,18 +172,18 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
         // - "Full" voting: `support = 0` (Against), `1` (For) or `2` (Abstain), with empty params.
         // - "Fractional" voting: `support = 255`, with 48 bytes params.
         if (support == uint8(GovernorCountingSimpleUpgradeable.VoteType.Against)) {
-            if (params.length != 0) revert GovernorInvalidVoteParams();
+            require(params.length == 0, GovernorInvalidVoteParams());
             usedWeight = againstVotes = remainingWeight;
         } else if (support == uint8(GovernorCountingSimpleUpgradeable.VoteType.For)) {
-            if (params.length != 0) revert GovernorInvalidVoteParams();
+            require(params.length == 0, GovernorInvalidVoteParams());
             usedWeight = forVotes = remainingWeight;
         } else if (support == uint8(GovernorCountingSimpleUpgradeable.VoteType.Abstain)) {
-            if (params.length != 0) revert GovernorInvalidVoteParams();
+            require(params.length == 0, GovernorInvalidVoteParams());
             usedWeight = abstainVotes = remainingWeight;
         } else if (support == VOTE_TYPE_FRACTIONAL) {
             // The `params` argument is expected to be three packed `uint128`:
             // `abi.encodePacked(uint128(againstVotes), uint128(forVotes), uint128(abstainVotes))`
-            if (params.length != 0x30) revert GovernorInvalidVoteParams();
+            require(params.length == 0x30, GovernorInvalidVoteParams());
 
             assembly ("memory-safe") {
                 againstVotes := shr(128, mload(add(params, 0x20)))
@@ -195,9 +193,7 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
             }
 
             // check parsed arguments are valid
-            if (usedWeight > remainingWeight) {
-                revert GovernorExceedRemainingWeight(account, usedWeight, remainingWeight);
-            }
+            require(usedWeight <= remainingWeight, GovernorExceedRemainingWeight(account, usedWeight, remainingWeight));
         } else {
             revert GovernorInvalidVoteType();
         }

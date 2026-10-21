@@ -229,7 +229,7 @@ abstract contract PaymasterERC20Upgradeable is Initializable, PaymasterUpgradeab
             prefundAmount,
             prefundContext
         );
-        if (!success) revert PaymasterERC20FailedRefund(token, prefundAmount, actualAmount, prefundContext);
+        require(success, PaymasterERC20FailedRefund(token, prefundAmount, actualAmount, prefundContext));
 
         emit UserOperationSponsored(userOpHash, address(token), actualAmount, tokenPerNative);
     }

@@ -110,9 +110,7 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
      */
     function _setVotingPeriod(uint32 newVotingPeriod) internal virtual {
         GovernorSettingsStorage storage $ = _getGovernorSettingsStorage();
-        if (newVotingPeriod == 0) {
-            revert GovernorInvalidVotingPeriod(0);
-        }
+        require(newVotingPeriod != 0, GovernorInvalidVotingPeriod(0));
         emit VotingPeriodSet($._votingPeriod, newVotingPeriod);
         $._votingPeriod = newVotingPeriod;
     }

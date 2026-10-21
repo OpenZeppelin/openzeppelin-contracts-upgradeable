@@ -144,9 +144,7 @@ abstract contract PaymasterUpgradeable is Initializable, IPaymaster {
     /// @dev Ensures the caller is the {entrypoint}.
     function _checkEntryPoint() internal view virtual {
         address sender = msg.sender;
-        if (sender != address(entryPoint())) {
-            revert PaymasterUnauthorized(sender);
-        }
+        require(sender == address(entryPoint()), PaymasterUnauthorized(sender));
     }
 
     /// @dev Calls {IEntryPointStake-depositTo}.

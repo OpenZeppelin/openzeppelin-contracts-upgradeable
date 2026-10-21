@@ -116,14 +116,16 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
     function _updateSuperQuorumNumerator(uint256 newSuperQuorumNumerator) internal virtual {
         GovernorVotesSuperQuorumFractionStorage storage $ = _getGovernorVotesSuperQuorumFractionStorage();
         uint256 denominator = quorumDenominator();
-        if (newSuperQuorumNumerator > denominator) {
-            revert GovernorInvalidSuperQuorumFraction(newSuperQuorumNumerator, denominator);
-        }
+        require(
+            newSuperQuorumNumerator <= denominator,
+            GovernorInvalidSuperQuorumFraction(newSuperQuorumNumerator, denominator)
+        );
 
         uint256 quorumNumerator = quorumNumerator();
-        if (newSuperQuorumNumerator < quorumNumerator) {
-            revert GovernorInvalidSuperQuorumTooSmall(newSuperQuorumNumerator, quorumNumerator);
-        }
+        require(
+            newSuperQuorumNumerator >= quorumNumerator,
+            GovernorInvalidSuperQuorumTooSmall(newSuperQuorumNumerator, quorumNumerator)
+        );
 
         uint256 oldSuperQuorumNumerator = $._superQuorumNumeratorHistory.latest();
         $._superQuorumNumeratorHistory.push(clock(), SafeCast.toUint208(newSuperQuorumNumerator));
@@ -140,9 +142,10 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
         // Ignoring check when the superQuorum was never set (construction sets quorum before superQuorum)
         if ($._superQuorumNumeratorHistory.length() > 0) {
             uint256 superQuorumNumerator_ = superQuorumNumerator();
-            if (newQuorumNumerator > superQuorumNumerator_) {
-                revert GovernorInvalidQuorumTooLarge(newQuorumNumerator, superQuorumNumerator_);
-            }
+            require(
+                newQuorumNumerator <= superQuorumNumerator_,
+                GovernorInvalidQuorumTooLarge(newQuorumNumerator, superQuorumNumerator_)
+            );
         }
         super._updateQuorumNumerator(newQuorumNumerator);
     }
