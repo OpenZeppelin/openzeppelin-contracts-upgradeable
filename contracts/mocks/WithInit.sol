@@ -1235,6 +1235,41 @@ contract ERC721URIStorageMockUpgradeableWithInit is ERC721URIStorageMockUpgradea
         __ERC721URIStorageMock_init();
     }
 }
+import "./token/ERC7535DepositHookMockUpgradeable.sol";
+
+contract ERC7535DepositHookMockUpgradeableWithInit is ERC7535DepositHookMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7535DepositHookMock_init();
+    }
+}
+import "./token/ERC7535LimitsMockUpgradeable.sol";
+
+contract ERC7535LimitsMockUpgradeableWithInit is ERC7535LimitsMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7535LimitsMock_init();
+    }
+}
+import "./token/ERC7535MockUpgradeable.sol";
+
+contract ERC7535MockUpgradeableWithInit is ERC7535MockUpgradeable {
+    constructor() payable initializer {
+        __ERC7535Mock_init();
+    }
+}
+import "./token/ERC7535OffsetMockUpgradeable.sol";
+
+contract ERC7535OffsetMockUpgradeableWithInit is ERC7535OffsetMockUpgradeable {
+    constructor(uint8 offset_) payable initializer {
+        __ERC7535OffsetMock_init(offset_);
+    }
+}
+import "./token/ERC7535ReentrantMockUpgradeable.sol";
+
+contract ERC7535ReentrantMockUpgradeableWithInit is ERC7535ReentrantMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7535ReentrantMock_init();
+    }
+}
 import "./TransientSlotMockUpgradeable.sol";
 
 contract TransientSlotMockUpgradeableWithInit is TransientSlotMockUpgradeable {
@@ -1464,6 +1499,13 @@ import "../token/ERC20/extensions/ERC4626Upgradeable.sol";
 contract ERC4626UpgradeableWithInit is ERC4626Upgradeable {
     constructor(IERC20 asset_) payable initializer {
         __ERC4626_init(asset_);
+    }
+}
+import "../token/ERC20/extensions/ERC7535Upgradeable.sol";
+
+contract ERC7535UpgradeableWithInit is ERC7535Upgradeable {
+    constructor() payable initializer {
+        __ERC7535_init();
     }
 }
 import "../token/ERC6909/ERC6909Upgradeable.sol";

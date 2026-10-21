@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.27;
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract EtherReceiverMockUpgradeable is Initializable {
     bool private _acceptEther;
+
+    error EtherReceiveRejected();
 
     function __EtherReceiverMock_init() internal onlyInitializing {
     }
@@ -16,8 +18,6 @@ contract EtherReceiverMockUpgradeable is Initializable {
     }
 
     receive() external payable {
-        if (!_acceptEther) {
-            revert();
-        }
+        require(_acceptEther, EtherReceiveRejected());
     }
 }
