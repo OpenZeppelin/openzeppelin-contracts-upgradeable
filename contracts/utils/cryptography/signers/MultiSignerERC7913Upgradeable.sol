@@ -3,6 +3,7 @@
 
 pragma solidity ^0.8.31;
 
+import {Calldata} from "@openzeppelin/contracts/utils/Calldata.sol";
 import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import {SignatureChecker} from "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 import {AbstractSigner} from "@openzeppelin/contracts/utils/cryptography/signers/AbstractSigner.sol";
@@ -302,7 +303,7 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
 
             // Check #1: Theoretical minimum length of a valid multisignature encoding is 0x40 bytes.
             // 64 bytes of zero is a valid encoding for two empty arrays.
-            if (bufferLength < 0x40) return (false, _emptyBytesArray(), _emptyBytesArray());
+            if (bufferLength < 0x40) return (false, Calldata.emptyBytesArray(), Calldata.emptyBytesArray());
 
             // Read the offset pointers to the signers and signatures arrays
             // Read is done in assembly to avoid the cost of creating calldata slices.
@@ -315,7 +316,7 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
 
             // Check #2: The length fields that the offset pointers point to must be within the bounds of the buffer.
             if (signersOffset > bufferLength - 0x20 || signaturesOffset > bufferLength - 0x20)
-                return (false, _emptyBytesArray(), _emptyBytesArray());
+                return (false, Calldata.emptyBytesArray(), Calldata.emptyBytesArray());
 
             // Read the length fields
             // Read is done in assembly to avoid the cost of creating calldata slices.
@@ -338,7 +339,7 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
                 signaturesLength > type(uint64).max ||
                 0x20 * signersLength > bufferLength - signersDataOffset ||
                 0x20 * signaturesLength > bufferLength - signaturesDataOffset
-            ) return (false, _emptyBytesArray(), _emptyBytesArray());
+            ) return (false, Calldata.emptyBytesArray(), Calldata.emptyBytesArray());
 
             // Assembly cast
             assembly ("memory-safe") {
@@ -348,14 +349,6 @@ abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner
                 signatures.offset := add(signature.offset, signaturesDataOffset)
                 signatures.length := signaturesLength
             }
-        }
-    }
-
-    /// @dev Returns an empty `bytes[]` calldata slice, used as a placeholder on decode failure.
-    function _emptyBytesArray() private pure returns (bytes[] calldata result) {
-        assembly ("memory-safe") {
-            result.offset := 0
-            result.length := 0
         }
     }
 }
