@@ -8,6 +8,7 @@ import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {Hashes} from "@openzeppelin/contracts/utils/cryptography/Hashes.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
+import {TransientSlot} from "@openzeppelin/contracts/utils/TransientSlot.sol";
 import {Time} from "@openzeppelin/contracts/utils/types/Time.sol";
 import {IAccessManaged} from "@openzeppelin/contracts/access/manager/IAccessManaged.sol";
 import {IAccessManager} from "@openzeppelin/contracts/access/manager/IAccessManager.sol";
@@ -66,6 +67,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  */
 contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManager {
     using Time for *;
+    using TransientSlot for *;
 
     // Structure that stores the details for a target contract.
     struct TargetConfig {
@@ -121,8 +123,8 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         mapping(bytes32 operationId => Schedule) _schedules;
 
         // Used to identify operations that are currently being executed via {execute}.
-        // This should be transient storage when supported by the EVM.
-        bytes32 _executionId;
+        /// @custom:oz-retyped-from bytes32
+        TransientSlot.TBytes32 _executionId;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessManager")) - 1)) & ~bytes32(uint256(0xff))
@@ -545,14 +547,14 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         }
 
         // Mark the target and selector as authorised
-        bytes32 executionIdBefore = $._executionId;
-        $._executionId = _hashExecutionId(target, _checkSelector(data));
+        bytes32 executionIdBefore = $._executionId.tload();
+        $._executionId.tstore(_hashExecutionId(target, _checkSelector(data)));
 
         // Perform call
         Address.functionCallWithValue(target, data, msg.value);
 
         // Reset execute identifier
-        $._executionId = executionIdBefore;
+        $._executionId.tstore(executionIdBefore);
 
         return nonce;
     }
@@ -779,7 +781,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      */
     function _isExecuting(address target, bytes4 selector) private view returns (bool) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
-        return $._executionId == _hashExecutionId(target, selector);
+        return $._executionId.tload() == _hashExecutionId(target, selector);
     }
 
     /**
