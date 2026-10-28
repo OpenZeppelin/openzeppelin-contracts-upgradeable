@@ -29,6 +29,7 @@ abstract contract PaymasterERC20MockUpgradeable is Initializable, EIP712Upgradea
     bytes32 private constant WITHDRAWER_ROLE = keccak256("WITHDRAWER_ROLE");
     bytes32 private constant TOKEN_PRICE_TYPEHASH =
         keccak256("TokenPrice(address token,uint48 validAfter,uint48 validUntil,uint256 tokenPerNative)");
+    mapping(IERC20 token => uint256 min) private _minTokensPerNativeByToken;
 
     function __PaymasterERC20Mock_init() internal onlyInitializing {
     }
@@ -85,8 +86,12 @@ abstract contract PaymasterERC20MockUpgradeable is Initializable, EIP712Upgradea
         _withdrawStake(to);
     }
 
-    function _minTokensPerNative() internal view virtual override returns (uint256) {
-        return 1;
+    function setMinTokensPerNative(IERC20 token, uint256 min) public virtual {
+        _minTokensPerNativeByToken[token] = min;
+    }
+
+    function _minTokensPerNative(IERC20 token) internal view virtual override returns (uint256) {
+        return _minTokensPerNativeByToken[token]; // unset tokens keep the inherited default (0 = no minimum)
     }
 
     function withdrawTokens(IERC20 token, address recipient, uint256 amount) public virtual onlyRole(WITHDRAWER_ROLE) {
@@ -199,14 +204,10 @@ abstract contract PaymasterERC20GuarantorMockUpgradeable is Initializable, Payma
             );
     }
 
-    function _minTokensPerNative()
-        internal
-        view
-        virtual
-        override(PaymasterERC20Upgradeable, PaymasterERC20MockUpgradeable)
-        returns (uint256)
-    {
-        return super._minTokensPerNative();
+    function _minTokensPerNative(
+        IERC20 token
+    ) internal view virtual override(PaymasterERC20Upgradeable, PaymasterERC20MockUpgradeable) returns (uint256) {
+        return super._minTokensPerNative(token);
     }
 }
 
