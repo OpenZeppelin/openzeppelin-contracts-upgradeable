@@ -1270,6 +1270,62 @@ contract ERC7535ReentrantMockUpgradeableWithInit is ERC7535ReentrantMockUpgradea
         __ERC7535ReentrantMock_init();
     }
 }
+import "./token/ERC7540AdminMockUpgradeable.sol";
+
+contract ERC7540AdminMockUpgradeableWithInit is ERC7540AdminMockUpgradeable {
+    constructor(address tmpShareHolder) payable initializer {
+        __ERC7540AdminMock_init(tmpShareHolder);
+    }
+}
+import "./token/ERC7540DelayMockUpgradeable.sol";
+
+contract ERC7540DelayMockUpgradeableWithInit is ERC7540DelayMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540DelayMock_init();
+    }
+}
+import "./token/ERC7540DelayMockUpgradeable.sol";
+
+contract ERC7540DelayShareOriginMockUpgradeableWithInit is ERC7540DelayShareOriginMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540DelayShareOriginMock_init();
+    }
+}
+import "./token/ERC7540DelayMockUpgradeable.sol";
+
+contract ERC7540DelayShareDestinationMockUpgradeableWithInit is ERC7540DelayShareDestinationMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540DelayShareDestinationMock_init();
+    }
+}
+import "./token/ERC7540EpochMockUpgradeable.sol";
+
+contract ERC7540EpochMockUpgradeableWithInit is ERC7540EpochMockUpgradeable {
+    constructor(address tmpShareHolder) payable initializer {
+        __ERC7540EpochMock_init(tmpShareHolder);
+    }
+}
+import "./token/ERC7540SyncDepositMockUpgradeable.sol";
+
+contract ERC7540SyncDepositMockUpgradeableWithInit is ERC7540SyncDepositMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540SyncDepositMock_init();
+    }
+}
+import "./token/ERC7540SyncMockUpgradeable.sol";
+
+contract ERC7540SyncMockUpgradeableWithInit is ERC7540SyncMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540SyncMock_init();
+    }
+}
+import "./token/ERC7540SyncRedeemMockUpgradeable.sol";
+
+contract ERC7540SyncRedeemMockUpgradeableWithInit is ERC7540SyncRedeemMockUpgradeable {
+    constructor() payable initializer {
+        __ERC7540SyncRedeemMock_init();
+    }
+}
 import "./TransientSlotMockUpgradeable.sol";
 
 contract TransientSlotMockUpgradeableWithInit is TransientSlotMockUpgradeable {
