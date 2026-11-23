@@ -4,6 +4,7 @@
 pragma solidity ^0.8.20;
 
 import {ContextUpgradeable} from "./ContextUpgradeable.sol";
+import {IPausable} from "@openzeppelin/contracts/utils/IPausable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -15,7 +16,7 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
  */
-abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract PausableUpgradeable is Initializable, ContextUpgradeable, IPausable {
     /// @custom:storage-location erc7201:openzeppelin.storage.Pausable
     struct PausableStorage {
         bool _paused;
@@ -29,16 +30,6 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
             $.slot := PausableStorageLocation
         }
     }
-
-    /**
-     * @dev Emitted when the pause is triggered by `account`.
-     */
-    event Paused(address account);
-
-    /**
-     * @dev Emitted when the pause is lifted by `account`.
-     */
-    event Unpaused(address account);
 
     /**
      * @dev The operation failed because the contract is paused.
@@ -79,9 +70,7 @@ abstract contract PausableUpgradeable is Initializable, ContextUpgradeable {
 
     function __Pausable_init_unchained() internal onlyInitializing {
     }
-    /**
-     * @dev Returns true if the contract is paused, and false otherwise.
-     */
+    /// @inheritdoc IPausable
     function paused() public view virtual returns (bool) {
         PausableStorage storage $ = _getPausableStorage();
         return $._paused;

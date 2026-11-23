@@ -616,6 +616,17 @@ contract MyERC1155HolderContractUpgradeableWithInit is MyERC1155HolderContractUp
         __MyERC1155HolderContract_init();
     }
 }
+import "./docs/token/ERC20/ERC3643TokenUpgradeable.sol";
+
+contract ERC3643TokenUpgradeableWithInit is ERC3643TokenUpgradeable {
+    constructor(
+        address identityRegistry,
+        address compliance,
+        address admin
+    ) payable initializer {
+        __ERC3643Token_init(identityRegistry, compliance, admin);
+    }
+}
 import "./docs/token/ERC20/GLDTokenUpgradeable.sol";
 
 contract GLDTokenUpgradeableWithInit is GLDTokenUpgradeable {
@@ -1153,6 +1164,41 @@ import "./token/ERC20VotesTimestampMockUpgradeable.sol";
 contract ERC721VotesTimestampMockUpgradeableWithInit is ERC721VotesTimestampMockUpgradeable {
     constructor() payable initializer {
         __ERC721VotesTimestampMock_init();
+    }
+}
+import "./token/ERC3643MockUpgradeable.sol";
+
+contract ERC3643MockUpgradeableWithInit is ERC3643MockUpgradeable {
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        address identityRegistry_,
+        address compliance_,
+        address onchainID_,
+        address owner_
+    ) payable initializer {
+        __ERC3643Mock_init(name_, symbol_, identityRegistry_, compliance_, onchainID_, owner_);
+    }
+}
+import "./token/ERC3643MockUpgradeable.sol";
+
+contract ERC3643IdentityRegistryMockUpgradeableWithInit is ERC3643IdentityRegistryMockUpgradeable {
+    constructor() payable initializer {
+        __ERC3643IdentityRegistryMock_init();
+    }
+}
+import "./token/ERC3643MockUpgradeable.sol";
+
+contract ERC3643ComplianceMockUpgradeableWithInit is ERC3643ComplianceMockUpgradeable {
+    constructor() payable initializer {
+        __ERC3643ComplianceMock_init();
+    }
+}
+import "./token/ERC3643MockUpgradeable.sol";
+
+contract ERC3643ReentrantComplianceMockUpgradeableWithInit is ERC3643ReentrantComplianceMockUpgradeable {
+    constructor() payable initializer {
+        __ERC3643ReentrantComplianceMock_init();
     }
 }
 import "./token/ERC4626LimitsMockUpgradeable.sol";
