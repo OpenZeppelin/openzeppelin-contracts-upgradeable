@@ -91,7 +91,8 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         mapping(address user => Access access) members;
         // Admin who can grant or revoke permissions.
         uint64 admin;
-        // Guardian who can cancel operations targeting functions that need this role.
+        // Guardian who can cancel operations targeting functions that need this role, as well as grant and
+        // revoke operations for roles administered by this role.
         uint64 guardian;
         // Delay in which the role takes effect after being granted.
         Time.Delay grantDelay;
@@ -763,13 +764,13 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
             return true;
         }
 
-        // if the target is this AccessManager and the call matches an admin-restricted function, allow members
+        // if the target is this AccessManager and the call matches an admin-restricted function, allow guardians
         // of the admin role returned by _getAdminRestrictions to cancel. ADMIN_ROLE was already checked above.
         if (target == address(this)) {
             (bool adminRestricted, uint64 roleId, ) = _getAdminRestrictions(data);
             if (adminRestricted && roleId != ADMIN_ROLE) {
-                (bool inRole, ) = hasRole(roleId, msgsender);
-                return inRole;
+                (bool isRoleGuardian, ) = hasRole(getRoleGuardian(roleId), msgsender);
+                return isRoleGuardian;
             }
         }
 
