@@ -1131,6 +1131,13 @@ contract ERC20ReturnFalseMockUpgradeableWithInit is ERC20ReturnFalseMockUpgradea
         __ERC20ReturnFalseMock_init();
     }
 }
+import "./token/ERC20ShortReturnMockUpgradeable.sol";
+
+contract ERC20ShortReturnMockUpgradeableWithInit is ERC20ShortReturnMockUpgradeable {
+    constructor(uint256 zeroCount) payable initializer {
+        __ERC20ShortReturnMock_init(zeroCount);
+    }
+}
 import "./token/ERC20VotesAdditionalCheckpointsMockUpgradeable.sol";
 
 contract ERC20VotesExtendedMockUpgradeableWithInit is ERC20VotesExtendedMockUpgradeable {
