@@ -611,9 +611,8 @@ abstract contract ERC7540Upgradeable is Initializable, ERC20Upgradeable, IERC462
             revert ERC4626Upgradeable.ERC4626ExceededMaxWithdraw(ownerOrController, assets, maxAssets);
         }
 
-        uint256 shares = _isRedeemAsync()
-            ? _consumeClaimableWithdraw(assets, ownerOrController)
-            : previewWithdraw(assets);
+        uint256 shares =
+            _isRedeemAsync() ? _consumeClaimableWithdraw(assets, ownerOrController) : previewWithdraw(assets);
         _withdraw(_msgSender(), receiver, ownerOrController, assets, shares);
         return shares;
     }

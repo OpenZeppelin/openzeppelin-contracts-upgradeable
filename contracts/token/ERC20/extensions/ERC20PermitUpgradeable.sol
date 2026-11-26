@@ -19,8 +19,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * need to send a transaction, and thus is not required to hold Ether at all.
  */
 abstract contract ERC20PermitUpgradeable is Initializable, ERC20Upgradeable, IERC20Permit, EIP712Upgradeable, NoncesUpgradeable {
-    bytes32 private constant PERMIT_TYPEHASH =
-        keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    bytes32 private constant PERMIT_TYPEHASH = keccak256(
+        "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
+    );
 
     /**
      * @dev Permit deadline has expired.

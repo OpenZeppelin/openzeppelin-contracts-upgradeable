@@ -145,9 +145,8 @@ abstract contract ERC7540DelayDepositUpgradeable is Initializable, ERC7540Upgrad
      */
     function _consumeClaimableMint(uint256 shares, address controller) internal virtual override returns (uint256) {
         ERC7540DelayDepositStorage storage $ = _getERC7540DelayDepositStorage();
-        uint256 assets = shares == maxMint(controller)
-            ? maxDeposit(controller)
-            : _convertToAssets(shares, Math.Rounding.Ceil);
+        uint256 assets =
+            shares == maxMint(controller) ? maxDeposit(controller) : _convertToAssets(shares, Math.Rounding.Ceil);
         $._claimedDeposits[controller] += assets;
         return assets;
     }

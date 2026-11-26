@@ -20,8 +20,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * the votes cast with their tokens by their delegates.
  */
 abstract contract GovernorCountingOverridableUpgradeable is Initializable, GovernorVotesUpgradeable {
-    bytes32 public constant OVERRIDE_BALLOT_TYPEHASH =
-        keccak256("OverrideBallot(uint256 proposalId,uint8 support,address voter,uint256 nonce,string reason)");
+    bytes32 public constant OVERRIDE_BALLOT_TYPEHASH = keccak256(
+        "OverrideBallot(uint256 proposalId,uint8 support,address voter,uint256 nonce,string reason)"
+    );
 
     /**
      * @dev Supported vote types. Matches Governor Bravo ordering.

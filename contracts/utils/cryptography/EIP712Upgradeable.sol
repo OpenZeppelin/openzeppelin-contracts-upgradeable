@@ -29,8 +29,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
  * each time {_domainSeparatorV4} is called. This is cheaper than accessing a cached version in cold storage.
  */
 abstract contract EIP712Upgradeable is Initializable, IERC5267 {
-    bytes32 private constant TYPE_HASH =
-        keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
+    bytes32 private constant TYPE_HASH = keccak256(
+        "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+    );
 
     /// @custom:storage-location erc7201:openzeppelin.storage.EIP712
     struct EIP712Storage {

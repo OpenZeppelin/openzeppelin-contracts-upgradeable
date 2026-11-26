@@ -30,11 +30,12 @@ contract ERC3643TokenUpgradeable is Initializable, ERC3643Upgradeable, AccessCon
 
     function _checkAdmin() internal view override {
         bytes4 selector = msg.sig;
-        bool ownerOnly = selector == this.setName.selector ||
-            selector == this.setSymbol.selector ||
-            selector == this.setOnchainID.selector ||
-            selector == this.setIdentityRegistry.selector ||
-            selector == this.setCompliance.selector;
+        bool ownerOnly =
+            selector == this.setName.selector ||
+                selector == this.setSymbol.selector ||
+                selector == this.setOnchainID.selector ||
+                selector == this.setIdentityRegistry.selector ||
+                selector == this.setCompliance.selector;
         _checkRole(ownerOnly ? DEFAULT_ADMIN_ROLE : AGENT_ROLE);
     }
 }

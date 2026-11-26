@@ -129,9 +129,8 @@ abstract contract ERC7540DelayRedeemUpgradeable is Initializable, ERC7540Upgrade
      */
     function _consumeClaimableWithdraw(uint256 assets, address controller) internal virtual override returns (uint256) {
         ERC7540DelayRedeemStorage storage $ = _getERC7540DelayRedeemStorage();
-        uint256 shares = assets == maxWithdraw(controller)
-            ? maxRedeem(controller)
-            : _convertToShares(assets, Math.Rounding.Ceil);
+        uint256 shares =
+            assets == maxWithdraw(controller) ? maxRedeem(controller) : _convertToShares(assets, Math.Rounding.Ceil);
         $._claimedRedeems[controller] += shares;
         return shares;
     }

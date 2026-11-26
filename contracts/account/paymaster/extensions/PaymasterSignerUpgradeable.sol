@@ -25,10 +25,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 abstract contract PaymasterSignerUpgradeable is Initializable, AbstractSigner, EIP712Upgradeable, PaymasterUpgradeable {
     using ERC4337Utils for *;
 
-    bytes32 private constant USER_OPERATION_REQUEST_TYPEHASH =
-        keccak256(
-            "UserOperationRequest(address sender,uint256 nonce,bytes initCode,bytes callData,bytes32 accountGasLimits,uint256 preVerificationGas,bytes32 gasFees,uint256 paymasterVerificationGasLimit,uint256 paymasterPostOpGasLimit,uint48 validAfter,uint48 validUntil)"
-        );
+    bytes32 private constant USER_OPERATION_REQUEST_TYPEHASH = keccak256(
+        "UserOperationRequest(address sender,uint256 nonce,bytes initCode,bytes callData,bytes32 accountGasLimits,uint256 preVerificationGas,bytes32 gasFees,uint256 paymasterVerificationGasLimit,uint256 paymasterPostOpGasLimit,uint48 validAfter,uint48 validUntil)"
+    );
 
     function __PaymasterSigner_init() internal onlyInitializing {
     }

@@ -35,8 +35,9 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
     using Checkpoints for Checkpoints.Trace208;
 
-    bytes32 private constant DELEGATION_TYPEHASH =
-        keccak256("Delegation(address delegatee,uint256 nonce,uint256 expiry)");
+    bytes32 private constant DELEGATION_TYPEHASH = keccak256(
+        "Delegation(address delegatee,uint256 nonce,uint256 expiry)"
+    );
 
     /// @custom:storage-location erc7201:openzeppelin.storage.Votes
     struct VotesStorage {

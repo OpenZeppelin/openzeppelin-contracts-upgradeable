@@ -31,12 +31,12 @@ import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.s
 abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, EIP712Upgradeable, NoncesUpgradeable, IGovernor, IERC721Receiver, IERC1155Receiver {
     using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;
 
-    bytes32 public constant BALLOT_TYPEHASH =
-        keccak256("Ballot(uint256 proposalId,uint8 support,address voter,uint256 nonce)");
-    bytes32 public constant EXTENDED_BALLOT_TYPEHASH =
-        keccak256(
-            "ExtendedBallot(uint256 proposalId,uint8 support,address voter,uint256 nonce,string reason,bytes params)"
-        );
+    bytes32 public constant BALLOT_TYPEHASH = keccak256(
+        "Ballot(uint256 proposalId,uint8 support,address voter,uint256 nonce)"
+    );
+    bytes32 public constant EXTENDED_BALLOT_TYPEHASH = keccak256(
+        "ExtendedBallot(uint256 proposalId,uint8 support,address voter,uint256 nonce,string reason,bytes params)"
+    );
 
     struct ProposalCore {
         address proposer;

@@ -27,8 +27,9 @@ abstract contract PaymasterERC20MockUpgradeable is Initializable, EIP712Upgradea
 
     bytes32 private constant ORACLE_ROLE = keccak256("ORACLE_ROLE");
     bytes32 private constant WITHDRAWER_ROLE = keccak256("WITHDRAWER_ROLE");
-    bytes32 private constant TOKEN_PRICE_TYPEHASH =
-        keccak256("TokenPrice(address token,uint48 validAfter,uint48 validUntil,uint256 tokenPerNative)");
+    bytes32 private constant TOKEN_PRICE_TYPEHASH = keccak256(
+        "TokenPrice(address token,uint48 validAfter,uint48 validUntil,uint256 tokenPerNative)"
+    );
     mapping(IERC20 token => uint256 min) private _minTokensPerNativeByToken;
 
     function __PaymasterERC20Mock_init() internal onlyInitializing {
@@ -108,10 +109,9 @@ abstract contract PaymasterERC20MockUpgradeable is Initializable, EIP712Upgradea
 abstract contract PaymasterERC20GuarantorMockUpgradeable is Initializable, PaymasterERC20MockUpgradeable, PaymasterERC20GuarantorUpgradeable {
     using ERC4337Utils for *;
 
-    bytes32 private constant PACKED_USER_OPERATION_TYPEHASH =
-        keccak256(
-            "PackedUserOperation(address sender,uint256 nonce,bytes initCode,bytes callData,bytes32 accountGasLimits,uint256 preVerificationGas,bytes32 gasFees,bytes paymasterAndData)"
-        );
+    bytes32 private constant PACKED_USER_OPERATION_TYPEHASH = keccak256(
+        "PackedUserOperation(address sender,uint256 nonce,bytes initCode,bytes callData,bytes32 accountGasLimits,uint256 preVerificationGas,bytes32 gasFees,bytes paymasterAndData)"
+    );
 
     function __PaymasterERC20GuarantorMock_init() internal onlyInitializing {
     }
