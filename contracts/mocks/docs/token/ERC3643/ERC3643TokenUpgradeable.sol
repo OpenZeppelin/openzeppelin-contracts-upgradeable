@@ -4,7 +4,7 @@ pragma solidity ^0.8.31;
 
 import {AccessControlUpgradeable} from "../../../../access/AccessControlUpgradeable.sol";
 import {ERC20Upgradeable} from "../../../../token/ERC20/ERC20Upgradeable.sol";
-import {ERC3643Upgradeable} from "../../../../token/ERC20/extensions/ERC3643/ERC3643Upgradeable.sol";
+import {ERC3643Upgradeable} from "../../../../token/ERC3643/ERC3643Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC3643TokenUpgradeable is Initializable, ERC3643Upgradeable, AccessControlUpgradeable {

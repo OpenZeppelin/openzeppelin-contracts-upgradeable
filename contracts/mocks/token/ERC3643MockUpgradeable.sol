@@ -6,7 +6,7 @@ import {OwnableUpgradeable} from "../../access/OwnableUpgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC3643Identity} from "@openzeppelin/contracts/interfaces/IERC3643.sol";
 import {ERC20Upgradeable} from "../../token/ERC20/ERC20Upgradeable.sol";
-import {ERC3643Upgradeable} from "../../token/ERC20/extensions/ERC3643/ERC3643Upgradeable.sol";
+import {ERC3643Upgradeable} from "../../token/ERC3643/ERC3643Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract ERC3643MockUpgradeable is Initializable, ERC3643Upgradeable, OwnableUpgradeable {

@@ -4,8 +4,8 @@ pragma solidity ^0.8.31;
 
 import {IERC3643, IERC3643IdentityRegistry, IERC3643Compliance, IERC3643Identity} from "@openzeppelin/contracts/interfaces/IERC3643.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
-import {PausableUpgradeable} from "../../../../utils/PausableUpgradeable.sol";
-import {ERC20Upgradeable} from "../../ERC20Upgradeable.sol";
+import {PausableUpgradeable} from "../../utils/PausableUpgradeable.sol";
+import {ERC20Upgradeable} from "../ERC20/ERC20Upgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**

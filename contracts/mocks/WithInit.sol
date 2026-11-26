@@ -616,7 +616,14 @@ contract MyERC1155HolderContractUpgradeableWithInit is MyERC1155HolderContractUp
         __MyERC1155HolderContract_init();
     }
 }
-import "./docs/token/ERC20/ERC3643TokenUpgradeable.sol";
+import "./docs/token/ERC20/GLDTokenUpgradeable.sol";
+
+contract GLDTokenUpgradeableWithInit is GLDTokenUpgradeable {
+    constructor(uint256 initialSupply) payable initializer {
+        __GLDToken_init(initialSupply);
+    }
+}
+import "./docs/token/ERC3643/ERC3643TokenUpgradeable.sol";
 
 contract ERC3643TokenUpgradeableWithInit is ERC3643TokenUpgradeable {
     constructor(
@@ -625,13 +632,6 @@ contract ERC3643TokenUpgradeableWithInit is ERC3643TokenUpgradeable {
         address admin
     ) payable initializer {
         __ERC3643Token_init(identityRegistry, compliance, admin);
-    }
-}
-import "./docs/token/ERC20/GLDTokenUpgradeable.sol";
-
-contract GLDTokenUpgradeableWithInit is GLDTokenUpgradeable {
-    constructor(uint256 initialSupply) payable initializer {
-        __GLDToken_init(initialSupply);
     }
 }
 import "./docs/token/ERC6909/ERC6909GameItemsUpgradeable.sol";
